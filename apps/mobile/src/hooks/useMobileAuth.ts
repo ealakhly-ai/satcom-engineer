@@ -1,0 +1,1 @@
+export const useMobileAuth = () => ({ user: null, isAuthenticated: false });

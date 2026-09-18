@@ -1,0 +1,1 @@
+import React from 'react'; import { TouchableOpacity, Text } from 'react-native'; export const PrimaryButton = ({ title }: any) => <TouchableOpacity><Text>{title}</Text></TouchableOpacity>;

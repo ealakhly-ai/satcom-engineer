@@ -1,0 +1,2 @@
+import { IsNotEmpty, IsNumber, Min, IsArray } from 'class-validator';
+export class CreateOfferDto { @IsNotEmpty() jobId: string; @IsNotEmpty() freelancerId: string; @IsNotEmpty() title: string; @IsNumber() @Min(50) totalAmount: number; @IsNotEmpty() terms: string; @IsArray() milestones: any[]; }

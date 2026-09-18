@@ -1,0 +1,2 @@
+import React, { createContext, useContext, useState } from 'react';
+const AuthCtx = createContext<any>(null); export const AuthProvider = ({ children }: any) => { const [user, setUser] = useState(null); return <AuthCtx.Provider value={{ user, setUser }}>{children}</AuthCtx.Provider>; }; export const useAuthContext = () => useContext(AuthCtx);

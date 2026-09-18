@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: satcom-api-svc
+spec:
+  ports:
+  - port: 4000
+    targetPort: 4000

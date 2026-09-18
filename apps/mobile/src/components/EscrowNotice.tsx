@@ -1,0 +1,1 @@
+import React from 'react'; import { View, Text } from 'react-native'; export const EscrowNotice = () => <View><Text>حماية الضمان Escrow ورسم 50$</Text></View>;

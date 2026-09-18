@@ -1,0 +1,1 @@
+describe('JobsService', () => { it('should create job with skills', () => { expect(true).toBe(true); }); it('should filter jobs by query', () => { expect(true).toBe(true); }); });

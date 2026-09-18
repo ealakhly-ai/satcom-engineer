@@ -1,0 +1,1 @@
+export default function AdminDisputeRoom() { return <div className='p-8 text-right'><h1>تحكيم نزاع العقد</h1><button className='bg-emerald-600 text-white p-2 rounded'>تحرير للمستقل</button><button className='bg-rose-600 text-white p-2 rounded mr-2'>استرداد للعميل</button></div>; }

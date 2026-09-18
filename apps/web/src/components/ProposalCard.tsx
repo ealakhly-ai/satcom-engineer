@@ -1,0 +1,2 @@
+import React from 'react';
+export const ProposalCard: React.FC<{ proposal: any }> = ({ proposal }) => ( <div className='p-4 bg-white rounded-xl border border-slate-200 text-right'> <span className='font-bold'>{proposal.bidAmount} $</span> </div> );

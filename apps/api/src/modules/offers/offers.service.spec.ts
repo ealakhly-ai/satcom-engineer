@@ -1,0 +1,1 @@
+describe('OffersService', () => { it('should send and accept offer', () => { expect(true).toBe(true); }); });

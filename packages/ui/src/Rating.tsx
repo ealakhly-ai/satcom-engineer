@@ -1,0 +1,2 @@
+import React from 'react';
+export const Rating: React.FC<{ value: number }> = ({ value }) => ( <div className='flex items-center gap-1 text-amber-400 text-sm'> {'★'.repeat(Math.round(value))}{'☆'.repeat(Math.max(0, 5 - Math.round(value)))} <span className='text-xs font-bold text-slate-700 mr-1'>({value})</span> </div> );

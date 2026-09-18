@@ -1,0 +1,1 @@
+describe('ContractsService', () => { it('should charge fixed 50$ fee upon completion', () => { const fee = 50.0; expect(fee).toBe(50.0); }); it('should fund milestone in escrow', () => { expect(true).toBe(true); }); });

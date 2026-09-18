@@ -1,0 +1,2 @@
+import React from 'react';
+export const SearchBar: React.FC<{ onSearch: (q: string) => void }> = ({ onSearch }) => ( <input placeholder='ابحث...' onChange={(e) => onSearch(e.target.value)} className='w-full p-2.5 rounded-xl border text-xs' /> );

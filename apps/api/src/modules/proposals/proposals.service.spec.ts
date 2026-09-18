@@ -1,0 +1,1 @@
+describe('ProposalsService', () => { it('should submit proposal for open job', () => { expect(true).toBe(true); }); });

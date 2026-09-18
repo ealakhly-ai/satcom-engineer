@@ -1,0 +1,1 @@
+export default function AdminReports() { return <div className='p-8 text-right'><h1>البلاغات والشكاوى</h1></div>; }

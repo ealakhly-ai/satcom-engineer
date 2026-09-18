@@ -1,0 +1,2 @@
+import React from 'react';
+export const FreelancerCard: React.FC<{ freelancer: any }> = ({ freelancer }) => ( <div className='p-5 bg-white rounded-2xl border border-slate-200 text-right'> <h4 className='font-bold text-base text-slate-900'>{freelancer.name}</h4> <span className='text-xs text-slate-500'>{freelancer.headline}</span> </div> );

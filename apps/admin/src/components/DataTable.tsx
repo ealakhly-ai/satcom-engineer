@@ -1,0 +1,1 @@
+export const DataTable = () => <table className='w-full'><thead><tr><th>المعرف</th><th>الحالة</th></tr></thead></table>;

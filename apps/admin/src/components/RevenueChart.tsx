@@ -1,0 +1,1 @@
+export const RevenueChart = () => <div className='h-64 bg-slate-900/90 text-cyan-300 border border-slate-800 rounded-2xl flex items-center justify-center font-bold text-sm'>مخطط إيراد العمولات التراكمية (محرك 20$ بعد كل 300$)</div>;

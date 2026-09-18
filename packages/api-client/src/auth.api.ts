@@ -1,0 +1,2 @@
+import { ApiClient } from './client';
+export class AuthApi { constructor(private client: ApiClient) {} login(dto: any) { return this.client.request('/auth/login', { method: 'POST', body: JSON.stringify(dto) }); } register(dto: any) { return this.client.request('/auth/register', { method: 'POST', body: JSON.stringify(dto) }); } me() { return this.client.request('/auth/me'); } }

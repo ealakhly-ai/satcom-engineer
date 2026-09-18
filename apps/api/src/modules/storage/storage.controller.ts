@@ -1,0 +1,2 @@
+import { Controller, Post, UseGuards } from '@nestjs/common'; import { StorageService } from './storage.service'; import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+@Controller('storage') @UseGuards(JwtAuthGuard) export class StorageController { constructor(private s: StorageService) {} @Post('upload') upload() { return this.s.uploadFile({ originalname: 'design_model.cst' }); } }

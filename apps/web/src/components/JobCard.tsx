@@ -1,0 +1,2 @@
+import React from 'react';
+export const JobCard: React.FC<{ job: any }> = ({ job }) => ( <div className='p-5 bg-white rounded-2xl border border-slate-200 hover:border-sky-300 transition text-right'> <h4 className='font-bold text-base text-slate-900'>{job.title}</h4> <span className='text-sm font-black text-emerald-600'>{job.budget} $</span> </div> );

@@ -1,0 +1,2 @@
+import { IsOptional, IsNumber, Min } from 'class-validator';
+export class UpdateJobDto { @IsOptional() title?: string; @IsOptional() description?: string; @IsOptional() @IsNumber() @Min(50) budget?: number; }

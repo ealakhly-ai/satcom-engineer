@@ -1,0 +1,2 @@
+import { IsNotEmpty, IsNumber, Min, IsArray, IsOptional } from 'class-validator';
+export class CreateJobDto { @IsNotEmpty() title: string; @IsNotEmpty() description: string; @IsNumber() @Min(50) budget: number; @IsNotEmpty() estimatedDuration: string; @IsArray() @IsOptional() skillNames?: string[]; }

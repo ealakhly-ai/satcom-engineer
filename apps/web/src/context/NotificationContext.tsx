@@ -1,0 +1,2 @@
+import React, { createContext, useContext, useState } from 'react';
+const NotifCtx = createContext<any>(null); export const NotificationProvider = ({ children }: any) => { const [unread, setUnread] = useState(0); return <NotifCtx.Provider value={{ unread, setUnread }}>{children}</NotifCtx.Provider>; }; export const useNotificationContext = () => useContext(NotifCtx);

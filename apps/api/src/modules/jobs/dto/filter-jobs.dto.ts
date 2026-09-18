@@ -1,0 +1,2 @@
+import { IsOptional, IsEnum } from 'class-validator'; import { JobStatus } from '@prisma/client';
+export class FilterJobsDto { @IsOptional() @IsEnum(JobStatus) status?: JobStatus; @IsOptional() search?: string; @IsOptional() skill?: string; }

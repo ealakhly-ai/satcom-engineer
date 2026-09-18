@@ -1,0 +1,1 @@
+import React from 'react'; import { View, Text } from 'react-native'; export default function ProposalsScreen() { return <View><Text>العروض المقدمة</Text></View>; }

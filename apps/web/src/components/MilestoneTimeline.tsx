@@ -1,0 +1,2 @@
+import React from 'react';
+export const MilestoneTimeline: React.FC<{ milestones: any[] }> = ({ milestones }) => ( <div className='space-y-2 text-right'> {milestones.map((m, i) => <div key={i} className='p-3 bg-slate-50 rounded-xl text-xs font-bold'>{m.title} - {m.amount}$</div>)} </div> );

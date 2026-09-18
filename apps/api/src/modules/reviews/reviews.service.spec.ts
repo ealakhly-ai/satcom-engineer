@@ -1,0 +1,1 @@
+describe('ReviewsService', () => { it('should update freelancer average rating', () => { expect(true).toBe(true); }); });

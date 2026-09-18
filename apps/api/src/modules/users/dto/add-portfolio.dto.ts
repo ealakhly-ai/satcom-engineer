@@ -1,0 +1,2 @@
+import { IsNotEmpty, IsOptional, IsArray } from 'class-validator';
+export class AddPortfolioDto { @IsNotEmpty() title: string; @IsNotEmpty() description: string; @IsNotEmpty() category: string; @IsOptional() projectUrl?: string; @IsArray() @IsOptional() fileUrls?: string[]; }

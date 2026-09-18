@@ -1,0 +1,2 @@
+import { Controller, Get, UseGuards } from '@nestjs/common'; import { NotificationsService } from './notifications.service'; import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'; import { CurrentUser } from '../../common/decorators/current-user.decorator';
+@Controller('notifications') @UseGuards(JwtAuthGuard) export class NotificationsController { constructor(private s: NotificationsService) {} @Get() getMy(@CurrentUser() u: any) { return this.s.getMy(u.id); } }

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: satcom_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: satcom_admin
+      POSTGRES_PASSWORD: satcom_secure_password
+      POSTGRES_DB: satcom_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - satcom_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U satcom_admin -d satcom_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: satcom_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - satcom_redisdata:/data
+
+  minio:
+    image: minio/minio:latest
+    container_name: satcom_storage
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: satcom_minio_user
+      MINIO_ROOT_PASSWORD: satcom_minio_secret_key
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - satcom_miniodata:/data
+
+volumes:
+  satcom_pgdata:
+  satcom_redisdata:
+  satcom_miniodata:

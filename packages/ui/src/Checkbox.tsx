@@ -1,0 +1,2 @@
+import React from 'react';
+export const Checkbox: React.FC<{ label: string; checked: boolean; onChange: (v: boolean) => void }> = ({ label, checked, onChange }) => ( <label className='flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700'> <input type='checkbox' checked={checked} onChange={(e) => onChange(e.target.checked)} className='rounded border-slate-300 text-sky-600 focus:ring-sky-500' /> <span>{label}</span> </label> );

@@ -1,0 +1,3 @@
+import { Injectable } from '@nestjs/common';
+@Injectable()
+export class NotificationsService { private notifs: any[] = []; async send(userId: string, title: string, message: string) { const n = { id: Date.now().toString(), userId, title, message, isRead: false, createdAt: new Date() }; this.notifs.push(n); return n; } async getMy(userId: string) { return this.notifs.filter(n => n.userId === userId); } }

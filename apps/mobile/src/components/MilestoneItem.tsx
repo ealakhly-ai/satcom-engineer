@@ -1,0 +1,1 @@
+import React from 'react'; import { View, Text } from 'react-native'; export const MilestoneItem = () => <View><Text>مرحلة العمل</Text></View>;

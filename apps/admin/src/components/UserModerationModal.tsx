@@ -1,0 +1,1 @@
+export const UserModerationModal = () => <div>حظر أو توثيق حساب</div>;

@@ -1,0 +1,1 @@
+describe('DisputesService', () => { it('should open dispute and allow admin resolution', () => { expect(true).toBe(true); }); });

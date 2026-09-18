@@ -1,0 +1,1 @@
+export const jobsSeed = [{ title: 'تصميم هوائي مصفوفي Ka-Band', budget: 850, duration: '3 أسابيع' }];

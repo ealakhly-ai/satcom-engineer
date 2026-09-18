@@ -1,0 +1,410 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CLIENT
+  FREELANCER
+  ADMIN
+}
+
+enum JobStatus {
+  DRAFT
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum JobType {
+  FIXED_PRICE
+  HOURLY
+}
+
+enum ProposalStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum OfferStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  WITHDRAWN
+}
+
+enum ContractStatus {
+  DRAFT
+  FUNDED
+  ACTIVE
+  PAUSED
+  COMPLETED
+  DISPUTED
+  CANCELLED
+}
+
+enum FeePayer {
+  CLIENT
+  FREELANCER
+  SPLIT
+}
+
+enum MilestoneStatus {
+  PENDING
+  FUNDED_IN_ESCROW
+  SUBMITTED
+  REVISION_REQUESTED
+  APPROVED
+}
+
+enum DeliveryStatus {
+  SUBMITTED
+  CHANGES_REQUESTED
+  ACCEPTED
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED_REFUND_CLIENT
+  RESOLVED_PAY_FREELANCER
+  RESOLVED_SPLIT
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  HELD_IN_ESCROW
+  RELEASED
+  REFUNDED
+  FAILED
+}
+
+model User {
+  id              String             @id @default(uuid())
+  email           String             @unique
+  passwordHash    String
+  fullName        String
+  role            Role               @default(FREELANCER)
+  avatarUrl       String?
+  isEmailVerified Boolean            @default(false)
+  isActive        Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  freelancerProfile FreelancerProfile?
+  clientProfile     ClientProfile?
+  
+  postedJobs        Job[]              @relation("ClientJobs")
+  proposals         Proposal[]         @relation("FreelancerProposals")
+  sentOffers        JobOffer[]         @relation("ClientOffers")
+  receivedOffers    JobOffer[]         @relation("FreelancerOffers")
+  
+  clientContracts     Contract[]     @relation("ClientContracts")
+  freelancerContracts Contract[]     @relation("FreelancerContracts")
+  
+  sentMessages     Message[]         @relation("SentMessages")
+  reviewsGiven     Review[]          @relation("ReviewsGiven")
+  reviewsReceived  Review[]          @relation("ReviewsReceived")
+  disputesInitiated Dispute[]        @relation("DisputeInitiator")
+  disputeMessages  DisputeMessage[]
+}
+
+model FreelancerProfile {
+  id                 String          @id @default(uuid())
+  userId             String          @unique
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline           String
+  bio                String
+  hourlyRate         Float?
+  yearsOfExperience  Int             @default(1)
+  jobSuccessScore    Int             @default(100) // Upwork-style Job Success Score (e.g. 98%, 100%)
+  badge              String?         // 'TOP_RATED', 'RISING_TALENT', 'VERIFIED_EXPERT'
+  totalEarnings      Float           @default(0.0)
+  completedJobsCount Int             @default(0)
+  ratingAverage      Float           @default(0.0)
+  reviewsCount       Int             @default(0)
+
+  skills             UserSkill[]
+  portfolio          PortfolioItem[]
+  certifications     Certification[]
+  employmentHistory  EmploymentHistory[]
+}
+
+model ClientProfile {
+  id                 String  @id @default(uuid())
+  userId             String  @unique
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName        String?
+  industry           String?
+  totalSpent         Float   @default(0.0)
+  jobsPostedCount    Int     @default(0)
+  hiredCount         Int     @default(0)
+  hireRatePercentage Int     @default(0)
+  isPaymentVerified  Boolean @default(true)
+}
+
+model Skill {
+  id       String      @id @default(uuid())
+  name     String      @unique
+  category String?
+  users    UserSkill[]
+  jobs     JobSkill[]
+}
+
+model UserSkill {
+  id         String            @id @default(uuid())
+  profileId  String
+  profile    FreelancerProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  skillId    String
+  skill      Skill             @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([profileId, skillId])
+}
+
+model PortfolioItem {
+  id          String            @id @default(uuid())
+  profileId   String
+  profile     FreelancerProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  category    String            @default("General")
+  projectUrl  String?
+  imageUrl    String?
+  fileUrls    String[]
+  createdAt   DateTime          @default(now())
+}
+
+model Certification {
+  id            String            @id @default(uuid())
+  profileId     String
+  profile       FreelancerProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  title         String
+  issuer        String
+  issueYear     Int
+  credentialUrl String?
+}
+
+model EmploymentHistory {
+  id          String            @id @default(uuid())
+  profileId   String
+  profile     FreelancerProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  company     String
+  position    String
+  startDate   String
+  endDate     String?
+  description String?
+}
+
+model Job {
+  id                String       @id @default(uuid())
+  clientId          String
+  client            User         @relation("ClientJobs", fields: [clientId], references: [id])
+  title             String
+  description       String
+  jobType           JobType      @default(FIXED_PRICE)
+  budget            Float
+  estimatedDuration String
+  status            JobStatus    @default(OPEN)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  skills            JobSkill[]
+  proposals         Proposal[]
+  offers            JobOffer[]
+  contracts         Contract[]
+}
+
+model JobSkill {
+  id      String @id @default(uuid())
+  jobId   String
+  job     Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  skillId String
+  skill   Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, skillId])
+}
+
+model Proposal {
+  id           String         @id @default(uuid())
+  jobId        String
+  job          Job            @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  freelancerId String
+  freelancer   User           @relation("FreelancerProposals", fields: [freelancerId], references: [id])
+  bidAmount    Float
+  durationDays Int
+  coverLetter  String
+  status       ProposalStatus @default(PENDING)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  offers       JobOffer[]
+  contract     Contract?
+}
+
+model JobOffer {
+  id           String      @id @default(uuid())
+  jobId        String
+  job          Job         @relation(fields: [jobId], references: [id])
+  proposalId   String?
+  proposal     Proposal?   @relation(fields: [proposalId], references: [id])
+  clientId     String
+  client       User        @relation("ClientOffers", fields: [clientId], references: [id])
+  freelancerId String
+  freelancer   User        @relation("FreelancerOffers", fields: [freelancerId], references: [id])
+  title        String
+  totalAmount  Float
+  platformFee  Float       @default(50.00) // $50 Fixed Platform Fee
+  terms        String
+  status       OfferStatus @default(PENDING)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  contract     Contract?
+}
+
+model Contract {
+  id                String         @id @default(uuid())
+  jobId             String
+  job               Job            @relation(fields: [jobId], references: [id])
+  proposalId        String?        @unique
+  proposal          Proposal?      @relation(fields: [proposalId], references: [id])
+  offerId           String?        @unique
+  offer             JobOffer?      @relation(fields: [offerId], references: [id])
+  
+  clientId          String
+  client            User           @relation("ClientContracts", fields: [clientId], references: [id])
+  freelancerId      String
+  freelancer        User           @relation("FreelancerContracts", fields: [freelancerId], references: [id])
+  
+  title             String
+  totalAgreedAmount Float          // إجمالي قيمة عمل المستقل المتفق عليها
+  platformFee       Float          @default(50.00) // رسم المنصة الثابت 50$
+  feePayer          FeePayer       @default(CLIENT)
+  status            ContractStatus @default(DRAFT)
+  
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  completedAt       DateTime?
+
+  milestones        Milestone[]
+  deliveries        Delivery[]
+  payments          Payment[]
+  reviews           Review[]
+  disputes          Dispute[]
+}
+
+model Milestone {
+  id             String          @id @default(uuid())
+  contractId     String
+  contract       Contract        @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  title          String
+  description    String?
+  amount         Float
+  orderIndex     Int             @default(1)
+  dueDate        DateTime?
+  status         MilestoneStatus @default(PENDING)
+  escrowFundedAt DateTime?
+
+  deliveries     Delivery[]
+}
+
+model Delivery {
+  id             String         @id @default(uuid())
+  contractId     String
+  contract       Contract       @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  milestoneId    String
+  milestone      Milestone      @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+  notes          String
+  fileUrls       String[]
+  status         DeliveryStatus @default(SUBMITTED)
+  clientFeedback String?
+  createdAt      DateTime       @default(now())
+  reviewedAt     DateTime?
+}
+
+model Payment {
+  id                  String        @id @default(uuid())
+  contractId          String
+  contract            Contract      @relation(fields: [contractId], references: [id])
+  grossAmount         Float         // المبلغ الإجمالي المدفوع للضمان
+  platformFee         Float         @default(50.00) // رسم المنصة الثابت $50
+  freelancerNetAmount Float         // صافي أرباح المستقل
+  platformRevenue     Float         @default(50.00) // إيراد المنصة
+  status              PaymentStatus @default(PENDING)
+  transactionRef      String        @unique
+  createdAt           DateTime      @default(now())
+  releasedAt          DateTime?
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  contractId  String
+  contract    Contract @relation(fields: [contractId], references: [id])
+  reviewerId  String
+  reviewer    User     @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  revieweeId  String
+  reviewee    User     @relation("ReviewsReceived", fields: [revieweeId], references: [id])
+  rating      Float
+  feedback    String
+  createdAt   DateTime @default(now())
+
+  @@unique([contractId, reviewerId])
+}
+
+model Dispute {
+  id                   String           @id @default(uuid())
+  contractId           String
+  contract             Contract         @relation(fields: [contractId], references: [id])
+  milestoneId          String?
+  initiatorId          String
+  initiator            User             @relation("DisputeInitiator", fields: [initiatorId], references: [id])
+  reason               String
+  status               DisputeStatus    @default(OPEN)
+  adminResolutionNotes String?
+  refundAmount         Float?
+  payoutAmount         Float?
+  createdAt            DateTime         @default(now())
+  resolvedAt           DateTime?
+
+  messages             DisputeMessage[]
+}
+
+model DisputeMessage {
+  id        String   @id @default(uuid())
+  disputeId String
+  dispute   Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+  content   String
+  fileUrls  String[]
+  createdAt DateTime @default(now())
+}
+
+model Conversation {
+  id        String    @id @default(uuid())
+  user1Id   String
+  user2Id   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+  content        String
+  fileUrls       String[]
+  isRead         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}

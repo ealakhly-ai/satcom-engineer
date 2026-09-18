@@ -1,0 +1,1 @@
+export const usersSeed = [{ email: 'engineer@satcom.com', name: 'م. أحمد خالد', role: 'FREELANCER' }, { email: 'client@satcom.com', name: 'SpaceTech Solutions', role: 'CLIENT' }];

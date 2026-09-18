@@ -1,0 +1,2 @@
+import React from 'react';
+export const EscrowBadge: React.FC = () => ( <span className='px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-bold'>محمي بالضمان Escrow</span> );

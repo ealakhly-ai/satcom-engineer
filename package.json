@@ -1,0 +1,25 @@
+{
+  "name": "satcom-engineers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Satcom Engineers - Premier Space & RF Communications Freelance Platform",
+  "author": "Emadsoftwear Team <contact@emadsoftwear.com>",
+  "license": "Proprietary",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run start:dev --workspace=@satcom/api",
+    "dev:web": "npm run dev --workspace=@satcom/web",
+    "dev:admin": "npm run dev --workspace=@satcom/admin",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

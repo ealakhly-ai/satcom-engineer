@@ -1,0 +1,2 @@
+import { IsOptional, IsNumber } from 'class-validator';
+export class UpdateFreelancerProfileDto { @IsOptional() headline?: string; @IsOptional() bio?: string; @IsOptional() @IsNumber() hourlyRate?: number; }

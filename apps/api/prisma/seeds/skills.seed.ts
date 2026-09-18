@@ -1,0 +1,1 @@
+export const skillsSeed = ['Ka-Band', 'Ku-Band', 'CST Studio', 'HFSS', 'MATLAB', 'GNU Radio', 'SDR', 'Link Budget', 'DVB-S2X', 'Waveguide Filter', 'Phased Array', 'CubeSat'];

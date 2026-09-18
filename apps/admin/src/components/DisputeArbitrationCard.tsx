@@ -1,0 +1,1 @@
+export const DisputeArbitrationCard = () => <div className='p-4 border rounded-xl'>طلب تحكيم هندسي</div>;

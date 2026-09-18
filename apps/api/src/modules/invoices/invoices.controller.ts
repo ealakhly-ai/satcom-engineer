@@ -1,0 +1,2 @@
+import { Controller, Get, Param, UseGuards } from '@nestjs/common'; import { InvoicesService } from './invoices.service'; import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+@Controller('invoices') @UseGuards(JwtAuthGuard) export class InvoicesController { constructor(private s: InvoicesService) {} @Get(':contractId') get(@Param('contractId') id: string) { return this.s.getInvoice(id); } }

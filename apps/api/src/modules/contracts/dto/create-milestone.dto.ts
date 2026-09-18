@@ -1,0 +1,2 @@
+import { IsNotEmpty, IsNumber, Min, IsOptional } from 'class-validator';
+export class CreateMilestoneDto { @IsNotEmpty() title: string; @IsNumber() @Min(10) amount: number; @IsOptional() description?: string; @IsOptional() dueDate?: Date; }

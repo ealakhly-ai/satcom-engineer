@@ -1,0 +1,1 @@
+export const MetricCard = ({ title, value }: any) => <div className='p-5 bg-white rounded-xl border'><span>{title}</span><h3>{value}</h3></div>;

@@ -1,0 +1,2 @@
+import { IsNotEmpty, IsNumber, Min } from 'class-validator';
+export class CreateProposalDto { @IsNotEmpty() jobId: string; @IsNumber() @Min(50) bidAmount: number; @IsNumber() durationDays: number; @IsNotEmpty() coverLetter: string; }

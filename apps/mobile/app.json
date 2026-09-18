@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Satcom Engineers",
+    "slug": "satcom-engineers",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#0c4a6e"
+    }
+  }
+}

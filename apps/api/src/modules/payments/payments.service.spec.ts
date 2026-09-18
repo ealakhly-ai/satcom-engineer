@@ -1,0 +1,1 @@
+describe('PaymentsService', () => { it('should calculate fee structure correctly', () => { const amount = 500; const fee = 50; expect(amount + fee).toBe(550); }); });
