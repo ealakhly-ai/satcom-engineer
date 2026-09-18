@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,256 +9,344 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Tajawal', system-ui, -apple-system, sans-serif; }
+    body { font-family: "Tajawal", system-ui, -apple-system, sans-serif; }
   </style>
 </head>
-<body class="bg-[#050811] text-slate-100 antialiased min-h-screen selection:bg-cyan-500 selection:text-white flex flex-col justify-between">
+<body class="min-h-screen flex flex-col bg-[#050811] text-slate-100 selection:bg-cyan-500 selection:text-white">
 
-  <!-- Ambient Background Glow -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-indigo-600/20 via-cyan-500/15 to-blue-600/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
-
-  <!-- Top Global Header -->
-  <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <!-- ================= TOP HEADER (NAVBAR AT 8:42 PM) ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 transition-all text-white">
+    <div class="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
-      <!-- Logo and Brand -->
-      <div class="flex items-center gap-8">
-        <a href="#" class="flex items-center gap-3.5 group">
-          <div class="w-12 h-12 rounded-2xl overflow-hidden ring-2 ring-cyan-400/50 shadow-lg shadow-cyan-500/20 bg-[#070c18] flex-shrink-0 group-hover:scale-105 transition duration-300">
-            <img src="./logo.png" alt="Satcom Engineers Logo" class="w-full h-full object-cover">
+      <!-- Brand Logo & Navigation Links -->
+      <div class="flex items-center gap-4 lg:gap-6 shrink-0">
+        <a href="#" class="flex items-center gap-3 text-white font-bold text-xl tracking-tight group flex-shrink-0">
+          <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-cyan-500/20 border-2 border-cyan-400/50 bg-[#070c18] flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
+            <img src="./logo.png" alt="Satcom Engineers" class="w-full h-full object-cover" />
           </div>
-          <div>
+          <div class="flex flex-col">
             <div class="flex items-center gap-2">
-              <span class="text-white font-black text-xl tracking-tight">Satcom Engineers</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/20 border border-cyan-400/30 text-cyan-300">
+              <span class="font-black text-white tracking-tight leading-tight text-xl">Satcom Engineers</span>
+              <span class="text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-400/30 hidden lg:inline-block">
                 SPACE & RF
               </span>
             </div>
-            <span id="brandSub" class="text-[11px] text-slate-400 font-medium block">سوق العمل لمهندسي الأقمار الصناعية والاتصالات</span>
+            <span id="brandSub" class="text-[11px] text-slate-400 font-medium hidden sm:block">
+              سوق العمل لمهندسي الأقمار الصناعية والاتصالات
+            </span>
           </div>
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
-          <a href="#jobs" id="navJobs" class="hover:text-cyan-400 transition">تصفح المشاريع</a>
-          <a href="#engineers" id="navEngineers" class="hover:text-cyan-400 transition">نخبة المهندسين</a>
-          <a href="#escrow" id="navEscrow" class="hover:text-cyan-400 transition">حساب الضمان Escrow</a>
-          <a href="./admin.html" id="navControlPanel" class="hover:text-cyan-400 text-cyan-300 transition flex items-center gap-1.5 font-bold">
-            <span>🛡️</span>
-            <span id="navControlPanelText">لوحة التحكم</span>
+        <!-- Primary Nav Items -->
+        <nav class="hidden lg:flex items-center gap-3.5 xl:gap-5 text-sm font-semibold text-slate-300 whitespace-nowrap shrink-0">
+          <a href="#domains" id="navJobs" class="hover:text-cyan-400 transition py-2 px-1">تصفح المشاريع</a>
+          <a href="#domains" id="navFreelancers" class="hover:text-cyan-400 transition py-2 px-1">نخبة المهندسين</a>
+          <a href="#escrow-calc" id="navPricing" class="hover:text-cyan-400 transition py-2 px-1">الضمان المالي والبوابات</a>
+          <a href="./admin.html" id="navAdmin" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-1 group" title="لوحة التحكم الإدارية">
+            <span class="text-indigo-400 group-hover:text-cyan-400">🛡️</span>
+            <span id="navAdminText">لوحة الإدارة</span>
           </a>
         </nav>
       </div>
 
-      <!-- Actions & Language Switcher -->
-      <div class="flex items-center gap-2 sm:gap-2.5">
-        <!-- Language Switch -->
-        <button onclick="toggleLang()" id="langBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer">
-          <span>🌐 English</span>
-        </button>
-
-        <!-- Admin Control Panel Link (Visible directly in header) -->
-        <a href="./admin.html" id="adminHeaderBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-500/50 bg-indigo-950/80 hover:bg-indigo-900 text-cyan-300 text-xs font-black shadow-md shadow-indigo-500/20 hover:border-cyan-400 transition">
-          <span>🛡️</span>
-          <span id="adminNavText">لوحة التحكم</span>
-        </a>
-
-        <!-- Sign In Button -->
-        <button onclick="openAuthModal('signin')" id="btnSignIn" class="px-3.5 py-1.5 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition cursor-pointer">
-          تسجيل الدخول
-        </button>
-
-        <!-- Sign Up (Register) Button -->
-        <button onclick="openAuthModal('signup')" id="btnSignUp" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
-          <span>✨ إنشاء حساب جديد</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main class="space-y-20 pb-20">
-
-    <!-- Hero Section -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center space-y-8">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 text-xs font-bold shadow-lg shadow-cyan-500/10">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span id="heroBadge">المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية</span>
-      </div>
-
-      <h1 id="heroHeading" class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.25]">
-        وظّف نخبة مهندسي <br/>
-        <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">
-          الاتصالات الفضائية و RF
-        </span> بمشروعك
-      </h1>
-
-      <p id="heroDesc" class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-        منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.
-      </p>
-
-      <!-- Key Pillars Card -->
-      <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 hover:border-cyan-500/40 rounded-3xl p-6 max-w-3xl mx-auto shadow-2xl transition">
-        <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-slate-800 gap-4 sm:gap-0 text-center">
-          <div class="p-3">
-            <div class="text-3xl font-black text-emerald-400">100%</div>
-            <div id="pillar1" class="text-xs text-slate-300 mt-1 font-bold">حماية أموال الضمان Escrow</div>
-          </div>
-          <div class="p-3">
-            <div class="text-3xl font-black text-amber-400">0%</div>
-            <div id="pillar2" class="text-xs text-slate-300 mt-1 font-bold">بدون أي رسوم اشتراك شهرية</div>
-          </div>
-          <div class="p-3">
-            <div class="text-3xl font-black text-cyan-400">عالمية</div>
-            <div id="pillar3" class="text-xs text-slate-300 mt-1 font-bold">بوابات دفع Stripe, PayPal, USDT</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Buttons (Choose Role & Control Panel) -->
-      <div class="flex flex-wrap items-center justify-center gap-3.5 pt-4">
-        <!-- Register as Client -->
-        <button onclick="openAuthModal('signup', 'client')" id="btnHeroClient" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-2xl shadow-xl shadow-cyan-500/25 transition cursor-pointer flex items-center gap-2">
-          <span>💼</span>
-          <span id="btnHeroClientText">تسجيل كصاحب عمل (عميل)</span>
-        </button>
-
-        <!-- Register as Freelancer / Engineer -->
-        <button onclick="openAuthModal('signup', 'freelancer')" id="btnHeroEng" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-850 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 text-xs font-black rounded-2xl shadow-lg transition cursor-pointer flex items-center gap-2">
-          <span>🛰️</span>
-          <span id="btnHeroEngText">انضمام كمهندس اتصالات وفضاء</span>
-        </button>
-
-        <!-- Control Panel (Admin Dashboard) Button -->
-        <a href="./admin.html" id="btnHeroControlPanel" class="px-6 py-3.5 bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/60 hover:border-cyan-400 text-cyan-200 text-xs font-black rounded-2xl shadow-xl shadow-indigo-500/25 transition flex items-center gap-2">
-          <span>🛡️</span>
-          <span id="btnHeroControlPanelText">لوحة التحكم المركزية</span>
-        </a>
-
-        <!-- Browse Jobs -->
-        <a href="#jobs" id="btnHeroBrowse" class="px-5 py-3.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold rounded-2xl transition flex items-center gap-1.5">
-          <span id="btnHeroBrowseText">استكشف المشاريع المتاحة</span>
-          <span>↗</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- Jobs Section -->
-    <section id="jobs" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-        <div>
-          <h2 id="jobsTitle" class="text-2xl font-black text-white">أحدث المشاريع والفرص الهندسية</h2>
-          <p id="jobsSub" class="text-xs text-slate-400 mt-0.5">مشاريع في مجالات الأقمار الصناعية، هوائيات الميكروويف، ومعالجة الإشارات SDR</p>
-        </div>
-        <button onclick="openAuthModal('signup', 'client')" id="btnSubmitProposal" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-3.5 py-2 rounded-xl cursor-pointer">
-          + نشر فرصة تعاقد جديدة
-        </button>
-      </div>
-
-      <!-- Filter Tabs -->
-      <div class="flex flex-wrap gap-2 text-xs font-bold">
-        <button class="px-4 py-2 rounded-xl bg-cyan-600 text-white">الكل</button>
-        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">Ka-Band / Antenna</button>
-        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">CST Studio Suite</button>
-        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">Link Budget (DVB-S2X)</button>
-        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">GNU Radio & SDR</button>
-      </div>
-
-      <!-- Empty State for Clean Launch -->
-      <div class="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-800 p-12 text-center space-y-3 shadow-xl">
-        <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-2xl font-black">
-          📡
-        </div>
-        <h3 id="emptyJobsTitle" class="text-base font-black text-white">المشاريع الجديدة قيد النشر والاعتماد</h3>
-        <p id="emptyJobsDesc" class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-          يمكنك الآن كصاحب عمل أو شركة نشر مشروعك الهندسي وتحديد الميزانية وتأمين كامل أتعاب المهندس في حساب الضمان Escrow.
-        </p>
-        <div class="pt-2">
-          <button onclick="openAuthModal('signup', 'client')" class="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-black rounded-xl shadow-lg shadow-cyan-500/25 cursor-pointer">
-            + نشر أول مشروع
+      <!-- Center: Global Search Bar -->
+      <div class="hidden 2xl:flex items-center flex-1 max-w-xs mx-3 shrink">
+        <div class="w-full relative">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="ابحث عن مشاريع أو مهندسي فضاء..."
+            class="w-full py-2 pr-9 pl-14 rounded-full border border-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-xs bg-slate-800/80 text-white placeholder-slate-400 transition-all"
+          />
+          <span class="absolute top-2.5 right-3 text-slate-400 text-xs">🔍</span>
+          <button class="absolute top-1 left-1 py-1 px-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full text-[10px] font-bold">
+            بحث
           </button>
         </div>
       </div>
-    </section>
 
-    <!-- Escrow & Security Section -->
-    <section id="escrow" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-gradient-to-br from-indigo-950/70 via-slate-900 to-slate-950 rounded-3xl border border-indigo-500/30 p-8 sm:p-12 shadow-2xl space-y-6">
-        <div class="space-y-2">
-          <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-            حماية مالية بنسبة 100%
-          </span>
-          <h2 id="escrowHead" class="text-2xl sm:text-3xl font-black text-white">نظام الضمان المالي Escrow لحماية الطرفين</h2>
-          <p id="escrowBody" class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
-            لا يتم تسليم أي دولار للمهندس إلا بعد معاينة وتسليم العمل الهندسي والمحاكاة واعتماده بنسبة 100% من العميل. ولا يبدأ المهندس في التنفيذ إلا بعد إيداع المبلغ وتأمينه بالكامل في خزينة الضمان.
-          </p>
+      <!-- Right: Actions, Language & Auth -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Persona Switcher -->
+        <button
+          onclick="togglePersona()"
+          id="btnSwitchPersona"
+          class="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-700 hover:border-cyan-400/50 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-bold transition shadow-xs cursor-pointer"
+        >
+          <span>⇄</span>
+          <span id="lblSwitchPersona">التحويل لوضع المهندس</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <button
+          onclick="toggleLang()"
+          id="langBtn"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-700 hover:border-cyan-400/50 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-bold transition shadow-xs cursor-pointer"
+        >
+          <span>🌐</span>
+          <span id="langBtnText">English</span>
+        </button>
+
+        <!-- Post a Job Button -->
+        <button
+          onclick="openAuthModal('signup', 'client')"
+          id="btnNavPostJob"
+          class="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-extrabold shadow-md shadow-cyan-500/20 transition cursor-pointer"
+        >
+          <span>+</span>
+          <span id="lblNavPostJob">نشر مشروع</span>
+        </button>
+
+        <!-- Sign In -->
+        <button
+          onclick="openAuthModal('signin')"
+          id="btnNavLogin"
+          class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition cursor-pointer"
+        >
+          <span id="lblNavLogin">تسجيل الدخول</span>
+        </button>
+
+        <!-- Sign Up / Register -->
+        <button
+          onclick="openAuthModal('signup')"
+          id="btnNavSignUp"
+          class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-extrabold shadow-md shadow-cyan-500/20 transition cursor-pointer"
+        >
+          <span>✨</span>
+          <span id="lblNavSignUp">تسجيل جديد</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT (8:42 PM LAYOUT) ================= -->
+  <main class="space-y-20 pb-16 flex-grow">
+
+    <!-- 1. HERO SECTION WITH 1:30 AM COSMIC GLOWS & RADIANT LIGHTS -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-[#050811] via-[#0c142b] to-[#0f172a] text-white py-24 sm:py-28 px-4 sm:px-6 lg:px-8 text-center border-b border-slate-800">
+      
+      <!-- Ambient Lights (Signature Cosmic Glow) -->
+      <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-blue-600/30 via-cyan-500/25 to-indigo-600/30 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-4xl mx-auto space-y-8 relative z-10">
+        
+        <!-- Central Logo & Radiant Badge (The 8:42 PM Signature) -->
+        <div class="flex flex-col items-center gap-5">
+          <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl overflow-hidden ring-4 ring-cyan-400/60 shadow-2xl shadow-cyan-500/40 bg-[#070c18] hover:scale-105 transition-transform duration-300">
+            <img src="./logo.png" alt="Satcom Engineers Logo" class="w-full h-full object-cover" />
+          </div>
+
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-cyan-400/40 text-cyan-300 text-xs font-bold shadow-lg shadow-cyan-500/10 backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span id="heroBadge">المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية</span>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-800">
-          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
-            <div class="text-xs font-black text-white mb-1">1. إيداع الضمان</div>
-            <div class="text-[11px] text-slate-400">يقوم العميل بتمويل مرحلة العمل في الخزينة.</div>
+        <!-- Main Heading -->
+        <h1 id="heroHeading" class="text-4xl sm:text-6xl font-black tracking-tight leading-[1.25]">
+          وظّف نخبة مهندسي <br class="hidden sm:block" />
+          <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">
+            الاتصالات الفضائية و RF
+          </span> بمشروعك
+        </h1>
+
+        <p id="heroDesc" class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.
+        </p>
+
+        <!-- Escrow Guarantee Glassmorphism Card -->
+        <div class="bg-slate-900/80 backdrop-blur-xl border border-slate-700 hover:border-cyan-500/50 rounded-3xl p-6 max-w-2xl mx-auto shadow-2xl transition-all">
+          <div class="grid grid-cols-3 divide-x divide-x-reverse divide-slate-700/80 text-center">
+            <div class="px-3">
+              <div class="text-3xl font-black text-emerald-400 font-mono">100%</div>
+              <div id="pillar1" class="text-xs text-slate-300 mt-1 font-semibold">حماية الضمان Escrow</div>
+            </div>
+            <div class="px-3">
+              <div class="text-3xl font-black text-cyan-400 font-mono">0%</div>
+              <div id="pillar2" class="text-xs text-slate-300 mt-1 font-semibold">رسوم اشتراك شهرية</div>
+            </div>
+            <div class="px-3">
+              <div class="text-3xl font-black text-amber-400 font-mono">256-bit</div>
+              <div id="pillar3" class="text-xs text-slate-300 mt-1 font-semibold">تشفير مالي آمن</div>
+            </div>
           </div>
-          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
-            <div class="text-xs font-black text-white mb-1">2. التنفيذ الهندسي</div>
-            <div class="text-[11px] text-slate-400">يباشر المهندس عمل التصاميم والمحاكاة بأمان.</div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="pt-2 flex flex-wrap justify-center items-center gap-4">
+          <button
+            onclick="openAuthModal('signup', 'freelancer')"
+            id="btnExploreJobs"
+            class="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-base shadow-xl shadow-cyan-500/25 transition transform active:scale-95 flex items-center gap-2 cursor-pointer"
+          >
+            <span id="lblExploreJobs">استكشف المشاريع المتاحة</span>
+            <span id="arrowExplore">←</span>
+          </button>
+
+          <button
+            onclick="openAuthModal('signup', 'client')"
+            id="btnPostJobHero"
+            class="px-8 py-4 rounded-2xl bg-slate-800/90 hover:bg-slate-700 text-white border border-slate-600 font-bold text-base transition transform active:scale-95 cursor-pointer"
+          >
+            <span id="lblPostJobHero">انشر مشروع جديد</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. GLOBAL PAYMENT GATEWAYS STRIP (Deep Space Glass) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl backdrop-blur-xl flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="space-y-1 text-center lg:text-right">
+          <div class="flex items-center justify-center lg:justify-start gap-2 text-cyan-400 text-xs font-bold">
+            <span>🔒</span>
+            <span id="lblGatewaysBadge">حماية مشفرة ومصادقة بنكية دولية</span>
           </div>
-          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
-            <div class="text-xs font-black text-white mb-1">3. الفحص والاعتماد</div>
-            <div class="text-[11px] text-slate-400">يفحص العميل المخرجات والمواصفات الفنية.</div>
+          <h3 id="lblGatewaysTitle" class="text-lg font-black text-white">
+            بوابات الدفع والسحب العالمية المعتمدة
+          </h3>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold">
+          <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200">
+            <span class="text-indigo-400">💳</span>
+            <span>Stripe (Visa/MC)</span>
           </div>
-          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
-            <div class="text-xs font-black text-emerald-400 mb-1">4. تحرير 100% للأتعاب</div>
-            <div class="text-[11px] text-slate-400">يتم تحرير كامل الأرباح للمهندس فوراً.</div>
+          <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200">
+            <span class="text-cyan-400">🌐</span>
+            <span>PayPal Global</span>
+          </div>
+          <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200">
+            <span class="text-emerald-400">🏦</span>
+            <span>SWIFT Wire</span>
+          </div>
+          <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200">
+            <span class="text-amber-400">🪙</span>
+            <span>USDT Escrow</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Admin Mission Control Section -->
-    <section id="control-panel" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="relative bg-gradient-to-r from-[#0a0f24] via-slate-900 to-[#070b1a] rounded-3xl border border-indigo-500/40 p-8 sm:p-10 shadow-2xl overflow-hidden">
-        <!-- Glow accent -->
-        <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- 3. ENGINEERING DOMAINS (3 Dark Hover Cards) -->
+    <section id="domains" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="text-center mb-14 space-y-3">
+        <span id="domainsBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-cyan-300 border border-cyan-500/30">
+          مجالات التخصص الهندسي
+        </span>
+        <h2 id="domainsTitle" class="text-3xl sm:text-4xl font-black text-white">
+          تغطية شاملة لفروع هندسة الاتصالات الفضائية
+        </h2>
+        <p id="domainsSubtitle" class="text-slate-400 max-w-xl mx-auto text-sm">
+          نخبة من المهندسين المعتمدين والمؤهلين للتعامل مع أكثر المشاريع تعقيداً
+        </p>
+      </div>
 
-        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
-          <div class="space-y-2 max-w-2xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/40 text-cyan-300 text-xs font-black">
-              <span>🛡️</span>
-              <span id="cpBadge">لوحة التحكم والإشراف العام (Mission Control)</span>
-            </div>
-            <h2 id="cpTitle" class="text-2xl sm:text-3xl font-black text-white">
-              لوحة التحكم المركزية لإدارة المنصة
-            </h2>
-            <p id="cpDesc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              مركز إدارة متكامل لمتابعة وتدقيق العقود الهندسية الفضائية، خزائن الضمان Escrow، التحقق من تراخيص وتوثيق المهندسين (KYC)، وإدارة الفواتير والمدفوعات وفض النزاعات التقنية.
-            </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Card 1: Satcom -->
+        <div class="p-8 rounded-3xl bg-slate-900/85 border border-slate-800 shadow-xl hover:border-cyan-400/70 hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 space-y-4 group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 text-white flex items-center justify-center text-2xl font-bold shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-transform">
+            🛰️
           </div>
-
-          <div class="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-            <a href="./admin.html" id="btnCpLaunch" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs rounded-2xl shadow-xl shadow-cyan-500/25 transition text-center flex items-center justify-center gap-2">
-              <span>🛡️</span>
-              <span id="btnCpLaunchText">فتح لوحة التحكم (Admin)</span>
-              <span>↗</span>
-            </a>
+          <h3 id="card1Title" class="font-black text-xl text-white group-hover:text-cyan-400 transition">
+            اتصالات الأقمار الصناعية (Satcom)
+          </h3>
+          <p id="card1Desc" class="text-sm text-slate-300 leading-relaxed">
+            تصميم المحطات الأرضية (Ground Stations)، محاكاة مدارات LEO/GEO، بروتوكولات DVB-S2X، وضبط هوائيات التتبع والـ VSAT.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">Ka-Band</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">Ku-Band</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">LEO / GEO</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">DVB-S2X</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-800/80 text-center">
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <div class="text-lg font-black text-cyan-400">100%</div>
-            <div id="cpStat1" class="text-[11px] text-slate-300 font-bold mt-0.5">ضمان مالي Escrow</div>
+        <!-- Card 2: RF & Antenna -->
+        <div class="p-8 rounded-3xl bg-slate-900/85 border border-slate-800 shadow-xl hover:border-amber-400/70 hover:shadow-amber-500/10 hover:-translate-y-1.5 transition-all duration-300 space-y-4 group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg shadow-amber-500/30 group-hover:scale-105 transition-transform">
+            📡
           </div>
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <div class="text-lg font-black text-emerald-400">$20 / $300</div>
-            <div id="cpStat2" class="text-[11px] text-slate-300 font-bold mt-0.5">عمولة المنصة الآلية</div>
+          <h3 id="card2Title" class="font-black text-xl text-white group-hover:text-amber-400 transition">
+            هندسة الترددات وهوائيات RF
+          </h3>
+          <p id="card2Desc" class="text-sm text-slate-300 leading-relaxed">
+            محاكاة وتصميم الهوائيات عبر أدوات CST و HFSS، تحليل ميزانية الوصلة (Link Budget)، وفلاتر التردد اللاسلكي والمضخمات HPA/SSPA.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">CST Studio</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">Phased Array</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">Link Budget</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">HFSS</span>
           </div>
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <div class="text-lg font-black text-indigo-400">فوري</div>
-            <div id="cpStat3" class="text-[11px] text-slate-300 font-bold mt-0.5">تحكيم النزاعات</div>
+        </div>
+
+        <!-- Card 3: SDR & Embedded -->
+        <div class="p-8 rounded-3xl bg-slate-900/85 border border-slate-800 shadow-xl hover:border-emerald-400/70 hover:shadow-emerald-500/10 hover:-translate-y-1.5 transition-all duration-300 space-y-4 group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
+            ⚡
           </div>
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <div class="text-lg font-black text-purple-400">تشفير تام</div>
-            <div id="cpStat4" class="text-[11px] text-slate-300 font-bold mt-0.5">حماية البيانات والمدفوعات</div>
+          <h3 id="card3Title" class="font-black text-xl text-white group-hover:text-emerald-400 transition">
+            معالجة الإشارات والراديو البرمجي (SDR)
+          </h3>
+          <p id="card3Desc" class="text-sm text-slate-300 leading-relaxed">
+            تطوير برمجيات الراديو المعرف برمجيًا (SDR)، خوارزميات معالجة الإشارات الرقمية DSP، وبرمجة متحكمات الاتصالات وFPGA.
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-2">
+            <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">GNU Radio</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">SDR</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">DSP</span>
+            <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">FPGA / VHDL</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. FINANCIAL ESCROW TRANSPARENCY CARD -->
+    <section id="escrow-calc" class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl overflow-hidden">
+        <div class="p-6 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 border-b border-slate-800 flex justify-between items-center">
+          <div>
+            <h3 id="escrowCardTitle" class="font-black text-lg text-white">
+              نموذج عقد الضمان المالي المباشر (Escrow Protection)
+            </h3>
+            <p id="escrowCardSub" class="text-xs text-slate-400 mt-1">
+              حماية كاملة لأموال العقد بدون تعقيد، وحسابات مؤتمتة في الخلفية
+            </p>
+          </div>
+          <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
+            🛡️ حماية 100% Escrow
+          </span>
+        </div>
+
+        <div class="divide-y divide-slate-800 text-sm">
+          <div class="p-4 flex justify-between items-center">
+            <span id="lblAgreedVal" class="text-slate-400">قيمة العقد المتفق عليها للمشروع:</span>
+            <span class="font-bold text-white text-base font-mono">600.00 $</span>
+          </div>
+          <div class="p-4 flex justify-between items-center bg-cyan-950/30">
+            <span id="lblEscrowStatus" class="text-cyan-300 font-bold">
+              حالة الإيداع في الضمان المالي (Escrow):
+            </span>
+            <span id="valEscrowStatus" class="font-bold text-emerald-400 text-xs">
+              ✓ مؤمّن ومحجوز بنسبة 100%
+            </span>
+          </div>
+          <div class="p-4 flex justify-between items-center">
+            <span id="lblAutoFee" class="text-slate-300 font-bold">المعالجة المالية والفوترة:</span>
+            <span id="valAutoFee" class="text-xs text-slate-400 font-medium">
+              معالجة سحابية مؤتمتة بالكامل في الخلفية
+            </span>
+          </div>
+          <div class="p-5 flex justify-between items-center bg-emerald-500/15 border-t border-emerald-500/30">
+            <span id="lblNetPayout" class="text-emerald-300 font-black text-base">
+              صافي ما يتسلمه المهندس المستقل (100% كامل):
+            </span>
+            <span class="font-black text-emerald-400 text-2xl font-mono">600.00 $</span>
           </div>
         </div>
       </div>
@@ -266,201 +354,230 @@
 
   </main>
 
-  <!-- ================= AUTH MODAL (SIGN IN / REGISTER - CLIENT & FREELANCER) ================= -->
-  <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
+  <!-- ================= FOOTER (8:42 PM LAYOUT) ================= -->
+  <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800 mt-20" dir="rtl" id="globalFooter">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 text-white font-bold text-xl mb-4">
+          <div class="w-9 h-9 rounded-xl overflow-hidden border border-slate-700 bg-[#070b19] flex-shrink-0">
+            <img src="./logo.png" alt="Satcom Engineers" class="w-full h-full object-cover" />
+          </div>
+          <span>Satcom Engineers</span>
+        </div>
+        <p id="footerBio" class="text-sm text-slate-400 leading-relaxed max-w-md">
+          المنصة التخصصية الأولى للعمل الحر في مجالات هندسة الاتصالات الفضائية، شبكات الأقمار الصناعية، وأنظمة الراديو والترددات اللاسلكية.
+        </p>
+        <div class="mt-4 inline-flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-full text-xs text-sky-300 border border-slate-700">
+          <span class="text-emerald-400">🛡️</span>
+          <span id="footerBadge">حماية مالية متكاملة: نظام الضمان Escrow وبوابات دفع عالمية مشفرة بنسبة 100%.</span>
+        </div>
+      </div>
+
+      <div>
+        <h4 id="footerCol1Title" class="text-white font-semibold mb-4 text-sm">عن المنصة</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="#domains" class="hover:text-white transition">كيف تعمل المنصة</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition">الضمان المالي والبوابات</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition">المدفوعات الآمنة Escrow</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 id="footerCol2Title" class="text-white font-semibold mb-4 text-sm">الدعم والأمان</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="./admin.html" class="hover:text-cyan-300 transition text-cyan-400 font-bold">لوحة الإدارة العليا (Admin)</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition">سياسة الخصوصية</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition">شروط الاستخدام</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        جميع الحقوق محفوظة © 2026 Satcom Engineers
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-cyan-500/40 text-cyan-300 font-bold shadow-md shadow-cyan-500/10 text-xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          تصميم وتطوير Emadsoft
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= AUTH MODAL (UPWORK-STYLE CLIENT & FREELANCER) ================= -->
+  <div id="authModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+      
       <!-- Close Button -->
       <button onclick="closeAuthModal()" class="absolute top-5 left-5 text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
 
-      <!-- Brand Icon & Header -->
+      <!-- Modal Header -->
       <div class="text-center space-y-2">
-        <div class="w-14 h-14 mx-auto rounded-2xl overflow-hidden border border-slate-700 bg-[#070c18] p-1">
-          <img src="./logo.png" alt="Logo" class="w-full h-full object-cover">
+        <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg border border-cyan-500/40 bg-[#070c18] mx-auto">
+          <img src="./logo.png" alt="Satcom Engineers" class="w-full h-full object-cover" />
         </div>
-        <h3 id="modalTitle" class="text-xl font-black text-white">الانضمام إلى Satcom Engineers</h3>
-        <p id="modalSub" class="text-xs text-slate-400">سوق العمل المتخصص لمهندسي وخبراء الاتصالات والأقمار الصناعية</p>
+        <h3 id="authModalTitle" class="text-xl font-black text-white">انضم إلى Satcom Engineers</h3>
+        <p id="authModalSubtitle" class="text-xs text-slate-400">سوق العمل المتخصص لهندسة الاتصالات الفضائية والأقمار الصناعية</p>
       </div>
 
-      <!-- Mode Switch Tabs (Sign In vs Register) -->
-      <div class="flex items-center p-1 bg-slate-950 rounded-2xl border border-slate-800">
-        <button type="button" id="tabSignUpBtn" onclick="switchAuthMode('signup')" class="flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer bg-cyan-600 text-white shadow-xs">
-          ✨ إنشاء حساب جديد
+      <!-- Tab Switcher (Sign In vs Register) -->
+      <div class="flex p-1 rounded-2xl bg-slate-950 border border-slate-800">
+        <button id="tabSignUpBtn" onclick="switchAuthMode('signup')" class="flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer bg-cyan-600 text-white shadow-xs">
+          إنشاء حساب جديد
         </button>
-        <button type="button" id="tabSignInBtn" onclick="switchAuthMode('signin')" class="flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer text-slate-400 hover:text-white">
+        <button id="tabSignInBtn" onclick="switchAuthMode('signin')" class="flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer text-slate-400 hover:text-white">
           تسجيل الدخول
         </button>
       </div>
 
-      <!-- Success Alert (Hidden by default) -->
-      <div id="authSuccessBox" class="hidden p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold text-center"></div>
+      <!-- Success Notification Box -->
+      <div id="authSuccessBox" class="hidden p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-bold text-center"></div>
 
-      <!-- ROLE SELECTOR CARDS (Shown on Sign Up) -->
-      <div id="roleSelectorSection" class="space-y-2">
-        <label id="chooseAccountTypeLabel" class="block text-xs font-bold text-slate-300 text-center">
-          اختر نوع الحساب الذي ترغب في إنشائه:
-        </label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Card 1: Client -->
-          <button type="button" id="roleClientCard" onclick="selectAuthRole('client')" class="p-4 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-right space-y-1.5 cursor-pointer transition">
+      <!-- Persona Selector (Client vs Freelancer) -->
+      <div id="roleSelectorSection" class="space-y-3">
+        <span id="chooseAccountTypeLabel" class="block text-xs font-bold text-slate-300">اختر نوع الحساب الذي ترغب في إنشائه:</span>
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Client Card -->
+          <div id="roleClientCard" onclick="selectAuthRole('client')" class="p-4 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-right space-y-1.5 cursor-pointer transition">
             <div class="flex items-center justify-between">
-              <span class="text-xl">💼</span>
+              <span class="text-lg">💼</span>
               <span id="badgeClientCheck" class="w-4 h-4 rounded-full bg-cyan-400 text-slate-900 text-[10px] font-black flex items-center justify-center">✓</span>
             </div>
-            <div class="text-xs font-black text-white" id="lblRoleClient">أنا صاحب عمل (عميل)</div>
-            <div class="text-[11px] text-slate-400 leading-relaxed" id="descRoleClient">
-              أريد نشر مشاريع وتوظيف مهندسين محترفين بحماية Escrow
-            </div>
-          </button>
+            <div id="lblRoleClient" class="text-xs font-black text-white">أنا صاحب عمل (عميل)</div>
+            <div id="descRoleClient" class="text-[10px] text-slate-400 leading-tight">أريد نشر مشاريع وتوظيف مهندسين محترفين بحماية Escrow</div>
+          </div>
 
-          <!-- Card 2: Freelancer -->
-          <button type="button" id="roleFreelancerCard" onclick="selectAuthRole('freelancer')" class="p-4 rounded-2xl border border-slate-700 bg-slate-800/80 text-right space-y-1.5 cursor-pointer transition">
+          <!-- Freelancer Card -->
+          <div id="roleFreelancerCard" onclick="selectAuthRole('freelancer')" class="p-4 rounded-2xl border border-slate-700 bg-slate-800/80 text-right space-y-1.5 cursor-pointer transition">
             <div class="flex items-center justify-between">
-              <span class="text-xl">🛰️</span>
+              <span class="text-lg">🛰️</span>
               <span id="badgeFreelancerCheck" class="w-4 h-4 rounded-full border border-slate-600 text-transparent text-[10px] font-black flex items-center justify-center">✓</span>
             </div>
-            <div class="text-xs font-black text-white" id="lblRoleFreelancer">أنا مهندس مستقل</div>
-            <div class="text-[11px] text-slate-400 leading-relaxed" id="descRoleFreelancer">
-              أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%
-            </div>
-          </button>
+            <div id="lblRoleFreelancer" class="text-xs font-black text-white">أنا مهندس مستقل</div>
+            <div id="descRoleFreelancer" class="text-[10px] text-slate-400 leading-tight">أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%</div>
+          </div>
         </div>
       </div>
 
-      <!-- ================= FORM ================= -->
-      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-3.5 text-xs">
-        
-        <!-- Full Name (Only for Register) -->
+      <!-- Auth Form -->
+      <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5 text-xs">
         <div id="fieldFullName">
           <label id="lblFullName" class="block font-bold text-slate-300 mb-1">الاسم الكامل</label>
-          <input type="text" id="inputFullName" required placeholder="مثال: د. طارق المنصوري" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="inputFullName" placeholder="م. أحمد المنصوري" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
         </div>
 
-        <!-- Specialty / Company depending on role (Only for Register) -->
         <div id="fieldSpecialty">
-          <label id="lblSpecialty" class="block font-bold text-slate-300 mb-1">التخصص الهندسي أو اسم الشركة</label>
+          <label id="lblSpecialty" class="block font-bold text-slate-300 mb-1">التخصص الهندسي الدقيق</label>
           <input type="text" id="inputSpecialty" placeholder="مثال: Antenna Design & CST Studio Suite" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
         </div>
 
-        <!-- Email -->
         <div>
           <label id="lblEmail" class="block font-bold text-slate-300 mb-1">البريد الإلكتروني</label>
-          <input type="email" id="inputEmail" required placeholder="engineer@domain.com" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+          <input type="email" id="inputEmail" required placeholder="name@domain.com" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
         </div>
 
-        <!-- Password -->
         <div>
           <label id="lblPass" class="block font-bold text-slate-300 mb-1">كلمة المرور</label>
           <input type="password" id="inputPass" required placeholder="••••••••••••" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono focus:outline-none focus:border-cyan-400">
         </div>
 
-        <!-- Country (Only for Register) -->
-        <div id="fieldCountry">
-          <label id="lblCountry" class="block font-bold text-slate-300 mb-1">الدولة</label>
-          <select id="inputCountry" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
-            <option value="السعودية">المملكة العربية السعودية</option>
-            <option value="الإمارات">الإمارات العربية المتحدة</option>
-            <option value="مصر">جمهورية مصر العربية</option>
-            <option value="قطر">قطر</option>
-            <option value="الكويت">الكويت</option>
-            <option value="سلطنة عمان">سلطنة عمان</option>
-            <option value="الأردن">الأردن</option>
-            <option value="الولايات المتحدة">الولايات المتحدة (USA)</option>
-            <option value="ألمانيا">ألمانيا (Germany)</option>
-            <option value="المملكة المتحدة">المملكة المتحدة (UK)</option>
-            <option value="دولة أخرى">دولة أخرى</option>
-          </select>
-        </div>
-
-        <!-- Escrow Checkbox (Only for Register) -->
         <div id="fieldAgreement" class="flex items-start gap-2 pt-1">
-          <input type="checkbox" id="agreeEscrow" checked required class="mt-1 rounded border-slate-700 text-cyan-500 focus:ring-cyan-400">
+          <input type="checkbox" id="agreeEscrow" checked required class="mt-1 rounded border-slate-700 text-cyan-500 focus:ring-cyan-400 cursor-pointer">
           <label for="agreeEscrow" id="lblAgreement" class="text-[11px] text-slate-400 leading-relaxed cursor-pointer">
             أوافق على شروط الاستخدام ونظام حماية المدفوعات والضمان المالي 100% Escrow.
           </label>
         </div>
 
-        <!-- Submit Button -->
         <button type="submit" id="btnSubmitForm" class="w-full py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black rounded-xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
           إنشاء الحساب الآن
         </button>
       </form>
+
     </div>
   </div>
 
-  <!-- Global Footer -->
-  <footer class="border-t border-slate-800 bg-slate-950/80 py-8 text-xs text-slate-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        <span class="text-white font-bold">Satcom Engineers</span> • جميع الحقوق محفوظة © 2026
-      </div>
-
-      <div class="flex items-center gap-4">
-        <a href="./admin.html" id="footerAdminLink" class="text-xs font-bold text-slate-300 hover:text-cyan-300 transition flex items-center gap-1">
-          <span>🛡️</span>
-          <span id="footerAdminText">لوحة التحكم (Admin)</span>
-        </a>
-        <!-- Emadsoft Branding Badge -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-cyan-500/30 text-[11px]">
-          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
-        </div>
-      </div>
-    </div>
-  </footer>
-
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     let currentLang = 'ar';
-    let currentAuthMode = 'signup'; // 'signup' or 'signin'
-    let currentRole = 'client'; // 'client' or 'freelancer'
+    let currentAuthMode = 'signup';
+    let currentRole = 'freelancer';
+    let currentPersona = 'client';
+
+    function togglePersona() {
+      currentPersona = currentPersona === 'client' ? 'freelancer' : 'client';
+      const isAr = currentLang === 'ar';
+      const lbl = document.getElementById('lblSwitchPersona');
+      if (currentPersona === 'freelancer') {
+        lbl.innerText = isAr ? 'التحويل لوضع العميل' : 'Switch to Client';
+      } else {
+        lbl.innerText = isAr ? 'التحويل لوضع المهندس' : 'Switch to Freelancer';
+      }
+    }
 
     function toggleLang() {
       currentLang = currentLang === 'ar' ? 'en' : 'ar';
       const isAr = currentLang === 'ar';
       document.documentElement.lang = currentLang;
       document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+      document.getElementById('globalFooter').dir = isAr ? 'rtl' : 'ltr';
 
-      document.getElementById('langBtn').innerText = isAr ? '🌐 English' : '🌐 العربية';
-      document.getElementById('brandSub').innerText = isAr 
-        ? 'سوق العمل لمهندسي الأقمار الصناعية والاتصالات' 
-        : 'Satellite & RF Engineering Marketplace';
-      document.getElementById('navJobs').innerText = isAr ? 'تصفح المشاريع' : 'Browse Jobs';
-      document.getElementById('navEngineers').innerText = isAr ? 'نخبة المهندسين' : 'Top Talent';
-      document.getElementById('navEscrow').innerText = isAr ? 'حساب الضمان Escrow' : 'Escrow Vault';
-      document.getElementById('navControlPanelText').innerText = isAr ? 'لوحة التحكم' : 'Control Panel';
-      document.getElementById('adminNavText').innerText = isAr ? 'لوحة التحكم' : 'Control Panel';
-      document.getElementById('btnHeroControlPanelText').innerText = isAr ? 'لوحة التحكم المركزية' : 'Mission Control Panel';
-      document.getElementById('btnHeroClientText').innerText = isAr ? 'تسجيل كصاحب عمل (عميل)' : 'Sign Up as Client';
-      document.getElementById('btnHeroEngText').innerText = isAr ? 'انضمام كمهندس اتصالات وفضاء' : 'Join as Satellite Engineer';
-      document.getElementById('btnHeroBrowseText').innerText = isAr ? 'استكشف المشاريع المتاحة' : 'Explore Open Projects';
-      document.getElementById('footerAdminText').innerText = isAr ? 'لوحة التحكم (Admin)' : 'Control Panel (Admin)';
+      document.getElementById('langBtnText').innerText = isAr ? 'English' : 'العربية';
+      document.getElementById('brandSub').innerText = isAr ? 'سوق العمل لمهندسي الأقمار الصناعية والاتصالات' : 'Space & RF Telecom Engineering Marketplace';
+      document.getElementById('navJobs').innerText = isAr ? 'تصفح المشاريع' : 'Find Work';
+      document.getElementById('navFreelancers').innerText = isAr ? 'نخبة المهندسين' : 'Find Talent';
+      document.getElementById('navPricing').innerText = isAr ? 'الضمان المالي والبوابات' : 'Escrow & Gateways';
+      document.getElementById('navAdminText').innerText = isAr ? 'لوحة الإدارة' : 'Admin Portal';
+      document.getElementById('lblNavPostJob').innerText = isAr ? 'نشر مشروع' : 'Post a Job';
+      document.getElementById('lblNavLogin').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
+      document.getElementById('lblNavSignUp').innerText = isAr ? 'تسجيل جديد' : 'Sign Up';
+      document.getElementById('lblSwitchPersona').innerText = isAr ? (currentPersona === 'client' ? 'التحويل لوضع المهندس' : 'التحويل لوضع العميل') : (currentPersona === 'client' ? 'Switch to Freelancer' : 'Switch to Client');
 
-      if (document.getElementById('cpBadge')) {
-        document.getElementById('cpBadge').innerText = isAr ? 'لوحة التحكم والإشراف العام (Mission Control)' : 'Mission Control & Governance';
-        document.getElementById('cpTitle').innerText = isAr ? 'لوحة التحكم المركزية لإدارة المنصة' : 'Central Platform Control Panel';
-        document.getElementById('cpDesc').innerText = isAr
-          ? 'مركز إدارة متكامل لمتابعة وتدقيق العقود الهندسية الفضائية، خزائن الضمان Escrow، التحقق من تراخيص وتوثيق المهندسين (KYC)، وإدارة الفواتير والمدفوعات وفض النزاعات التقنية.'
-          : 'Integrated mission control portal to monitor satellite contracts, Escrow vaults, engineer KYC verification, and billing.';
-        document.getElementById('btnCpLaunchText').innerText = isAr ? 'فتح لوحة التحكم (Admin)' : 'Launch Control Panel (Admin)';
-        document.getElementById('cpStat1').innerText = isAr ? 'ضمان مالي Escrow' : '100% Escrow Vault';
-        document.getElementById('cpStat2').innerText = isAr ? 'عمولة المنصة الآلية' : 'Automated Commission';
-        document.getElementById('cpStat3').innerText = isAr ? 'تحكيم النزاعات' : 'Dispute Resolution';
-        document.getElementById('cpStat4').innerText = isAr ? 'حماية البيانات والمدفوعات' : 'Encrypted Payouts';
-      }
-
-      document.getElementById('btnSignIn').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
-      document.getElementById('btnSignUp').innerHTML = isAr ? '<span>✨ إنشاء حساب جديد</span>' : '<span>✨ Sign Up</span>';
-
-      document.getElementById('heroBadge').innerText = isAr
-        ? 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية'
-        : 'The Premier Marketplace for Satellite & RF Engineers';
-      document.getElementById('heroHeading').innerHTML = isAr
-        ? 'وظّف نخبة مهندسي <br/><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">الاتصالات الفضائية و RF</span> بمشروعك'
-        : 'Hire Elite Engineers in <br/><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Satellite Comms & RF</span>';
-      document.getElementById('heroDesc').innerText = isAr
+      document.getElementById('heroBadge').innerText = isAr ? 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية' : 'Premier Network for Satellite & RF Communications Engineers';
+      document.getElementById('heroHeading').innerHTML = isAr 
+        ? 'وظّف نخبة مهندسي <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">الاتصالات الفضائية و RF</span> بمشروعك'
+        : 'Hire Elite Engineers in <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Satellite Comms & RF</span>';
+      document.getElementById('heroDesc').innerText = isAr 
         ? 'منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.'
-        : 'Specialized network connecting satellite, RF, and aerospace engineers with clients under 100% Escrow security and global gateways.';
+        : 'A specialized marketplace connecting satellite, RF, and aerospace engineers with global clients. 100% Escrow security and flexible global payment gateways.';
 
-      updateAuthModalTexts();
+      document.getElementById('pillar1').innerText = isAr ? 'حماية الضمان Escrow' : '100% Escrow Protection';
+      document.getElementById('pillar2').innerText = isAr ? 'رسوم اشتراك شهرية' : 'Zero Subscription Fees';
+      document.getElementById('pillar3').innerText = isAr ? 'تشفير مالي آمن' : 'Bank-Grade Security';
+
+      document.getElementById('lblExploreJobs').innerText = isAr ? 'استكشف المشاريع المتاحة' : 'Explore Open Projects';
+      document.getElementById('arrowExplore').innerText = isAr ? '←' : '→';
+      document.getElementById('lblPostJobHero').innerText = isAr ? 'انشر مشروع جديد' : 'Post a Job';
+
+      document.getElementById('lblGatewaysBadge').innerText = isAr ? 'حماية مشفرة ومصادقة بنكية دولية' : 'Bank-Grade Security & Escrow Protection';
+      document.getElementById('lblGatewaysTitle').innerText = isAr ? 'بوابات الدفع والسحب العالمية المعتمدة' : 'Accepted Global Payment & Payout Gateways';
+
+      document.getElementById('domainsBadge').innerText = isAr ? 'مجالات التخصص الهندسي' : 'Specialized Aerospace Domains';
+      document.getElementById('domainsTitle').innerText = isAr ? 'تغطية شاملة لفروع هندسة الاتصالات الفضائية' : 'Comprehensive Space & RF Engineering Coverage';
+      document.getElementById('domainsSubtitle').innerText = isAr ? 'نخبة من المهندسين المعتمدين والمؤهلين للتعامل مع أكثر المشاريع تعقيداً' : 'Vetted space systems architects ready to deploy on complex missions';
+
+      document.getElementById('card1Title').innerText = isAr ? 'اتصالات الأقمار الصناعية (Satcom)' : 'Satellite Communications (Satcom)';
+      document.getElementById('card1Desc').innerText = isAr ? 'تصميم المحطات الأرضية (Ground Stations)، محاكاة مدارات LEO/GEO، بروتوكولات DVB-S2X، وضبط هوائيات التتبع والـ VSAT.' : 'Ground station architecture, LEO/GEO orbital mechanics, DVB-S2X links, and telemetry tracking.';
+
+      document.getElementById('card2Title').innerText = isAr ? 'هندسة الترددات وهوائيات RF' : 'RF & Microwave Antenna Engineering';
+      document.getElementById('card2Desc').innerText = isAr ? 'محاكاة وتصميم الهوائيات عبر أدوات CST و HFSS، تحليل ميزانية الوصلة (Link Budget)، وفلاتر التردد اللاسلكي والمضخمات HPA/SSPA.' : 'Antenna modeling in CST Studio Suite & HFSS, Link Budget calculation, and waveguide cavity filters.';
+
+      document.getElementById('card3Title').innerText = isAr ? 'معالجة الإشارات والراديو البرمجي (SDR)' : 'SDR & Space DSP Architecture';
+      document.getElementById('card3Desc').innerText = isAr ? 'تطوير برمجيات الراديو المعرف برمجيًا (SDR)، خوارزميات معالجة الإشارات الرقمية DSP، وبرمجة متحكمات الاتصالات وFPGA.' : 'GNU Radio telemetry pipelines, digital signal processing (DSP), and high-throughput FPGA demodulators.';
+
+      document.getElementById('escrowCardTitle').innerText = isAr ? 'نموذج عقد الضمان المالي المباشر (Escrow Protection)' : 'Live Escrow Protection Example';
+      document.getElementById('escrowCardSub').innerText = isAr ? 'حماية كاملة لأموال العقد بدون تعقيد، وحسابات مؤتمتة في الخلفية' : 'Full project fund protection with automated backend processing';
+      document.getElementById('lblAgreedVal').innerText = isAr ? 'قيمة العقد المتفق عليها للمشروع:' : 'Agreed Project Value:';
+      document.getElementById('lblEscrowStatus').innerText = isAr ? 'حالة الإيداع في الضمان المالي (Escrow):' : 'Escrow Deposit Status:';
+      document.getElementById('valEscrowStatus').innerText = isAr ? '✓ مؤمّن ومحجوز بنسبة 100%' : '✓ 100% Funded & Secured';
+      document.getElementById('lblAutoFee').innerText = isAr ? 'المعالجة المالية والفوترة:' : 'Financial Processing:';
+      document.getElementById('valAutoFee').innerText = isAr ? 'معالجة سحابية مؤتمتة بالكامل في الخلفية' : 'Fully Automated Backend Processing';
+      document.getElementById('lblNetPayout').innerText = isAr ? 'صافي ما يتسلمه المهندس المستقل (100% كامل):' : 'Net Engineer Payout (100% Full):';
+
+      document.getElementById('footerBio').innerText = isAr ? 'المنصة التخصصية الأولى للعمل الحر في مجالات هندسة الاتصالات الفضائية، شبكات الأقمار الصناعية، وأنظمة الراديو والترددات اللاسلكية.' : 'The premier specialized freelance marketplace for satellite communications, RF systems, and aerospace engineering.';
+      document.getElementById('footerBadge').innerText = isAr ? 'حماية مالية متكاملة: نظام الضمان Escrow وبوابات دفع عالمية مشفرة بنسبة 100%.' : '100% Escrow Protection: Bank-grade encrypted global payment gateways.';
+      document.getElementById('footerCol1Title').innerText = isAr ? 'عن المنصة' : 'About Platform';
+      document.getElementById('footerCol2Title').innerText = isAr ? 'الدعم والأمان' : 'Support & Security';
     }
 
     function openAuthModal(mode = 'signup', role = 'client') {
@@ -481,7 +598,6 @@
       const isSignUp = mode === 'signup';
       const isAr = currentLang === 'ar';
 
-      // Toggle tab styles
       const tabSignUp = document.getElementById('tabSignUpBtn');
       const tabSignIn = document.getElementById('tabSignInBtn');
 
@@ -491,7 +607,6 @@
         document.getElementById('roleSelectorSection').classList.remove('hidden');
         document.getElementById('fieldFullName').classList.remove('hidden');
         document.getElementById('fieldSpecialty').classList.remove('hidden');
-        document.getElementById('fieldCountry').classList.remove('hidden');
         document.getElementById('fieldAgreement').classList.remove('hidden');
         document.getElementById('btnSubmitForm').innerText = isAr ? 'إنشاء الحساب الآن' : 'Create Account Now';
       } else {
@@ -500,7 +615,6 @@
         document.getElementById('roleSelectorSection').classList.add('hidden');
         document.getElementById('fieldFullName').classList.add('hidden');
         document.getElementById('fieldSpecialty').classList.add('hidden');
-        document.getElementById('fieldCountry').classList.add('hidden');
         document.getElementById('fieldAgreement').classList.add('hidden');
         document.getElementById('btnSubmitForm').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
       }
@@ -537,57 +651,21 @@
       }
     }
 
-    function updateAuthModalTexts() {
-      const isAr = currentLang === 'ar';
-      document.getElementById('chooseAccountTypeLabel').innerText = isAr
-        ? 'اختر نوع الحساب الذي ترغب في إنشائه:'
-        : 'Choose the account type you want to create:';
-      document.getElementById('lblRoleClient').innerText = isAr ? 'أنا صاحب عمل (عميل)' : "I'm a Client (Hiring)";
-      document.getElementById('descRoleClient').innerText = isAr
-        ? 'أريد نشر مشاريع وتوظيف مهندسين محترفين بحماية Escrow'
-        : 'Hire verified space & RF engineers with 100% Escrow protection';
-      document.getElementById('lblRoleFreelancer').innerText = isAr ? 'أنا مهندس مستقل' : "I'm a Freelancer (Looking for Work)";
-      document.getElementById('descRoleFreelancer').innerText = isAr
-        ? 'أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%'
-        : 'Apply to aerospace projects and earn 100% secured net payouts';
-      document.getElementById('lblFullName').innerText = isAr ? 'الاسم الكامل' : 'Full Name';
-      document.getElementById('lblEmail').innerText = isAr ? 'البريد الإلكتروني' : 'Email Address';
-      document.getElementById('lblPass').innerText = isAr ? 'كلمة المرور' : 'Password';
-      document.getElementById('lblCountry').innerText = isAr ? 'الدولة' : 'Country';
-      document.getElementById('lblAgreement').innerText = isAr
-        ? 'أوافق على شروط الاستخدام ونظام حماية المدفوعات والضمان المالي 100% Escrow.'
-        : 'I agree to the Terms of Service and 100% Escrow Payment Protection.';
-
-      selectAuthRole(currentRole);
-      switchAuthMode(currentAuthMode);
-    }
-
     function handleAuthSubmit(e) {
       e.preventDefault();
       const isAr = currentLang === 'ar';
       const name = document.getElementById('inputFullName').value.trim() || 'User';
       const email = document.getElementById('inputEmail').value.trim();
-
       const successBox = document.getElementById('authSuccessBox');
       successBox.classList.remove('hidden');
 
       if (currentAuthMode === 'signup') {
-        const roleLabel = currentRole === 'client' 
-          ? (isAr ? 'صاحب عمل (عميل)' : 'Client') 
-          : (isAr ? 'مهندس اتصالات وفضاء' : 'Satellite Engineer');
-        
+        const roleLabel = currentRole === 'client' ? (isAr ? 'صاحب عمل' : 'Client') : (isAr ? 'مهندس اتصالات وفضاء' : 'Satellite Engineer');
         successBox.innerText = isAr
           ? `✓ تم إنشاء حسابك بنجاح كـ (${roleLabel}) باسم [${name}]! مرحباً بك في Satcom Engineers.`
           : `✓ Account successfully created as (${roleLabel}) for [${name}]! Welcome to Satcom Engineers.`;
-
-        // Store user state
-        try {
-          localStorage.setItem('satcom_user', JSON.stringify({ name, email, role: currentRole }));
-        } catch {}
       } else {
-        successBox.innerText = isAr
-          ? `✓ تم تسجيل دخولك بنجاح! مرحباً بك مجدداً.`
-          : `✓ Successfully signed in! Welcome back.`;
+        successBox.innerText = isAr ? '✓ تم تسجيل الدخول بنجاح! مرحباً بك مجدداً.' : '✓ Successfully signed in! Welcome back.';
       }
 
       setTimeout(() => {
