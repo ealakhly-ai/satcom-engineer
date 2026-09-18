@@ -24,7 +24,7 @@
 
     <div class="w-full max-w-md bg-slate-900/90 backdrop-blur-2xl rounded-3xl border border-indigo-500/40 shadow-2xl p-8 space-y-6 relative z-10">
       <div class="text-center space-y-3">
-        <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-2xl border-2 border-cyan-400/50 bg-[#070b19] p-1 mx-auto">
+        <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-2xl border-2 border-cyan-400/50 bg-[#070c18] p-1 mx-auto">
           <img src="./logo.png" alt="Logo" class="w-full h-full object-cover">
         </div>
         <div>
@@ -99,28 +99,61 @@
     <!-- Main Content Area with Sidebar -->
     <div class="flex-1 flex flex-col md:flex-row">
       <!-- Sidebar Navigation -->
-      <aside class="w-full md:w-64 bg-slate-900/95 border-b md:border-b-0 md:border-l border-slate-800 p-4 space-y-2 shrink-0">
-        <button onclick="switchTab('overview')" id="tabOverviewBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition">
+      <aside class="w-full md:w-64 bg-slate-900/95 border-b md:border-b-0 md:border-l border-slate-800 p-4 space-y-1.5 shrink-0">
+        <button onclick="switchTab('overview')" id="tabOverviewBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition">
           <span>📊</span>
           <span id="tabOverview">لوحة التحكم الرئيسية</span>
         </button>
 
-        <button onclick="switchTab('contracts')" id="tabContractsBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+        <button onclick="switchTab('contracts')" id="tabContractsBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
           <span>📑</span>
           <span id="tabContracts">العقود وحسابات Escrow</span>
         </button>
 
-        <button onclick="switchTab('finance')" id="tabFinanceBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+        <!-- Upwork Feature: Disputes & Arbitration Room -->
+        <button onclick="switchTab('disputes')" id="tabDisputesBtn" class="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <span>⚖️</span>
+            <span id="tabDisputes">التحكيم وفض النزاعات</span>
+          </div>
+          <span id="badgeDisputeCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 border border-rose-500/40 text-rose-300">1</span>
+        </button>
+
+        <!-- Upwork Feature: KYC & Verification Center -->
+        <button onclick="switchTab('kyc')" id="tabKYCBtn" class="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <span>🆔</span>
+            <span id="tabKYC">فحص وتوثيق الهويات KYC</span>
+          </div>
+          <span id="badgeKYCCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 border border-amber-500/40 text-amber-300">2</span>
+        </button>
+
+        <!-- Upwork Feature: User Directory & Badges -->
+        <button onclick="switchTab('users')" id="tabUsersBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <span>👥</span>
+          <span id="tabUsers">إدارة الأعضاء والشارات</span>
+        </button>
+
+        <!-- Upwork Feature: Payout Approvals -->
+        <button onclick="switchTab('payouts')" id="tabPayoutsBtn" class="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <span>💸</span>
+            <span id="tabPayouts">اعتماد طلبات السحب</span>
+          </div>
+          <span id="badgePayoutCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 border border-emerald-500/40 text-emerald-300">2</span>
+        </button>
+
+        <button onclick="switchTab('finance')" id="tabFinanceBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
           <span>💳</span>
           <span id="tabFinance">التقارير المالية والبوابات</span>
         </button>
 
-        <button onclick="switchTab('settings')" id="tabSettingsBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+        <button onclick="switchTab('settings')" id="tabSettingsBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
           <span>⚙️</span>
           <span id="tabSettings">إعدادات النظام والعمولة</span>
         </button>
 
-        <div class="pt-8 text-center">
+        <div class="pt-6 text-center">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950 border border-cyan-500/30 text-[10px]">
             <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
           </div>
@@ -128,7 +161,16 @@
       </aside>
 
       <!-- Dynamic Tab Views -->
-      <main class="flex-1 p-6 sm:p-8 space-y-8 overflow-y-auto">
+      <main class="flex-1 p-6 sm:p-8 space-y-6 overflow-y-auto">
+
+        <!-- Notification Toast Box -->
+        <div id="actionToast" class="hidden p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-xs font-bold flex items-center justify-between shadow-xl">
+          <div class="flex items-center gap-2">
+            <span>✓</span>
+            <span id="toastMsg">تم الإجراء بنجاح!</span>
+          </div>
+          <button onclick="document.getElementById('actionToast').classList.add('hidden')" class="text-emerald-400">✕</button>
+        </div>
 
         <!-- VIEW 1: OVERVIEW -->
         <div id="viewOverview" class="space-y-6">
@@ -139,7 +181,7 @@
               </span>
               <h2 class="text-2xl font-black text-white mt-1" id="overviewHeader">غرفة العمليات المركزية (Mission Control)</h2>
               <p class="text-xs text-slate-300 mt-1" id="overviewSub">
-                متابعة تدفقات أموال الضمان Escrow، وعمولات المنصة ($20 لكل $300)، وبوابات الدفع العالمية
+                متابعة تدفقات أموال الضمان Escrow، وعمولات المنصة ($20 لكل $300)، وفض النزاعات والتوثيق الرسمي
               </p>
             </div>
           </div>
@@ -148,66 +190,318 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardRev">إجمالي إيراد المنصة ($20 لكل $300)</span>
-              <span class="text-2xl font-black text-emerald-400 mt-1 block" id="metricRevVal">$0.00</span>
+              <span class="text-2xl font-black text-emerald-400 mt-1 block" id="metricRevVal">$40.00</span>
               <span class="text-[10px] text-emerald-300 block mt-1">محسوبة آلياً من العقود المكتملة</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardEscrow">أموال الضمان المحجوزة (Escrow)</span>
-              <span class="text-2xl font-black text-cyan-400 mt-1 block" id="metricEscrowVal">$0.00</span>
+              <span class="text-2xl font-black text-cyan-400 mt-1 block" id="metricEscrowVal">$1,850.00</span>
               <span class="text-[10px] text-cyan-300 block mt-1">عقود جارية مؤمنة ومحمية 100%</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardEng">المهندسون المعتمدون</span>
-              <span class="text-2xl font-black text-white mt-1 block">0</span>
-              <span class="text-[10px] text-indigo-300 block mt-1">سجل المهندسين الموثقين</span>
+              <span class="text-2xl font-black text-white mt-1 block" id="metricVerifiedVal">8</span>
+              <span class="text-[10px] text-indigo-300 block mt-1">تم التحقق من رخص الفضاء و KYC</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
-              <span class="text-xs text-slate-400 font-bold block" id="cardDispute">حالات النزاع والتحكيم</span>
-              <span class="text-2xl font-black text-white mt-1 block">0</span>
-              <span class="text-[10px] text-slate-400 block mt-1">كافة المعاملات تسير بسلام</span>
+              <span class="text-xs text-slate-400 font-bold block" id="cardDispute">حالات النزاع النشطة</span>
+              <span class="text-2xl font-black text-rose-400 mt-1 block" id="metricDisputeVal">1</span>
+              <span class="text-[10px] text-rose-300 block mt-1">بانتظار قرار التحكيم النهائي</span>
             </div>
           </div>
 
-          <!-- Empty State Box -->
-          <div class="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-800 p-12 text-center space-y-3 shadow-2xl">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-2xl font-black">
-              🛡️
+          <!-- Quick Actions Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div onclick="switchTab('disputes')" class="p-5 rounded-2xl bg-gradient-to-br from-rose-950/40 to-slate-900 border border-rose-500/30 cursor-pointer hover:border-rose-400 transition space-y-2">
+              <div class="text-xl">⚖️</div>
+              <div class="font-black text-white text-sm">فض النزاعات الهندسية</div>
+              <div class="text-xs text-slate-400">فحص التقارير والمحاكاة واتخاذ قرار صرف أو إرجاع الضمان.</div>
             </div>
-            <h3 class="text-base font-black text-white" id="emptyEscrowHead">لا توجد تحويلات ضمان مسجلة حالياً</h3>
-            <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed" id="emptyEscrowDesc">
-              عند إنشاء وتمويل أي عقد جديد من قبل العملاء، ستظهر المعاملات وتدفقات الضمان المالي هنا فوراً.
-            </p>
+
+            <div onclick="switchTab('kyc')" class="p-5 rounded-2xl bg-gradient-to-br from-amber-950/40 to-slate-900 border border-amber-500/30 cursor-pointer hover:border-amber-400 transition space-y-2">
+              <div class="text-xl">🆔</div>
+              <div class="font-black text-white text-sm">اعتماد تراخيص المهندسين</div>
+              <div class="text-xs text-slate-400">توثيق هويات الخبراء وإصدار شارات Verified الهندسية.</div>
+            </div>
+
+            <div onclick="switchTab('payouts')" class="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/30 cursor-pointer hover:border-emerald-400 transition space-y-2">
+              <div class="text-xl">💸</div>
+              <div class="font-black text-white text-sm">اعتماد السحب البنكي</div>
+              <div class="text-xs text-slate-400">مراجعة وصرف أرباح المهندسين بنكياً وعبر USDT.</div>
+            </div>
           </div>
         </div>
 
-        <!-- VIEW 2: CONTRACTS -->
+        <!-- VIEW 2: CONTRACTS & ESCROW -->
         <div id="viewContracts" class="space-y-6 hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="text-2xl font-black text-white" id="contractsHead">إدارة العقود وحسابات الضمان (Escrow Manager)</h2>
-              <p class="text-xs text-slate-400 mt-1" id="contractsSub">إضافة عقود جديدة، تعديل الشروط والمبالغ، وتحرير الدفعات 100% للمهندسين</p>
+              <h2 class="text-2xl font-black text-white" id="contractsHead">العقود الهندسية وتدفقات الضمان (Escrow)</h2>
+              <p class="text-xs text-slate-400 mt-1" id="contractsSub">مراقبة العقود الجارية والمدفوعات المحجوزة ونسب الإنجاز</p>
             </div>
-            <button onclick="openAddContract()" class="px-5 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-white rounded-xl text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
-              + إضافة عقد جديد
-            </button>
           </div>
 
-          <!-- Contracts Table or Empty State -->
-          <div id="contractsContainer" class="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-800 shadow-2xl p-12 text-center space-y-3">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-2xl font-black">
-              📑
-            </div>
-            <h3 class="text-base font-black text-white" id="emptyContractsHead">لا توجد عقود مسجلة حالياً في النظام</h3>
-            <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed" id="emptyContractsDesc">
-              يمكنك إنشاء عقد جديد وتأمينه في الضمان المالي بالضغط على زر إضافة عقد جديد أعلاه.
-            </p>
+          <div class="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+            <table class="w-full text-right text-xs">
+              <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="p-4 font-bold">رقم العقد</th>
+                  <th class="p-4 font-bold">المشروع الهندسي</th>
+                  <th class="p-4 font-bold">صاحب العمل</th>
+                  <th class="p-4 font-bold">المهندس المنفذ</th>
+                  <th class="p-4 font-bold">قيمة الضمان Escrow</th>
+                  <th class="p-4 font-bold">الحالة</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300">
+                <tr>
+                  <td class="p-4 font-mono text-cyan-400">#CTR-101</td>
+                  <td class="p-4 font-bold text-white">Ka-Band Phased Array Antenna</td>
+                  <td class="p-4">Orbital Systems Ltd</td>
+                  <td class="p-4">م. أحمد المنصوري</td>
+                  <td class="p-4 font-mono text-emerald-400 font-bold">$600.00</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">نزاع قيد التحكيم ⚖️</span></td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-mono text-cyan-400">#CTR-102</td>
+                  <td class="p-4 font-bold text-white">CubeSat Link Budget & DVB-S2X</td>
+                  <td class="p-4">SkyTelecom Space</td>
+                  <td class="p-4">م. طارق الغامدي</td>
+                  <td class="p-4 font-mono text-emerald-400 font-bold">$1,250.00</td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">مؤمّن جاري التنفيذ ✓</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- VIEW 3: FINANCE -->
+        <!-- VIEW 3: DISPUTES & ARBITRATION ROOM (UPWORK STYLE) -->
+        <div id="viewDisputes" class="space-y-6 hidden">
+          <div>
+            <h2 class="text-2xl font-black text-white">غرفة التحكيم وفض النزاعات الهندسية</h2>
+            <p class="text-xs text-slate-400 mt-1">مراجعة أدلة ومخرجات المشاريع المتنازع عليها واتخاذ قرار تحرير أموال الضمان</p>
+          </div>
+
+          <!-- Dispute Active Card -->
+          <div id="disputeCard804" class="p-6 rounded-3xl bg-slate-900 border border-rose-500/40 space-y-5 shadow-2xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300">نزاع مفتوح #DSP-804</span>
+                  <span class="text-xs text-slate-400 font-mono">العقد: #CTR-101</span>
+                </div>
+                <h3 class="text-lg font-black text-white mt-1">Ka-Band Phased Array Antenna Design</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-xs text-slate-400 block">المبلغ المحتجز في الضمان:</span>
+                <span class="text-xl font-black text-emerald-400 font-mono">$600.00</span>
+              </div>
+            </div>
+
+            <!-- Two Sides Comparison -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                <span class="text-xs font-black text-cyan-400">إفادة صاحب العمل (Orbital Systems):</span>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  "مستوى الفصوص الجانبية (Sidelobe level) في تقرير المحاكاة هو -12dB بينما اشترطنا في كراسة الشروط أن لا يقل عن -15dB عند زاوية 30 درجة."
+                </p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                <span class="text-xs font-black text-indigo-400">رد المهندس (م. أحمد المنصوري):</span>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  "الملفات المرفوعة بمشروع CST Studio تطابق معايير IEEE 802.11، والتأريض متزن تماماً، والفرق طفيف ناتج عن زاوية التوجيه القصوى (Steering)."
+                </p>
+              </div>
+            </div>
+
+            <!-- Deliverables -->
+            <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-lg">📁</span>
+                <div>
+                  <div class="text-xs font-bold text-white">ملفات الأدلة الفنية والمحاكاة المرفقة</div>
+                  <div class="text-[10px] text-slate-400">Ka_PhasedArray_Sim.cst (18.4 MB) • Radiation_Report.pdf</div>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-cyan-400 underline cursor-pointer">معاينة الملفات ↗</span>
+            </div>
+
+            <!-- Judicial Decisions -->
+            <div id="arbitrationActions" class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
+              <span class="text-xs font-black text-white block">إصدار الحكم الإداري الفوري:</span>
+              <div class="flex flex-wrap gap-3">
+                <button onclick="resolveDispute('freelancer')" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+                  ✓ تحرير 100% للمهندس ($600.00)
+                </button>
+                <button onclick="resolveDispute('client')" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+                  ✕ إعادة 100% للعميل ($600.00)
+                </button>
+                <button onclick="resolveDispute('split')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+                  ⚖️ تسوية عادلة 50/50 ($300 لكل طرف)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 4: KYC & IDENTITY VERIFICATION (UPWORK STYLE) -->
+        <div id="viewKYC" class="space-y-6 hidden">
+          <div>
+            <h2 class="text-2xl font-black text-white">مركز فحص وتوثيق الهويات وتراخيص الفضاء (KYC)</h2>
+            <p class="text-xs text-slate-400 mt-1">التحقق من هويات المهندسين والعملاء ومنح شارة Verified Engineer المعتمدة</p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- KYC Item 1 -->
+            <div id="kycCard1" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-sm">
+                  م.أ
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-black text-white text-sm">م. أحمد المنصوري</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">الإمارات العربية المتحدة</span>
+                  </div>
+                  <div class="text-xs text-slate-400 mt-0.5">التخصص: اتصالات الأقمار الصناعية وهوائيات Ka-Band</div>
+                  <div class="text-[10px] text-amber-400 mt-1">المستند: جواز السفر الوطني + ترخيص وكالة الفضاء المعتمد</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2" id="kycBtns1">
+                <button onclick="approveKYC(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
+                  اعتماد التوثيق ✓
+                </button>
+                <button onclick="rejectKYC(1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer">
+                  طلب مراجعة
+                </button>
+              </div>
+            </div>
+
+            <!-- KYC Item 2 -->
+            <div id="kycCard2" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-sm">
+                  م.ط
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-black text-white text-sm">م. طارق الغامدي</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">المملكة العربية السعودية</span>
+                  </div>
+                  <div class="text-xs text-slate-400 mt-0.5">التخصص: محطات أرضية وأطباق تتبع VSAT</div>
+                  <div class="text-[10px] text-amber-400 mt-1">المستند: الهوية الوطنية + شهادة مهندس اتصالات مرخص</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2" id="kycBtns2">
+                <button onclick="approveKYC(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
+                  اعتماد التوثيق ✓
+                </button>
+                <button onclick="rejectKYC(2)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer">
+                  طلب مراجعة
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 5: USER MANAGEMENT & BADGES (UPWORK STYLE) -->
+        <div id="viewUsers" class="space-y-6 hidden">
+          <div>
+            <h2 class="text-2xl font-black text-white">إدارة الأعضاء وشارات التميز</h2>
+            <p class="text-xs text-slate-400 mt-1">التحكم في صلاحيات المستخدمين، منح شارة Top Rated، وتجميد الحسابات المخالفة</p>
+          </div>
+
+          <div class="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+            <table class="w-full text-right text-xs">
+              <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="p-4 font-bold">العضو</th>
+                  <th class="p-4 font-bold">نوع الحساب</th>
+                  <th class="p-4 font-bold">تقييم JSS</th>
+                  <th class="p-4 font-bold">الشارات المعتمدة</th>
+                  <th class="p-4 font-bold">الحالة الإدارية</th>
+                  <th class="p-4 font-bold">إجراءات</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300">
+                <tr>
+                  <td class="p-4 font-bold text-white">م. أحمد المنصوري</td>
+                  <td class="p-4">مهندس مستقل (Satcom)</td>
+                  <td class="p-4 font-mono text-emerald-400 font-black">100%</td>
+                  <td class="p-4"><span id="badgeEng1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Top Rated ⭐</span></td>
+                  <td class="p-4"><span class="text-emerald-400 font-bold">نشط معتمد ✓</span></td>
+                  <td class="p-4">
+                    <button onclick="toggleTopRated('badgeEng1')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold">تعديل الشارة</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-bold text-white">Orbital Space Systems</td>
+                  <td class="p-4">صاحب عمل (عميل)</td>
+                  <td class="p-4 font-mono text-cyan-400 font-black">5.0 ★</td>
+                  <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">عميل ذهبي Enterprise</span></td>
+                  <td class="p-4"><span class="text-emerald-400 font-bold">نشط معتمد ✓</span></td>
+                  <td class="p-4">
+                    <button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold">إدارة</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VIEW 6: PAYOUT APPROVALS (UPWORK STYLE) -->
+        <div id="viewPayouts" class="space-y-6 hidden">
+          <div>
+            <h2 class="text-2xl font-black text-white">اعتماد طلبات السحب المالي للمهندسين</h2>
+            <p class="text-xs text-slate-400 mt-1">مراجعة وتحويل أرباح المهندسين المستحقة إلى الحسابات البنكية ومحافظ USDT</p>
+          </div>
+
+          <div class="space-y-4">
+            <div id="payoutCard1" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-cyan-400 font-bold">#PO-901</span>
+                  <span class="text-white font-black">م. أحمد المنصوري</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">SWIFT Wire Bank</span>
+                </div>
+                <div class="text-xs text-slate-400 mt-1">البنك: بنك الإمارات دبي الوطني (Emirates NBD) • IBAN: AE03...4912</div>
+                <div class="text-base font-black text-emerald-400 font-mono mt-1">$600.00 (100% صافي أتعاب)</div>
+              </div>
+
+              <div class="flex items-center gap-2" id="payoutBtns1">
+                <button onclick="approvePayout(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
+                  اعتماد التحويل البنكي الفوري ✓
+                </button>
+              </div>
+            </div>
+
+            <div id="payoutCard2" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-cyan-400 font-bold">#PO-902</span>
+                  <span class="text-white font-black">م. طارق الغامدي</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">USDT Escrow (TRC20)</span>
+                </div>
+                <div class="text-xs text-slate-400 mt-1">المحفظة: TX9aK...89xL10qPz</div>
+                <div class="text-base font-black text-emerald-400 font-mono mt-1">$450.00 (100% صافي أتعاب)</div>
+              </div>
+
+              <div class="flex items-center gap-2" id="payoutBtns2">
+                <button onclick="approvePayout(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
+                  اعتماد التحويل الفوري ✓
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 7: FINANCE -->
         <div id="viewFinance" class="space-y-6 hidden">
           <div>
             <h2 class="text-2xl font-black text-white" id="financeHead">التقارير المالية وبوابات الدفع الدولية</h2>
@@ -217,35 +511,34 @@
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block">مدفوعات Stripe</span>
-              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
-              <span class="text-[10px] text-emerald-400 block mt-1">0 عمليات مسجلة</span>
+              <span class="text-2xl font-black text-white mt-1 block">$1,200.00</span>
+              <span class="text-[10px] text-emerald-400 block mt-1">2 عمليات معتمدة</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block">مدفوعات PayPal</span>
-              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
-              <span class="text-[10px] text-sky-400 block mt-1">0 عمليات مسجلة</span>
+              <span class="text-2xl font-black text-white mt-1 block">$650.00</span>
+              <span class="text-[10px] text-sky-400 block mt-1">1 عملية معتمدة</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block">حوالات SWIFT البنكية</span>
-              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
-              <span class="text-[10px] text-emerald-400 block mt-1">0 عمليات مسجلة</span>
+              <span class="text-2xl font-black text-white mt-1 block">$3,500.00</span>
+              <span class="text-[10px] text-emerald-400 block mt-1">3 حوالات مؤسسية</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block">محافظ USDT Escrow</span>
-              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
-              <span class="text-[10px] text-amber-400 block mt-1">0 عمليات مسجلة</span>
+              <span class="text-2xl font-black text-white mt-1 block">$900.00</span>
+              <span class="text-[10px] text-amber-400 block mt-1">2 عمليات فورية</span>
             </div>
           </div>
         </div>
 
-        <!-- VIEW 4: SETTINGS -->
+        <!-- VIEW 8: SETTINGS -->
         <div id="viewSettings" class="space-y-6 hidden">
           <div>
             <h2 class="text-2xl font-black text-white" id="settingsHead">إعدادات بوابات الدفع ومحرك العمولة في الخلفية</h2>
             <p class="text-xs text-slate-400 mt-1" id="settingsSub">تعديل شرائح احتساب العمولة الآلية وتفعيل البوابات الدولية</p>
           </div>
 
-          <!-- Commission Engine Box -->
           <div class="p-6 bg-slate-900/90 rounded-3xl border border-slate-800 space-y-4">
             <h3 class="text-sm font-black text-amber-400 flex items-center gap-2">
               <span>⚙️ محرك احتساب العمولة الآلي في السيرفر ($20 لكل $300)</span>
@@ -274,6 +567,13 @@
   <script>
     let currentLang = 'ar';
 
+    function showToast(msg) {
+      const toast = document.getElementById('actionToast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
     function handleLogin(e) {
       e.preventDefault();
       const u = document.getElementById('adminUser').value.trim();
@@ -295,35 +595,85 @@
     }
 
     function switchTab(tab) {
-      const views = ['viewOverview', 'viewContracts', 'viewFinance', 'viewSettings'];
-      views.forEach(v => document.getElementById(v).classList.add('hidden'));
-
-      const btns = ['tabOverviewBtn', 'tabContractsBtn', 'tabFinanceBtn', 'tabSettingsBtn'];
-      btns.forEach(b => {
-        const el = document.getElementById(b);
-        el.className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition';
+      const views = ['viewOverview', 'viewContracts', 'viewDisputes', 'viewKYC', 'viewUsers', 'viewPayouts', 'viewFinance', 'viewSettings'];
+      views.forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.classList.add('hidden');
       });
 
-      if (tab === 'overview') {
-        document.getElementById('viewOverview').classList.remove('hidden');
-        document.getElementById('tabOverviewBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
-      } else if (tab === 'contracts') {
-        document.getElementById('viewContracts').classList.remove('hidden');
-        document.getElementById('tabContractsBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
-      } else if (tab === 'finance') {
-        document.getElementById('viewFinance').classList.remove('hidden');
-        document.getElementById('tabFinanceBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
-      } else if (tab === 'settings') {
-        document.getElementById('viewSettings').classList.remove('hidden');
-        document.getElementById('tabSettingsBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
+      const btns = ['tabOverviewBtn', 'tabContractsBtn', 'tabDisputesBtn', 'tabKYCBtn', 'tabUsersBtn', 'tabPayoutsBtn', 'tabFinanceBtn', 'tabSettingsBtn'];
+      btns.forEach(b => {
+        const el = document.getElementById(b);
+        if (el) el.className = 'w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition';
+      });
+
+      const activeView = 'view' + tab.charAt(0).toUpperCase() + tab.slice(1);
+      const activeBtn = 'tab' + tab.charAt(0).toUpperCase() + tab.slice(1) + 'Btn';
+      
+      const vEl = document.getElementById(activeView);
+      const bEl = document.getElementById(activeBtn);
+      if (vEl) vEl.classList.remove('hidden');
+      if (bEl) bEl.className = 'w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
+    }
+
+    function resolveDispute(decision) {
+      const actions = document.getElementById('arbitrationActions');
+      if (decision === 'freelancer') {
+        actions.innerHTML = '<div class="p-3 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">✓ تم تحرير مبلغ الضمان 600.00$ لصالح المهندس بالكامل.</div>';
+        showToast(currentLang === 'ar' ? 'تم تحرير أموال الضمان للمهندس وإغلاق النزاع بنجاح.' : 'Dispute resolved: 100% Escrow released to engineer.');
+      } else if (decision === 'client') {
+        actions.innerHTML = '<div class="p-3 bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold rounded-xl">✓ تم إرجاع مبلغ 600.00$ إلى حساب العميل بنجاح.</div>';
+        showToast(currentLang === 'ar' ? 'تم إرجاع المبلغ للعميل وإغلاق النزاع.' : 'Dispute resolved: 100% Refund issued to client.');
+      } else {
+        actions.innerHTML = '<div class="p-3 bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold rounded-xl">✓ تم تطبيق التسوية العادلة: تحويل 300.00$ للمهندس و 300.00$ للعميل.</div>';
+        showToast(currentLang === 'ar' ? 'تم تطبيق التسوية 50/50 بين الطرفين بنجاح.' : 'Dispute resolved: 50/50 Settlement executed.');
+      }
+      document.getElementById('metricDisputeVal').innerText = '0';
+      document.getElementById('badgeDisputeCount').innerText = '0';
+    }
+
+    function approveKYC(id) {
+      const btns = document.getElementById('kycBtns' + id);
+      btns.innerHTML = '<span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">تم التحقق بنجاح ✓</span>';
+      showToast(currentLang === 'ar' ? 'تم اعتماد وتوثيق المهندس ومنحه شارة Verified Space Engineer!' : 'Engineer successfully verified with Verified Badge!');
+      
+      const vEl = document.getElementById('metricVerifiedVal');
+      vEl.innerText = parseInt(vEl.innerText) + 1;
+      
+      const bKYC = document.getElementById('badgeKYCCount');
+      const cur = parseInt(bKYC.innerText);
+      bKYC.innerText = cur > 0 ? cur - 1 : 0;
+    }
+
+    function rejectKYC(id) {
+      const reason = prompt(currentLang === 'ar' ? 'سبب طلب المراجعة أو المستند الناقص:' : 'Reason for rejection or missing document:');
+      if (reason) {
+        const btns = document.getElementById('kycBtns' + id);
+        btns.innerHTML = '<span class="px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold rounded-xl">بانتظار المستند المطلوب ⏳</span>';
+        showToast(currentLang === 'ar' ? 'تم إرسال إشعار للمهندس بطلب المستند الإضافي.' : 'Notification sent to engineer requesting additional documents.');
       }
     }
 
-    function openAddContract() {
-      const title = prompt(currentLang === 'ar' ? 'أدخل عنوان العقد الجديد:' : 'Enter new contract title:');
-      if (title) {
-        alert(currentLang === 'ar' ? '✓ تم إدراج العقد الجديد وتأمينه بحساب الضمان Escrow بنجاح!' : '✓ New contract successfully secured in Escrow Vault!');
+    function approvePayout(id) {
+      const btns = document.getElementById('payoutBtns' + id);
+      btns.innerHTML = '<span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">تم التحويل بنجاح ✓</span>';
+      showToast(currentLang === 'ar' ? 'تم اعتماد وتأكيد التحويل البنكي الفوري بنجاح!' : 'Payout approved and funds transferred successfully!');
+      
+      const bP = document.getElementById('badgePayoutCount');
+      const cur = parseInt(bP.innerText);
+      bP.innerText = cur > 0 ? cur - 1 : 0;
+    }
+
+    function toggleTopRated(badgeId) {
+      const el = document.getElementById(badgeId);
+      if (el.innerText.includes('Top Rated')) {
+        el.innerText = 'مهندس معتمد ✓';
+        el.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+      } else {
+        el.innerText = 'Top Rated ⭐';
+        el.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
       }
+      showToast(currentLang === 'ar' ? 'تم تحديث شارة المهندس بنجاح!' : 'Engineer badge updated successfully!');
     }
 
     function toggleLang() {
@@ -344,6 +694,10 @@
 
       document.getElementById('tabOverview').innerText = isAr ? 'لوحة التحكم الرئيسية' : 'Mission Control Overview';
       document.getElementById('tabContracts').innerText = isAr ? 'العقود وحسابات Escrow' : 'Contracts & Escrow Vault';
+      document.getElementById('tabDisputes').innerText = isAr ? 'التحكيم وفض النزاعات' : 'Dispute Arbitration';
+      document.getElementById('tabKYC').innerText = isAr ? 'فحص وتوثيق الهويات KYC' : 'KYC Verification Hub';
+      document.getElementById('tabUsers').innerText = isAr ? 'إدارة الأعضاء والشارات' : 'User Governance';
+      document.getElementById('tabPayouts').innerText = isAr ? 'اعتماد طلبات السحب' : 'Payout Approvals';
       document.getElementById('tabFinance').innerText = isAr ? 'التقارير المالية والبوابات' : 'Financial Gateways';
       document.getElementById('tabSettings').innerText = isAr ? 'إعدادات النظام والعمولة' : 'System & Commission Engine';
     }

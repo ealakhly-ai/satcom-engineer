@@ -42,6 +42,19 @@
           <a href="#domains" id="navJobs" class="hover:text-cyan-400 transition py-2 px-1">تصفح المشاريع</a>
           <a href="#domains" id="navFreelancers" class="hover:text-cyan-400 transition py-2 px-1">نخبة المهندسين</a>
           <a href="#escrow-calc" id="navPricing" class="hover:text-cyan-400 transition py-2 px-1">الضمان المالي والبوابات</a>
+          <button onclick="openChatModal()" id="navChat" class="hover:text-cyan-400 text-slate-300 transition py-2 px-1 flex items-center gap-1 cursor-pointer">
+            <span>💬</span>
+            <span id="navChatText">المحادثات الحية</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </button>
+          <button onclick="openProposalModal()" id="navProposal" class="hover:text-cyan-400 text-slate-300 transition py-2 px-1 flex items-center gap-1 cursor-pointer">
+            <span>📝</span>
+            <span id="navProposalText">تقديم عرض</span>
+          </button>
+          <button onclick="openWalletModal()" id="navWallet" class="hover:text-cyan-400 text-slate-300 transition py-2 px-1 flex items-center gap-1 cursor-pointer">
+            <span>💰</span>
+            <span id="navWalletText">المحفظة</span>
+          </button>
           <a href="./admin.html" id="navAdmin" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-1 group" title="لوحة التحكم الإدارية">
             <span class="text-indigo-400 group-hover:text-cyan-400">🛡️</span>
             <span id="navAdminText">لوحة الإدارة</span>
@@ -191,6 +204,14 @@
           >
             <span id="lblPostJobHero">انشر مشروع جديد</span>
           </button>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+              تقديم عرض هندسي ↗
+            </button>
+            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+              💬 محادثة العميل
+            </button>
+          </div>
         </div>
 
       </div>
@@ -263,6 +284,14 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">LEO / GEO</span>
             <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">DVB-S2X</span>
           </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+              تقديم عرض هندسي ↗
+            </button>
+            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+              💬 محادثة العميل
+            </button>
+          </div>
         </div>
 
         <!-- Card 2: RF & Antenna -->
@@ -282,6 +311,14 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">Link Budget</span>
             <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">HFSS</span>
           </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+              تقديم عرض هندسي ↗
+            </button>
+            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+              💬 محادثة العميل
+            </button>
+          </div>
         </div>
 
         <!-- Card 3: SDR & Embedded -->
@@ -300,6 +337,14 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">SDR</span>
             <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">DSP</span>
             <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">FPGA / VHDL</span>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+              تقديم عرض هندسي ↗
+            </button>
+            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+              💬 محادثة العميل
+            </button>
           </div>
         </div>
 
@@ -672,6 +717,271 @@
         closeAuthModal();
       }, 2500);
     }
+
+    // UPWORK WORKSPACE FUNCTIONS
+    function openChatModal() {
+      document.getElementById('chatModal').classList.remove('hidden');
+      document.getElementById('chatModal').classList.add('flex');
+    }
+    function closeChatModal() {
+      document.getElementById('chatModal').classList.add('hidden');
+      document.getElementById('chatModal').classList.remove('flex');
+    }
+    function handleSendChat(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInputBox');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const stream = document.getElementById('chatStream');
+      const myBubble = document.createElement('div');
+      myBubble.className = 'flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto animate-fadeIn';
+      myBubble.innerHTML = `
+        <span class="text-[10px] text-indigo-400 font-bold">أنت:</span>
+        <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">${text}</div>
+        <span class="text-[9px] text-slate-500 font-mono">الآن • ✓✓ مقروءة</span>
+      `;
+      stream.appendChild(myBubble);
+      input.value = '';
+      stream.scrollTop = stream.scrollHeight;
+
+      // Simulated auto-reply from client after 1.5s
+      setTimeout(() => {
+        const replyBubble = document.createElement('div');
+        replyBubble.className = 'flex flex-col items-start space-y-1 max-w-[80%] animate-fadeIn';
+        replyBubble.innerHTML = `
+          <span class="text-[10px] text-cyan-400 font-bold">Orbital Space Systems:</span>
+          <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
+            تم استلام رسالتكم بنجاح وجاري فحص المخرجات واعتماد الدفعة عبر نظام Escrow.
+          </div>
+          <span class="text-[9px] text-slate-500 font-mono">الآن</span>
+        `;
+        stream.appendChild(replyBubble);
+        stream.scrollTop = stream.scrollHeight;
+      }, 1500);
+    }
+
+    function openProposalModal() {
+      document.getElementById('proposalModal').classList.remove('hidden');
+      document.getElementById('proposalModal').classList.add('flex');
+    }
+    function closeProposalModal() {
+      document.getElementById('proposalModal').classList.add('hidden');
+      document.getElementById('proposalModal').classList.remove('flex');
+    }
+    function handleSubmitProposal(e) {
+      e.preventDefault();
+      alert(currentLang === 'ar' 
+        ? '✓ تم إرسال عرضك الهندسي إلى صاحب العمل بنجاح! ستصلك إشعارات المراجعة والمحادثة.'
+        : '✓ Engineering proposal submitted successfully! You will be notified upon client review.');
+      closeProposalModal();
+    }
+
+    function openWalletModal() {
+      document.getElementById('walletModal').classList.remove('hidden');
+      document.getElementById('walletModal').classList.add('flex');
+    }
+    function closeWalletModal() {
+      document.getElementById('walletModal').classList.add('hidden');
+      document.getElementById('walletModal').classList.remove('flex');
+    }
+    function handleRequestPayout(e) {
+      e.preventDefault();
+      alert(currentLang === 'ar'
+        ? '✓ تم تسجيل طلب السحب بنجاح، وجاري التحويل البنكي الفوري لحسابك المعتمد!'
+        : '✓ Payout request received! Bank transfer is being processed to your verified account.');
+      closeWalletModal();
+    }
+
   </script>
+
+  <!-- ================= UPWORK MODAL 1: LIVE CHAT & MESSAGING WORKSPACE ================= -->
+  <div id="chatModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl relative my-8 flex flex-col h-[560px]">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-black">
+            💬
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white" id="chatHeaderTitle">المحادثة الهندسية الفورية (Live Chat)</h3>
+            <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              متصل الآن مشفر بالكامل • Upwork Workspace Mode
+            </span>
+          </div>
+        </div>
+        <button onclick="closeChatModal()" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Project Context Header -->
+      <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex items-center justify-between text-xs">
+        <div>
+          <span class="text-slate-400 block text-[10px]">المشروع المرتبط:</span>
+          <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
+        </div>
+        <div class="text-right">
+          <span class="text-slate-400 block text-[10px]">خزينة Escrow:</span>
+          <span class="font-bold text-emerald-400 font-mono">$600.00 مؤمّنة ✓</span>
+        </div>
+      </div>
+
+      <!-- Messages Stream Area -->
+      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-3 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
+        <!-- Message 1 (Client) -->
+        <div class="flex flex-col items-start space-y-1 max-w-[80%]">
+          <span class="text-[10px] text-cyan-400 font-bold">Orbital Space Systems (صاحب العمل):</span>
+          <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
+            مرحباً م. أحمد، نريد التأكد من اكتمال محاكاة CST لمصفوفة 16x16 عنصراً قبل تحرير الدفعة الأولى من حساب الضمان Escrow.
+          </div>
+          <span class="text-[9px] text-slate-500 font-mono">10:14 PM</span>
+        </div>
+
+        <!-- Message 2 (Engineer) -->
+        <div class="flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto">
+          <span class="text-[10px] text-indigo-400 font-bold">م. أحمد المنصوري (أنت):</span>
+          <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
+            أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.
+          </div>
+          <span class="text-[9px] text-slate-500 font-mono">10:18 PM • ✓✓ مقروءة</span>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <form onsubmit="handleSendChat(event)" class="flex items-center gap-2 pt-2 border-t border-slate-800">
+        <button type="button" onclick="alert('تم إرفاق ملف المحاكاة Ka_PhasedArray_Sim.cst بنجاح!')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer" title="إرفاق ملف هندسي">
+          📎
+        </button>
+        <input
+          type="text"
+          id="chatInputBox"
+          placeholder="اكتب رسالتك الفنية هنا..."
+          required
+          class="flex-1 py-2.5 px-3.5 rounded-xl border border-slate-700 bg-slate-950 text-white text-xs focus:outline-none focus:border-cyan-400"
+        />
+        <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-xl shadow-lg transition cursor-pointer">
+          إرسال ↗
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= UPWORK MODAL 2: PROPOSAL SUBMISSION WITH MILESTONES ================= -->
+  <div id="proposalModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-5 shadow-2xl relative my-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-black">
+            📝
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white" id="propTitle">تقديم عرض هندسي (Submit Proposal)</h3>
+            <span class="text-[10px] text-cyan-400 font-bold">بضمان 100% Escrow • صافي استلام كامل 0% عمولة على المهندس</span>
+          </div>
+        </div>
+        <button onclick="closeProposalModal()" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Project Snapshot -->
+      <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 text-xs space-y-1">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
+          <span class="font-mono text-emerald-400 font-bold text-sm">$600.00 Fixed</span>
+        </div>
+        <p class="text-[11px] text-slate-400">مطلوب تصميم هوائي مصفوفة طورية بتردد 28 GHz ومحاكاة المخطط الإشعاعي وميزانية الوصلة.</p>
+      </div>
+
+      <!-- Proposal Form -->
+      <form onsubmit="handleSubmitProposal(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1.5">مبلغ العرض المقترح للمشروع ($)</label>
+          <input type="number" id="propBidAmount" required value="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-cyan-400">
+          <div class="flex justify-between items-center text-[11px] text-emerald-400 font-bold mt-1.5 px-1">
+            <span>صافي ما تستلمه (100% بدون أي اقتطاع):</span>
+            <span id="propNetVal" class="font-mono text-sm">$600.00</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1.5">خطاب التقديم والمنهجية الفنية (Cover Letter)</label>
+          <textarea rows="3" required placeholder="اشرح خبرتك مع برمجيات CST Studio أو HFSS، وسابق أعمالك في هوائيات الأقمار الصناعية..." class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400 leading-relaxed"></textarea>
+        </div>
+
+        <!-- Milestones Schedule -->
+        <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="font-bold text-cyan-300 block text-xs">تجزئة دفعات العمل (Milestones Schedule):</span>
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px]">
+            <span>المرحلة 1: تصميم العناصر وحساب مصفوفة الطور</span>
+            <span class="font-mono text-emerald-400 font-bold">$300.00</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px]">
+            <span>المرحلة 2: محاكاة الفصوص الإشعاعية والتقرير الفني النهائي</span>
+            <span class="font-mono text-emerald-400 font-bold">$300.00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs rounded-xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
+          إرسال العرض الهندسي رسمياً ↗
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= UPWORK MODAL 3: WALLET & INSTANT PAYOUT REQUEST ================= -->
+  <div id="walletModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl relative my-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-black">
+            💰
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">المحفظة وسحب الأرباح (Wallet)</h3>
+            <span class="text-[10px] text-slate-400">نظام السحب الفوري متعدد القنوات</span>
+          </div>
+        </div>
+        <button onclick="closeWalletModal()" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
+      </div>
+
+      <!-- Balance Cards -->
+      <div class="grid grid-cols-2 gap-3">
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+          <span class="text-[11px] text-slate-400 block">الأرباح المتاحة للسحب:</span>
+          <span class="text-xl font-black text-emerald-400 font-mono mt-1 block">$600.00</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+          <span class="text-[11px] text-slate-400 block">في حساب الضمان Escrow:</span>
+          <span class="text-xl font-black text-cyan-400 font-mono mt-1 block">$1,250.00</span>
+        </div>
+      </div>
+
+      <!-- Payout Form -->
+      <form onsubmit="handleRequestPayout(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">المبلغ المراد سحبه ($)</label>
+          <input type="number" required value="600" max="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">قناة السحب الدولية</label>
+          <select class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+            <option value="swift">حوالة بنكية دولية SWIFT (IBAN)</option>
+            <option value="usdt">محفظة USDT Escrow (TRC20 / ERC20)</option>
+            <option value="paypal">حساب PayPal Global</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">تفاصيل الحساب البنكي / المحفظة</label>
+          <input type="text" required placeholder="IBAN أو عنوان المحفظة الرقمية..." class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black rounded-xl shadow-lg transition cursor-pointer">
+          تأكيد طلب السحب الفوري ↗
+        </button>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>

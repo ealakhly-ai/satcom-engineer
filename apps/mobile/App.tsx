@@ -7,11 +7,43 @@ import {
   ScrollView, 
   TouchableOpacity, 
   Image, 
-  TextInput 
+  TextInput,
+  Modal,
+  Alert
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 type TabType = 'jobs' | 'contracts' | 'messages' | 'register' | 'profile';
+
+interface Milestone {
+  id: string;
+  titleAr: string;
+  titleEn: string;
+  amount: number;
+  status: 'pending' | 'completed';
+}
+
+interface Contract {
+  id: string;
+  titleAr: string;
+  titleEn: string;
+  clientAr: string;
+  clientEn: string;
+  totalAmount: number;
+  milestones: Milestone[];
+  statusAr: string;
+  statusEn: string;
+}
+
+interface ChatMessage {
+  id: string;
+  sender: 'client' | 'engineer';
+  senderNameAr: string;
+  senderNameEn: string;
+  textAr: string;
+  textEn: string;
+  time: string;
+}
 
 export default function App() {
   const [locale, setLocale] = useState<'ar' | 'en'>('ar');
@@ -19,7 +51,125 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Client vs Freelancer Registration State (Upwork-Style)
+  const isAr = locale === 'ar';
+
+  const toggleLanguage = () => {
+    setLocale((prev) => (prev === 'ar' ? 'en' : 'ar'));
+  };
+
+  // Wallet State
+  const [walletBalance, setWalletBalance] = useState<number>(600);
+  const [escrowLocked, setEscrowLocked] = useState<number>(300);
+  const [showWithdrawModal, setShowWithdrawModal] = useState<boolean>(false);
+  const [withdrawAmount, setWithdrawAmount] = useState<string>('300');
+  const [withdrawChannel, setWithdrawChannel] = useState<'swift' | 'usdt' | 'paypal' | 'stripe'>('usdt');
+  const [withdrawDestination, setWithdrawDestination] = useState<string>('TXYZ9876543210SatcomWallet');
+  const [withdrawSuccessMsg, setWithdrawSuccessMsg] = useState<string>('');
+
+  // Proposal Submission Modal State
+  const [selectedJobForProposal, setSelectedJobForProposal] = useState<any | null>(null);
+  const [proposalBid, setProposalBid] = useState<string>('300');
+  const [proposalMilestone1, setProposalMilestone1] = useState<string>('150');
+  const [proposalMilestone2, setProposalMilestone2] = useState<string>('150');
+  const [proposalLetter, setProposalLetter] = useState<string>(
+    'أنا مهندس اتصالات فضائية وراديو بخبرة 8 سنوات في CST Studio و HFSS، يسعدني تنفيذ محاكاة الهوائي واختبار أنماط الإشعاع وحساب ميزانية الرابط بدقة متناهية.'
+  );
+  const [proposalSuccessMsg, setProposalSuccessMsg] = useState<string>('');
+
+  // Upwork Space Engineering Jobs
+  const [jobsList, setJobsList] = useState<any[]>([
+    {
+      id: 'JOB-SAT-101',
+      titleAr: 'محاكاة هوائي Ka-Band Phased Array عبر CST Studio',
+      titleEn: 'Ka-Band Phased Array Antenna Simulation (CST Studio)',
+      band: 'Ka-Band',
+      budget: '$300',
+      clientAr: 'شركة مدارات الفضاء المتقدمة (دبي)',
+      clientEn: 'Advanced Orbital Space Systems (Dubai)',
+      descAr: 'مطلوب مهندس متخصص لتصميم ومحاكاة مصفوفة هوائيات في نطاق Ka-Band 28-30 GHz واستخراج مخططات S-Parameters ونمط الإشعاع 3D Far-Field.',
+      descEn: 'Seeking a specialized engineer to design & simulate a 28-30 GHz Ka-Band antenna array, providing S-Parameters and 3D radiation patterns in CST.',
+      skills: ['CST Studio', 'Ka-Band', 'Phased Array', 'Far-Field']
+    },
+    {
+      id: 'JOB-SAT-102',
+      titleAr: 'حساب ميزانية الرابط Link Budget لكوكبة أقمار LEO',
+      titleEn: 'LEO Constellation Link Budget & Rain Attenuation Analysis',
+      band: 'Link Budget',
+      budget: '$300',
+      clientAr: 'المركز الإقليمي لتقنيات الأقمار الصناعية',
+      clientEn: 'Regional Center for Satellite Tech',
+      descAr: 'إعداد Link Budget كامل مع نمذجة تلاشي الأمطار (Rain Fade ITU-R P.618) ومحاكاة هوامش Eb/N0 لكوكبة أقمار في مدار أرضي منخفض LEO.',
+      descEn: 'Prepare full uplink/downlink link budgets with ITU-R P.618 rain attenuation modeling and Eb/N0 margins for LEO constellation.',
+      skills: ['Link Budget', 'MATLAB', 'LEO', 'ITU-R', 'Rain Fade']
+    },
+    {
+      id: 'JOB-SAT-103',
+      titleAr: 'تصميم مرشح موجي دليلي Waveguide Diplexer لنطاق C-Band',
+      titleEn: 'C-Band Waveguide Diplexer & BPF Filter Prototyping',
+      band: 'CST Studio',
+      budget: '$300',
+      clientAr: 'مؤسسة أفق الفضاء للاتصالات',
+      clientEn: 'Horizon Space Telecom Corp',
+      descAr: 'تصميم مرشح تجويف موجي بنطاق ترددات الاستقبال والإرسال C-Band مع تحقيق عزل أعلى من 60dB وفقد إدخال أقل من 0.3dB.',
+      descEn: 'Design a cavity waveguide diplexer for C-Band Tx/Rx with >60dB isolation and <0.3dB insertion loss using CST Microwave Studio.',
+      skills: ['C-Band', 'Waveguide', 'BPF Filter', 'RF Microwave']
+    }
+  ]);
+
+  // Contracts & Milestones State (Escrow)
+  const [contractsList, setContractsList] = useState<Contract[]>([
+    {
+      id: 'CTR-SAT-902',
+      titleAr: 'تصميم ومحاكاة هوائي المحطة الأرضية Ka-Band Ground Station',
+      titleEn: 'Ka-Band Ground Station Antenna Design & Simulation',
+      clientAr: 'د. فارس النعيمي (شركة OrbitSat Aerospace)',
+      clientEn: 'Dr. Faris Al-Nuaimi (OrbitSat Aerospace)',
+      totalAmount: 300,
+      statusAr: 'جاري العمل • مرحلة 2 قيد الاعتماد',
+      statusEn: 'In Progress • Milestone 2 Submitted',
+      milestones: [
+        {
+          id: 'M1',
+          titleAr: 'المرحلة 1: بناء النموذج في CST واستخراج معايير S11 ($150)',
+          titleEn: 'Milestone 1: CST Model Setup & S11 S-Parameters ($150)',
+          amount: 150,
+          status: 'completed'
+        },
+        {
+          id: 'M2',
+          titleAr: 'المرحلة 2: تقرير نمط الإشعاع ثلاثي الأبعاد والربح 3D Gain ($150)',
+          titleEn: 'Milestone 2: 3D Radiation Pattern & Far-Field Gain ($150)',
+          amount: 150,
+          status: 'pending'
+        }
+      ]
+    }
+  ]);
+
+  // Messages / Technical Workroom State
+  const [messagesList, setMessagesList] = useState<ChatMessage[]>([
+    {
+      id: 'msg-1',
+      sender: 'client',
+      senderNameAr: 'د. فارس النعيمي (OrbitSat)',
+      senderNameEn: 'Dr. Faris Al-Nuaimi (OrbitSat)',
+      textAr: 'مرحباً مهندس، هل قمت بتحديث ملف المحاكاة الخاص بهوائي Ka-Band واستخراج مخططات الـ Far-Field؟',
+      textEn: 'Hello engineer, did you update the Ka-Band simulation files and export the 3D Far-Field patterns?',
+      time: '10:15 AM'
+    },
+    {
+      id: 'msg-2',
+      sender: 'engineer',
+      senderNameAr: 'أنا (المهندس المعتمد)',
+      senderNameEn: 'Me (Verified Engineer)',
+      textAr: 'أهلاً دكتور فارس، نعم تم الانتهاء بنجاح! تم تحقيق كسب 38.5 dBi عند تردد 29.5 GHz ونسبة VSWR أقل من 1.25. لقد رفعت الملفات لاعتماد المرحلة 2.',
+      textEn: 'Hello Dr. Faris, yes completed! Achieved 38.5 dBi gain at 29.5 GHz with VSWR < 1.25. I uploaded the .cst bundle for Milestone 2 approval.',
+      time: '10:30 AM'
+    }
+  ]);
+  const [chatInputText, setChatInputText] = useState<string>('');
+
+  // Client vs Freelancer Registration State
   const [regRole, setRegRole] = useState<'client' | 'freelancer'>('client');
   const [regSuccess, setRegSuccess] = useState(false);
   const [regForm, setRegForm] = useState({
@@ -31,16 +181,138 @@ export default function App() {
     hourlyRate: '',
   });
 
-  const isAr = locale === 'ar';
+  // Action: Release Milestone Escrow
+  const handleReleaseMilestone = (contractId: string, milestoneId: string) => {
+    setContractsList((prev) =>
+      prev.map((ctr) => {
+        if (ctr.id === contractId) {
+          const updatedMilestones = ctr.milestones.map((m) => {
+            if (m.id === milestoneId && m.status === 'pending') {
+              setWalletBalance((curr) => curr + m.amount);
+              setEscrowLocked((curr) => Math.max(0, curr - m.amount));
+              return { ...m, status: 'completed' as const };
+            }
+            return m;
+          });
+          return {
+            ...ctr,
+            milestones: updatedMilestones,
+            statusAr: 'مكتمل بنجاح • تم تحرير كامل الـ Escrow',
+            statusEn: 'Completed • 100% Escrow Released'
+          };
+        }
+        return ctr;
+      })
+    );
 
-  const toggleLanguage = () => {
-    setLocale((prev) => (prev === 'ar' ? 'en' : 'ar'));
+    Alert.alert(
+      isAr ? 'تم تحرير دفعة المرحلة بنجاح! 🚀' : 'Milestone Escrow Released! 🚀',
+      isAr 
+        ? 'تم تحرير 150$ من حساب الضمان وإيداعها مباشرة في محفظتك المتاحة للسحب.' 
+        : '$150 has been safely released from Escrow into your available wallet balance.'
+    );
   };
 
-  // Production-Ready Clean State (No Demo Data)
-  const [jobsList, setJobsList] = useState<any[]>([]);
-  const [contractsList, setContractsList] = useState<any[]>([]);
-  const [messagesList, setMessagesList] = useState<any[]>([]);
+  // Action: Send Chat Message
+  const handleSendMessage = () => {
+    if (!chatInputText.trim()) return;
+
+    const newMsg: ChatMessage = {
+      id: 'msg-' + Date.now(),
+      sender: 'engineer',
+      senderNameAr: 'أنا (المهندس المعتمد)',
+      senderNameEn: 'Me (Verified Engineer)',
+      textAr: chatInputText,
+      textEn: chatInputText,
+      time: 'الآن'
+    };
+
+    setMessagesList((prev) => [...prev, newMsg]);
+    setChatInputText('');
+
+    // Simulated automated client reply
+    setTimeout(() => {
+      const clientReply: ChatMessage = {
+        id: 'msg-reply-' + Date.now(),
+        sender: 'client',
+        senderNameAr: 'د. فارس النعيمي (OrbitSat)',
+        senderNameEn: 'Dr. Faris Al-Nuaimi (OrbitSat)',
+        textAr: 'تم استلام ردك ومخرجات المشروع بنجاح. نقوم حالياً بفحص نتائج المحاكاة في غرفة العمليات لاعتماد تحرير المبلغ من Escrow فوراً.',
+        textEn: 'Received your project deliverable updates. We are reviewing the CST simulation curves right now to release the Escrow milestone payout.',
+        time: 'الآن'
+      };
+      setMessagesList((prev) => [...prev, clientReply]);
+    }, 1200);
+  };
+
+  // Action: Submit Proposal
+  const handleSubmitProposal = () => {
+    if (!selectedJobForProposal) return;
+
+    const newContract: Contract = {
+      id: 'CTR-SAT-' + Math.floor(100 + Math.random() * 900),
+      titleAr: selectedJobForProposal.titleAr,
+      titleEn: selectedJobForProposal.titleEn,
+      clientAr: selectedJobForProposal.clientAr,
+      clientEn: selectedJobForProposal.clientEn,
+      totalAmount: parseFloat(proposalBid) || 300,
+      statusAr: 'عقد نشط حديثاً • تم حجز Escrow بنسبة 100%',
+      statusEn: 'Active Contract • 100% Escrow Secured',
+      milestones: [
+        {
+          id: 'M1',
+          titleAr: `مرحلة 1: المتطلبات والنمذجة ($${proposalMilestone1})`,
+          titleEn: `Milestone 1: Setup & Modeling ($${proposalMilestone1})`,
+          amount: parseFloat(proposalMilestone1) || 150,
+          status: 'pending'
+        },
+        {
+          id: 'M2',
+          titleAr: `مرحلة 2: المحاكاة والتحقق النهائي ($${proposalMilestone2})`,
+          titleEn: `Milestone 2: Final Verification & Plots ($${proposalMilestone2})`,
+          amount: parseFloat(proposalMilestone2) || 150,
+          status: 'pending'
+        }
+      ]
+    };
+
+    setContractsList((prev) => [newContract, ...prev]);
+    setProposalSuccessMsg(
+      isAr 
+        ? 'تم تقديم العرض واعتماد حجز Escrow بنجاح! تم نقل المشروع إلى قائمة عقودك.'
+        : 'Proposal submitted! 100% Escrow secured and contract created.'
+    );
+
+    setTimeout(() => {
+      setSelectedJobForProposal(null);
+      setProposalSuccessMsg('');
+      setActiveTab('contracts');
+    }, 1500);
+  };
+
+  // Action: Submit Withdrawal Request
+  const handleExecuteWithdrawal = () => {
+    const amt = parseFloat(withdrawAmount) || 0;
+    if (amt <= 0 || amt > walletBalance) {
+      Alert.alert(
+        isAr ? 'تنبيه' : 'Alert',
+        isAr ? 'المبلغ المدخل غير صالح أو يتجاوز الرصيد المتاح' : 'Invalid amount or exceeds available balance'
+      );
+      return;
+    }
+
+    setWalletBalance((prev) => prev - amt);
+    setWithdrawSuccessMsg(
+      isAr 
+        ? `✓ تم إرسال طلب سحب بقيمة $${amt.toFixed(2)} بنجاح إلى حساب ${withdrawChannel.toUpperCase()}`
+        : `✓ Withdrawal request of $${amt.toFixed(2)} sent successfully via ${withdrawChannel.toUpperCase()}`
+    );
+
+    setTimeout(() => {
+      setShowWithdrawModal(false);
+      setWithdrawSuccessMsg('');
+    }, 1800);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -71,8 +343,8 @@ export default function App() {
         <View style={styles.guaranteeStrip}>
           <Text style={styles.guaranteeText}>
             {isAr 
-              ? '⭐ رسم المنصة 50$ فقط • ضمان Escrow 100% • دفع وسحب دولي' 
-              : '⭐ Flat $50 Fee • 100% Escrow Protection • Global Payouts'}
+              ? '⭐ رسم المنصة 20$ لكل شريحة 300$ • ضمان Escrow 100% • دفع وسحب دولي' 
+              : '⭐ $20 Tier Fee per $300 • 100% Escrow Protected • Global Payouts'}
           </Text>
         </View>
       </View>
@@ -96,7 +368,7 @@ export default function App() {
 
             {/* Specialty Pills */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.pillsRow}>
-              {['all', 'Ka-Band', 'CST Studio', 'Link Budget', 'SDR'].map((pill) => (
+              {['all', 'Ka-Band', 'CST Studio', 'Link Budget', 'C-Band'].map((pill) => (
                 <TouchableOpacity
                   key={pill}
                   onPress={() => setActiveFilter(pill)}
@@ -111,33 +383,16 @@ export default function App() {
 
             {/* Jobs List */}
             <View style={styles.jobsList}>
-              {jobsList.length === 0 ? (
-                <View style={styles.emptyStateBox}>
-                  <Text style={styles.emptyStateIcon}>🛰️</Text>
-                  <Text style={styles.emptyStateTitle}>
-                    {isAr ? 'لا توجد مشاريع منشورة حالياً' : 'No Open Projects Yet'}
-                  </Text>
-                  <Text style={styles.emptyStateSub}>
-                    {isAr
-                      ? 'كن أول من ينشر مشروعاً فضائياً أو هندسياً لاستقطاب نخبة المهندسين المعتمدين.'
-                      : 'Be the first client to publish an aerospace or RF project to hire top engineers.'}
-                  </Text>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => setActiveTab('register')}
-                    style={styles.emptyActionBtn}
-                  >
-                    <Text style={styles.emptyActionBtnText}>
-                      {isAr ? 'نشر مشروع / تسجيل جديد' : 'Post Project / Register'}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                jobsList.map((job) => (
+              {jobsList
+                .filter((job) => activeFilter === 'all' || job.skills.includes(activeFilter) || job.band === activeFilter)
+                .map((job) => (
                   <View key={job.id} style={styles.jobCard}>
                     <View style={styles.jobTopRow}>
                       <View style={styles.bandBadge}>
                         <Text style={styles.bandBadgeText}>{job.band}</Text>
+                      </View>
+                      <View style={styles.escrowPill}>
+                        <Text style={styles.escrowPillText}>{isAr ? 'ضمان Escrow 100%' : '100% Escrow'}</Text>
                       </View>
                       <Text style={styles.jobBudget}>{job.budget}</Text>
                     </View>
@@ -164,15 +419,18 @@ export default function App() {
                         {isAr ? job.clientAr : job.clientEn}
                       </Text>
 
-                      <TouchableOpacity activeOpacity={0.8} style={styles.applyBtn}>
+                      <TouchableOpacity 
+                        activeOpacity={0.8} 
+                        style={styles.applyBtn}
+                        onPress={() => setSelectedJobForProposal(job)}
+                      >
                         <Text style={styles.applyBtnText}>
-                          {isAr ? 'تقديم عرض' : 'Apply'}
+                          {isAr ? 'تقديم عرض (Upwork)' : 'Submit Proposal'}
                         </Text>
                       </TouchableOpacity>
                     </View>
                   </View>
-                ))
-              )}
+                ))}
             </View>
           </View>
         )}
@@ -180,83 +438,147 @@ export default function App() {
         {/* TAB 2: CONTRACTS & ESCROW */}
         {activeTab === 'contracts' && (
           <View style={styles.tabContent}>
-            <Text style={[styles.sectionHeading, { textAlign: isAr ? 'right' : 'left' }]}>
-              {isAr ? 'عقودي النشطة وحسابات الضمان Escrow' : 'Active Contracts & Escrow Rooms'}
-            </Text>
-
-            {contractsList.length === 0 ? (
-              <View style={styles.emptyStateBox}>
-                <Text style={styles.emptyStateIcon}>📜</Text>
-                <Text style={styles.emptyStateTitle}>
-                  {isAr ? 'لا توجد عقود نشطة حالياً' : 'No Active Contracts'}
-                </Text>
-                <Text style={styles.emptyStateSub}>
-                  {isAr
-                    ? 'تبدأ العقود وتُحجز مبالغها 100% في Escrow فور قبول عروض المشاريع بين الطرفين.'
-                    : 'Contracts are created and funded 100% in Escrow upon proposal acceptance.'}
-                </Text>
+            <View style={styles.sectionHeaderRow}>
+              <Text style={styles.sectionHeading}>
+                {isAr ? 'عقودي وغرف الضمان المالي 100% Escrow' : 'Active Contracts & Escrow Rooms'}
+              </Text>
+              <View style={styles.secureEscrowBadge}>
+                <Text style={styles.secureEscrowText}>🛡️ {isAr ? 'أموالك محمية' : 'Funds Secured'}</Text>
               </View>
-            ) : (
-              contractsList.map((ctr) => (
-                <View key={ctr.id} style={styles.contractCard}>
-                  <View style={styles.contractHeader}>
-                    <Text style={styles.contractId}>{ctr.id}</Text>
-                    <Text style={styles.contractAmount}>{ctr.amount}</Text>
-                  </View>
+            </View>
 
-                  <Text style={[styles.contractTitle, { textAlign: isAr ? 'right' : 'left' }]}>
-                    {isAr ? ctr.titleAr : ctr.titleEn}
-                  </Text>
-
-                  <View style={styles.milestoneBox}>
-                    <Text style={styles.milestoneLabel}>{isAr ? 'المرحلة الحالية:' : 'Current Milestone:'}</Text>
-                    <Text style={styles.milestoneText}>{isAr ? ctr.milestoneAr : ctr.milestoneEn}</Text>
-                  </View>
-
-                  <View style={styles.contractStatusRow}>
-                    <Text style={styles.contractStatusText}>{isAr ? ctr.statusAr : ctr.statusEn}</Text>
-                    <TouchableOpacity style={styles.submitWorkBtn}>
-                      <Text style={styles.submitWorkBtnText}>{isAr ? 'تسليم المخرجات' : 'Submit Work'}</Text>
-                    </TouchableOpacity>
-                  </View>
+            {contractsList.map((ctr) => (
+              <View key={ctr.id} style={styles.contractCard}>
+                <View style={styles.contractHeader}>
+                  <Text style={styles.contractId}>#{ctr.id}</Text>
+                  <Text style={styles.contractAmount}>${ctr.totalAmount.toFixed(2)}</Text>
                 </View>
-              ))
-            )}
+
+                <Text style={[styles.contractTitle, { textAlign: isAr ? 'right' : 'left' }]}>
+                  {isAr ? ctr.titleAr : ctr.titleEn}
+                </Text>
+
+                <Text style={[styles.contractClient, { textAlign: isAr ? 'right' : 'left' }]}>
+                  👤 {isAr ? ctr.clientAr : ctr.clientEn}
+                </Text>
+
+                {/* Milestones Breakdown */}
+                <View style={styles.milestonesContainer}>
+                  <Text style={[styles.milestoneSectionTitle, { textAlign: isAr ? 'right' : 'left' }]}>
+                    {isAr ? 'مراحل المشروع والدفعات المالية:' : 'Project Milestones & Deliverables:'}
+                  </Text>
+                  {ctr.milestones.map((m, idx) => (
+                    <View key={m.id} style={styles.milestoneRowCard}>
+                      <View style={styles.milestoneInfo}>
+                        <Text style={[styles.milestoneIndex, { textAlign: isAr ? 'right' : 'left' }]}>
+                          {isAr ? `المرحلة ${idx + 1}` : `Milestone ${idx + 1}`}
+                        </Text>
+                        <Text style={[styles.milestoneTitleText, { textAlign: isAr ? 'right' : 'left' }]}>
+                          {isAr ? m.titleAr : m.titleEn}
+                        </Text>
+                      </View>
+                      
+                      <View style={styles.milestoneActions}>
+                        {m.status === 'completed' ? (
+                          <View style={styles.releasedPill}>
+                            <Text style={styles.releasedPillText}>✓ {isAr ? 'تم التحرير للمحفظة' : 'Released'}</Text>
+                          </View>
+                        ) : (
+                          <TouchableOpacity
+                            style={styles.releaseEscrowBtn}
+                            onPress={() => handleReleaseMilestone(ctr.id, m.id)}
+                          >
+                            <Text style={styles.releaseEscrowBtnText}>
+                              {isAr ? `تحرير $${m.amount} Escrow` : `Release $${m.amount}`}
+                            </Text>
+                          </TouchableOpacity>
+                        )}
+                      </View>
+                    </View>
+                  ))}
+                </View>
+
+                <View style={styles.contractFooterRow}>
+                  <Text style={styles.contractStatusText}>
+                    {isAr ? ctr.statusAr : ctr.statusEn}
+                  </Text>
+                  <TouchableOpacity 
+                    style={styles.openWorkroomBtn}
+                    onPress={() => setActiveTab('messages')}
+                  >
+                    <Text style={styles.openWorkroomBtnText}>
+                      💬 {isAr ? 'غرفة المحادثة الهندسية' : 'Workroom Chat'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
           </View>
         )}
 
-        {/* TAB 3: MESSAGES */}
+        {/* TAB 3: MESSAGES / WORKROOM */}
         {activeTab === 'messages' && (
           <View style={styles.tabContent}>
-            <Text style={[styles.sectionHeading, { textAlign: isAr ? 'right' : 'left' }]}>
-              {isAr ? 'محادثات العملاء والملفات الهندسية' : 'Client Messages & Workrooms'}
-            </Text>
-
-            {messagesList.length === 0 ? (
-              <View style={styles.emptyStateBox}>
-                <Text style={styles.emptyStateIcon}>💬</Text>
-                <Text style={styles.emptyStateTitle}>
-                  {isAr ? 'لا توجد محادثات جارية حالياً' : 'No Active Conversations'}
+            <View style={styles.chatRoomHeader}>
+              <View>
+                <Text style={styles.chatClientName}>
+                  {isAr ? 'د. فارس النعيمي (OrbitSat Aerospace)' : 'Dr. Faris Al-Nuaimi (OrbitSat)'}
                 </Text>
-                <Text style={styles.emptyStateSub}>
-                  {isAr
-                    ? 'ستظهر هنا رسائل النقاش الفني ومشاركة ملفات المحاكاة بمجرد التواصل.'
-                    : 'Technical workroom chats and CAD/simulation file exchanges will appear here.'}
+                <Text style={styles.chatContractRef}>
+                  {isAr ? 'العقد #CTR-SAT-902 • هوائي Ka-Band ($300 Escrow)' : 'Contract #CTR-SAT-902 • Ka-Band Antenna ($300 Escrow)'}
                 </Text>
               </View>
-            ) : (
-              messagesList.map((msg) => (
-                <TouchableOpacity key={msg.id} style={styles.messageCard} activeOpacity={0.7}>
-                  <View style={styles.messageTop}>
-                    <Text style={styles.messageSender}>{msg.sender}</Text>
-                    <Text style={styles.messageTime}>{isAr ? msg.timeAr : msg.timeEn}</Text>
+              <View style={styles.onlineBadge}>
+                <View style={styles.onlineDot} />
+                <Text style={styles.onlineText}>{isAr ? 'نشط الآن' : 'Active'}</Text>
+              </View>
+            </View>
+
+            {/* Chat Thread */}
+            <View style={styles.chatThreadBox}>
+              {messagesList.map((msg) => (
+                <View 
+                  key={msg.id} 
+                  style={[
+                    styles.chatBubble,
+                    msg.sender === 'engineer' ? styles.chatBubbleEngineer : styles.chatBubbleClient
+                  ]}
+                >
+                  <View style={styles.bubbleTop}>
+                    <Text style={styles.bubbleSender}>
+                      {isAr ? msg.senderNameAr : msg.senderNameEn}
+                    </Text>
+                    <Text style={styles.bubbleTime}>{msg.time}</Text>
                   </View>
-                  <Text style={[styles.messagePreview, { textAlign: isAr ? 'right' : 'left' }]}>
-                    {isAr ? msg.previewAr : msg.previewEn}
+                  <Text style={[styles.bubbleContent, { textAlign: isAr ? 'right' : 'left' }]}>
+                    {isAr ? msg.textAr : msg.textEn}
                   </Text>
-                </TouchableOpacity>
-              ))
-            )}
+                </View>
+              ))}
+            </View>
+
+            {/* Interactive Chat Input */}
+            <View style={styles.chatInputContainer}>
+              <TouchableOpacity style={styles.attachBtn} activeOpacity={0.7}>
+                <Text style={styles.attachBtnIcon}>📎</Text>
+              </TouchableOpacity>
+
+              <TextInput
+                placeholder={isAr ? 'اكتب رسالة فنية أو أرسل استفساراً...' : 'Type engineering message or update...'}
+                placeholderTextColor="#64748b"
+                style={[styles.chatTextInput, { textAlign: isAr ? 'right' : 'left' }]}
+                value={chatInputText}
+                onChangeText={setChatInputText}
+              />
+
+              <TouchableOpacity 
+                style={styles.sendChatBtn} 
+                onPress={handleSendMessage}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.sendChatBtnText}>{isAr ? 'إرسال ➤' : 'Send ➤'}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
 
@@ -269,7 +591,7 @@ export default function App() {
                 <Text style={styles.profileAvatarText}>SE</Text>
               </View>
               <Text style={styles.profileName}>
-                {isAr ? 'الملف الشخصي والمهني' : 'Engineering Profile'}
+                {isAr ? 'م. عماد الفضلي (Satcom Architect)' : 'Eng. Emad Al-Fadhli (Satcom Architect)'}
               </Text>
               <Text style={styles.profileRole}>
                 {isAr ? 'مهندس اتصالات فضائية وراديو (Satcom & RF)' : 'Satcom & RF Telecom Architect'}
@@ -278,29 +600,43 @@ export default function App() {
               {/* Satcom Verified Engineering Badges */}
               <View style={styles.profileBadgesRow}>
                 <View style={styles.topRatedBadge}>
-                  <Text style={styles.topRatedText}>{isAr ? 'حساب موثق ✓' : 'Verified Member ✓'}</Text>
+                  <Text style={styles.topRatedText}>⭐ {isAr ? 'Top Rated أعلى تقييم' : 'Top Rated'}</Text>
                 </View>
                 <View style={styles.jssBadge}>
-                  <Text style={styles.jssText}>{isAr ? 'ضمان Escrow 100%' : '100% Escrow Protected'}</Text>
+                  <Text style={styles.jssText}>✓ {isAr ? 'موثق الهوية والترخيص' : 'KYC Verified'}</Text>
+                </View>
+                <View style={styles.escrowProofBadge}>
+                  <Text style={styles.escrowProofText}>🛡️ {isAr ? 'ضمان Escrow 100%' : '100% Escrow'}</Text>
                 </View>
               </View>
             </View>
 
-            {/* Earnings & Wallet Card with Attractive Gradient Background */}
+            {/* Earnings & Wallet Card with Attractive Cosmic Gradient */}
             <View style={styles.walletCard}>
               <Text style={styles.walletTitle}>
-                {isAr ? 'محفظة الأرباح وضمان Escrow' : 'Wallet & Escrow Balance'}
+                {isAr ? 'الرصيد المتاح للسحب في المحفظة' : 'Available Wallet Balance'}
               </Text>
-              <Text style={styles.walletAmount}>$0.00</Text>
-              <Text style={styles.walletSub}>
-                {isAr 
-                  ? 'رصيد المحفظة متاح للسحب فور تحرير دفعات مراحل المشاريع 100%' 
-                  : 'Available balance ready for withdrawal upon project milestone release'}
-              </Text>
+              <Text style={styles.walletAmount}>${walletBalance.toFixed(2)}</Text>
 
-              <TouchableOpacity style={styles.withdrawBtn} activeOpacity={0.85}>
+              <View style={styles.walletStatsRow}>
+                <View style={styles.walletStatItem}>
+                  <Text style={styles.statLabel}>{isAr ? 'محجوز في Escrow:' : 'In Escrow Protection:'}</Text>
+                  <Text style={styles.statValue}>${escrowLocked.toFixed(2)}</Text>
+                </View>
+                <View style={styles.statDivider} />
+                <View style={styles.walletStatItem}>
+                  <Text style={styles.statLabel}>{isAr ? 'إجمالي الأرباح:' : 'Total Earned:'}</Text>
+                  <Text style={styles.statValue}>${(walletBalance + 600).toFixed(2)}</Text>
+                </View>
+              </View>
+
+              <TouchableOpacity 
+                style={styles.withdrawBtn} 
+                activeOpacity={0.85}
+                onPress={() => setShowWithdrawModal(true)}
+              >
                 <Text style={styles.withdrawBtnText}>
-                  {isAr ? 'طلب سحب الأرباح' : 'Withdraw Earnings'}
+                  💳 {isAr ? 'طلب سحب الأرباح الآن' : 'Withdraw Earnings Now'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -321,7 +657,7 @@ export default function App() {
                   <Text style={styles.gwBadgeText}>🏛️ SWIFT Wire</Text>
                 </View>
                 <View style={styles.gwBadge}>
-                  <Text style={styles.gwBadgeText}>🪙 USDT Crypto</Text>
+                  <Text style={styles.gwBadgeText}>🪙 USDT (TRC20)</Text>
                 </View>
               </View>
             </View>
@@ -329,12 +665,12 @@ export default function App() {
             {/* Escrow Guarantee Explainer */}
             <View style={styles.infoBox}>
               <Text style={styles.infoBoxTitle}>
-                {isAr ? 'حماية الضمان المالي 100% Escrow' : '100% Escrow Protection'}
+                🛡️ {isAr ? 'حماية الضمان المالي 100% Escrow' : '100% Escrow Protection'}
               </Text>
               <Text style={styles.infoBoxText}>
                 {isAr
-                  ? 'المهندس يستلم أتعابه كاملة 100% بحماية حساب الضمان دون أي استقطاعات نسبية، وتتم المعالجة المالية آلياً في الخلفية بأعلى معايير الأمان.'
-                  : 'Engineers receive 100% of proposal earnings backed by Escrow with zero percentage cuts and automated backend settlement.'}
+                  ? 'يستلم المهندس 100% من قيمة العرض دون اقتطاع أي نسبة مئوية، وتُدفع رسوم المنصة الشفافة ($20 لكل شريحة $300) آلياً في الخلفية مع ضمان كامل للطرفين.'
+                  : 'Engineers receive 100% of proposal bid with zero percent cut. The flat transparent fee ($20 per $300 tier) is handled automatically.'}
               </Text>
             </View>
 
@@ -539,6 +875,196 @@ export default function App() {
 
       </ScrollView>
 
+      {/* MODAL 1: UPWORK PROPOSAL SUBMISSION */}
+      <Modal
+        visible={selectedJobForProposal !== null}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setSelectedJobForProposal(null)}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>
+                {isAr ? 'تقديم عرض هندسي (Upwork Proposal)' : 'Submit Upwork Proposal'}
+              </Text>
+              <TouchableOpacity onPress={() => setSelectedJobForProposal(null)}>
+                <Text style={styles.modalCloseText}>✕</Text>
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView contentContainerStyle={styles.modalScroll}>
+              {selectedJobForProposal && (
+                <>
+                  <Text style={[styles.proposalJobTitle, { textAlign: isAr ? 'right' : 'left' }]}>
+                    {isAr ? selectedJobForProposal.titleAr : selectedJobForProposal.titleEn}
+                  </Text>
+                  <Text style={[styles.proposalClientName, { textAlign: isAr ? 'right' : 'left' }]}>
+                    👤 {isAr ? selectedJobForProposal.clientAr : selectedJobForProposal.clientEn}
+                  </Text>
+
+                  {/* Pricing & Escrow Breakdown */}
+                  <View style={styles.termsBox}>
+                    <Text style={[styles.termsBoxTitle, { textAlign: isAr ? 'right' : 'left' }]}>
+                      {isAr ? 'بنود التعاقد وحساب الضمان Escrow' : 'Contract Terms & Escrow Breakdown'}
+                    </Text>
+
+                    <View style={styles.termRow}>
+                      <Text style={styles.termLabel}>{isAr ? 'قيمة العقد الإجمالية:' : 'Total Proposal Bid:'}</Text>
+                      <TextInput
+                        value={proposalBid}
+                        onChangeText={setProposalBid}
+                        keyboardType="numeric"
+                        style={styles.termInput}
+                      />
+                    </View>
+
+                    <View style={styles.termRow}>
+                      <Text style={styles.termLabel}>{isAr ? 'المرحلة 1 ($):' : 'Milestone 1 ($):'}</Text>
+                      <TextInput
+                        value={proposalMilestone1}
+                        onChangeText={setProposalMilestone1}
+                        keyboardType="numeric"
+                        style={styles.termInput}
+                      />
+                    </View>
+
+                    <View style={styles.termRow}>
+                      <Text style={styles.termLabel}>{isAr ? 'المرحلة 2 ($):' : 'Milestone 2 ($):'}</Text>
+                      <TextInput
+                        value={proposalMilestone2}
+                        onChangeText={setProposalMilestone2}
+                        keyboardType="numeric"
+                        style={styles.termInput}
+                      />
+                    </View>
+
+                    <View style={styles.netPayoutCard}>
+                      <Text style={styles.netPayoutLabel}>
+                        {isAr ? 'صافي مستحقاتك كمهندس (100% بدون خصم):' : 'Your Net Payout (100% 0% Cut):'}
+                      </Text>
+                      <Text style={styles.netPayoutValue}>${proposalBid}.00</Text>
+                      <Text style={styles.netPayoutSub}>
+                        {isAr ? '⭐ رسم المنصة 20$ يُدفع آلياً في الخلفية' : '⭐ Flat $20 platform fee processed automatically'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Cover Letter */}
+                  <Text style={[styles.inputHeading, { textAlign: isAr ? 'right' : 'left' }]}>
+                    {isAr ? 'رسالة العرض (Cover Letter):' : 'Cover Letter:'}
+                  </Text>
+                  <TextInput
+                    multiline
+                    numberOfLines={4}
+                    value={proposalLetter}
+                    onChangeText={setProposalLetter}
+                    style={[styles.coverLetterInput, { textAlign: isAr ? 'right' : 'left' }]}
+                  />
+
+                  {proposalSuccessMsg ? (
+                    <View style={styles.proposalSuccessBox}>
+                      <Text style={styles.proposalSuccessText}>{proposalSuccessMsg}</Text>
+                    </View>
+                  ) : null}
+
+                  <TouchableOpacity
+                    style={styles.confirmProposalBtn}
+                    onPress={handleSubmitProposal}
+                  >
+                    <Text style={styles.confirmProposalBtnText}>
+                      {isAr ? 'تأكيد وحجز العقد في Escrow 🚀' : 'Confirm & Secure in Escrow 🚀'}
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
+      {/* MODAL 2: WITHDRAWAL REQUEST */}
+      <Modal
+        visible={showWithdrawModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowWithdrawModal(false)}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>
+                {isAr ? 'طلب سحب الأرباح' : 'Withdraw Earnings'}
+              </Text>
+              <TouchableOpacity onPress={() => setShowWithdrawModal(false)}>
+                <Text style={styles.modalCloseText}>✕</Text>
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView contentContainerStyle={styles.modalScroll}>
+              <View style={styles.availableBalanceBox}>
+                <Text style={styles.availLabel}>{isAr ? 'الرصيد المتاح للسحب:' : 'Available to Withdraw:'}</Text>
+                <Text style={styles.availAmount}>${walletBalance.toFixed(2)}</Text>
+              </View>
+
+              {/* Channel Selector */}
+              <Text style={[styles.inputHeading, { textAlign: isAr ? 'right' : 'left' }]}>
+                {isAr ? 'اختر قناة السحب المعتمدة:' : 'Select Payout Channel:'}
+              </Text>
+              <View style={styles.channelRow}>
+                {(['usdt', 'swift', 'paypal', 'stripe'] as const).map((ch) => (
+                  <TouchableOpacity
+                    key={ch}
+                    style={[styles.channelBtn, withdrawChannel === ch && styles.channelBtnActive]}
+                    onPress={() => setWithdrawChannel(ch)}
+                  >
+                    <Text style={[styles.channelBtnText, withdrawChannel === ch && styles.channelBtnTextActive]}>
+                      {ch === 'usdt' ? '🪙 USDT' : ch === 'swift' ? '🏛️ SWIFT' : ch === 'paypal' ? '🅿️ PayPal' : '💳 Stripe'}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              {/* Amount */}
+              <Text style={[styles.inputHeading, { textAlign: isAr ? 'right' : 'left' }]}>
+                {isAr ? 'مبلغ السحب ($):' : 'Withdrawal Amount ($):'}
+              </Text>
+              <TextInput
+                value={withdrawAmount}
+                onChangeText={setWithdrawAmount}
+                keyboardType="numeric"
+                style={styles.termInputWide}
+              />
+
+              {/* Destination */}
+              <Text style={[styles.inputHeading, { textAlign: isAr ? 'right' : 'left' }]}>
+                {isAr ? 'عنوان المحفظة أو رقم الحساب البنكي:' : 'Wallet Address or Bank IBAN:'}
+              </Text>
+              <TextInput
+                value={withdrawDestination}
+                onChangeText={setWithdrawDestination}
+                style={styles.termInputWide}
+              />
+
+              {withdrawSuccessMsg ? (
+                <View style={styles.proposalSuccessBox}>
+                  <Text style={styles.proposalSuccessText}>{withdrawSuccessMsg}</Text>
+                </View>
+              ) : null}
+
+              <TouchableOpacity
+                style={styles.confirmProposalBtn}
+                onPress={handleExecuteWithdrawal}
+              >
+                <Text style={styles.confirmProposalBtnText}>
+                  {isAr ? 'تأكيد السحب الفوري 💳' : 'Confirm Immediate Payout 💳'}
+                </Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
       {/* Satcom Mobile Bottom Tab Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity
@@ -603,15 +1129,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#050814', // Luxury deep space cosmic midnight
+    backgroundColor: '#050814',
   },
   header: {
-    backgroundColor: '#070f26', // Deep cosmic header
+    backgroundColor: '#070f26',
     paddingTop: 16,
     paddingHorizontal: 16,
     paddingBottom: 14,
     borderBottomWidth: 1.5,
-    borderBottomColor: 'rgba(56, 189, 248, 0.35)', // Radiant cyan accent
+    borderBottomColor: 'rgba(56, 189, 248, 0.35)',
     shadowColor: '#38bdf8',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
@@ -775,6 +1301,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#38bdf8',
   },
+  escrowPill: {
+    backgroundColor: 'rgba(16, 185, 129, 0.12)',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(16, 185, 129, 0.3)',
+  },
+  escrowPillText: {
+    color: '#34d399',
+    fontSize: 9,
+    fontWeight: 'bold',
+  },
   jobBudget: {
     fontSize: 17,
     fontWeight: '900',
@@ -822,6 +1361,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: 'bold',
     color: '#38bdf8',
+    flex: 1,
   },
   applyBtn: {
     backgroundColor: '#0284c7',
@@ -834,11 +1374,29 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: 'bold',
   },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
   sectionHeading: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '900',
     color: '#ffffff',
-    marginBottom: 4,
+  },
+  secureEscrowBadge: {
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#10b981',
+  },
+  secureEscrowText: {
+    color: '#34d399',
+    fontSize: 10,
+    fontWeight: 'bold',
   },
   contractCard: {
     backgroundColor: '#0d1733',
@@ -863,7 +1421,7 @@ const styles = StyleSheet.create({
     color: '#38bdf8',
   },
   contractAmount: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '900',
     color: '#10b981',
   },
@@ -872,70 +1430,212 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#ffffff',
   },
-  milestoneBox: {
-    backgroundColor: '#070f24',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
-  milestoneLabel: {
-    fontSize: 10,
-    color: '#94a3b8',
-    fontWeight: 'bold',
-  },
-  milestoneText: {
+  contractClient: {
     fontSize: 11,
-    fontWeight: '700',
-    color: '#38bdf8',
-    marginTop: 2,
+    color: '#94a3b8',
+    fontWeight: '600',
   },
-  contractStatusRow: {
+  milestonesContainer: {
+    backgroundColor: '#070f24',
+    borderRadius: 14,
+    padding: 10,
+    gap: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.06)',
+  },
+  milestoneSectionTitle: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: '#38bdf8',
+  },
+  milestoneRowCard: {
+    backgroundColor: '#0c1630',
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.15)',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 8,
+  },
+  milestoneInfo: {
+    flex: 1,
+  },
+  milestoneIndex: {
+    fontSize: 9,
+    color: '#64748b',
+    fontWeight: 'bold',
+  },
+  milestoneTitleText: {
+    fontSize: 11,
+    color: '#e2e8f0',
+    fontWeight: '700',
+    marginTop: 2,
+  },
+  milestoneActions: {
+    alignItems: 'flex-end',
+  },
+  releasedPill: {
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(16, 185, 129, 0.4)',
+  },
+  releasedPillText: {
+    color: '#34d399',
+    fontSize: 9,
+    fontWeight: 'bold',
+  },
+  releaseEscrowBtn: {
+    backgroundColor: '#059669',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+  },
+  releaseEscrowBtnText: {
+    color: '#ffffff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  contractFooterRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.08)',
   },
   contractStatusText: {
     fontSize: 10,
     fontWeight: 'bold',
-    color: '#34d399',
+    color: '#38bdf8',
+    flex: 1,
   },
-  submitWorkBtn: {
-    backgroundColor: '#0284c7',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+  openWorkroomBtn: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
   },
-  submitWorkBtnText: {
-    color: '#ffffff',
+  openWorkroomBtnText: {
+    color: '#38bdf8',
     fontSize: 10,
     fontWeight: 'bold',
   },
-  messageCard: {
+  chatRoomHeader: {
     backgroundColor: '#0d1733',
-    borderRadius: 18,
-    padding: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(56, 189, 248, 0.18)',
-    gap: 6,
-  },
-  messageTop: {
+    borderRadius: 16,
+    padding: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.2)',
   },
-  messageSender: {
-    fontSize: 12,
-    fontWeight: 'bold',
+  chatClientName: {
     color: '#ffffff',
+    fontSize: 13,
+    fontWeight: 'bold',
   },
-  messageTime: {
+  chatContractRef: {
+    color: '#38bdf8',
     fontSize: 10,
+    marginTop: 2,
+  },
+  onlineBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  onlineDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#10b981',
+  },
+  onlineText: {
+    color: '#10b981',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  chatThreadBox: {
+    gap: 10,
+    marginVertical: 4,
+  },
+  chatBubble: {
+    borderRadius: 16,
+    padding: 12,
+    borderWidth: 1,
+    maxWidth: '90%',
+  },
+  chatBubbleClient: {
+    backgroundColor: '#0c1630',
+    borderColor: 'rgba(56, 189, 248, 0.25)',
+    alignSelf: 'flex-start',
+  },
+  chatBubbleEngineer: {
+    backgroundColor: '#03346e',
+    borderColor: 'rgba(56, 189, 248, 0.5)',
+    alignSelf: 'flex-end',
+  },
+  bubbleTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 8,
+    marginBottom: 4,
+  },
+  bubbleSender: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#7dd3fc',
+  },
+  bubbleTime: {
+    fontSize: 9,
     color: '#94a3b8',
   },
-  messagePreview: {
+  bubbleContent: {
+    fontSize: 12,
+    color: '#ffffff',
+    lineHeight: 18,
+  },
+  chatInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: '#0c1630',
+    borderRadius: 16,
+    padding: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
+  },
+  attachBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+  attachBtnIcon: {
+    fontSize: 18,
+  },
+  chatTextInput: {
+    flex: 1,
+    color: '#ffffff',
+    fontSize: 12,
+    paddingVertical: 6,
+  },
+  sendChatBtn: {
+    backgroundColor: '#0284c7',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 12,
+  },
+  sendChatBtnText: {
+    color: '#ffffff',
     fontSize: 11,
-    color: '#94a3b8',
-    lineHeight: 16,
+    fontWeight: 'bold',
   },
   profileCard: {
     backgroundColor: '#0d1733',
@@ -967,7 +1667,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   profileName: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '900',
     color: '#ffffff',
   },
@@ -980,13 +1680,15 @@ const styles = StyleSheet.create({
   },
   profileBadgesRow: {
     flexDirection: 'row',
-    gap: 8,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 6,
     marginTop: 10,
   },
   topRatedBadge: {
     backgroundColor: 'rgba(251, 191, 36, 0.15)',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'rgba(251, 191, 36, 0.4)',
@@ -998,8 +1700,8 @@ const styles = StyleSheet.create({
   },
   jssBadge: {
     backgroundColor: 'rgba(16, 185, 129, 0.15)',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'rgba(16, 185, 129, 0.4)',
@@ -1009,12 +1711,25 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold',
   },
+  escrowProofBadge: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.4)',
+  },
+  escrowProofText: {
+    color: '#38bdf8',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
   walletCard: {
-    backgroundColor: '#091838', // Rich cosmic blue
+    backgroundColor: '#091838',
     borderRadius: 24,
     padding: 20,
     alignItems: 'center',
-    gap: 6,
+    gap: 8,
     borderWidth: 1.5,
     borderColor: 'rgba(56, 189, 248, 0.35)',
     shadowColor: '#38bdf8',
@@ -1030,20 +1745,43 @@ const styles = StyleSheet.create({
   },
   walletAmount: {
     color: '#ffffff',
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: '900',
   },
-  walletSub: {
-    color: '#bae6fd',
-    fontSize: 11,
-    textAlign: 'center',
+  walletStatsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    backgroundColor: '#050f24',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 14,
+  },
+  walletStatItem: {
+    alignItems: 'center',
+  },
+  statLabel: {
+    color: '#94a3b8',
+    fontSize: 9,
+    fontWeight: 'bold',
+  },
+  statValue: {
+    color: '#34d399',
+    fontSize: 13,
+    fontWeight: 'bold',
+    marginTop: 2,
+  },
+  statDivider: {
+    width: 1,
+    height: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   withdrawBtn: {
     backgroundColor: '#0284c7',
-    paddingHorizontal: 20,
+    paddingHorizontal: 22,
     paddingVertical: 10,
     borderRadius: 14,
-    marginTop: 8,
+    marginTop: 4,
     shadowColor: '#0284c7',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.4,
@@ -1114,11 +1852,6 @@ const styles = StyleSheet.create({
     gap: 6,
     marginTop: 4,
   },
-  creditTitle: {
-    fontSize: 10,
-    color: '#64748b',
-    fontWeight: '600',
-  },
   creditBadge: {
     backgroundColor: 'rgba(14, 165, 233, 0.12)',
     paddingHorizontal: 14,
@@ -1168,7 +1901,6 @@ const styles = StyleSheet.create({
     color: '#38bdf8',
     fontWeight: '900',
   },
-  // Upwork-Style Registration Styles
   regHeader: {
     marginBottom: 16,
   },
@@ -1320,42 +2052,211 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '900',
   },
-  emptyStateBox: {
+  // Modals Styling
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  modalCard: {
     backgroundColor: '#0c1630',
     borderRadius: 24,
-    padding: 28,
-    alignItems: 'center',
     borderWidth: 1.5,
-    borderColor: 'rgba(56, 189, 248, 0.25)',
-    marginVertical: 12,
+    borderColor: '#38bdf8',
+    maxHeight: '85%',
+    overflow: 'hidden',
   },
-  emptyStateIcon: {
-    fontSize: 44,
-    marginBottom: 10,
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(56, 189, 248, 0.2)',
+    backgroundColor: '#070f26',
   },
-  emptyStateTitle: {
+  modalTitle: {
     color: '#ffffff',
     fontSize: 15,
     fontWeight: 'bold',
-    marginBottom: 6,
-    textAlign: 'center',
   },
-  emptyStateSub: {
+  modalCloseText: {
     color: '#94a3b8',
+    fontSize: 18,
+    fontWeight: 'bold',
+    padding: 4,
+  },
+  modalScroll: {
+    padding: 16,
+    gap: 12,
+  },
+  proposalJobTitle: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  proposalClientName: {
+    color: '#38bdf8',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  termsBox: {
+    backgroundColor: '#070f24',
+    borderRadius: 16,
+    padding: 12,
+    gap: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.2)',
+  },
+  termsBoxTitle: {
+    color: '#38bdf8',
     fontSize: 12,
-    textAlign: 'center',
-    lineHeight: 18,
-    marginBottom: 14,
+    fontWeight: 'bold',
+    marginBottom: 4,
   },
-  emptyActionBtn: {
-    backgroundColor: '#0284c7',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 14,
+  termRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  emptyActionBtnText: {
+  termLabel: {
+    color: '#cbd5e1',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  termInput: {
+    backgroundColor: '#0c1630',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     color: '#ffffff',
     fontSize: 12,
     fontWeight: 'bold',
+    width: 90,
+    textAlign: 'center',
+  },
+  termInputWide: {
+    backgroundColor: '#070f24',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    color: '#ffffff',
+    fontSize: 12,
+  },
+  netPayoutCard: {
+    backgroundColor: 'rgba(16, 185, 129, 0.12)',
+    borderWidth: 1,
+    borderColor: '#10b981',
+    borderRadius: 12,
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  netPayoutLabel: {
+    color: '#a7f3d0',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  netPayoutValue: {
+    color: '#ffffff',
+    fontSize: 22,
+    fontWeight: '900',
+    marginTop: 2,
+  },
+  netPayoutSub: {
+    color: '#6ee7b7',
+    fontSize: 9,
+    marginTop: 2,
+  },
+  inputHeading: {
+    color: '#cbd5e1',
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginTop: 4,
+  },
+  coverLetterInput: {
+    backgroundColor: '#070f24',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.25)',
+    padding: 10,
+    color: '#ffffff',
+    fontSize: 11,
+    minHeight: 80,
+    textAlignVertical: 'top',
+  },
+  confirmProposalBtn: {
+    backgroundColor: '#0284c7',
+    paddingVertical: 12,
+    borderRadius: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  confirmProposalBtnText: {
+    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: 'bold',
+  },
+  proposalSuccessBox: {
+    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#10b981',
+  },
+  proposalSuccessText: {
+    color: '#34d399',
+    fontSize: 11,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  availableBalanceBox: {
+    backgroundColor: '#070f24',
+    borderRadius: 16,
+    padding: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.25)',
+  },
+  availLabel: {
+    color: '#7dd3fc',
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  availAmount: {
+    color: '#ffffff',
+    fontSize: 26,
+    fontWeight: '900',
+    marginTop: 4,
+  },
+  channelRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  channelBtn: {
+    backgroundColor: '#070f24',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  channelBtnActive: {
+    backgroundColor: '#0284c7',
+    borderColor: '#38bdf8',
+  },
+  channelBtnText: {
+    color: '#94a3b8',
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  channelBtnTextActive: {
+    color: '#ffffff',
   },
 });
