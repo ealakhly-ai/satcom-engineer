@@ -1,0 +1,23 @@
+name: Deploy to InfinityFree FTP
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ftp-deploy:
+    name: Deploy to InfinityFree
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftpupload.net
+        username: if0_42952556
+        password: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+        local-dir: ./htdocs/
+        server-dir: ./htdocs/
+        dangerous-clean-slate: false
