@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Satcom Engineers | لوحة تحكم الإدارة العليا (Mission Control)</title>
+  <title id="adminPageTitle">Satcom Engineers | لوحة تحكم الإدارة العليا (Mission Control)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,7 @@
       </form>
 
       <div class="pt-4 border-t border-slate-800 text-center text-[10px]">
-        <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+        <span class="text-cyan-400 font-extrabold" id="gateEmadsoft">تصميم وتطوير Emadsoft</span>
       </div>
     </div>
   </div>
@@ -79,9 +79,7 @@
         </button>
 
         <!-- View Platform Link -->
-        <a href="./index.html" target="_blank" id="navViewMain" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-cyan-400 bg-slate-800/80 text-slate-200 text-xs font-bold cursor-pointer">
-          <span>عرض المنصة الرئيسية ↗</span>
-        </a>
+        <a href="./index.html" target="_blank" id="navViewMain" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-cyan-400 bg-slate-800/80 text-slate-200 text-xs font-bold cursor-pointer"><span id="navViewMainText">عرض المنصة الرئيسية ↗</span></a>
 
         <!-- Admin Info & Logout -->
         <div class="flex items-center gap-2 border-r border-slate-800 pr-3">
@@ -89,9 +87,7 @@
             <div class="text-xs font-black text-white" id="navAdminTitle">مدير النظام (Admin)</div>
             <div class="text-[10px] text-cyan-400 font-mono">admin@satcom.com</div>
           </div>
-          <button onclick="handleLogout()" class="px-3 py-1.5 bg-rose-950/50 hover:bg-rose-900/70 border border-rose-500/30 text-rose-300 text-xs font-bold rounded-xl cursor-pointer" title="تسجيل الخروج">
-            قفل اللوحة 🔒
-          </button>
+          <button onclick="handleLogout()" class="px-3 py-1.5 bg-rose-950/50 hover:bg-rose-900/70 border border-rose-500/30 text-rose-300 text-xs font-bold rounded-xl cursor-pointer" title="تسجيل الخروج" id="navLockBtn">قفل اللوحة 🔒</button>
         </div>
       </div>
     </nav>
@@ -155,7 +151,7 @@
 
         <div class="pt-6 text-center">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950 border border-cyan-500/30 text-[10px]">
-            <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+            <span class="text-cyan-400 font-extrabold" id="sidebarEmadsoft">تصميم وتطوير Emadsoft</span>
           </div>
         </div>
       </aside>
@@ -176,9 +172,7 @@
         <div id="viewOverview" class="space-y-6">
           <div class="bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 p-6 rounded-3xl border border-indigo-500/30 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <span class="px-2.5 py-0.5 bg-indigo-500/20 text-cyan-300 font-bold rounded-lg text-xs border border-indigo-500/40">
-                Super Admin • الإدارة العليا
-              </span>
+              <span class="px-2.5 py-0.5 bg-indigo-500/20 text-cyan-300 font-bold rounded-lg text-xs border border-indigo-500/40" id="overviewBadge">Super Admin • الإدارة العليا</span>
               <h2 class="text-2xl font-black text-white mt-1" id="overviewHeader">غرفة العمليات المركزية (Mission Control)</h2>
               <p class="text-xs text-slate-300 mt-1" id="overviewSub">
                 متابعة تدفقات أموال الضمان Escrow، وعمولات المنصة ($20 لكل $300)، وفض النزاعات والتوثيق الرسمي
@@ -191,25 +185,25 @@
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardRev">إجمالي إيراد المنصة ($20 لكل $300)</span>
               <span class="text-2xl font-black text-emerald-400 mt-1 block" id="metricRevVal">$40.00</span>
-              <span class="text-[10px] text-emerald-300 block mt-1">محسوبة آلياً من العقود المكتملة</span>
+              <span class="text-[10px] text-emerald-300 block mt-1" id="subRev">محسوبة آلياً من العقود المكتملة</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardEscrow">أموال الضمان المحجوزة (Escrow)</span>
               <span class="text-2xl font-black text-cyan-400 mt-1 block" id="metricEscrowVal">$1,850.00</span>
-              <span class="text-[10px] text-cyan-300 block mt-1">عقود جارية مؤمنة ومحمية 100%</span>
+              <span class="text-[10px] text-cyan-300 block mt-1" id="subEscrow">عقود جارية مؤمنة ومحمية 100%</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardEng">المهندسون المعتمدون</span>
               <span class="text-2xl font-black text-white mt-1 block" id="metricVerifiedVal">8</span>
-              <span class="text-[10px] text-indigo-300 block mt-1">تم التحقق من رخص الفضاء و KYC</span>
+              <span class="text-[10px] text-indigo-300 block mt-1" id="subKYC">تم التحقق من رخص الفضاء و KYC</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardDispute">حالات النزاع النشطة</span>
               <span class="text-2xl font-black text-rose-400 mt-1 block" id="metricDisputeVal">1</span>
-              <span class="text-[10px] text-rose-300 block mt-1">بانتظار قرار التحكيم النهائي</span>
+              <span class="text-[10px] text-rose-300 block mt-1" id="subDispute">بانتظار قرار التحكيم النهائي</span>
             </div>
           </div>
 
@@ -261,7 +255,7 @@
                   <td class="p-4 font-mono text-cyan-400">#CTR-101</td>
                   <td class="p-4 font-bold text-white">Ka-Band Phased Array Antenna</td>
                   <td class="p-4">Orbital Systems Ltd</td>
-                  <td class="p-4">م. أحمد المنصوري</td>
+                  <td class="p-4" id="ctrEng1">م. أحمد المنصوري</td>
                   <td class="p-4 font-mono text-emerald-400 font-bold">$600.00</td>
                   <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30"><span id="ctrStatus1">نزاع قيد التحكيم ⚖️</span></span></td>
                 </tr>
@@ -269,7 +263,7 @@
                   <td class="p-4 font-mono text-cyan-400">#CTR-102</td>
                   <td class="p-4 font-bold text-white">CubeSat Link Budget & DVB-S2X</td>
                   <td class="p-4">SkyTelecom Space</td>
-                  <td class="p-4">م. طارق الغامدي</td>
+                  <td class="p-4" id="ctrEng2">م. طارق الغامدي</td>
                   <td class="p-4 font-mono text-emerald-400 font-bold">$1,250.00</td>
                   <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"><span id="ctrStatus2">مؤمّن جاري التنفيذ ✓</span></span></td>
                 </tr>
@@ -359,12 +353,10 @@
             <!-- KYC Item 1 -->
             <div id="kycCard1" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-sm">
-                  م.أ
-                </div>
+                <div class="w-12 h-12 rounded-2xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-sm" id="kycAvatar1">م.أ</div>
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="font-black text-white text-sm">م. أحمد المنصوري</span>
+                    <span class="font-black text-white text-sm" id="kycName1">م. أحمد المنصوري</span>
                     <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800" id="kycCountry1">الإمارات العربية المتحدة</span>
                   </div>
                   <div class="text-xs text-slate-400 mt-0.5" id="kycSpec1">التخصص: اتصالات الأقمار الصناعية وهوائيات Ka-Band</div>
@@ -372,25 +364,16 @@
                 </div>
               </div>
 
-              <div class="flex items-center gap-2" id="kycBtns1">
-                <button onclick="approveKYC(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
-                  اعتماد التوثيق ✓
-                </button>
-                <button onclick="rejectKYC(1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer">
-                  طلب مراجعة
-                </button>
-              </div>
+              <div class="flex items-center gap-2" id="kycBtns1"><button onclick="approveKYC(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnKycApprove1">اعتماد التوثيق ✓</button><button onclick="rejectKYC(1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer" id="btnKycReview1">طلب مراجعة</button></div>
             </div>
 
             <!-- KYC Item 2 -->
             <div id="kycCard2" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-sm">
-                  م.ط
-                </div>
+                <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-sm" id="kycAvatar2">م.ط</div>
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="font-black text-white text-sm">م. طارق الغامدي</span>
+                    <span class="font-black text-white text-sm" id="kycName2">م. طارق الغامدي</span>
                     <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800" id="kycCountry2">المملكة العربية السعودية</span>
                   </div>
                   <div class="text-xs text-slate-400 mt-0.5" id="kycSpec2">التخصص: محطات أرضية وأطباق تتبع VSAT</div>
@@ -398,14 +381,7 @@
                 </div>
               </div>
 
-              <div class="flex items-center gap-2" id="kycBtns2">
-                <button onclick="approveKYC(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
-                  اعتماد التوثيق ✓
-                </button>
-                <button onclick="rejectKYC(2)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer">
-                  طلب مراجعة
-                </button>
-              </div>
+              <div class="flex items-center gap-2" id="kycBtns2"><button onclick="approveKYC(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnKycApprove2">اعتماد التوثيق ✓</button><button onclick="rejectKYC(2)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer" id="btnKycReview2">طلب مراجعة</button></div>
             </div>
           </div>
         </div>
@@ -431,24 +407,18 @@
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-300">
                 <tr>
-                  <td class="p-4 font-bold text-white">م. أحمد المنصوري</td>
+                  <td class="p-4 font-bold text-white" id="userName1">م. أحمد المنصوري</td>
                   <td class="p-4" id="userRole1">مهندس مستقل (Satcom)</td>
                   <td class="p-4 font-mono text-emerald-400 font-black">100%</td>
                   <td class="p-4"><span id="badgeEng1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Top Rated ⭐</span></td>
-                  <td class="p-4"><span class="text-emerald-400 font-bold">نشط معتمد ✓</span></td>
-                  <td class="p-4">
-                    <button onclick="toggleTopRated('badgeEng1')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold">تعديل الشارة</button>
-                  </td>
+                  <td class="p-4"><span class="text-emerald-400 font-bold" id="userStatus1">نشط معتمد ✓</span></td><td class="p-4"><button onclick="toggleTopRated(\'badgeEng1\')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold" id="userBtn1">تعديل الشارة</button></td>
                 </tr>
                 <tr>
                   <td class="p-4 font-bold text-white">Orbital Space Systems</td>
                   <td class="p-4" id="userRole2">صاحب عمل (عميل)</td>
                   <td class="p-4 font-mono text-cyan-400 font-black">5.0 ★</td>
                   <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" id="badgeClientGold">عميل ذهبي Enterprise</span></td>
-                  <td class="p-4"><span class="text-emerald-400 font-bold">نشط معتمد ✓</span></td>
-                  <td class="p-4">
-                    <button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold">إدارة</button>
-                  </td>
+                  <td class="p-4"><span class="text-emerald-400 font-bold" id="userStatus2">نشط معتمد ✓</span></td><td class="p-4"><button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold" id="userBtn2">إدارة</button></td>
                 </tr>
               </tbody>
             </table>
@@ -467,36 +437,22 @@
               <div>
                 <div class="flex items-center gap-2">
                   <span class="font-mono text-cyan-400 font-bold">#PO-901</span>
-                  <span class="text-white font-black">م. أحمد المنصوري</span>
+                  <span class="text-white font-black" id="payoutEngName1">م. أحمد المنصوري</span>
                   <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">SWIFT Wire Bank</span>
                 </div>
-                <div class="text-xs text-slate-400 mt-1">البنك: بنك الإمارات دبي الوطني (Emirates NBD) • IBAN: AE03...4912</div>
-                <div class="text-base font-black text-emerald-400 font-mono mt-1">$600.00 (100% صافي أتعاب)</div>
-              </div>
-
-              <div class="flex items-center gap-2" id="payoutBtns1">
-                <button onclick="approvePayout(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
-                  اعتماد التحويل البنكي الفوري ✓
-                </button>
-              </div>
+                <div class="text-xs text-slate-400 mt-1" id="payoutBankDetail1">البنك: بنك الإمارات دبي الوطني (Emirates NBD) • IBAN: AE03...4912</div>
+                <div class="text-base font-black text-emerald-400 font-mono mt-1" id="payoutNet1">$600.00 (100% صافي أتعاب)</div></div><div class="flex items-center gap-2" id="payoutBtns1"><button onclick="approvePayout(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnPayout1">اعتماد التحويل البنكي الفوري ✓</button></div>
             </div>
 
             <div id="payoutCard2" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div class="flex items-center gap-2">
                   <span class="font-mono text-cyan-400 font-bold">#PO-902</span>
-                  <span class="text-white font-black">م. طارق الغامدي</span>
+                  <span class="text-white font-black" id="payoutEngName2">م. طارق الغامدي</span>
                   <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">USDT Escrow (TRC20)</span>
                 </div>
-                <div class="text-xs text-slate-400 mt-1">المحفظة: TX9aK...89xL10qPz</div>
-                <div class="text-base font-black text-emerald-400 font-mono mt-1">$450.00 (100% صافي أتعاب)</div>
-              </div>
-
-              <div class="flex items-center gap-2" id="payoutBtns2">
-                <button onclick="approvePayout(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
-                  اعتماد التحويل الفوري ✓
-                </button>
-              </div>
+                <div class="text-xs text-slate-400 mt-1" id="payoutBankDetail2">المحفظة: TX9aK...89xL10qPz</div>
+                <div class="text-base font-black text-emerald-400 font-mono mt-1" id="payoutNet2">$450.00 (100% صافي أتعاب)</div></div><div class="flex items-center gap-2" id="payoutBtns2"><button onclick="approvePayout(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnPayout2">اعتماد التحويل الفوري ✓</button></div>
             </div>
           </div>
         </div>
@@ -510,24 +466,24 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
-              <span class="text-xs text-slate-400 font-bold block">مدفوعات Stripe</span>
+              <span class="text-xs text-slate-400 font-bold block" id="gwTitleStripe">مدفوعات Stripe</span>
               <span class="text-2xl font-black text-white mt-1 block">$1,200.00</span>
-              <span class="text-[10px] text-emerald-400 block mt-1">2 عمليات معتمدة</span>
+              <span class="text-[10px] text-emerald-400 block mt-1" id="gwBadgeStripe">2 عمليات معتمدة</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
-              <span class="text-xs text-slate-400 font-bold block">مدفوعات PayPal</span>
+              <span class="text-xs text-slate-400 font-bold block" id="gwTitlePaypal">مدفوعات PayPal</span>
               <span class="text-2xl font-black text-white mt-1 block">$650.00</span>
-              <span class="text-[10px] text-sky-400 block mt-1">1 عملية معتمدة</span>
+              <span class="text-[10px] text-sky-400 block mt-1" id="gwBadgePaypal">1 عملية معتمدة</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
-              <span class="text-xs text-slate-400 font-bold block">حوالات SWIFT البنكية</span>
+              <span class="text-xs text-slate-400 font-bold block" id="gwTitleSwift">حوالات SWIFT البنكية</span>
               <span class="text-2xl font-black text-white mt-1 block">$3,500.00</span>
-              <span class="text-[10px] text-emerald-400 block mt-1">3 حوالات مؤسسية</span>
+              <span class="text-[10px] text-emerald-400 block mt-1" id="gwBadgeSwift">3 حوالات مؤسسية</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
-              <span class="text-xs text-slate-400 font-bold block">محافظ USDT Escrow</span>
+              <span class="text-xs text-slate-400 font-bold block" id="gwTitleUsdt">محافظ USDT Escrow</span>
               <span class="text-2xl font-black text-white mt-1 block">$900.00</span>
-              <span class="text-[10px] text-amber-400 block mt-1">2 عمليات فورية</span>
+              <span class="text-[10px] text-amber-400 block mt-1" id="gwBadgeUsdt">2 عمليات فورية</span>
             </div>
           </div>
         </div>
@@ -540,20 +496,20 @@
           </div>
 
           <div class="p-6 bg-slate-900/90 rounded-3xl border border-slate-800 space-y-4">
-            <h3 class="text-sm font-black text-amber-400 flex items-center gap-2">
+            <h3 class="text-sm font-black text-amber-400 flex items-center gap-2" id="engineTitle">
               <span>⚙️ محرك احتساب العمولة الآلي في السيرفر ($20 لكل $300)</span>
             </h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
+            <p class="text-xs text-slate-300 leading-relaxed" id="engineDesc">
               تُحسب العمولة تلقائياً في السيرفر بقاعدة <strong class="text-amber-400">$20 بعد كل $300</strong> من قيمة العقد. وتظل مخفية تماماً عن واجهات المستخدمين لضمان تجربة سلسة وتوريد 100% من الأتعاب للمهندسين.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
               <div>
-                <label class="block font-bold text-slate-300 mb-1">الشريحة التعاقدية ($)</label>
+                <label class="block font-bold text-slate-300 mb-1" id="lblTierAmount">الشريحة التعاقدية ($)</label>
                 <input type="number" value="300" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-bold">
               </div>
               <div>
-                <label class="block font-bold text-slate-300 mb-1">العمولة المحتسبة لكل شريحة ($)</label>
+                <label class="block font-bold text-slate-300 mb-1" id="lblTierFee">العمولة المحتسبة لكل شريحة ($)</label>
                 <input type="number" value="20" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-amber-400 font-bold">
               </div>
             </div>
@@ -664,7 +620,46 @@
         financeSub: 'متابعة حصيلة المدفوعات عبر Stripe، PayPal، الحوالات البنكية SWIFT، ومحافظ USDT',
 
         settingsHead: 'إعدادات بوابات الدفع ومحرك العمولة في الخلفية',
-        settingsSub: 'تعديل شرائح احتساب العمولة الآلية وتفعيل البوابات الدولية'
+        settingsSub: 'تعديل شرائح احتساب العمولة الآلية وتفعيل البوابات الدولية',
+        adminPageTitle: 'Satcom Engineers | لوحة تحكم الإدارة العليا (Mission Control)',
+        sidebarEmadsoft: 'تصميم وتطوير Emadsoft',
+        subRev: 'محسوبة آلياً من العقود المكتملة',
+        subEscrow: 'عقود جارية مؤمنة ومحمية 100%',
+        subKYC: 'تم التحقق من رخص الفضاء و KYC',
+        subDispute: 'بانتظار قرار التحكيم النهائي',
+        ctrEng1: 'م. أحمد المنصوري',
+        ctrEng2: 'م. طارق الغامدي',
+        kycName1: 'م. أحمد المنصوري',
+        kycName2: 'م. طارق الغامدي',
+        btnKycApprove: 'اعتماد التوثيق ✓',
+        btnKycReview: 'طلب مراجعة',
+        userName1: 'م. أحمد المنصوري',
+        userStatus: 'نشط معتمد ✓',
+        userBtnBadge: 'تعديل الشارة',
+        userBtnManage: 'إدارة',
+        payoutNet1: '$600.00 (100% صافي أتعاب)',
+        payoutNet2: '$450.00 (100% صافي أتعاب)',
+        btnPayoutBank: 'اعتماد التحويل البنكي الفوري ✓',
+        btnPayoutWallet: 'اعتماد التحويل الفوري ✓',
+        gwTitleStripe: 'مدفوعات Stripe',
+        gwBadgeStripe: '2 عمليات معتمدة',
+        gwTitlePaypal: 'مدفوعات PayPal',
+        gwBadgePaypal: '1 عملية معتمدة',
+        gwTitleSwift: 'حوالات SWIFT البنكية',
+        gwBadgeSwift: '3 حوالات مؤسسية',
+        gwTitleUsdt: 'محافظ USDT Escrow',
+        gwBadgeUsdt: '2 عمليات فورية',
+        engineTitle: '⚙️ محرك احتساب العمولة الآلي في السيرفر ($20 لكل $300)',
+        engineDesc: 'تُحسب العمولة تلقائياً في السيرفر بقاعدة <strong class="text-amber-400">$20 بعد كل $300</strong> من قيمة العقد. وتظل مخفية تماماً عن واجهات المستخدمين لضمان تجربة سلسة وتوريد 100% من الأتعاب للمهندسين.',
+        lblTierAmount: 'الشريحة التعاقدية ($)',
+        lblTierFee: 'العمولة المحتسبة لكل شريحة ($)',
+        navViewMainText: 'عرض المنصة الرئيسية ↗',
+        kycAvatar1: 'م.أ',
+        kycAvatar2: 'م.ط',
+        payoutEngName1: 'م. أحمد المنصوري',
+        payoutEngName2: 'م. طارق الغامدي',
+        payoutBankDetail1: 'البنك: بنك الإمارات دبي الوطني (Emirates NBD) • IBAN: AE03...4912',
+        payoutBankDetail2: 'المحفظة: TX9aK...89xL10qPz',
       },
       en: {
         gateLangBtn: '🌐 العربية',
@@ -761,7 +756,46 @@
         financeSub: 'Track transaction volumes across Stripe, PayPal, SWIFT Wire, and USDT wallets.',
 
         settingsHead: 'Payment Gateways & Commission Engine Settings',
-        settingsSub: 'Configure automated tier rules and international payout gateways.'
+        settingsSub: 'Configure automated tier rules and international payout gateways.',
+        adminPageTitle: 'Satcom Engineers | Mission Control & Super Admin Portal',
+        sidebarEmadsoft: 'Designed & Developed by Emadsoft',
+        subRev: 'Auto-calculated from completed contracts',
+        subEscrow: 'Active contracts 100% Escrow secured',
+        subKYC: 'Space licenses & KYC verified',
+        subDispute: 'Awaiting final arbitration verdict',
+        ctrEng1: 'Eng. Ahmed Al-Mansouri',
+        ctrEng2: 'Eng. Tariq Al-Ghamdi',
+        kycName1: 'Eng. Ahmed Al-Mansouri',
+        kycName2: 'Eng. Tariq Al-Ghamdi',
+        btnKycApprove: 'Approve KYC ✓',
+        btnKycReview: 'Request Review',
+        userName1: 'Eng. Ahmed Al-Mansouri',
+        userStatus: 'Active & Verified ✓',
+        userBtnBadge: 'Edit Badge',
+        userBtnManage: 'Manage',
+        payoutNet1: '$600.00 (100% Net Payout)',
+        payoutNet2: '$450.00 (100% Net Payout)',
+        btnPayoutBank: 'Approve Instant Bank Wire ✓',
+        btnPayoutWallet: 'Approve Instant Payout ✓',
+        gwTitleStripe: 'Stripe Payments',
+        gwBadgeStripe: '2 Completed Transactions',
+        gwTitlePaypal: 'PayPal Payments',
+        gwBadgePaypal: '1 Completed Transaction',
+        gwTitleSwift: 'SWIFT Bank Wires',
+        gwBadgeSwift: '3 Corporate Transfers',
+        gwTitleUsdt: 'USDT Escrow Wallets',
+        gwBadgeUsdt: '2 Instant Operations',
+        engineTitle: '⚙️ Automated Backend Commission Engine ($20 per $300 tier)',
+        engineDesc: 'Fees are calculated automatically on backend: <strong class="text-amber-400">$20 per $300</strong> contract tier. Completely hidden from user interfaces to guarantee 100% net payouts.',
+        lblTierAmount: 'Contract Tier ($)',
+        lblTierFee: 'Fee Per Tier ($)',
+        navViewMainText: 'View Main Platform ↗',
+        kycAvatar1: 'A.M',
+        kycAvatar2: 'T.G',
+        payoutEngName1: 'Eng. Ahmed Al-Mansouri',
+        payoutEngName2: 'Eng. Tariq Al-Ghamdi',
+        payoutBankDetail1: 'Bank: Emirates NBD • IBAN: AE03...4912',
+        payoutBankDetail2: 'Wallet: TX9aK...89xL10qPz',
       }
     };
 
@@ -878,6 +912,68 @@
 
       setTxt('settingsHead', d.settingsHead);
       setTxt('settingsSub', d.settingsSub);
+
+      // Complete Title & Admin Branding
+      setTxt('adminPageTitle', d.adminPageTitle);
+      document.title = d.adminPageTitle;
+      setTxt('gateEmadsoft', d.gateEmadsoft);
+      setTxt('sidebarEmadsoft', d.sidebarEmadsoft);
+      setTxt('navLockBtn', d.navLockBtn);
+      setTxt('overviewBadge', d.overviewBadge);
+
+      // Metrics Subtitles
+      setTxt('subRev', d.subRev);
+      setTxt('subEscrow', d.subEscrow);
+      setTxt('subKYC', d.subKYC);
+      setTxt('subDispute', d.subDispute);
+
+      // Table & KYC Names & Buttons
+      setTxt('ctrEng1', d.ctrEng1);
+      setTxt('ctrEng2', d.ctrEng2);
+      setTxt('kycName1', d.kycName1);
+      setTxt('kycName2', d.kycName2);
+      setTxt('btnKycApprove1', d.btnKycApprove);
+      setTxt('btnKycReview1', d.btnKycReview);
+      setTxt('btnKycApprove2', d.btnKycApprove);
+      setTxt('btnKycReview2', d.btnKycReview);
+
+      // Users Table
+      setTxt('userName1', d.userName1);
+      setTxt('userStatus1', d.userStatus);
+      setTxt('userStatus2', d.userStatus);
+      setTxt('userBtn1', d.userBtnBadge);
+      setTxt('userBtn2', d.userBtnManage);
+
+      // Payouts
+      setTxt('payoutNet1', d.payoutNet1);
+      setTxt('payoutNet2', d.payoutNet2);
+      setTxt('btnPayout1', d.btnPayoutBank);
+      setTxt('btnPayout2', d.btnPayoutWallet);
+
+      // Gateways
+      setTxt('gwTitleStripe', d.gwTitleStripe);
+      setTxt('gwBadgeStripe', d.gwBadgeStripe);
+      setTxt('gwTitlePaypal', d.gwTitlePaypal);
+      setTxt('gwBadgePaypal', d.gwBadgePaypal);
+      setTxt('gwTitleSwift', d.gwTitleSwift);
+      setTxt('gwBadgeSwift', d.gwBadgeSwift);
+      setTxt('gwTitleUsdt', d.gwTitleUsdt);
+      setTxt('gwBadgeUsdt', d.gwBadgeUsdt);
+
+      // Commission Settings
+      setTxt('engineTitle', d.engineTitle);
+      const engDescEl = document.getElementById('engineDesc');
+      if (engDescEl) engDescEl.innerHTML = d.engineDesc;
+      setTxt('lblTierAmount', d.lblTierAmount);
+      setTxt('lblTierFee', d.lblTierFee);
+      setTxt('navViewMainText', d.navViewMainText);
+      setTxt('kycAvatar1', d.kycAvatar1);
+      setTxt('kycAvatar2', d.kycAvatar2);
+      setTxt('payoutEngName1', d.payoutEngName1);
+      setTxt('payoutEngName2', d.payoutEngName2);
+      setTxt('payoutBankDetail1', d.payoutBankDetail1);
+      setTxt('payoutBankDetail2', d.payoutBankDetail2);
+
     }
 
     function toggleLang() {

@@ -53,8 +53,19 @@ export default function App() {
 
   const isAr = locale === 'ar';
 
+  const defaultLetterAr = 'أنا مهندس اتصالات فضائية وراديو بخبرة 8 سنوات في CST Studio و HFSS، يسعدني تنفيذ محاكاة الهوائي واختبار أنماط الإشعاع وحساب ميزانية الرابط بدقة متناهية.';
+  const defaultLetterEn = 'I am a satellite & RF telecom engineer with 8 years experience in CST Studio & HFSS, eager to deliver antenna simulations, radiation patterns, and accurate link budgets.';
+
   const toggleLanguage = () => {
-    setLocale((prev) => (prev === 'ar' ? 'en' : 'ar'));
+    setLocale((prev) => {
+      const next = prev === 'ar' ? 'en' : 'ar';
+      setProposalLetter((cur) => {
+        if (cur === defaultLetterAr) return defaultLetterEn;
+        if (cur === defaultLetterEn) return defaultLetterAr;
+        return cur;
+      });
+      return next;
+    });
   };
 
   // Wallet State

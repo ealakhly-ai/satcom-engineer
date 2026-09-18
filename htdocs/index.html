@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Satcom Engineers | منصة العمل الحر لهندسة وعلوم الفضاء والاتصالات</title>
+  <title id="pageTitle">Satcom Engineers | سوق العمل لمهندسي الأقمار الصناعية والاتصالات الفضائية</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -309,9 +309,7 @@
               حماية كاملة لأموال العقد بدون تعقيد، وحسابات مؤتمتة في الخلفية
             </p>
           </div>
-          <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
-            🛡️ حماية 100% Escrow
-          </span>
+          <span id="escrowBadgeEl" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">🛡️ حماية 100% Escrow</span>
         </div>
 
         <div class="divide-y divide-slate-800 text-sm">
@@ -367,30 +365,30 @@
       <div>
         <h4 id="footerCol1Title" class="text-white font-semibold mb-4 text-sm">عن المنصة</h4>
         <ul class="space-y-2 text-sm text-slate-400">
-          <li><a href="#domains" class="hover:text-white transition">كيف تعمل المنصة</a></li>
-          <li><a href="#escrow-calc" class="hover:text-white transition">الضمان المالي والبوابات</a></li>
-          <li><a href="#escrow-calc" class="hover:text-white transition">المدفوعات الآمنة Escrow</a></li>
+          <li><a href="#domains" class="hover:text-white transition" id="footerLinkHow">كيف تعمل المنصة</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition" id="footerLinkEscrowGateways">الضمان المالي والبوابات</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition" id="footerLinkEscrowPayments">المدفوعات الآمنة Escrow</a></li>
         </ul>
       </div>
 
       <div>
         <h4 id="footerCol2Title" class="text-white font-semibold mb-4 text-sm">الدعم والأمان</h4>
         <ul class="space-y-2 text-sm text-slate-400">
-          <li><a href="./admin.html" class="hover:text-cyan-300 transition text-cyan-400 font-bold">لوحة الإدارة العليا (Admin)</a></li>
-          <li><a href="#escrow-calc" class="hover:text-white transition">سياسة الخصوصية</a></li>
-          <li><a href="#escrow-calc" class="hover:text-white transition">شروط الاستخدام</a></li>
+          <li><a href="./admin.html" class="hover:text-cyan-300 transition text-cyan-400 font-bold" id="footerLinkAdmin">لوحة الإدارة العليا (Admin)</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition" id="footerLinkPrivacy">سياسة الخصوصية</a></li>
+          <li><a href="#escrow-calc" class="hover:text-white transition" id="footerLinkTerms">شروط الاستخدام</a></li>
         </ul>
       </div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
+      <div id="footerCopyright">
         جميع الحقوق محفوظة © 2026 Satcom Engineers
       </div>
       <div class="flex items-center gap-2">
         <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-cyan-500/40 text-cyan-300 font-bold shadow-md shadow-cyan-500/10 text-xs">
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          تصميم وتطوير Emadsoft
+          <span id="footerEmadsoft">تصميم وتطوير Emadsoft</span>
         </span>
       </div>
     </div>
@@ -582,7 +580,39 @@
         walletChannelLabel: 'قناة السحب الدولية',
         walletAccountLabel: 'تفاصيل الحساب البنكي / المحفظة',
         walletAccountPh: 'IBAN أو عنوان المحفظة الرقمية...',
-        walletSubmitBtn: '<span id="walletSubmitBtnText">تأكيد طلب السحب الفوري ↗</span>'
+        walletSubmitBtn: 'تأكيد طلب السحب الفوري ↗',
+        pageTitle: 'Satcom Engineers | منصة مهندسي الأقمار الصناعية والاتصالات الفضائية',
+        footerLinkHow: 'كيف تعمل المنصة',
+        footerLinkEscrowGateways: 'الضمان المالي والبوابات',
+        footerLinkEscrowPayments: 'المدفوعات الآمنة Escrow',
+        footerLinkAdmin: 'لوحة الإدارة العليا (Admin)',
+        footerLinkPrivacy: 'سياسة الخصوصية',
+        footerLinkTerms: 'شروط الاستخدام',
+        footerCopyright: 'جميع الحقوق محفوظة © 2026 Satcom Engineers',
+        footerEmadsoft: 'تصميم وتطوير Emadsoft',
+        authModalTitle: 'انضم إلى Satcom Engineers',
+        authModalSubtitle: 'سوق العمل المتخصص لهندسة الاتصالات الفضائية والأقمار الصناعية',
+        tabSignUpBtn: 'إنشاء حساب جديد',
+        tabSignInBtn: 'تسجيل الدخول',
+        chooseAccountTypeLabel: 'اختر نوع الحساب الذي ترغب في إنشائه:',
+        lblRoleClient: 'أنا صاحب عمل (عميل)',
+        descRoleClient: 'أريد نشر مشاريع وتوظيف مهندسين محترفين بحماية Escrow',
+        lblRoleFreelancer: 'أنا مهندس مستقل',
+        descRoleFreelancer: 'أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%',
+        lblFullName: 'الاسم الكامل',
+        inputFullNamePh: 'م. أحمد المنصوري',
+        lblSpecialty: 'التخصص الهندسي الدقيق',
+        inputSpecialtyPh: 'مثال: Antenna Design & CST Studio Suite',
+        lblEmail: 'البريد الإلكتروني',
+        lblPass: 'كلمة المرور',
+        lblAgreement: 'أوافق على شروط الاستخدام ونظام حماية المدفوعات والضمان المالي 100% Escrow.',
+        btnSubmitFormSignUp: 'إنشاء الحساب الآن',
+        btnSubmitFormSignIn: 'تسجيل الدخول',
+        chatReadStatus: '10:18 PM • ✓✓ مقروءة',
+        chatSubmitBtn: 'إرسال ↗',
+        optSwift: 'حوالة بنكية دولية SWIFT (IBAN)',
+        optUsdt: 'محفظة USDT Escrow (TRC20 / ERC20)',
+        optPaypal: 'حساب PayPal Global',
       },
       en: {
         langBtn: 'العربية',
@@ -669,7 +699,39 @@
         walletChannelLabel: 'International Payout Channel',
         walletAccountLabel: 'Bank Account (IBAN) / Wallet Details',
         walletAccountPh: 'IBAN or Digital Wallet Address...',
-        walletSubmitBtn: 'Confirm Instant Withdrawal ↗'
+        walletSubmitBtn: 'Confirm Instant Withdrawal ↗',
+        pageTitle: 'Satcom Engineers | Satellite & Space Telecom Engineering Marketplace',
+        footerLinkHow: 'How It Works',
+        footerLinkEscrowGateways: 'Financial Escrow & Gateways',
+        footerLinkEscrowPayments: 'Secure Escrow Payments',
+        footerLinkAdmin: 'Super Admin Portal (Admin)',
+        footerLinkPrivacy: 'Privacy Policy',
+        footerLinkTerms: 'Terms of Service',
+        footerCopyright: 'All Rights Reserved © 2026 Satcom Engineers',
+        footerEmadsoft: 'Designed & Developed by Emadsoft',
+        authModalTitle: 'Join Satcom Engineers',
+        authModalSubtitle: 'The Premier Specialized Marketplace for Satellite & RF Engineers',
+        tabSignUpBtn: 'Create Account',
+        tabSignInBtn: 'Sign In',
+        chooseAccountTypeLabel: 'Select account type to create:',
+        lblRoleClient: 'I am a Client (Employer)',
+        descRoleClient: 'Post projects & hire verified space engineers with Escrow protection',
+        lblRoleFreelancer: 'I am a Freelance Engineer',
+        descRoleFreelancer: 'Submit proposals on aerospace projects & receive 100% net earnings',
+        lblFullName: 'Full Name',
+        inputFullNamePh: 'e.g. Eng. Ahmed Al-Mansouri',
+        lblSpecialty: 'Engineering Specialty',
+        inputSpecialtyPh: 'e.g. Antenna Design & CST Studio Suite',
+        lblEmail: 'Work Email',
+        lblPass: 'Password',
+        lblAgreement: 'I agree to the Terms of Service and 100% Escrow Protection Policy.',
+        btnSubmitFormSignUp: 'Create Account Now',
+        btnSubmitFormSignIn: 'Sign In',
+        chatReadStatus: '10:18 PM • ✓✓ Read',
+        chatSubmitBtn: 'Send ↗',
+        optSwift: 'SWIFT International Bank Wire (IBAN)',
+        optUsdt: 'USDT Escrow Wallet (TRC20 / ERC20)',
+        optPaypal: 'PayPal Global Account',
       }
     };
 
@@ -796,6 +858,49 @@
       setPh('walletAccountInput', d.walletAccountPh);
       setTxt('walletSubmitBtnText', d.walletSubmitBtn);
 
+      // Title & Footer Complete Translations
+      setTxt('pageTitle', d.pageTitle);
+      document.title = d.pageTitle;
+      setTxt('footerLinkHow', d.footerLinkHow);
+      setTxt('footerLinkEscrowGateways', d.footerLinkEscrowGateways);
+      setTxt('footerLinkEscrowPayments', d.footerLinkEscrowPayments);
+      setTxt('footerLinkAdmin', d.footerLinkAdmin);
+      setTxt('footerLinkPrivacy', d.footerLinkPrivacy);
+      setTxt('footerLinkTerms', d.footerLinkTerms);
+      setTxt('footerCopyright', d.footerCopyright);
+      setTxt('footerEmadsoft', d.footerEmadsoft);
+      setTxt('escrowBadgeEl', d.escrowBadge);
+
+      // Domain Card Buttons
+      document.querySelectorAll('.card-prop-btn').forEach(btn => btn.innerText = d.cardApplyBtn);
+      document.querySelectorAll('.card-chat-btn').forEach(btn => btn.innerText = d.cardChatBtn);
+
+      // Auth Modal Full Translations
+      setTxt('authModalTitle', d.authModalTitle);
+      setTxt('authModalSubtitle', d.authModalSubtitle);
+      setTxt('tabSignUpBtn', d.tabSignUpBtn);
+      setTxt('tabSignInBtn', d.tabSignInBtn);
+      setTxt('chooseAccountTypeLabel', d.chooseAccountTypeLabel);
+      setTxt('lblRoleClient', d.lblRoleClient);
+      setTxt('descRoleClient', d.descRoleClient);
+      setTxt('lblRoleFreelancer', d.lblRoleFreelancer);
+      setTxt('descRoleFreelancer', d.descRoleFreelancer);
+      setTxt('lblFullName', d.lblFullName);
+      setPh('inputFullName', d.inputFullNamePh);
+      setTxt('lblSpecialty', d.lblSpecialty);
+      setPh('inputSpecialty', d.inputSpecialtyPh);
+      setTxt('lblEmail', d.lblEmail);
+      setTxt('lblPass', d.lblPass);
+      setTxt('lblAgreement', d.lblAgreement);
+      setTxt('btnSubmitForm', currentAuthMode === 'signup' ? d.btnSubmitFormSignUp : d.btnSubmitFormSignIn);
+
+      // Chat and Wallet Extras
+      setTxt('chatReadStatus', d.chatReadStatus);
+      setTxt('chatSubmitBtn', d.chatSubmitBtn);
+      setTxt('optSwift', d.optSwift);
+      setTxt('optUsdt', d.optUsdt);
+      setTxt('optPaypal', d.optPaypal);
+
     }
 
     function toggleLang() {
@@ -840,7 +945,7 @@
         document.getElementById('fieldFullName').classList.remove('hidden');
         document.getElementById('fieldSpecialty').classList.remove('hidden');
         document.getElementById('fieldAgreement').classList.remove('hidden');
-        document.getElementById('btnSubmitForm').innerText = isAr ? 'إنشاء الحساب الآن' : 'Create Account Now';
+        document.getElementById('btnSubmitForm').innerText = indexDict[currentLang].btnSubmitFormSignUp;
       } else {
         tabSignIn.className = 'flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer bg-cyan-600 text-white shadow-xs';
         tabSignUp.className = 'flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer text-slate-400 hover:text-white';
@@ -848,7 +953,7 @@
         document.getElementById('fieldFullName').classList.add('hidden');
         document.getElementById('fieldSpecialty').classList.add('hidden');
         document.getElementById('fieldAgreement').classList.add('hidden');
-        document.getElementById('btnSubmitForm').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
+        document.getElementById('btnSubmitForm').innerText = indexDict[currentLang].btnSubmitFormSignIn;
       }
     }
 
@@ -1037,7 +1142,7 @@
           <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
             <span id="chatMsg2Text">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.</span>
           </div>
-          <span class="text-[9px] text-slate-500 font-mono">10:18 PM • ✓✓ مقروءة</span>
+          <span class="text-[9px] text-slate-500 font-mono" id="chatReadStatus">10:18 PM • ✓✓ مقروءة</span>
         </div>
       </div>
 
@@ -1053,9 +1158,7 @@
           required
           class="flex-1 py-2.5 px-3.5 rounded-xl border border-slate-700 bg-slate-950 text-white text-xs focus:outline-none focus:border-cyan-400"
         />
-        <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-xl shadow-lg transition cursor-pointer">
-          إرسال ↗
-        </button>
+        <button type="submit" id="chatSubmitBtn" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-xl shadow-lg transition cursor-pointer">إرسال ↗</button>
       </form>
     </div>
   </div>
@@ -1159,9 +1262,9 @@
         <div>
           <label class="block font-bold text-slate-300 mb-1" id="walletChannelLbl">قناة السحب الدولية</label>
           <select class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
-            <option value="swift">حوالة بنكية دولية SWIFT (IBAN)</option>
-            <option value="usdt">محفظة USDT Escrow (TRC20 / ERC20)</option>
-            <option value="paypal">حساب PayPal Global</option>
+            <option value="swift" id="optSwift">حوالة بنكية دولية SWIFT (IBAN)</option>
+            <option value="usdt" id="optUsdt">محفظة USDT Escrow (TRC20 / ERC20)</option>
+            <option value="paypal" id="optPaypal">حساب PayPal Global</option>
           </select>
         </div>
 
