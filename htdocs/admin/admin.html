@@ -217,20 +217,20 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div onclick="switchTab('disputes')" class="p-5 rounded-2xl bg-gradient-to-br from-rose-950/40 to-slate-900 border border-rose-500/30 cursor-pointer hover:border-rose-400 transition space-y-2">
               <div class="text-xl">⚖️</div>
-              <div class="font-black text-white text-sm">فض النزاعات الهندسية</div>
-              <div class="text-xs text-slate-400">فحص التقارير والمحاكاة واتخاذ قرار صرف أو إرجاع الضمان.</div>
+              <div class="font-black text-white text-sm" id="qa1Title">فض النزاعات الهندسية</div>
+              <div class="text-xs text-slate-400" id="qa1Desc">فحص التقارير والمحاكاة واتخاذ قرار صرف أو إرجاع الضمان.</div>
             </div>
 
             <div onclick="switchTab('kyc')" class="p-5 rounded-2xl bg-gradient-to-br from-amber-950/40 to-slate-900 border border-amber-500/30 cursor-pointer hover:border-amber-400 transition space-y-2">
               <div class="text-xl">🆔</div>
-              <div class="font-black text-white text-sm">اعتماد تراخيص المهندسين</div>
-              <div class="text-xs text-slate-400">توثيق هويات الخبراء وإصدار شارات Verified الهندسية.</div>
+              <div class="font-black text-white text-sm" id="qa2Title">اعتماد تراخيص المهندسين</div>
+              <div class="text-xs text-slate-400" id="qa2Desc">توثيق هويات الخبراء وإصدار شارات Verified الهندسية.</div>
             </div>
 
             <div onclick="switchTab('payouts')" class="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/30 cursor-pointer hover:border-emerald-400 transition space-y-2">
               <div class="text-xl">💸</div>
-              <div class="font-black text-white text-sm">اعتماد السحب البنكي</div>
-              <div class="text-xs text-slate-400">مراجعة وصرف أرباح المهندسين بنكياً وعبر USDT.</div>
+              <div class="font-black text-white text-sm" id="qa3Title">اعتماد السحب البنكي</div>
+              <div class="text-xs text-slate-400" id="qa3Desc">مراجعة وصرف أرباح المهندسين بنكياً وعبر USDT.</div>
             </div>
           </div>
         </div>
@@ -248,12 +248,12 @@
             <table class="w-full text-right text-xs">
               <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
                 <tr>
-                  <th class="p-4 font-bold">رقم العقد</th>
-                  <th class="p-4 font-bold">المشروع الهندسي</th>
-                  <th class="p-4 font-bold">صاحب العمل</th>
-                  <th class="p-4 font-bold">المهندس المنفذ</th>
-                  <th class="p-4 font-bold">قيمة الضمان Escrow</th>
-                  <th class="p-4 font-bold">الحالة</th>
+                  <th class="p-4 font-bold" id="thCtrId">رقم العقد</th>
+                  <th class="p-4 font-bold" id="thCtrProj">المشروع الهندسي</th>
+                  <th class="p-4 font-bold" id="thCtrClient">صاحب العمل</th>
+                  <th class="p-4 font-bold" id="thCtrEng">المهندس المنفذ</th>
+                  <th class="p-4 font-bold" id="thCtrEscrow">قيمة الضمان Escrow</th>
+                  <th class="p-4 font-bold" id="thCtrStatus">الحالة</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-300">
@@ -263,7 +263,7 @@
                   <td class="p-4">Orbital Systems Ltd</td>
                   <td class="p-4">م. أحمد المنصوري</td>
                   <td class="p-4 font-mono text-emerald-400 font-bold">$600.00</td>
-                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">نزاع قيد التحكيم ⚖️</span></td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30"><span id="ctrStatus1">نزاع قيد التحكيم ⚖️</span></span></td>
                 </tr>
                 <tr>
                   <td class="p-4 font-mono text-cyan-400">#CTR-102</td>
@@ -271,7 +271,7 @@
                   <td class="p-4">SkyTelecom Space</td>
                   <td class="p-4">م. طارق الغامدي</td>
                   <td class="p-4 font-mono text-emerald-400 font-bold">$1,250.00</td>
-                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">مؤمّن جاري التنفيذ ✓</span></td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"><span id="ctrStatus2">مؤمّن جاري التنفيذ ✓</span></span></td>
                 </tr>
               </tbody>
             </table>
@@ -281,8 +281,8 @@
         <!-- VIEW 3: DISPUTES & ARBITRATION ROOM (UPWORK STYLE) -->
         <div id="viewDisputes" class="space-y-6 hidden">
           <div>
-            <h2 class="text-2xl font-black text-white">غرفة التحكيم وفض النزاعات الهندسية</h2>
-            <p class="text-xs text-slate-400 mt-1">مراجعة أدلة ومخرجات المشاريع المتنازع عليها واتخاذ قرار تحرير أموال الضمان</p>
+            <h2 class="text-2xl font-black text-white" id="dspHeadTitle">غرفة التحكيم وفض النزاعات الهندسية</h2>
+            <p class="text-xs text-slate-400 mt-1" id="dspHeadSub">مراجعة أدلة ومخرجات المشاريع المتنازع عليها واتخاذ قرار تحرير أموال الضمان</p>
           </div>
 
           <!-- Dispute Active Card -->
@@ -290,13 +290,13 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300">نزاع مفتوح #DSP-804</span>
-                  <span class="text-xs text-slate-400 font-mono">العقد: #CTR-101</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300" id="dspBadgeText">نزاع مفتوح #DSP-804</span>
+                  <span class="text-xs text-slate-400 font-mono" id="dspCtrRef">العقد: #CTR-101</span>
                 </div>
                 <h3 class="text-lg font-black text-white mt-1">Ka-Band Phased Array Antenna Design</h3>
               </div>
               <div class="text-right">
-                <span class="text-xs text-slate-400 block">المبلغ المحتجز في الضمان:</span>
+                <span class="text-xs text-slate-400 block" id="dspEscrowHeldLbl">المبلغ المحتجز في الضمان:</span>
                 <span class="text-xl font-black text-emerald-400 font-mono">$600.00</span>
               </div>
             </div>
@@ -304,16 +304,16 @@
             <!-- Two Sides Comparison -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-                <span class="text-xs font-black text-cyan-400">إفادة صاحب العمل (Orbital Systems):</span>
+                <span class="text-xs font-black text-cyan-400" id="dspClientTitle">إفادة صاحب العمل (Orbital Systems):</span>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  "مستوى الفصوص الجانبية (Sidelobe level) في تقرير المحاكاة هو -12dB بينما اشترطنا في كراسة الشروط أن لا يقل عن -15dB عند زاوية 30 درجة."
+                  <span id="dspClientStmt">"مستوى الفصوص الجانبية (Sidelobe level) في تقرير المحاكاة هو -12dB بينما اشترطنا في كراسة الشروط أن لا يقل عن -15dB عند زاوية 30 درجة."</span>
                 </p>
               </div>
 
               <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-                <span class="text-xs font-black text-indigo-400">رد المهندس (م. أحمد المنصوري):</span>
+                <span class="text-xs font-black text-indigo-400" id="dspEngTitle">رد المهندس (م. أحمد المنصوري):</span>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  "الملفات المرفوعة بمشروع CST Studio تطابق معايير IEEE 802.11، والتأريض متزن تماماً، والفرق طفيف ناتج عن زاوية التوجيه القصوى (Steering)."
+                  <span id="dspEngStmt">"الملفات المرفوعة بمشروع CST Studio تطابق معايير IEEE 802.11، والتأريض متزن تماماً، والفرق طفيف ناتج عن زاوية التوجيه القصوى (Steering)."</span>
                 </p>
               </div>
             </div>
@@ -323,25 +323,25 @@
               <div class="flex items-center gap-3">
                 <span class="text-lg">📁</span>
                 <div>
-                  <div class="text-xs font-bold text-white">ملفات الأدلة الفنية والمحاكاة المرفقة</div>
+                  <div class="text-xs font-bold text-white" id="dspFilesTitle">ملفات الأدلة الفنية والمحاكاة المرفقة</div>
                   <div class="text-[10px] text-slate-400">Ka_PhasedArray_Sim.cst (18.4 MB) • Radiation_Report.pdf</div>
                 </div>
               </div>
-              <span class="text-xs font-bold text-cyan-400 underline cursor-pointer">معاينة الملفات ↗</span>
+              <span class="text-xs font-bold text-cyan-400 underline cursor-pointer" id="dspFilesBtn">معاينة الملفات ↗</span>
             </div>
 
             <!-- Judicial Decisions -->
             <div id="arbitrationActions" class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
-              <span class="text-xs font-black text-white block">إصدار الحكم الإداري الفوري:</span>
+              <span class="text-xs font-black text-white block" id="dspDecisionTitle">إصدار الحكم الإداري الفوري:</span>
               <div class="flex flex-wrap gap-3">
                 <button onclick="resolveDispute('freelancer')" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
-                  ✓ تحرير 100% للمهندس ($600.00)
+                  <span id="btnReleaseEng">✓ تحرير 100% للمهندس ($600.00)</span>
                 </button>
                 <button onclick="resolveDispute('client')" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
-                  ✕ إعادة 100% للعميل ($600.00)
+                  <span id="btnRefundClient">✕ إعادة 100% للعميل ($600.00)</span>
                 </button>
                 <button onclick="resolveDispute('split')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
-                  ⚖️ تسوية عادلة 50/50 ($300 لكل طرف)
+                  <span id="btnSplit50">⚖️ تسوية عادلة 50/50 ($300 لكل طرف)</span>
                 </button>
               </div>
             </div>
@@ -351,8 +351,8 @@
         <!-- VIEW 4: KYC & IDENTITY VERIFICATION (UPWORK STYLE) -->
         <div id="viewKYC" class="space-y-6 hidden">
           <div>
-            <h2 class="text-2xl font-black text-white">مركز فحص وتوثيق الهويات وتراخيص الفضاء (KYC)</h2>
-            <p class="text-xs text-slate-400 mt-1">التحقق من هويات المهندسين والعملاء ومنح شارة Verified Engineer المعتمدة</p>
+            <h2 class="text-2xl font-black text-white" id="kycHeadTitle">مركز فحص وتوثيق الهويات وتراخيص الفضاء (KYC)</h2>
+            <p class="text-xs text-slate-400 mt-1" id="kycHeadSub">التحقق من هويات المهندسين والعملاء ومنح شارة Verified Engineer المعتمدة</p>
           </div>
 
           <div class="space-y-4">
@@ -365,10 +365,10 @@
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="font-black text-white text-sm">م. أحمد المنصوري</span>
-                    <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">الإمارات العربية المتحدة</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800" id="kycCountry1">الإمارات العربية المتحدة</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-0.5">التخصص: اتصالات الأقمار الصناعية وهوائيات Ka-Band</div>
-                  <div class="text-[10px] text-amber-400 mt-1">المستند: جواز السفر الوطني + ترخيص وكالة الفضاء المعتمد</div>
+                  <div class="text-xs text-slate-400 mt-0.5" id="kycSpec1">التخصص: اتصالات الأقمار الصناعية وهوائيات Ka-Band</div>
+                  <div class="text-[10px] text-amber-400 mt-1" id="kycDoc1">المستند: جواز السفر الوطني + ترخيص وكالة الفضاء المعتمد</div>
                 </div>
               </div>
 
@@ -391,10 +391,10 @@
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="font-black text-white text-sm">م. طارق الغامدي</span>
-                    <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">المملكة العربية السعودية</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800" id="kycCountry2">المملكة العربية السعودية</span>
                   </div>
-                  <div class="text-xs text-slate-400 mt-0.5">التخصص: محطات أرضية وأطباق تتبع VSAT</div>
-                  <div class="text-[10px] text-amber-400 mt-1">المستند: الهوية الوطنية + شهادة مهندس اتصالات مرخص</div>
+                  <div class="text-xs text-slate-400 mt-0.5" id="kycSpec2">التخصص: محطات أرضية وأطباق تتبع VSAT</div>
+                  <div class="text-[10px] text-amber-400 mt-1" id="kycDoc2">المستند: الهوية الوطنية + شهادة مهندس اتصالات مرخص</div>
                 </div>
               </div>
 
@@ -413,26 +413,26 @@
         <!-- VIEW 5: USER MANAGEMENT & BADGES (UPWORK STYLE) -->
         <div id="viewUsers" class="space-y-6 hidden">
           <div>
-            <h2 class="text-2xl font-black text-white">إدارة الأعضاء وشارات التميز</h2>
-            <p class="text-xs text-slate-400 mt-1">التحكم في صلاحيات المستخدمين، منح شارة Top Rated، وتجميد الحسابات المخالفة</p>
+            <h2 class="text-2xl font-black text-white" id="usersHeadTitle">إدارة الأعضاء وشارات التميز</h2>
+            <p class="text-xs text-slate-400 mt-1" id="usersHeadSub">التحكم في صلاحيات المستخدمين، منح شارة Top Rated، وتجميد الحسابات المخالفة</p>
           </div>
 
           <div class="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
             <table class="w-full text-right text-xs">
               <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
                 <tr>
-                  <th class="p-4 font-bold">العضو</th>
-                  <th class="p-4 font-bold">نوع الحساب</th>
-                  <th class="p-4 font-bold">تقييم JSS</th>
-                  <th class="p-4 font-bold">الشارات المعتمدة</th>
-                  <th class="p-4 font-bold">الحالة الإدارية</th>
-                  <th class="p-4 font-bold">إجراءات</th>
+                  <th class="p-4 font-bold" id="thUserMember">العضو</th>
+                  <th class="p-4 font-bold" id="thUserRole">نوع الحساب</th>
+                  <th class="p-4 font-bold" id="thUserJss">تقييم JSS</th>
+                  <th class="p-4 font-bold" id="thUserBadges">الشارات المعتمدة</th>
+                  <th class="p-4 font-bold" id="thUserStatus">الحالة الإدارية</th>
+                  <th class="p-4 font-bold" id="thUserActions">إجراءات</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-300">
                 <tr>
                   <td class="p-4 font-bold text-white">م. أحمد المنصوري</td>
-                  <td class="p-4">مهندس مستقل (Satcom)</td>
+                  <td class="p-4" id="userRole1">مهندس مستقل (Satcom)</td>
                   <td class="p-4 font-mono text-emerald-400 font-black">100%</td>
                   <td class="p-4"><span id="badgeEng1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Top Rated ⭐</span></td>
                   <td class="p-4"><span class="text-emerald-400 font-bold">نشط معتمد ✓</span></td>
@@ -442,9 +442,9 @@
                 </tr>
                 <tr>
                   <td class="p-4 font-bold text-white">Orbital Space Systems</td>
-                  <td class="p-4">صاحب عمل (عميل)</td>
+                  <td class="p-4" id="userRole2">صاحب عمل (عميل)</td>
                   <td class="p-4 font-mono text-cyan-400 font-black">5.0 ★</td>
-                  <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">عميل ذهبي Enterprise</span></td>
+                  <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" id="badgeClientGold">عميل ذهبي Enterprise</span></td>
                   <td class="p-4"><span class="text-emerald-400 font-bold">نشط معتمد ✓</span></td>
                   <td class="p-4">
                     <button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold">إدارة</button>
@@ -458,8 +458,8 @@
         <!-- VIEW 6: PAYOUT APPROVALS (UPWORK STYLE) -->
         <div id="viewPayouts" class="space-y-6 hidden">
           <div>
-            <h2 class="text-2xl font-black text-white">اعتماد طلبات السحب المالي للمهندسين</h2>
-            <p class="text-xs text-slate-400 mt-1">مراجعة وتحويل أرباح المهندسين المستحقة إلى الحسابات البنكية ومحافظ USDT</p>
+            <h2 class="text-2xl font-black text-white" id="payoutHeadTitle">اعتماد طلبات السحب المالي للمهندسين</h2>
+            <p class="text-xs text-slate-400 mt-1" id="payoutHeadSub">مراجعة وتحويل أرباح المهندسين المستحقة إلى الحسابات البنكية ومحافظ USDT</p>
           </div>
 
           <div class="space-y-4">
@@ -564,8 +564,326 @@
     </div>
   </div>
 
+  
   <script>
-    let currentLang = 'ar';
+    let currentLang = localStorage.getItem('satcom_lang') || 'ar';
+
+    const adminDict = {
+      ar: {
+        gateLangBtn: '🌐 English',
+        gateBadge: 'منطقة الإدارة العليا • Mission Control',
+        gateTitle: 'لوحة إدارة المنصة',
+        gateSub: 'منطقة مشفرة ومحمية بالكامل. لا يُسمح بالدخول إلا لمدير النظام.',
+        gateUserLabel: 'اسم المستخدم للمدير',
+        gatePassLabel: 'كلمة المرور السرية',
+        gateLoginBtn: 'التحقق والدخول إلى لوحة الإدارة',
+        gateEmadsoft: 'تصميم وتطوير Emadsoft',
+
+        navLangBtn: '🌐 English',
+        navCoreBadge: 'غرفة العمليات المركزية',
+        navViewMain: 'عرض المنصة الرئيسية ↗',
+        navAdminTitle: 'مدير النظام (Admin)',
+        navLockBtn: 'قفل اللوحة 🔒',
+
+        tabOverview: 'لوحة التحكم الرئيسية',
+        tabContracts: 'العقود وحسابات Escrow',
+        tabDisputes: 'التحكيم وفض النزاعات',
+        tabKYC: 'فحص وتوثيق الهويات KYC',
+        tabUsers: 'إدارة الأعضاء والشارات',
+        tabPayouts: 'اعتماد طلبات السحب',
+        tabFinance: 'التقارير المالية والبوابات',
+        tabSettings: 'إعدادات النظام والعمولة',
+
+        overviewBadge: 'Super Admin • الإدارة العليا',
+        overviewHeader: 'غرفة العمليات المركزية (Mission Control)',
+        overviewSub: 'متابعة تدفقات أموال الضمان Escrow، وعمولات المنصة ($20 لكل $300)، وفض النزاعات والتوثيق الرسمي',
+        cardRev: 'إجمالي إيراد المنصة ($20 لكل $300)',
+        cardEscrow: 'أموال الضمان المحجوزة (Escrow)',
+        cardEng: 'المهندسون المعتمدون',
+        cardDispute: 'حالات النزاع النشطة',
+
+        qa1Title: 'فض النزاعات الهندسية',
+        qa1Desc: 'فحص التقارير والمحاكاة واتخاذ قرار صرف أو إرجاع الضمان.',
+        qa2Title: 'اعتماد تراخيص المهندسين',
+        qa2Desc: 'توثيق هويات الخبراء وإصدار شارات Verified الهندسية.',
+        qa3Title: 'اعتماد السحب البنكي',
+        qa3Desc: 'مراجعة وصرف أرباح المهندسين بنكياً وعبر USDT.',
+
+        contractsHead: 'العقود الهندسية وتدفقات الضمان (Escrow)',
+        contractsSub: 'مراقبة العقود الجارية والمدفوعات المحجوزة ونسب الإنجاز',
+        thCtrId: 'رقم العقد',
+        thCtrProj: 'المشروع الهندسي',
+        thCtrClient: 'صاحب العمل',
+        thCtrEng: 'المهندس المنفذ',
+        thCtrEscrow: 'قيمة الضمان Escrow',
+        thCtrStatus: 'الحالة',
+        ctrStatus1: 'نزاع قيد التحكيم ⚖️',
+        ctrStatus2: 'مؤمّن جاري التنفيذ ✓',
+
+        dspHeadTitle: 'غرفة التحكيم وفض النزاعات الهندسية',
+        dspHeadSub: 'مراجعة أدلة ومخرجات المشاريع المتنازع عليها واتخاذ قرار تحرير أموال الضمان',
+        dspBadgeText: 'نزاع مفتوح #DSP-804',
+        dspCtrRef: 'العقد: #CTR-101',
+        dspEscrowHeldLbl: 'المبلغ المحتجز في الضمان:',
+        dspClientTitle: 'إفادة صاحب العمل (Orbital Systems):',
+        dspClientStmt: '"مستوى الفصوص الجانبية (Sidelobe level) في تقرير المحاكاة هو -12dB بينما اشترطنا في كراسة الشروط أن لا يقل عن -15dB عند زاوية 30 درجة."',
+        dspEngTitle: 'رد المهندس (م. أحمد المنصوري):',
+        dspEngStmt: '"الملفات المرفوعة بمشروع CST Studio تطابق معايير IEEE 802.11، والتأريض متزن تماماً، والفرق طفيف ناتج عن زاوية التوجيه القصوى (Steering)."',
+        dspFilesTitle: 'ملفات الأدلة الفنية والمحاكاة المرفقة',
+        dspFilesBtn: 'معاينة الملفات ↗',
+        dspDecisionTitle: 'إصدار الحكم الإداري الفوري:',
+        btnReleaseEng: '✓ تحرير 100% للمهندس ($600.00)',
+        btnRefundClient: '✕ إعادة 100% للعميل ($600.00)',
+        btnSplit50: '⚖️ تسوية عادلة 50/50 ($300 لكل طرف)',
+
+        kycHeadTitle: 'مركز فحص وتوثيق الهويات وتراخيص الفضاء (KYC)',
+        kycHeadSub: 'التحقق من هويات المهندسين والعملاء ومنح شارة Verified Engineer المعتمدة',
+        kycCountry1: 'الإمارات العربية المتحدة',
+        kycSpec1: 'التخصص: اتصالات الأقمار الصناعية وهوائيات Ka-Band',
+        kycDoc1: 'المستند: جواز السفر الوطني + ترخيص وكالة الفضاء المعتمد',
+        kycCountry2: 'المملكة العربية السعودية',
+        kycSpec2: 'التخصص: محطات أرضية وأطباق تتبع VSAT',
+        kycDoc2: 'المستند: الهوية الوطنية + شهادة مهندس اتصالات مرخص',
+
+        usersHeadTitle: 'إدارة الأعضاء وشارات التميز',
+        usersHeadSub: 'التحكم في صلاحيات المستخدمين، منح شارة Top Rated، وتجميد الحسابات المخالفة',
+        thUserMember: 'العضو',
+        thUserRole: 'نوع الحساب',
+        thUserJss: 'تقييم JSS',
+        thUserBadges: 'الشارات المعتمدة',
+        thUserStatus: 'الحالة الإدارية',
+        thUserActions: 'إجراءات',
+        userRole1: 'مهندس مستقل (Satcom)',
+        userRole2: 'صاحب عمل (عميل)',
+        badgeClientGold: 'عميل ذهبي Enterprise',
+
+        payoutHeadTitle: 'اعتماد طلبات السحب المالي للمهندسين',
+        payoutHeadSub: 'مراجعة وتحويل أرباح المهندسين المستحقة إلى الحسابات البنكية ومحافظ USDT',
+
+        financeHead: 'التقارير المالية وبوابات الدفع الدولية',
+        financeSub: 'متابعة حصيلة المدفوعات عبر Stripe، PayPal، الحوالات البنكية SWIFT، ومحافظ USDT',
+
+        settingsHead: 'إعدادات بوابات الدفع ومحرك العمولة في الخلفية',
+        settingsSub: 'تعديل شرائح احتساب العمولة الآلية وتفعيل البوابات الدولية'
+      },
+      en: {
+        gateLangBtn: '🌐 العربية',
+        gateBadge: 'Mission Control • Super Admin Gate',
+        gateTitle: 'Admin Mission Control',
+        gateSub: 'Restricted and encrypted portal for authorized administrators only.',
+        gateUserLabel: 'Admin Username',
+        gatePassLabel: 'Admin Secret Password',
+        gateLoginBtn: 'Verify & Enter Mission Control',
+        gateEmadsoft: 'Designed & Developed by Emadsoft',
+
+        navLangBtn: '🌐 العربية',
+        navCoreBadge: 'Central Operations Room',
+        navViewMain: 'View Main Platform ↗',
+        navAdminTitle: 'System Administrator (Admin)',
+        navLockBtn: 'Lock Panel 🔒',
+
+        tabOverview: 'Mission Control Overview',
+        tabContracts: 'Contracts & Escrow Vault',
+        tabDisputes: 'Dispute Arbitration Room',
+        tabKYC: 'KYC Verification Hub',
+        tabUsers: 'User Governance & Badges',
+        tabPayouts: 'Payout Approvals',
+        tabFinance: 'Financial Gateways',
+        tabSettings: 'System & Fee Engine',
+
+        overviewBadge: 'Super Admin • Executive Control',
+        overviewHeader: 'Central Operations Room (Mission Control)',
+        overviewSub: 'Monitor Escrow vault balances, platform fees ($20 per $300 tier), dispute arbitration, and official KYC verification.',
+        cardRev: 'Platform Revenue ($20 per $300 tier)',
+        cardEscrow: 'Funds in Escrow Vault',
+        cardEng: 'Verified Space Engineers',
+        cardDispute: 'Active Dispute Cases',
+
+        qa1Title: 'Dispute Arbitration',
+        qa1Desc: 'Review simulation deliverables and issue binding Escrow release rulings.',
+        qa2Title: 'Aerospace License Approvals',
+        qa2Desc: 'Verify expert credentials and issue official Verified Badges.',
+        qa3Title: 'Bank Payout Approvals',
+        qa3Desc: 'Approve and release engineer earnings via SWIFT wire and USDT.',
+
+        contractsHead: 'Engineering Contracts & Escrow Vault',
+        contractsSub: 'Monitor active contracts, locked escrow deposits, and progress milestones.',
+        thCtrId: 'Contract #',
+        thCtrProj: 'Engineering Project',
+        thCtrClient: 'Client',
+        thCtrEng: 'Engineer',
+        thCtrEscrow: 'Escrow Amount',
+        thCtrStatus: 'Status',
+        ctrStatus1: 'Dispute in Arbitration ⚖️',
+        ctrStatus2: 'Active & Secured ✓',
+
+        dspHeadTitle: 'Engineering Dispute Arbitration Room',
+        dspHeadSub: 'Examine simulation deliverables and issue final binding Escrow settlement decisions.',
+        dspBadgeText: 'Active Dispute #DSP-804',
+        dspCtrRef: 'Contract: #CTR-101',
+        dspEscrowHeldLbl: 'Escrow Amount Held:',
+        dspClientTitle: 'Client Statement (Orbital Systems):',
+        dspClientStmt: '"The sidelobe level in the simulation report is -12dB whereas specifications required -15dB at 30 degrees."',
+        dspEngTitle: 'Engineer Defense (Eng. Ahmed Al-Mansouri):',
+        dspEngStmt: '"Files exported from CST Studio meet IEEE standards, ground is balanced, and discrepancy is due to extreme steering angle."',
+        dspFilesTitle: 'Technical Evidence & Simulation Deliverables',
+        dspFilesBtn: 'Preview Files ↗',
+        dspDecisionTitle: 'Issue Immediate Administrative Ruling:',
+        btnReleaseEng: '✓ Release 100% to Engineer ($600.00)',
+        btnRefundClient: '✕ Refund 100% to Client ($600.00)',
+        btnSplit50: '⚖️ Fair 50/50 Split ($300 each)',
+
+        kycHeadTitle: 'KYC & Aerospace Space License Verification',
+        kycHeadSub: 'Verify engineer identities, space agency credentials, and grant Verified Badges.',
+        kycCountry1: 'United Arab Emirates',
+        kycSpec1: 'Specialty: Satellite Comms & Ka-Band Antennas',
+        kycDoc1: 'Document: Passport + Accredited Space Agency License',
+        kycCountry2: 'Kingdom of Saudi Arabia',
+        kycSpec2: 'Specialty: Ground Stations & VSAT Tracking',
+        kycDoc2: 'Document: National ID + Certified Telecom Engineer License',
+
+        usersHeadTitle: 'User Governance & Badges',
+        usersHeadSub: 'Manage user roles, grant Top Rated badges, and moderate accounts.',
+        thUserMember: 'Member',
+        thUserRole: 'Account Type',
+        thUserJss: 'JSS Score',
+        thUserBadges: 'Badges',
+        thUserStatus: 'Status',
+        thUserActions: 'Actions',
+        userRole1: 'Freelance Engineer (Satcom)',
+        userRole2: 'Client (Employer)',
+        badgeClientGold: 'Enterprise Gold Client',
+
+        payoutHeadTitle: 'Engineer Payout Approvals',
+        payoutHeadSub: 'Review and authorize engineer earnings withdrawals via SWIFT wire and USDT.',
+
+        financeHead: 'Financial Reports & Payment Gateways',
+        financeSub: 'Track transaction volumes across Stripe, PayPal, SWIFT Wire, and USDT wallets.',
+
+        settingsHead: 'Payment Gateways & Commission Engine Settings',
+        settingsSub: 'Configure automated tier rules and international payout gateways.'
+      }
+    };
+
+    function applyAdminLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('satcom_lang', lang);
+      const isAr = lang === 'ar';
+      const d = adminDict[lang];
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+      if (isAr) {
+        document.body.style.fontFamily = "'Tajawal', system-ui, sans-serif";
+      } else {
+        document.body.style.fontFamily = "system-ui, -apple-system, sans-serif";
+      }
+
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+
+      setTxt('gateLangBtn', d.gateLangBtn);
+      setTxt('gateBadge', d.gateBadge);
+      setTxt('gateTitle', d.gateTitle);
+      setTxt('gateSub', d.gateSub);
+      setTxt('gateUserLabel', d.gateUserLabel);
+      setTxt('gatePassLabel', d.gatePassLabel);
+      setTxt('gateLoginBtn', d.gateLoginBtn);
+
+      setTxt('navLangBtn', d.navLangBtn);
+      setTxt('navCoreBadge', d.navCoreBadge);
+      const viewMain = document.getElementById('navViewMain');
+      if (viewMain) viewMain.innerHTML = `<span>${d.navViewMain}</span>`;
+      setTxt('navAdminTitle', d.navAdminTitle);
+
+      setTxt('tabOverview', d.tabOverview);
+      setTxt('tabContracts', d.tabContracts);
+      setTxt('tabDisputes', d.tabDisputes);
+      setTxt('tabKYC', d.tabKYC);
+      setTxt('tabUsers', d.tabUsers);
+      setTxt('tabPayouts', d.tabPayouts);
+      setTxt('tabFinance', d.tabFinance);
+      setTxt('tabSettings', d.tabSettings);
+
+      setTxt('overviewHeader', d.overviewHeader);
+      setTxt('overviewSub', d.overviewSub);
+      setTxt('cardRev', d.cardRev);
+      setTxt('cardEscrow', d.cardEscrow);
+      setTxt('cardEng', d.cardEng);
+      setTxt('cardDispute', d.cardDispute);
+
+      setTxt('qa1Title', d.qa1Title);
+      setTxt('qa1Desc', d.qa1Desc);
+      setTxt('qa2Title', d.qa2Title);
+      setTxt('qa2Desc', d.qa2Desc);
+      setTxt('qa3Title', d.qa3Title);
+      setTxt('qa3Desc', d.qa3Desc);
+
+      setTxt('contractsHead', d.contractsHead);
+      setTxt('contractsSub', d.contractsSub);
+      setTxt('thCtrId', d.thCtrId);
+      setTxt('thCtrProj', d.thCtrProj);
+      setTxt('thCtrClient', d.thCtrClient);
+      setTxt('thCtrEng', d.thCtrEng);
+      setTxt('thCtrEscrow', d.thCtrEscrow);
+      setTxt('thCtrStatus', d.thCtrStatus);
+      setTxt('ctrStatus1', d.ctrStatus1);
+      setTxt('ctrStatus2', d.ctrStatus2);
+
+      setTxt('dspHeadTitle', d.dspHeadTitle);
+      setTxt('dspHeadSub', d.dspHeadSub);
+      setTxt('dspBadgeText', d.dspBadgeText);
+      setTxt('dspCtrRef', d.dspCtrRef);
+      setTxt('dspEscrowHeldLbl', d.dspEscrowHeldLbl);
+      setTxt('dspClientTitle', d.dspClientTitle);
+      setTxt('dspClientStmt', d.dspClientStmt);
+      setTxt('dspEngTitle', d.dspEngTitle);
+      setTxt('dspEngStmt', d.dspEngStmt);
+      setTxt('dspFilesTitle', d.dspFilesTitle);
+      setTxt('dspFilesBtn', d.dspFilesBtn);
+      setTxt('dspDecisionTitle', d.dspDecisionTitle);
+      setTxt('btnReleaseEng', d.btnReleaseEng);
+      setTxt('btnRefundClient', d.btnRefundClient);
+      setTxt('btnSplit50', d.btnSplit50);
+
+      setTxt('kycHeadTitle', d.kycHeadTitle);
+      setTxt('kycHeadSub', d.kycHeadSub);
+      setTxt('kycCountry1', d.kycCountry1);
+      setTxt('kycSpec1', d.kycSpec1);
+      setTxt('kycDoc1', d.kycDoc1);
+      setTxt('kycCountry2', d.kycCountry2);
+      setTxt('kycSpec2', d.kycSpec2);
+      setTxt('kycDoc2', d.kycDoc2);
+
+      setTxt('usersHeadTitle', d.usersHeadTitle);
+      setTxt('usersHeadSub', d.usersHeadSub);
+      setTxt('thUserMember', d.thUserMember);
+      setTxt('thUserRole', d.thUserRole);
+      setTxt('thUserJss', d.thUserJss);
+      setTxt('thUserBadges', d.thUserBadges);
+      setTxt('thUserStatus', d.thUserStatus);
+      setTxt('thUserActions', d.thUserActions);
+      setTxt('userRole1', d.userRole1);
+      setTxt('userRole2', d.userRole2);
+      setTxt('badgeClientGold', d.badgeClientGold);
+
+      setTxt('payoutHeadTitle', d.payoutHeadTitle);
+      setTxt('payoutHeadSub', d.payoutHeadSub);
+
+      setTxt('financeHead', d.financeHead);
+      setTxt('financeSub', d.financeSub);
+
+      setTxt('settingsHead', d.settingsHead);
+      setTxt('settingsSub', d.settingsSub);
+    }
+
+    function toggleLang() {
+      const nextLang = currentLang === 'ar' ? 'en' : 'ar';
+      applyAdminLanguage(nextLang);
+    }
 
     function showToast(msg) {
       const toast = document.getElementById('actionToast');
@@ -618,15 +936,16 @@
 
     function resolveDispute(decision) {
       const actions = document.getElementById('arbitrationActions');
+      const isAr = currentLang === 'ar';
       if (decision === 'freelancer') {
-        actions.innerHTML = '<div class="p-3 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">✓ تم تحرير مبلغ الضمان 600.00$ لصالح المهندس بالكامل.</div>';
-        showToast(currentLang === 'ar' ? 'تم تحرير أموال الضمان للمهندس وإغلاق النزاع بنجاح.' : 'Dispute resolved: 100% Escrow released to engineer.');
+        actions.innerHTML = `<div class="p-3 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">${isAr ? '✓ تم تحرير مبلغ الضمان 600.00$ لصالح المهندس بالكامل.' : '✓ 100% Escrow funds ($600.00) released to engineer.'}</div>`;
+        showToast(isAr ? 'تم تحرير أموال الضمان للمهندس وإغلاق النزاع بنجاح.' : 'Dispute resolved: 100% Escrow released to engineer.');
       } else if (decision === 'client') {
-        actions.innerHTML = '<div class="p-3 bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold rounded-xl">✓ تم إرجاع مبلغ 600.00$ إلى حساب العميل بنجاح.</div>';
-        showToast(currentLang === 'ar' ? 'تم إرجاع المبلغ للعميل وإغلاق النزاع.' : 'Dispute resolved: 100% Refund issued to client.');
+        actions.innerHTML = `<div class="p-3 bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold rounded-xl">${isAr ? '✓ تم إرجاع مبلغ 600.00$ إلى حساب العميل بنجاح.' : '✓ 100% Refund ($600.00) returned to client account.'}</div>`;
+        showToast(isAr ? 'تم إرجاع المبلغ للعميل وإغلاق النزاع.' : 'Dispute resolved: 100% Refund issued to client.');
       } else {
-        actions.innerHTML = '<div class="p-3 bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold rounded-xl">✓ تم تطبيق التسوية العادلة: تحويل 300.00$ للمهندس و 300.00$ للعميل.</div>';
-        showToast(currentLang === 'ar' ? 'تم تطبيق التسوية 50/50 بين الطرفين بنجاح.' : 'Dispute resolved: 50/50 Settlement executed.');
+        actions.innerHTML = `<div class="p-3 bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold rounded-xl">${isAr ? '✓ تم تطبيق التسوية العادلة: تحويل 300.00$ للمهندس و 300.00$ للعميل.' : '✓ 50/50 Fair split applied: $300.00 to engineer and $300.00 to client.'}</div>`;
+        showToast(isAr ? 'تم تطبيق التسوية 50/50 بين الطرفين بنجاح.' : 'Dispute resolved: 50/50 Settlement executed.');
       }
       document.getElementById('metricDisputeVal').innerText = '0';
       document.getElementById('badgeDisputeCount').innerText = '0';
@@ -634,8 +953,9 @@
 
     function approveKYC(id) {
       const btns = document.getElementById('kycBtns' + id);
-      btns.innerHTML = '<span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">تم التحقق بنجاح ✓</span>';
-      showToast(currentLang === 'ar' ? 'تم اعتماد وتوثيق المهندس ومنحه شارة Verified Space Engineer!' : 'Engineer successfully verified with Verified Badge!');
+      const isAr = currentLang === 'ar';
+      btns.innerHTML = `<span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">${isAr ? 'تم التحقق بنجاح ✓' : 'Verified Successfully ✓'}</span>`;
+      showToast(isAr ? 'تم اعتماد وتوثيق المهندس ومنحه شارة Verified Space Engineer!' : 'Engineer successfully verified with Verified Badge!');
       
       const vEl = document.getElementById('metricVerifiedVal');
       vEl.innerText = parseInt(vEl.innerText) + 1;
@@ -649,15 +969,17 @@
       const reason = prompt(currentLang === 'ar' ? 'سبب طلب المراجعة أو المستند الناقص:' : 'Reason for rejection or missing document:');
       if (reason) {
         const btns = document.getElementById('kycBtns' + id);
-        btns.innerHTML = '<span class="px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold rounded-xl">بانتظار المستند المطلوب ⏳</span>';
-        showToast(currentLang === 'ar' ? 'تم إرسال إشعار للمهندس بطلب المستند الإضافي.' : 'Notification sent to engineer requesting additional documents.');
+        const isAr = currentLang === 'ar';
+        btns.innerHTML = `<span class="px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold rounded-xl">${isAr ? 'بانتظار المستند المطلوب ⏳' : 'Awaiting Required Document ⏳'}</span>`;
+        showToast(isAr ? 'تم إرسال إشعار للمهندس بطلب المستند الإضافي.' : 'Notification sent to engineer requesting additional documents.');
       }
     }
 
     function approvePayout(id) {
       const btns = document.getElementById('payoutBtns' + id);
-      btns.innerHTML = '<span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">تم التحويل بنجاح ✓</span>';
-      showToast(currentLang === 'ar' ? 'تم اعتماد وتأكيد التحويل البنكي الفوري بنجاح!' : 'Payout approved and funds transferred successfully!');
+      const isAr = currentLang === 'ar';
+      btns.innerHTML = `<span class="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-xl">${isAr ? 'تم التحويل بنجاح ✓' : 'Transferred Successfully ✓'}</span>`;
+      showToast(isAr ? 'تم اعتماد وتأكيد التحويل البنكي الفوري بنجاح!' : 'Payout approved and funds transferred successfully!');
       
       const bP = document.getElementById('badgePayoutCount');
       const cur = parseInt(bP.innerText);
@@ -666,41 +988,22 @@
 
     function toggleTopRated(badgeId) {
       const el = document.getElementById(badgeId);
+      const isAr = currentLang === 'ar';
       if (el.innerText.includes('Top Rated')) {
-        el.innerText = 'مهندس معتمد ✓';
+        el.innerText = isAr ? 'مهندس معتمد ✓' : 'Verified Engineer ✓';
         el.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
       } else {
-        el.innerText = 'Top Rated ⭐';
+        el.innerText = isAr ? 'Top Rated ⭐' : 'Top Rated ⭐';
         el.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
       }
-      showToast(currentLang === 'ar' ? 'تم تحديث شارة المهندس بنجاح!' : 'Engineer badge updated successfully!');
+      showToast(isAr ? 'تم تحديث شارة المهندس بنجاح!' : 'Engineer badge updated successfully!');
     }
 
-    function toggleLang() {
-      currentLang = currentLang === 'ar' ? 'en' : 'ar';
-      const isAr = currentLang === 'ar';
-      document.documentElement.lang = currentLang;
-      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-
-      document.getElementById('gateLangBtn').innerText = isAr ? '🌐 English' : '🌐 العربية';
-      document.getElementById('navLangBtn').innerText = isAr ? '🌐 English' : '🌐 العربية';
-
-      document.getElementById('gateBadge').innerText = isAr ? 'منطقة الإدارة العليا • Mission Control' : 'Mission Control • Super Admin Gate';
-      document.getElementById('gateTitle').innerText = isAr ? 'لوحة إدارة المنصة' : 'Admin Mission Control';
-      document.getElementById('gateSub').innerText = isAr ? 'منطقة مشفرة ومحمية بالكامل. لا يُسمح بالدخول إلا لمدير النظام.' : 'Restricted and encrypted portal for authorized administrators only.';
-      document.getElementById('gateUserLabel').innerText = isAr ? 'اسم المستخدم للمدير' : 'Admin Username';
-      document.getElementById('gatePassLabel').innerText = isAr ? 'كلمة المرور السرية' : 'Admin Secret Password';
-      document.getElementById('gateLoginBtn').innerText = isAr ? 'التحقق والدخول إلى لوحة الإدارة' : 'Verify & Enter Mission Control';
-
-      document.getElementById('tabOverview').innerText = isAr ? 'لوحة التحكم الرئيسية' : 'Mission Control Overview';
-      document.getElementById('tabContracts').innerText = isAr ? 'العقود وحسابات Escrow' : 'Contracts & Escrow Vault';
-      document.getElementById('tabDisputes').innerText = isAr ? 'التحكيم وفض النزاعات' : 'Dispute Arbitration';
-      document.getElementById('tabKYC').innerText = isAr ? 'فحص وتوثيق الهويات KYC' : 'KYC Verification Hub';
-      document.getElementById('tabUsers').innerText = isAr ? 'إدارة الأعضاء والشارات' : 'User Governance';
-      document.getElementById('tabPayouts').innerText = isAr ? 'اعتماد طلبات السحب' : 'Payout Approvals';
-      document.getElementById('tabFinance').innerText = isAr ? 'التقارير المالية والبوابات' : 'Financial Gateways';
-      document.getElementById('tabSettings').innerText = isAr ? 'إعدادات النظام والعمولة' : 'System & Commission Engine';
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('satcom_lang') || 'ar';
+      applyAdminLanguage(saved);
+    });
   </script>
+
 </body>
 </html>

@@ -65,9 +65,7 @@
       <!-- Center: Global Search Bar -->
       <div class="hidden 2xl:flex items-center flex-1 max-w-xs mx-3 shrink">
         <div class="w-full relative">
-          <input
-            type="text"
-            id="searchInput"
+          <input type="text" id="searchInput"
             placeholder="ابحث عن مشاريع أو مهندسي فضاء..."
             class="w-full py-2 pr-9 pl-14 rounded-full border border-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-xs bg-slate-800/80 text-white placeholder-slate-400 transition-all"
           />
@@ -543,86 +541,327 @@
   </div>
 
   <!-- ================= JAVASCRIPT LOGIC ================= -->
+  
   <script>
-    let currentLang = 'ar';
+    let currentLang = localStorage.getItem('satcom_lang') || 'ar';
     let currentAuthMode = 'signup';
     let currentRole = 'freelancer';
     let currentPersona = 'client';
 
-    function togglePersona() {
-      currentPersona = currentPersona === 'client' ? 'freelancer' : 'client';
-      const isAr = currentLang === 'ar';
-      const lbl = document.getElementById('lblSwitchPersona');
-      if (currentPersona === 'freelancer') {
-        lbl.innerText = isAr ? 'التحويل لوضع العميل' : 'Switch to Client';
-      } else {
-        lbl.innerText = isAr ? 'التحويل لوضع المهندس' : 'Switch to Freelancer';
+    const indexDict = {
+      ar: {
+        langBtn: 'English',
+        brandSub: 'سوق العمل لمهندسي الأقمار الصناعية والاتصالات',
+        navJobs: 'تصفح المشاريع',
+        navFreelancers: 'نخبة المهندسين',
+        navPricing: 'الضمان المالي والبوابات',
+        navChatText: 'المحادثات الحية',
+        navProposalText: 'تقديم عرض',
+        navWalletText: 'المحفظة',
+        navAdminText: 'لوحة الإدارة',
+        searchPlaceholder: 'ابحث عن مشاريع أو مهندسي فضاء...',
+        searchBtn: 'بحث',
+        lblSwitchPersonaClient: 'التحويل لوضع المهندس',
+        lblSwitchPersonaFreelancer: 'التحويل لوضع العميل',
+        lblNavPostJob: 'نشر مشروع',
+        lblNavLogin: 'تسجيل الدخول',
+        lblNavSignUp: 'تسجيل جديد',
+        heroBadge: 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية',
+        heroHeading: 'وظّف نخبة مهندسي <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">الاتصالات الفضائية و RF</span> بمشروعك',
+        heroDesc: 'منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.',
+        pillar1: 'حماية الضمان Escrow',
+        pillar2: 'رسوم اشتراك شهرية',
+        pillar3: 'تشفير مالي آمن',
+        lblExploreJobs: 'استكشف المشاريع المتاحة',
+        lblPostJobHero: 'انشر مشروع جديد',
+        heroProposalBtn: 'تقديم عرض هندسي ↗',
+        heroChatBtn: '💬 محادثة العميل',
+        lblGatewaysBadge: 'حماية مشفرة ومصادقة بنكية دولية',
+        lblGatewaysTitle: 'بوابات الدفع والسحب العالمية المعتمدة',
+        domainsBadge: 'مجالات التخصص الهندسي',
+        domainsTitle: 'تغطية شاملة لفروع هندسة الاتصالات الفضائية',
+        domainsSubtitle: 'نخبة من المهندسين المعتمدين والمؤهلين للتعامل مع أكثر المشاريع تعقيداً',
+        card1Title: 'اتصالات الأقمار الصناعية (Satcom)',
+        card1Desc: 'تصميم المحطات الأرضية (Ground Stations)، محاكاة مدارات LEO/GEO، بروتوكولات DVB-S2X، وضبط هوائيات التتبع والـ VSAT.',
+        card2Title: 'هندسة الترددات وهوائيات RF',
+        card2Desc: 'محاكاة وتصميم الهوائيات عبر أدوات CST و HFSS، تحليل ميزانية الوصلة (Link Budget)، وفلاتر التردد اللاسلكي والمضخمات HPA/SSPA.',
+        card3Title: 'معالجة الإشارات والراديو البرمجي (SDR)',
+        card3Desc: 'تطوير برمجيات الراديو المعرف برمجيًا (SDR)، خوارزميات معالجة الإشارات الرقمية DSP، وبرمجة متحكمات الاتصالات وFPGA.',
+        cardApplyBtn: 'تقديم عرض هندسي ↗',
+        cardChatBtn: '💬 محادثة العميل',
+        escrowCardTitle: 'نموذج عقد الضمان المالي المباشر (Escrow Protection)',
+        escrowCardSub: 'حماية كاملة لأموال العقد بدون تعقيد، وحسابات مؤتمتة في الخلفية',
+        escrowBadge: '🛡️ حماية 100% Escrow',
+        lblAgreedVal: 'قيمة العقد المتفق عليها للمشروع:',
+        lblEscrowStatus: 'حالة الإيداع في الضمان المالي (Escrow):',
+        valEscrowStatus: '✓ مؤمّن ومحجوز بنسبة 100%',
+        lblAutoFee: 'المعالجة المالية والفوترة:',
+        valAutoFee: 'معالجة سحابية مؤتمتة بالكامل في الخلفية',
+        lblNetPayout: 'صافي ما يتسلمه المهندس المستقل (100% كامل):',
+        footerBio: 'المنصة التخصصية الأولى للعمل الحر في مجالات هندسة الاتصالات الفضائية، شبكات الأقمار الصناعية، وأنظمة الراديو والترددات اللاسلكية.',
+        footerBadge: 'حماية مالية متكاملة: نظام الضمان Escrow وبوابات دفع عالمية مشفرة بنسبة 100%.',
+        footerCol1Title: 'عن المنصة',
+        footerCol2Title: 'الدعم والأمان',
+        footerCopyright: 'جميع الحقوق محفوظة © 2026 Satcom Engineers',
+        footerEmadsoft: 'تصميم وتطوير Emadsoft',
+        // Modals
+        chatTitle: 'المحادثة الهندسية الفورية (Live Chat)',
+        chatBadge: '<span id="chatBadgeText">متصل الآن مشفر بالكامل • Upwork Workspace Mode</span>',
+        chatLinkedProj: 'المشروع المرتبط:',
+        chatEscrowVault: 'خزينة Escrow:',
+        chatSecuredVal: '$600.00 مؤمّنة ✓',
+        chatSender1: 'Orbital Space Systems (صاحب العمل):',
+        chatMsg1: '<span id="chatMsg1Text">مرحباً م. أحمد، نريد التأكد من اكتمال محاكاة CST لمصفوفة 16x16 عنصراً قبل تحرير الدفعة الأولى من حساب الضمان Escrow.</span>',
+        chatSender2: 'م. أحمد المنصوري (أنت):',
+        chatMsg2: '<span id="chatMsg2Text">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.</span>',
+        chatPlaceholder: 'اكتب رسالتك الفنية هنا...',
+        chatSendBtn: 'إرسال ↗',
+        propTitle: 'تقديم عرض هندسي (Submit Proposal)',
+        propBadge: 'بضمان 100% Escrow • صافي استلام كامل 0% عمولة على المهندس',
+        propBidLabel: 'مبلغ العرض المقترح للمشروع ($)',
+        propNetLabel: 'صافي ما تستلمه (100% بدون أي اقتطاع):',
+        propCoverLabel: 'خطاب التقديم والمنهجية الفنية (Cover Letter)',
+        propCoverPh: 'اشرح خبرتك مع برمجيات CST Studio أو HFSS، وسابق أعمالك في هوائيات الأقمار الصناعية...',
+        propMilestonesTitle: 'تجزئة دفعات العمل (Milestones Schedule):',
+        propM1: 'المرحلة 1: تصميم العناصر وحساب مصفوفة الطور',
+        propM2: 'المرحلة 2: محاكاة الفصوص الإشعاعية والتقرير الفني النهائي',
+        propSubmitBtn: '<span id="propSubmitBtnText">إرسال العرض الهندسي رسمياً ↗</span>',
+        walletTitle: 'المحفظة وسحب الأرباح (Wallet)',
+        walletBadge: 'نظام السحب الفوري متعدد القنوات',
+        walletAvailLabel: 'الأرباح المتاحة للسحب:',
+        walletEscrowLabel: 'في حساب الضمان Escrow:',
+        walletAmtLabel: 'المبلغ المراد سحبه ($)',
+        walletChannelLabel: 'قناة السحب الدولية',
+        walletAccountLabel: 'تفاصيل الحساب البنكي / المحفظة',
+        walletAccountPh: 'IBAN أو عنوان المحفظة الرقمية...',
+        walletSubmitBtn: '<span id="walletSubmitBtnText">تأكيد طلب السحب الفوري ↗</span>'
+      },
+      en: {
+        langBtn: 'العربية',
+        brandSub: 'Satellite & RF Telecom Engineering Marketplace',
+        navJobs: 'Find Projects',
+        navFreelancers: 'Top Engineers',
+        navPricing: 'Escrow & Gateways',
+        navChatText: 'Live Chat',
+        navProposalText: 'Submit Proposal',
+        navWalletText: 'Wallet',
+        navAdminText: 'Admin Portal',
+        searchPlaceholder: 'Search projects or space engineers...',
+        searchBtn: 'Search',
+        lblSwitchPersonaClient: 'Switch to Freelancer',
+        lblSwitchPersonaFreelancer: 'Switch to Client',
+        lblNavPostJob: 'Post Project',
+        lblNavLogin: 'Sign In',
+        lblNavSignUp: 'Sign Up',
+        heroBadge: 'The Premier Specialized Network for Satellite & Aerospace RF Engineers',
+        heroHeading: 'Hire Elite Engineers in <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Satellite Comms & RF</span>',
+        heroDesc: 'A specialized marketplace connecting satellite, RF, and aerospace engineers with global clients. 100% Escrow security and automated backend settlements.',
+        pillar1: '100% Escrow Protection',
+        pillar2: 'Zero Monthly Fees',
+        pillar3: 'Bank-Grade Security',
+        lblExploreJobs: 'Explore Open Projects',
+        lblPostJobHero: 'Post a New Project',
+        heroProposalBtn: 'Submit Proposal ↗',
+        heroChatBtn: '💬 Client Chat',
+        lblGatewaysBadge: 'Bank-Grade Security & Escrow Protection',
+        lblGatewaysTitle: 'Accepted Global Payment & Payout Gateways',
+        domainsBadge: 'Aerospace Engineering Domains',
+        domainsTitle: 'Comprehensive Satellite & RF Engineering Coverage',
+        domainsSubtitle: 'Vetted space systems architects ready to deploy on mission-critical projects',
+        card1Title: 'Satellite Communications (Satcom)',
+        card1Desc: 'Ground station architecture, LEO/GEO orbital mechanics, DVB-S2X links, telemetry tracking, and VSAT terminals.',
+        card2Title: 'RF & Microwave Antenna Engineering',
+        card2Desc: 'Antenna modeling in CST Studio Suite & HFSS, Link Budget calculation, waveguide cavity filters, and HPA/SSPA amplifiers.',
+        card3Title: 'SDR & Space DSP Architecture',
+        card3Desc: 'GNU Radio pipelines, digital signal processing (DSP), telemetry decoding, and high-throughput FPGA demodulators.',
+        cardApplyBtn: 'Submit Proposal ↗',
+        cardChatBtn: '💬 Client Chat',
+        escrowCardTitle: 'Live Escrow Protection & Financial Guarantee',
+        escrowCardSub: 'Complete contract protection with transparent, automated backend calculations',
+        escrowBadge: '🛡️ 100% Escrow Protected',
+        lblAgreedVal: 'Agreed Contract Value:',
+        lblEscrowStatus: 'Escrow Deposit Status:',
+        valEscrowStatus: '✓ 100% Funded & Secured',
+        lblAutoFee: 'Financial Settlement:',
+        valAutoFee: 'Fully automated backend cloud processing',
+        lblNetPayout: 'Net Freelance Engineer Payout (100% Full):',
+        footerBio: 'The premier specialized freelance network for satellite communications, RF engineering, and aerospace systems.',
+        footerBadge: '100% Financial Security: Escrow protection and encrypted global payout gateways.',
+        footerCol1Title: 'Platform',
+        footerCol2Title: 'Trust & Security',
+        footerCopyright: 'All Rights Reserved © 2026 Satcom Engineers',
+        footerEmadsoft: 'Designed & Developed by Emadsoft',
+        // Modals
+        chatTitle: 'Live Engineering Chat (Upwork Workroom)',
+        chatBadge: 'Online & Fully Encrypted • Upwork Workspace Mode',
+        chatLinkedProj: 'Linked Project:',
+        chatEscrowVault: 'Escrow Vault:',
+        chatSecuredVal: '$600.00 Secured ✓',
+        chatSender1: 'Orbital Space Systems (Client):',
+        chatMsg1: 'Hello Eng. Ahmed, please verify the 16x16 CST simulation curves before we release Milestone 1 from Escrow.',
+        chatSender2: 'Eng. Ahmed Al-Mansouri (You):',
+        chatMsg2: 'Hello! The simulation is fully complete with ±45° steering angle and 24 dBi radiation gain. I uploaded the .cst bundle and report.',
+        chatPlaceholder: 'Type your technical message here...',
+        chatSendBtn: 'Send ↗',
+        propTitle: 'Submit Upwork Proposal',
+        propBadge: '100% Escrow Protected • 100% Net Payout (0% Cut for Engineer)',
+        propBidLabel: 'Proposed Project Bid ($)',
+        propNetLabel: 'Your Net Payout (100% 0% Cut):',
+        propCoverLabel: 'Cover Letter & Technical Methodology',
+        propCoverPh: 'Explain your expertise in CST Studio, HFSS, and previous aerospace/satellite antenna designs...',
+        propMilestonesTitle: 'Milestones & Deliverables Schedule:',
+        propM1: 'Milestone 1: Element Design & Phase Matrix Simulation',
+        propM2: 'Milestone 2: 3D Radiation Pattern & Technical Report',
+        propSubmitBtn: 'Submit Official Proposal ↗',
+        walletTitle: 'Wallet & Payouts',
+        walletBadge: 'Multi-Channel Instant Payout System',
+        walletAvailLabel: 'Available for Withdrawal:',
+        walletEscrowLabel: 'In Escrow Protection:',
+        walletAmtLabel: 'Withdrawal Amount ($)',
+        walletChannelLabel: 'International Payout Channel',
+        walletAccountLabel: 'Bank Account (IBAN) / Wallet Details',
+        walletAccountPh: 'IBAN or Digital Wallet Address...',
+        walletSubmitBtn: 'Confirm Instant Withdrawal ↗'
       }
-    }
+    };
 
-    function toggleLang() {
-      currentLang = currentLang === 'ar' ? 'en' : 'ar';
-      const isAr = currentLang === 'ar';
-      document.documentElement.lang = currentLang;
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('satcom_lang', lang);
+      const isAr = lang === 'ar';
+      const d = indexDict[lang];
+
+      document.documentElement.lang = lang;
       document.documentElement.dir = isAr ? 'rtl' : 'ltr';
       document.getElementById('globalFooter').dir = isAr ? 'rtl' : 'ltr';
 
-      document.getElementById('langBtnText').innerText = isAr ? 'English' : 'العربية';
-      document.getElementById('brandSub').innerText = isAr ? 'سوق العمل لمهندسي الأقمار الصناعية والاتصالات' : 'Space & RF Telecom Engineering Marketplace';
-      document.getElementById('navJobs').innerText = isAr ? 'تصفح المشاريع' : 'Find Work';
-      document.getElementById('navFreelancers').innerText = isAr ? 'نخبة المهندسين' : 'Find Talent';
-      document.getElementById('navPricing').innerText = isAr ? 'الضمان المالي والبوابات' : 'Escrow & Gateways';
-      document.getElementById('navAdminText').innerText = isAr ? 'لوحة الإدارة' : 'Admin Portal';
-      document.getElementById('lblNavPostJob').innerText = isAr ? 'نشر مشروع' : 'Post a Job';
-      document.getElementById('lblNavLogin').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
-      document.getElementById('lblNavSignUp').innerText = isAr ? 'تسجيل جديد' : 'Sign Up';
-      document.getElementById('lblSwitchPersona').innerText = isAr ? (currentPersona === 'client' ? 'التحويل لوضع المهندس' : 'التحويل لوضع العميل') : (currentPersona === 'client' ? 'Switch to Freelancer' : 'Switch to Client');
+      if (isAr) {
+        document.body.style.fontFamily = "'Tajawal', system-ui, sans-serif";
+      } else {
+        document.body.style.fontFamily = "system-ui, -apple-system, sans-serif";
+      }
 
-      document.getElementById('heroBadge').innerText = isAr ? 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية' : 'Premier Network for Satellite & RF Communications Engineers';
-      document.getElementById('heroHeading').innerHTML = isAr 
-        ? 'وظّف نخبة مهندسي <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">الاتصالات الفضائية و RF</span> بمشروعك'
-        : 'Hire Elite Engineers in <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Satellite Comms & RF</span>';
-      document.getElementById('heroDesc').innerText = isAr 
-        ? 'منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.'
-        : 'A specialized marketplace connecting satellite, RF, and aerospace engineers with global clients. 100% Escrow security and flexible global payment gateways.';
+      // Safe update helper
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+      const setHTML = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = val;
+      };
+      const setPh = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = val;
+      };
 
-      document.getElementById('pillar1').innerText = isAr ? 'حماية الضمان Escrow' : '100% Escrow Protection';
-      document.getElementById('pillar2').innerText = isAr ? 'رسوم اشتراك شهرية' : 'Zero Subscription Fees';
-      document.getElementById('pillar3').innerText = isAr ? 'تشفير مالي آمن' : 'Bank-Grade Security';
+      setTxt('langBtnText', d.langBtn);
+      setTxt('brandSub', d.brandSub);
+      setTxt('navJobs', d.navJobs);
+      setTxt('navFreelancers', d.navFreelancers);
+      setTxt('navPricing', d.navPricing);
+      setTxt('navChatText', d.navChatText);
+      setTxt('navProposalText', d.navProposalText);
+      setTxt('navWalletText', d.navWalletText);
+      setTxt('navAdminText', d.navAdminText);
+      setPh('searchInput', d.searchPlaceholder);
 
-      document.getElementById('lblExploreJobs').innerText = isAr ? 'استكشف المشاريع المتاحة' : 'Explore Open Projects';
-      document.getElementById('arrowExplore').innerText = isAr ? '←' : '→';
-      document.getElementById('lblPostJobHero').innerText = isAr ? 'انشر مشروع جديد' : 'Post a Job';
+      // Persona Switcher
+      setTxt('lblSwitchPersona', currentPersona === 'client' ? d.lblSwitchPersonaClient : d.lblSwitchPersonaFreelancer);
 
-      document.getElementById('lblGatewaysBadge').innerText = isAr ? 'حماية مشفرة ومصادقة بنكية دولية' : 'Bank-Grade Security & Escrow Protection';
-      document.getElementById('lblGatewaysTitle').innerText = isAr ? 'بوابات الدفع والسحب العالمية المعتمدة' : 'Accepted Global Payment & Payout Gateways';
+      setTxt('lblNavPostJob', d.lblNavPostJob);
+      setTxt('lblNavLogin', d.lblNavLogin);
+      setTxt('lblNavSignUp', d.lblNavSignUp);
 
-      document.getElementById('domainsBadge').innerText = isAr ? 'مجالات التخصص الهندسي' : 'Specialized Aerospace Domains';
-      document.getElementById('domainsTitle').innerText = isAr ? 'تغطية شاملة لفروع هندسة الاتصالات الفضائية' : 'Comprehensive Space & RF Engineering Coverage';
-      document.getElementById('domainsSubtitle').innerText = isAr ? 'نخبة من المهندسين المعتمدين والمؤهلين للتعامل مع أكثر المشاريع تعقيداً' : 'Vetted space systems architects ready to deploy on complex missions';
+      setTxt('heroBadge', d.heroBadge);
+      setHTML('heroHeading', d.heroHeading);
+      setTxt('heroDesc', d.heroDesc);
+      setTxt('pillar1', d.pillar1);
+      setTxt('pillar2', d.pillar2);
+      setTxt('pillar3', d.pillar3);
 
-      document.getElementById('card1Title').innerText = isAr ? 'اتصالات الأقمار الصناعية (Satcom)' : 'Satellite Communications (Satcom)';
-      document.getElementById('card1Desc').innerText = isAr ? 'تصميم المحطات الأرضية (Ground Stations)، محاكاة مدارات LEO/GEO، بروتوكولات DVB-S2X، وضبط هوائيات التتبع والـ VSAT.' : 'Ground station architecture, LEO/GEO orbital mechanics, DVB-S2X links, and telemetry tracking.';
+      setTxt('lblExploreJobs', d.lblExploreJobs);
+      const arrow = document.getElementById('arrowExplore');
+      if (arrow) arrow.innerText = isAr ? '←' : '→';
+      setTxt('lblPostJobHero', d.lblPostJobHero);
 
-      document.getElementById('card2Title').innerText = isAr ? 'هندسة الترددات وهوائيات RF' : 'RF & Microwave Antenna Engineering';
-      document.getElementById('card2Desc').innerText = isAr ? 'محاكاة وتصميم الهوائيات عبر أدوات CST و HFSS، تحليل ميزانية الوصلة (Link Budget)، وفلاتر التردد اللاسلكي والمضخمات HPA/SSPA.' : 'Antenna modeling in CST Studio Suite & HFSS, Link Budget calculation, and waveguide cavity filters.';
+      setTxt('lblGatewaysBadge', d.lblGatewaysBadge);
+      setTxt('lblGatewaysTitle', d.lblGatewaysTitle);
 
-      document.getElementById('card3Title').innerText = isAr ? 'معالجة الإشارات والراديو البرمجي (SDR)' : 'SDR & Space DSP Architecture';
-      document.getElementById('card3Desc').innerText = isAr ? 'تطوير برمجيات الراديو المعرف برمجيًا (SDR)، خوارزميات معالجة الإشارات الرقمية DSP، وبرمجة متحكمات الاتصالات وFPGA.' : 'GNU Radio telemetry pipelines, digital signal processing (DSP), and high-throughput FPGA demodulators.';
+      setTxt('domainsBadge', d.domainsBadge);
+      setTxt('domainsTitle', d.domainsTitle);
+      setTxt('domainsSubtitle', d.domainsSubtitle);
 
-      document.getElementById('escrowCardTitle').innerText = isAr ? 'نموذج عقد الضمان المالي المباشر (Escrow Protection)' : 'Live Escrow Protection Example';
-      document.getElementById('escrowCardSub').innerText = isAr ? 'حماية كاملة لأموال العقد بدون تعقيد، وحسابات مؤتمتة في الخلفية' : 'Full project fund protection with automated backend processing';
-      document.getElementById('lblAgreedVal').innerText = isAr ? 'قيمة العقد المتفق عليها للمشروع:' : 'Agreed Project Value:';
-      document.getElementById('lblEscrowStatus').innerText = isAr ? 'حالة الإيداع في الضمان المالي (Escrow):' : 'Escrow Deposit Status:';
-      document.getElementById('valEscrowStatus').innerText = isAr ? '✓ مؤمّن ومحجوز بنسبة 100%' : '✓ 100% Funded & Secured';
-      document.getElementById('lblAutoFee').innerText = isAr ? 'المعالجة المالية والفوترة:' : 'Financial Processing:';
-      document.getElementById('valAutoFee').innerText = isAr ? 'معالجة سحابية مؤتمتة بالكامل في الخلفية' : 'Fully Automated Backend Processing';
-      document.getElementById('lblNetPayout').innerText = isAr ? 'صافي ما يتسلمه المهندس المستقل (100% كامل):' : 'Net Engineer Payout (100% Full):';
+      setTxt('card1Title', d.card1Title);
+      setTxt('card1Desc', d.card1Desc);
+      setTxt('card2Title', d.card2Title);
+      setTxt('card2Desc', d.card2Desc);
+      setTxt('card3Title', d.card3Title);
+      setTxt('card3Desc', d.card3Desc);
 
-      document.getElementById('footerBio').innerText = isAr ? 'المنصة التخصصية الأولى للعمل الحر في مجالات هندسة الاتصالات الفضائية، شبكات الأقمار الصناعية، وأنظمة الراديو والترددات اللاسلكية.' : 'The premier specialized freelance marketplace for satellite communications, RF systems, and aerospace engineering.';
-      document.getElementById('footerBadge').innerText = isAr ? 'حماية مالية متكاملة: نظام الضمان Escrow وبوابات دفع عالمية مشفرة بنسبة 100%.' : '100% Escrow Protection: Bank-grade encrypted global payment gateways.';
-      document.getElementById('footerCol1Title').innerText = isAr ? 'عن المنصة' : 'About Platform';
-      document.getElementById('footerCol2Title').innerText = isAr ? 'الدعم والأمان' : 'Support & Security';
+      setTxt('escrowCardTitle', d.escrowCardTitle);
+      setTxt('escrowCardSub', d.escrowCardSub);
+      setTxt('lblAgreedVal', d.lblAgreedVal);
+      setTxt('lblEscrowStatus', d.lblEscrowStatus);
+      setTxt('valEscrowStatus', d.valEscrowStatus);
+      setTxt('lblAutoFee', d.lblAutoFee);
+      setTxt('valAutoFee', d.valAutoFee);
+      setTxt('lblNetPayout', d.lblNetPayout);
+
+      setTxt('footerBio', d.footerBio);
+      setTxt('footerBadge', d.footerBadge);
+      setTxt('footerCol1Title', d.footerCol1Title);
+      setTxt('footerCol2Title', d.footerCol2Title);
+
+      // Modals
+      setTxt('chatHeaderTitle', d.chatTitle);
+      setPh('chatInputBox', d.chatPlaceholder);
+      setTxt('propTitle', d.propTitle);
+      setTxt('walletHeaderTitle', d.walletTitle);
+
+      // Modal additions
+      setTxt('chatBadgeText', d.chatBadge);
+      setTxt('chatLinkedProjLbl', d.chatLinkedProj);
+      setTxt('chatEscrowVaultLbl', d.chatEscrowVault);
+      setTxt('chatEscrowVaultVal', d.chatSecuredVal);
+      setTxt('chatSender1Name', d.chatSender1);
+      setTxt('chatMsg1Text', d.chatMsg1);
+      setTxt('chatSender2Name', d.chatSender2);
+      setTxt('chatMsg2Text', d.chatMsg2);
+      setTxt('propBadge', d.propBadge);
+      setTxt('propProjDesc', d.propProjDesc);
+      setTxt('propBidLbl', d.propBidLabel);
+      setTxt('propNetLbl', d.propNetLabel);
+      setTxt('propCoverLbl', d.propCoverLabel);
+      setPh('propCoverArea', d.propCoverPh);
+      setTxt('propMilestonesLbl', d.propMilestonesTitle);
+      setTxt('propM1Title', d.propM1);
+      setTxt('propM2Title', d.propM2);
+      setTxt('propSubmitBtnText', d.propSubmitBtn);
+
+      setTxt('walletBadge', d.walletBadge);
+      setTxt('walletAvailLbl', d.walletAvailLabel);
+      setTxt('walletEscrowLbl', d.walletEscrowLabel);
+      setTxt('walletAmtLbl', d.walletAmtLabel);
+      setTxt('walletChannelLbl', d.walletChannelLabel);
+      setTxt('walletAccountLbl', d.walletAccountLabel);
+      setPh('walletAccountInput', d.walletAccountPh);
+      setTxt('walletSubmitBtnText', d.walletSubmitBtn);
+
+    }
+
+    function toggleLang() {
+      const nextLang = currentLang === 'ar' ? 'en' : 'ar';
+      applyLanguage(nextLang);
+    }
+
+    function togglePersona() {
+      currentPersona = currentPersona === 'client' ? 'freelancer' : 'client';
+      const d = indexDict[currentLang];
+      const lbl = document.getElementById('lblSwitchPersona');
+      if (lbl) {
+        lbl.innerText = currentPersona === 'client' ? d.lblSwitchPersonaClient : d.lblSwitchPersonaFreelancer;
+      }
     }
 
     function openAuthModal(mode = 'signup', role = 'client') {
@@ -700,7 +939,6 @@
       e.preventDefault();
       const isAr = currentLang === 'ar';
       const name = document.getElementById('inputFullName').value.trim() || 'User';
-      const email = document.getElementById('inputEmail').value.trim();
       const successBox = document.getElementById('authSuccessBox');
       successBox.classList.remove('hidden');
 
@@ -733,28 +971,30 @@
       const text = input.value.trim();
       if (!text) return;
 
+      const isAr = currentLang === 'ar';
       const stream = document.getElementById('chatStream');
       const myBubble = document.createElement('div');
       myBubble.className = 'flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto animate-fadeIn';
       myBubble.innerHTML = `
-        <span class="text-[10px] text-indigo-400 font-bold">أنت:</span>
+        <span class="text-[10px] text-indigo-400 font-bold">${isAr ? 'أنت:' : 'You:'}</span>
         <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">${text}</div>
-        <span class="text-[9px] text-slate-500 font-mono">الآن • ✓✓ مقروءة</span>
+        <span class="text-[9px] text-slate-500 font-mono">${isAr ? 'الآن • ✓✓ مقروءة' : 'Just now • ✓✓ Read'}</span>
       `;
       stream.appendChild(myBubble);
       input.value = '';
       stream.scrollTop = stream.scrollHeight;
 
-      // Simulated auto-reply from client after 1.5s
       setTimeout(() => {
         const replyBubble = document.createElement('div');
         replyBubble.className = 'flex flex-col items-start space-y-1 max-w-[80%] animate-fadeIn';
         replyBubble.innerHTML = `
           <span class="text-[10px] text-cyan-400 font-bold">Orbital Space Systems:</span>
           <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
-            تم استلام رسالتكم بنجاح وجاري فحص المخرجات واعتماد الدفعة عبر نظام Escrow.
+            ${isAr 
+              ? 'تم استلام رسالتكم بنجاح وجاري فحص مخرجات CST لاعتماد الدفعة عبر نظام Escrow.' 
+              : 'Received your message. Our engineering team is validating CST plots to release the Escrow milestone.'}
           </div>
-          <span class="text-[9px] text-slate-500 font-mono">الآن</span>
+          <span class="text-[9px] text-slate-500 font-mono">${isAr ? 'الآن' : 'Just now'}</span>
         `;
         stream.appendChild(replyBubble);
         stream.scrollTop = stream.scrollHeight;
@@ -793,7 +1033,13 @@
       closeWalletModal();
     }
 
+    // Auto-init saved language on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('satcom_lang') || 'ar';
+      applyLanguage(saved);
+    });
   </script>
+
 
   <!-- ================= UPWORK MODAL 1: LIVE CHAT & MESSAGING WORKSPACE ================= -->
   <div id="chatModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
@@ -807,7 +1053,7 @@
             <h3 class="text-base font-black text-white" id="chatHeaderTitle">المحادثة الهندسية الفورية (Live Chat)</h3>
             <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              متصل الآن مشفر بالكامل • Upwork Workspace Mode
+              <span id="chatBadgeText">متصل الآن مشفر بالكامل • Upwork Workspace Mode</span>
             </span>
           </div>
         </div>
@@ -817,12 +1063,12 @@
       <!-- Project Context Header -->
       <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex items-center justify-between text-xs">
         <div>
-          <span class="text-slate-400 block text-[10px]">المشروع المرتبط:</span>
+          <span class="text-slate-400 block text-[10px]" id="chatLinkedProjLbl">المشروع المرتبط:</span>
           <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
         </div>
         <div class="text-right">
-          <span class="text-slate-400 block text-[10px]">خزينة Escrow:</span>
-          <span class="font-bold text-emerald-400 font-mono">$600.00 مؤمّنة ✓</span>
+          <span class="text-slate-400 block text-[10px]" id="chatEscrowVaultLbl">خزينة Escrow:</span>
+          <span class="font-bold text-emerald-400 font-mono" id="chatEscrowVaultVal">$600.00 مؤمّنة ✓</span>
         </div>
       </div>
 
@@ -830,18 +1076,18 @@
       <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-3 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
         <!-- Message 1 (Client) -->
         <div class="flex flex-col items-start space-y-1 max-w-[80%]">
-          <span class="text-[10px] text-cyan-400 font-bold">Orbital Space Systems (صاحب العمل):</span>
+          <span class="text-[10px] text-cyan-400 font-bold" id="chatSender1Name">Orbital Space Systems (صاحب العمل):</span>
           <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
-            مرحباً م. أحمد، نريد التأكد من اكتمال محاكاة CST لمصفوفة 16x16 عنصراً قبل تحرير الدفعة الأولى من حساب الضمان Escrow.
+            <span id="chatMsg1Text">مرحباً م. أحمد، نريد التأكد من اكتمال محاكاة CST لمصفوفة 16x16 عنصراً قبل تحرير الدفعة الأولى من حساب الضمان Escrow.</span>
           </div>
           <span class="text-[9px] text-slate-500 font-mono">10:14 PM</span>
         </div>
 
         <!-- Message 2 (Engineer) -->
         <div class="flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto">
-          <span class="text-[10px] text-indigo-400 font-bold">م. أحمد المنصوري (أنت):</span>
+          <span class="text-[10px] text-indigo-400 font-bold" id="chatSender2Name">م. أحمد المنصوري (أنت):</span>
           <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
-            أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.
+            <span id="chatMsg2Text">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.</span>
           </div>
           <span class="text-[9px] text-slate-500 font-mono">10:18 PM • ✓✓ مقروءة</span>
         </div>
@@ -876,7 +1122,7 @@
           </div>
           <div>
             <h3 class="text-base font-black text-white" id="propTitle">تقديم عرض هندسي (Submit Proposal)</h3>
-            <span class="text-[10px] text-cyan-400 font-bold">بضمان 100% Escrow • صافي استلام كامل 0% عمولة على المهندس</span>
+            <span class="text-[10px] text-cyan-400 font-bold" id="propBadge">بضمان 100% Escrow • صافي استلام كامل 0% عمولة على المهندس</span>
           </div>
         </div>
         <button onclick="closeProposalModal()" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
@@ -888,40 +1134,40 @@
           <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
           <span class="font-mono text-emerald-400 font-bold text-sm">$600.00 Fixed</span>
         </div>
-        <p class="text-[11px] text-slate-400">مطلوب تصميم هوائي مصفوفة طورية بتردد 28 GHz ومحاكاة المخطط الإشعاعي وميزانية الوصلة.</p>
+        <p class="text-[11px] text-slate-400" id="propProjDesc">مطلوب تصميم هوائي مصفوفة طورية بتردد 28 GHz ومحاكاة المخطط الإشعاعي وميزانية الوصلة.</p>
       </div>
 
       <!-- Proposal Form -->
       <form onsubmit="handleSubmitProposal(event)" class="space-y-4 text-xs">
         <div>
-          <label class="block font-bold text-slate-300 mb-1.5">مبلغ العرض المقترح للمشروع ($)</label>
+          <label class="block font-bold text-slate-300 mb-1.5" id="propBidLbl">مبلغ العرض المقترح للمشروع ($)</label>
           <input type="number" id="propBidAmount" required value="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-cyan-400">
           <div class="flex justify-between items-center text-[11px] text-emerald-400 font-bold mt-1.5 px-1">
-            <span>صافي ما تستلمه (100% بدون أي اقتطاع):</span>
+            <span id="propNetLbl">صافي ما تستلمه (100% بدون أي اقتطاع):</span>
             <span id="propNetVal" class="font-mono text-sm">$600.00</span>
           </div>
         </div>
 
         <div>
-          <label class="block font-bold text-slate-300 mb-1.5">خطاب التقديم والمنهجية الفنية (Cover Letter)</label>
-          <textarea rows="3" required placeholder="اشرح خبرتك مع برمجيات CST Studio أو HFSS، وسابق أعمالك في هوائيات الأقمار الصناعية..." class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400 leading-relaxed"></textarea>
+          <label class="block font-bold text-slate-300 mb-1.5" id="propCoverLbl">خطاب التقديم والمنهجية الفنية (Cover Letter)</label>
+          <textarea id="propCoverArea" rows="3" required placeholder="اشرح خبرتك مع برمجيات CST Studio أو HFSS، وسابق أعمالك في هوائيات الأقمار الصناعية..." class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400 leading-relaxed"></textarea>
         </div>
 
         <!-- Milestones Schedule -->
         <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-          <span class="font-bold text-cyan-300 block text-xs">تجزئة دفعات العمل (Milestones Schedule):</span>
+          <span class="font-bold text-cyan-300 block text-xs" id="propMilestonesLbl">تجزئة دفعات العمل (Milestones Schedule):</span>
           <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px]">
-            <span>المرحلة 1: تصميم العناصر وحساب مصفوفة الطور</span>
+            <span id="propM1Title">المرحلة 1: تصميم العناصر وحساب مصفوفة الطور</span>
             <span class="font-mono text-emerald-400 font-bold">$300.00</span>
           </div>
           <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px]">
-            <span>المرحلة 2: محاكاة الفصوص الإشعاعية والتقرير الفني النهائي</span>
+            <span id="propM2Title">المرحلة 2: محاكاة الفصوص الإشعاعية والتقرير الفني النهائي</span>
             <span class="font-mono text-emerald-400 font-bold">$300.00</span>
           </div>
         </div>
 
         <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs rounded-xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
-          إرسال العرض الهندسي رسمياً ↗
+          <span id="propSubmitBtnText">إرسال العرض الهندسي رسمياً ↗</span>
         </button>
       </form>
     </div>
@@ -936,8 +1182,8 @@
             💰
           </div>
           <div>
-            <h3 class="text-base font-black text-white">المحفظة وسحب الأرباح (Wallet)</h3>
-            <span class="text-[10px] text-slate-400">نظام السحب الفوري متعدد القنوات</span>
+            <h3 class="text-base font-black text-white" id="walletHeaderTitle">المحفظة وسحب الأرباح (Wallet)</h3>
+            <span class="text-[10px] text-slate-400" id="walletBadge">نظام السحب الفوري متعدد القنوات</span>
           </div>
         </div>
         <button onclick="closeWalletModal()" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
@@ -946,11 +1192,11 @@
       <!-- Balance Cards -->
       <div class="grid grid-cols-2 gap-3">
         <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
-          <span class="text-[11px] text-slate-400 block">الأرباح المتاحة للسحب:</span>
+          <span class="text-[11px] text-slate-400 block" id="walletAvailLbl">الأرباح المتاحة للسحب:</span>
           <span class="text-xl font-black text-emerald-400 font-mono mt-1 block">$600.00</span>
         </div>
         <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
-          <span class="text-[11px] text-slate-400 block">في حساب الضمان Escrow:</span>
+          <span class="text-[11px] text-slate-400 block" id="walletEscrowLbl">في حساب الضمان Escrow:</span>
           <span class="text-xl font-black text-cyan-400 font-mono mt-1 block">$1,250.00</span>
         </div>
       </div>
@@ -958,12 +1204,12 @@
       <!-- Payout Form -->
       <form onsubmit="handleRequestPayout(event)" class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-slate-300 mb-1">المبلغ المراد سحبه ($)</label>
+          <label class="block font-bold text-slate-300 mb-1" id="walletAmtLbl">المبلغ المراد سحبه ($)</label>
           <input type="number" required value="600" max="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-cyan-400">
         </div>
 
         <div>
-          <label class="block font-bold text-slate-300 mb-1">قناة السحب الدولية</label>
+          <label class="block font-bold text-slate-300 mb-1" id="walletChannelLbl">قناة السحب الدولية</label>
           <select class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
             <option value="swift">حوالة بنكية دولية SWIFT (IBAN)</option>
             <option value="usdt">محفظة USDT Escrow (TRC20 / ERC20)</option>
@@ -972,12 +1218,12 @@
         </div>
 
         <div>
-          <label class="block font-bold text-slate-300 mb-1">تفاصيل الحساب البنكي / المحفظة</label>
-          <input type="text" required placeholder="IBAN أو عنوان المحفظة الرقمية..." class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+          <label class="block font-bold text-slate-300 mb-1" id="walletAccountLbl">تفاصيل الحساب البنكي / المحفظة</label>
+          <input type="text" id="walletAccountInput" required placeholder="IBAN أو عنوان المحفظة الرقمية..." class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
         </div>
 
         <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black rounded-xl shadow-lg transition cursor-pointer">
-          تأكيد طلب السحب الفوري ↗
+          <span id="walletSubmitBtnText">تأكيد طلب السحب الفوري ↗</span>
         </button>
       </form>
     </div>

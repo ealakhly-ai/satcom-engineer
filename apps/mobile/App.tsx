@@ -224,7 +224,7 @@ export default function App() {
       senderNameEn: 'Me (Verified Engineer)',
       textAr: chatInputText,
       textEn: chatInputText,
-      time: 'الآن'
+      time: isAr ? 'الآن' : 'Just now'
     };
 
     setMessagesList((prev) => [...prev, newMsg]);
@@ -239,7 +239,7 @@ export default function App() {
         senderNameEn: 'Dr. Faris Al-Nuaimi (OrbitSat)',
         textAr: 'تم استلام ردك ومخرجات المشروع بنجاح. نقوم حالياً بفحص نتائج المحاكاة في غرفة العمليات لاعتماد تحرير المبلغ من Escrow فوراً.',
         textEn: 'Received your project deliverable updates. We are reviewing the CST simulation curves right now to release the Escrow milestone payout.',
-        time: 'الآن'
+        time: isAr ? 'الآن' : 'Just now'
       };
       setMessagesList((prev) => [...prev, clientReply]);
     }, 1200);
