@@ -8,12 +8,14 @@ jobs:
   ftp-deploy:
     name: Deploy to InfinityFree
     runs-on: ubuntu-latest
+    if: ${{ secrets.INFINITYFREE_FTP_PASSWORD != '' }}
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
 
     - name: Deploy via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      continue-on-error: true
       with:
         server: ftpupload.net
         username: if0_42952556
