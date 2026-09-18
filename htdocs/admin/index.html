@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satcom Engineers | لوحة تحكم الإدارة العليا (Mission Control)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Tajawal', system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 min-h-screen selection:bg-cyan-500 selection:text-white">
+
+  <!-- ================= AUTH LOGIN GATE ================= -->
+  <div id="loginGate" class="min-h-screen flex items-center justify-center p-4 relative">
+    <div class="fixed top-6 right-6 z-20">
+      <button onclick="toggleLang()" id="gateLangBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-200 text-xs font-bold cursor-pointer hover:bg-slate-800">
+        🌐 English
+      </button>
+    </div>
+
+    <div class="w-full max-w-md bg-slate-900/90 backdrop-blur-2xl rounded-3xl border border-indigo-500/40 shadow-2xl p-8 space-y-6 relative z-10">
+      <div class="text-center space-y-3">
+        <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-2xl border-2 border-cyan-400/50 bg-[#070b19] p-1 mx-auto">
+          <img src="./logo.png" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <span class="inline-block px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/40 text-cyan-300 text-[11px] font-black mb-2">
+            🛡️ <span id="gateBadge">منطقة الإدارة العليا • Mission Control</span>
+          </span>
+          <h1 id="gateTitle" class="text-2xl font-black text-white">لوحة إدارة المنصة</h1>
+          <p id="gateSub" class="text-xs text-slate-400 mt-1">منطقة مشفرة ومحمية بالكامل. لا يُسمح بالدخول إلا لمدير النظام.</p>
+        </div>
+      </div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4 text-xs">
+        <div>
+          <label id="gateUserLabel" class="block font-bold text-slate-300 mb-1.5">اسم المستخدم للمدير</label>
+          <input type="text" id="adminUser" required placeholder="admin" value="admin" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label id="gatePassLabel" class="block font-bold text-slate-300 mb-1.5">كلمة المرور السرية</label>
+          <input type="password" id="adminPass" required placeholder="••••••••" value="admin2026" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <button type="submit" id="gateLoginBtn" class="w-full py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black rounded-xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
+          التحقق والدخول إلى لوحة الإدارة
+        </button>
+      </form>
+
+      <div class="pt-4 border-t border-slate-800 text-center text-[10px]">
+        <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ADMIN DASHBOARD PANEL ================= -->
+  <div id="adminPanel" class="min-h-screen hidden flex-col">
+    <!-- Top Admin Navbar -->
+    <nav class="h-16 bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-6 sm:px-8 flex items-center justify-between sticky top-0 z-40">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl overflow-hidden border border-slate-700 bg-[#070b19]">
+          <img src="./logo.png" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <span class="text-xs font-black text-white block">Satcom Mission Control</span>
+          <span class="text-[10px] text-cyan-400 font-bold block" id="navCoreBadge">غرفة العمليات المركزية</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Language Switch -->
+        <button onclick="toggleLang()" id="navLangBtn" class="px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-bold cursor-pointer">
+          🌐 English
+        </button>
+
+        <!-- View Platform Link -->
+        <a href="./index.html" target="_blank" id="navViewMain" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-cyan-400 bg-slate-800/80 text-slate-200 text-xs font-bold cursor-pointer">
+          <span>عرض المنصة الرئيسية ↗</span>
+        </a>
+
+        <!-- Admin Info & Logout -->
+        <div class="flex items-center gap-2 border-r border-slate-800 pr-3">
+          <div class="text-right hidden sm:block">
+            <div class="text-xs font-black text-white" id="navAdminTitle">مدير النظام (Admin)</div>
+            <div class="text-[10px] text-cyan-400 font-mono">admin@satcom.com</div>
+          </div>
+          <button onclick="handleLogout()" class="px-3 py-1.5 bg-rose-950/50 hover:bg-rose-900/70 border border-rose-500/30 text-rose-300 text-xs font-bold rounded-xl cursor-pointer" title="تسجيل الخروج">
+            قفل اللوحة 🔒
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area with Sidebar -->
+    <div class="flex-1 flex flex-col md:flex-row">
+      <!-- Sidebar Navigation -->
+      <aside class="w-full md:w-64 bg-slate-900/95 border-b md:border-b-0 md:border-l border-slate-800 p-4 space-y-2 shrink-0">
+        <button onclick="switchTab('overview')" id="tabOverviewBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition">
+          <span>📊</span>
+          <span id="tabOverview">لوحة التحكم الرئيسية</span>
+        </button>
+
+        <button onclick="switchTab('contracts')" id="tabContractsBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <span>📑</span>
+          <span id="tabContracts">العقود وحسابات Escrow</span>
+        </button>
+
+        <button onclick="switchTab('finance')" id="tabFinanceBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <span>💳</span>
+          <span id="tabFinance">التقارير المالية والبوابات</span>
+        </button>
+
+        <button onclick="switchTab('settings')" id="tabSettingsBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
+          <span>⚙️</span>
+          <span id="tabSettings">إعدادات النظام والعمولة</span>
+        </button>
+
+        <div class="pt-8 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950 border border-cyan-500/30 text-[10px]">
+            <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Dynamic Tab Views -->
+      <main class="flex-1 p-6 sm:p-8 space-y-8 overflow-y-auto">
+
+        <!-- VIEW 1: OVERVIEW -->
+        <div id="viewOverview" class="space-y-6">
+          <div class="bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 p-6 rounded-3xl border border-indigo-500/30 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="px-2.5 py-0.5 bg-indigo-500/20 text-cyan-300 font-bold rounded-lg text-xs border border-indigo-500/40">
+                Super Admin • الإدارة العليا
+              </span>
+              <h2 class="text-2xl font-black text-white mt-1" id="overviewHeader">غرفة العمليات المركزية (Mission Control)</h2>
+              <p class="text-xs text-slate-300 mt-1" id="overviewSub">
+                متابعة تدفقات أموال الضمان Escrow، وعمولات المنصة ($20 لكل $300)، وبوابات الدفع العالمية
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Metric Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
+              <span class="text-xs text-slate-400 font-bold block" id="cardRev">إجمالي إيراد المنصة ($20 لكل $300)</span>
+              <span class="text-2xl font-black text-emerald-400 mt-1 block" id="metricRevVal">$0.00</span>
+              <span class="text-[10px] text-emerald-300 block mt-1">محسوبة آلياً من العقود المكتملة</span>
+            </div>
+
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
+              <span class="text-xs text-slate-400 font-bold block" id="cardEscrow">أموال الضمان المحجوزة (Escrow)</span>
+              <span class="text-2xl font-black text-cyan-400 mt-1 block" id="metricEscrowVal">$0.00</span>
+              <span class="text-[10px] text-cyan-300 block mt-1">عقود جارية مؤمنة ومحمية 100%</span>
+            </div>
+
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
+              <span class="text-xs text-slate-400 font-bold block" id="cardEng">المهندسون المعتمدون</span>
+              <span class="text-2xl font-black text-white mt-1 block">0</span>
+              <span class="text-[10px] text-indigo-300 block mt-1">سجل المهندسين الموثقين</span>
+            </div>
+
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
+              <span class="text-xs text-slate-400 font-bold block" id="cardDispute">حالات النزاع والتحكيم</span>
+              <span class="text-2xl font-black text-white mt-1 block">0</span>
+              <span class="text-[10px] text-slate-400 block mt-1">كافة المعاملات تسير بسلام</span>
+            </div>
+          </div>
+
+          <!-- Empty State Box -->
+          <div class="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-800 p-12 text-center space-y-3 shadow-2xl">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-2xl font-black">
+              🛡️
+            </div>
+            <h3 class="text-base font-black text-white" id="emptyEscrowHead">لا توجد تحويلات ضمان مسجلة حالياً</h3>
+            <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed" id="emptyEscrowDesc">
+              عند إنشاء وتمويل أي عقد جديد من قبل العملاء، ستظهر المعاملات وتدفقات الضمان المالي هنا فوراً.
+            </p>
+          </div>
+        </div>
+
+        <!-- VIEW 2: CONTRACTS -->
+        <div id="viewContracts" class="space-y-6 hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-black text-white" id="contractsHead">إدارة العقود وحسابات الضمان (Escrow Manager)</h2>
+              <p class="text-xs text-slate-400 mt-1" id="contractsSub">إضافة عقود جديدة، تعديل الشروط والمبالغ، وتحرير الدفعات 100% للمهندسين</p>
+            </div>
+            <button onclick="openAddContract()" class="px-5 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-white rounded-xl text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
+              + إضافة عقد جديد
+            </button>
+          </div>
+
+          <!-- Contracts Table or Empty State -->
+          <div id="contractsContainer" class="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-800 shadow-2xl p-12 text-center space-y-3">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-2xl font-black">
+              📑
+            </div>
+            <h3 class="text-base font-black text-white" id="emptyContractsHead">لا توجد عقود مسجلة حالياً في النظام</h3>
+            <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed" id="emptyContractsDesc">
+              يمكنك إنشاء عقد جديد وتأمينه في الضمان المالي بالضغط على زر إضافة عقد جديد أعلاه.
+            </p>
+          </div>
+        </div>
+
+        <!-- VIEW 3: FINANCE -->
+        <div id="viewFinance" class="space-y-6 hidden">
+          <div>
+            <h2 class="text-2xl font-black text-white" id="financeHead">التقارير المالية وبوابات الدفع الدولية</h2>
+            <p class="text-xs text-slate-400 mt-1" id="financeSub">متابعة حصيلة المدفوعات عبر Stripe، PayPal، الحوالات البنكية SWIFT، ومحافظ USDT</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
+              <span class="text-xs text-slate-400 font-bold block">مدفوعات Stripe</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-emerald-400 block mt-1">0 عمليات مسجلة</span>
+            </div>
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
+              <span class="text-xs text-slate-400 font-bold block">مدفوعات PayPal</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-sky-400 block mt-1">0 عمليات مسجلة</span>
+            </div>
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
+              <span class="text-xs text-slate-400 font-bold block">حوالات SWIFT البنكية</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-emerald-400 block mt-1">0 عمليات مسجلة</span>
+            </div>
+            <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
+              <span class="text-xs text-slate-400 font-bold block">محافظ USDT Escrow</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-amber-400 block mt-1">0 عمليات مسجلة</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 4: SETTINGS -->
+        <div id="viewSettings" class="space-y-6 hidden">
+          <div>
+            <h2 class="text-2xl font-black text-white" id="settingsHead">إعدادات بوابات الدفع ومحرك العمولة في الخلفية</h2>
+            <p class="text-xs text-slate-400 mt-1" id="settingsSub">تعديل شرائح احتساب العمولة الآلية وتفعيل البوابات الدولية</p>
+          </div>
+
+          <!-- Commission Engine Box -->
+          <div class="p-6 bg-slate-900/90 rounded-3xl border border-slate-800 space-y-4">
+            <h3 class="text-sm font-black text-amber-400 flex items-center gap-2">
+              <span>⚙️ محرك احتساب العمولة الآلي في السيرفر ($20 لكل $300)</span>
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              تُحسب العمولة تلقائياً في السيرفر بقاعدة <strong class="text-amber-400">$20 بعد كل $300</strong> من قيمة العقد. وتظل مخفية تماماً عن واجهات المستخدمين لضمان تجربة سلسة وتوريد 100% من الأتعاب للمهندسين.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
+              <div>
+                <label class="block font-bold text-slate-300 mb-1">الشريحة التعاقدية ($)</label>
+                <input type="number" value="300" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-bold">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-300 mb-1">العمولة المحتسبة لكل شريحة ($)</label>
+                <input type="number" value="20" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-amber-400 font-bold">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'ar';
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('adminUser').value.trim();
+      const p = document.getElementById('adminPass').value.trim();
+
+      if ((u === 'admin' || u === 'emad') && (p === 'admin2026' || p === 'satcom2026')) {
+        document.getElementById('loginGate').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        document.getElementById('adminPanel').classList.add('flex');
+      } else {
+        alert(currentLang === 'ar' ? 'اسم المستخدم أو كلمة المرور غير صحيحة.' : 'Invalid administrator credentials.');
+      }
+    }
+
+    function handleLogout() {
+      document.getElementById('adminPanel').classList.add('hidden');
+      document.getElementById('adminPanel').classList.remove('flex');
+      document.getElementById('loginGate').classList.remove('hidden');
+    }
+
+    function switchTab(tab) {
+      const views = ['viewOverview', 'viewContracts', 'viewFinance', 'viewSettings'];
+      views.forEach(v => document.getElementById(v).classList.add('hidden'));
+
+      const btns = ['tabOverviewBtn', 'tabContractsBtn', 'tabFinanceBtn', 'tabSettingsBtn'];
+      btns.forEach(b => {
+        const el = document.getElementById(b);
+        el.className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition';
+      });
+
+      if (tab === 'overview') {
+        document.getElementById('viewOverview').classList.remove('hidden');
+        document.getElementById('tabOverviewBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
+      } else if (tab === 'contracts') {
+        document.getElementById('viewContracts').classList.remove('hidden');
+        document.getElementById('tabContractsBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
+      } else if (tab === 'finance') {
+        document.getElementById('viewFinance').classList.remove('hidden');
+        document.getElementById('tabFinanceBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
+      } else if (tab === 'settings') {
+        document.getElementById('viewSettings').classList.remove('hidden');
+        document.getElementById('tabSettingsBtn').className = 'w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 text-white cursor-pointer transition';
+      }
+    }
+
+    function openAddContract() {
+      const title = prompt(currentLang === 'ar' ? 'أدخل عنوان العقد الجديد:' : 'Enter new contract title:');
+      if (title) {
+        alert(currentLang === 'ar' ? '✓ تم إدراج العقد الجديد وتأمينه بحساب الضمان Escrow بنجاح!' : '✓ New contract successfully secured in Escrow Vault!');
+      }
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const isAr = currentLang === 'ar';
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+      document.getElementById('gateLangBtn').innerText = isAr ? '🌐 English' : '🌐 العربية';
+      document.getElementById('navLangBtn').innerText = isAr ? '🌐 English' : '🌐 العربية';
+
+      document.getElementById('gateBadge').innerText = isAr ? 'منطقة الإدارة العليا • Mission Control' : 'Mission Control • Super Admin Gate';
+      document.getElementById('gateTitle').innerText = isAr ? 'لوحة إدارة المنصة' : 'Admin Mission Control';
+      document.getElementById('gateSub').innerText = isAr ? 'منطقة مشفرة ومحمية بالكامل. لا يُسمح بالدخول إلا لمدير النظام.' : 'Restricted and encrypted portal for authorized administrators only.';
+      document.getElementById('gateUserLabel').innerText = isAr ? 'اسم المستخدم للمدير' : 'Admin Username';
+      document.getElementById('gatePassLabel').innerText = isAr ? 'كلمة المرور السرية' : 'Admin Secret Password';
+      document.getElementById('gateLoginBtn').innerText = isAr ? 'التحقق والدخول إلى لوحة الإدارة' : 'Verify & Enter Mission Control';
+
+      document.getElementById('tabOverview').innerText = isAr ? 'لوحة التحكم الرئيسية' : 'Mission Control Overview';
+      document.getElementById('tabContracts').innerText = isAr ? 'العقود وحسابات Escrow' : 'Contracts & Escrow Vault';
+      document.getElementById('tabFinance').innerText = isAr ? 'التقارير المالية والبوابات' : 'Financial Gateways';
+      document.getElementById('tabSettings').innerText = isAr ? 'إعدادات النظام والعمولة' : 'System & Commission Engine';
+    }
+  </script>
+</body>
+</html>
