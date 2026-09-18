@@ -14,117 +14,65 @@
 </head>
 <body class="min-h-screen flex flex-col bg-[#050811] text-slate-100 selection:bg-cyan-500 selection:text-white">
 
-  <!-- ================= TOP HEADER (NAVBAR AT 8:42 PM) ================= -->
-  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 transition-all text-white">
-    <div class="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <!-- ================= TOP HEADER (CLEAN & ZERO-CLUTTER NAVBAR) ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 transition-all text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo & Navigation Links -->
-      <div class="flex items-center gap-4 lg:gap-6 shrink-0">
-        <a href="#" class="flex items-center gap-3 text-white font-bold text-xl tracking-tight group flex-shrink-0">
-          <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-cyan-500/20 border-2 border-cyan-400/50 bg-[#070c18] flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
-            <img src="./logo.png" alt="Satcom Engineers" class="w-full h-full object-cover" />
-          </div>
-          <div class="flex flex-col">
-            <div class="flex items-center gap-2">
-              <span class="font-black text-white tracking-tight leading-tight text-xl">Satcom Engineers</span>
-              <span class="text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-400/30 hidden lg:inline-block">
-                SPACE & RF
-              </span>
-            </div>
-            <span id="brandSub" class="text-[11px] text-slate-400 font-medium hidden sm:block">
-              سوق العمل لمهندسي الأقمار الصناعية والاتصالات
+      <!-- Brand Logo & Clean Title -->
+      <a href="./index.html" class="flex items-center gap-3 text-white font-bold text-xl tracking-tight group shrink-0">
+        <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-cyan-500/20 border-2 border-cyan-400/50 bg-[#070c18] shrink-0 group-hover:scale-105 transition-transform duration-200">
+          <img src="./logo.png" alt="Satcom Engineers" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="font-black text-white tracking-tight leading-tight text-xl">Satcom Engineers</span>
+            <span class="text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-400/30">
+              SPACE & RF
             </span>
           </div>
-        </a>
-
-        <!-- Primary Nav Items -->
-        <nav class="hidden lg:flex items-center gap-3.5 xl:gap-5 text-sm font-semibold text-slate-300 whitespace-nowrap shrink-0">
-          <a href="#domains" id="navJobs" class="hover:text-cyan-400 transition py-2 px-1">تصفح المشاريع</a>
-          <a href="#domains" id="navFreelancers" class="hover:text-cyan-400 transition py-2 px-1">نخبة المهندسين</a>
-          <a href="#escrow-calc" id="navPricing" class="hover:text-cyan-400 transition py-2 px-1">الضمان المالي والبوابات</a>
-          <button onclick="openChatModal()" id="navChat" class="hover:text-cyan-400 text-slate-300 transition py-2 px-1 flex items-center gap-1 cursor-pointer">
-            <span>💬</span>
-            <span id="navChatText">المحادثات الحية</span>
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          </button>
-          <button onclick="openProposalModal()" id="navProposal" class="hover:text-cyan-400 text-slate-300 transition py-2 px-1 flex items-center gap-1 cursor-pointer">
-            <span>📝</span>
-            <span id="navProposalText">تقديم عرض</span>
-          </button>
-          <button onclick="openWalletModal()" id="navWallet" class="hover:text-cyan-400 text-slate-300 transition py-2 px-1 flex items-center gap-1 cursor-pointer">
-            <span>💰</span>
-            <span id="navWalletText">المحفظة</span>
-          </button>
-          <a href="./admin.html" id="navAdmin" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-1 group" title="لوحة التحكم الإدارية">
-            <span class="text-indigo-400 group-hover:text-cyan-400">🛡️</span>
-            <span id="navAdminText">لوحة الإدارة</span>
-          </a>
-        </nav>
-      </div>
-
-      <!-- Center: Global Search Bar -->
-      <div class="hidden 2xl:flex items-center flex-1 max-w-xs mx-3 shrink">
-        <div class="w-full relative">
-          <input type="text" id="searchInput"
-            placeholder="ابحث عن مشاريع أو مهندسي فضاء..."
-            class="w-full py-2 pr-9 pl-14 rounded-full border border-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-xs bg-slate-800/80 text-white placeholder-slate-400 transition-all"
-          />
-          <span class="absolute top-2.5 right-3 text-slate-400 text-xs">🔍</span>
-          <button class="absolute top-1 left-1 py-1 px-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full text-[10px] font-bold">
-            بحث
-          </button>
+          <span id="brandSub" class="text-[11px] text-slate-400 font-medium hidden sm:block">
+            سوق العمل لمهندسي الأقمار الصناعية والاتصالات
+          </span>
         </div>
+      </a>
+
+      <!-- Quick Link to Admin Portal -->
+      <div class="hidden lg:flex items-center gap-2">
+        <a href="./admin.html" id="navAdminText" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-3.5 rounded-xl hover:bg-slate-800/70 border border-slate-800">
+          <span>🛡️</span>
+          <span>لوحة الإدارة</span>
+        </a>
       </div>
 
-      <!-- Right: Actions, Language & Auth -->
-      <div class="flex items-center gap-2 shrink-0">
-        <!-- Persona Switcher -->
-        <button
-          onclick="togglePersona()"
-          id="btnSwitchPersona"
-          class="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-700 hover:border-cyan-400/50 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-bold transition shadow-xs cursor-pointer"
-        >
-          <span>⇄</span>
-          <span id="lblSwitchPersona">التحويل لوضع المهندس</span>
-        </button>
-
-        <!-- Language Switcher -->
+      <!-- Action Buttons (ALWAYS PROMINENT & VISIBLE) -->
+      <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <!-- 1. خيار اللغة (Language Switcher) -->
         <button
           onclick="toggleLang()"
           id="langBtn"
-          class="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-700 hover:border-cyan-400/50 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-bold transition shadow-xs cursor-pointer"
+          class="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl border border-slate-700 hover:border-cyan-400/60 bg-slate-800/90 hover:bg-slate-800 text-slate-200 text-xs font-bold transition shadow-sm cursor-pointer"
         >
           <span>🌐</span>
           <span id="langBtnText">English</span>
         </button>
 
-        <!-- Post a Job Button -->
-        <button
-          onclick="openAuthModal('signup', 'client')"
-          id="btnNavPostJob"
-          class="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-extrabold shadow-md shadow-cyan-500/20 transition cursor-pointer"
-        >
-          <span>+</span>
-          <span id="lblNavPostJob">نشر مشروع</span>
-        </button>
-
-        <!-- Sign In -->
+        <!-- 2. خيار تسجيل الدخول (Sign In) -->
         <button
           onclick="openAuthModal('signin')"
           id="btnNavLogin"
-          class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition cursor-pointer"
+          class="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition shadow-sm cursor-pointer"
         >
           <span id="lblNavLogin">تسجيل الدخول</span>
         </button>
 
-        <!-- Sign Up / Register -->
+        <!-- 3. خيار تسجيل حساب جديد (Sign Up / Register) -->
         <button
           onclick="openAuthModal('signup')"
           id="btnNavSignUp"
-          class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-extrabold shadow-md shadow-cyan-500/20 transition cursor-pointer"
+          class="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-extrabold shadow-md shadow-cyan-500/25 transition cursor-pointer"
         >
           <span>✨</span>
-          <span id="lblNavSignUp">تسجيل جديد</span>
+          <span id="lblNavSignUp">تسجيل حساب جديد</span>
         </button>
       </div>
 
@@ -565,7 +513,7 @@
         lblSwitchPersonaFreelancer: 'التحويل لوضع العميل',
         lblNavPostJob: 'نشر مشروع',
         lblNavLogin: 'تسجيل الدخول',
-        lblNavSignUp: 'تسجيل جديد',
+        lblNavSignUp: 'تسجيل حساب جديد',
         heroBadge: 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية',
         heroHeading: 'وظّف نخبة مهندسي <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">الاتصالات الفضائية و RF</span> بمشروعك',
         heroDesc: 'منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.',
@@ -652,7 +600,7 @@
         lblSwitchPersonaFreelancer: 'Switch to Client',
         lblNavPostJob: 'Post Project',
         lblNavLogin: 'Sign In',
-        lblNavSignUp: 'Sign Up',
+        lblNavSignUp: 'Create Account',
         heroBadge: 'The Premier Specialized Network for Satellite & Aerospace RF Engineers',
         heroHeading: 'Hire Elite Engineers in <br class="hidden sm:block" /><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Satellite Comms & RF</span>',
         heroDesc: 'A specialized marketplace connecting satellite, RF, and aerospace engineers with global clients. 100% Escrow security and automated backend settlements.',
