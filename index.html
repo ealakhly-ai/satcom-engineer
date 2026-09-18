@@ -9,9 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
-    }
+    body { font-family: 'Tajawal', system-ui, -apple-system, sans-serif; }
   </style>
 </head>
 <body class="bg-[#050811] text-slate-100 antialiased min-h-screen selection:bg-cyan-500 selection:text-white flex flex-col justify-between">
@@ -49,15 +47,10 @@
       </div>
 
       <!-- Actions & Language Switcher -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2.5">
         <!-- Language Switch -->
         <button onclick="toggleLang()" id="langBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer">
           <span>🌐 English</span>
-        </button>
-
-        <!-- Post Job Button -->
-        <button onclick="openModal('client')" id="btnPostJob" class="hidden sm:inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-cyan-400/40 bg-cyan-950/50 text-cyan-300 hover:bg-cyan-900/60 text-xs font-black transition cursor-pointer">
-          + نشر مشروع
         </button>
 
         <!-- Admin Portal Link -->
@@ -66,8 +59,13 @@
         </a>
 
         <!-- Sign In Button -->
-        <button onclick="openModal('freelancer')" id="btnSignIn" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
+        <button onclick="openAuthModal('signin')" id="btnSignIn" class="px-3.5 py-1.5 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition cursor-pointer">
           تسجيل الدخول
+        </button>
+
+        <!-- Sign Up (Register) Button -->
+        <button onclick="openAuthModal('signup')" id="btnSignUp" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
+          <span>✨ إنشاء حساب جديد</span>
         </button>
       </div>
     </div>
@@ -111,13 +109,23 @@
         </div>
       </div>
 
-      <!-- Action Buttons -->
+      <!-- Action Buttons (Choose Role) -->
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <button onclick="openModal('client')" id="btnHeroPost" class="px-8 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-2xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
-          انشر مشروع هندسي جديد
+        <!-- Register as Client -->
+        <button onclick="openAuthModal('signup', 'client')" id="btnHeroClient" class="px-7 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-2xl shadow-xl shadow-cyan-500/25 transition cursor-pointer flex items-center gap-2">
+          <span>💼</span>
+          <span>تسجيل كصاحب عمل (عميل)</span>
         </button>
-        <a href="#jobs" id="btnHeroBrowse" class="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold rounded-2xl transition">
-          استكشف المشاريع الهندسية المتاحة
+
+        <!-- Register as Freelancer / Engineer -->
+        <button onclick="openAuthModal('signup', 'freelancer')" id="btnHeroEng" class="px-7 py-3.5 bg-slate-900 hover:bg-slate-850 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 text-xs font-black rounded-2xl shadow-lg transition cursor-pointer flex items-center gap-2">
+          <span>🛰️</span>
+          <span>انضمام كمهندس اتصالات وفضاء</span>
+        </button>
+
+        <!-- Browse Jobs -->
+        <a href="#jobs" id="btnHeroBrowse" class="px-6 py-3.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold rounded-2xl transition">
+          استكشف المشاريع المتاحة ↗
         </a>
       </div>
     </section>
@@ -129,8 +137,8 @@
           <h2 id="jobsTitle" class="text-2xl font-black text-white">أحدث المشاريع والفرص الهندسية</h2>
           <p id="jobsSub" class="text-xs text-slate-400 mt-0.5">مشاريع في مجالات الأقمار الصناعية، هوائيات الميكروويف، ومعالجة الإشارات SDR</p>
         </div>
-        <button onclick="openModal('client')" id="btnSubmitProposal" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-3.5 py-2 rounded-xl">
-          + نشر فرصة تعاقد
+        <button onclick="openAuthModal('signup', 'client')" id="btnSubmitProposal" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-3.5 py-2 rounded-xl cursor-pointer">
+          + نشر فرصة تعاقد جديدة
         </button>
       </div>
 
@@ -153,7 +161,7 @@
           يمكنك الآن كصاحب عمل أو شركة نشر مشروعك الهندسي وتحديد الميزانية وتأمين كامل أتعاب المهندس في حساب الضمان Escrow.
         </p>
         <div class="pt-2">
-          <button onclick="openModal('client')" class="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-black rounded-xl shadow-lg shadow-cyan-500/25 cursor-pointer">
+          <button onclick="openAuthModal('signup', 'client')" class="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-black rounded-xl shadow-lg shadow-cyan-500/25 cursor-pointer">
             + نشر أول مشروع
           </button>
         </div>
@@ -196,45 +204,122 @@
 
   </main>
 
-  <!-- Interactive Sign In / Register Modal -->
-  <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
-      <button onclick="closeModal()" class="absolute top-5 left-5 text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
+  <!-- ================= AUTH MODAL (SIGN IN / REGISTER - CLIENT & FREELANCER) ================= -->
+  <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+      <!-- Close Button -->
+      <button onclick="closeAuthModal()" class="absolute top-5 left-5 text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
 
+      <!-- Brand Icon & Header -->
       <div class="text-center space-y-2">
         <div class="w-14 h-14 mx-auto rounded-2xl overflow-hidden border border-slate-700 bg-[#070c18] p-1">
           <img src="./logo.png" alt="Logo" class="w-full h-full object-cover">
         </div>
         <h3 id="modalTitle" class="text-xl font-black text-white">الانضمام إلى Satcom Engineers</h3>
-        <p id="modalSub" class="text-xs text-slate-400">اختر نوع حسابك للبدء في المنصة</p>
+        <p id="modalSub" class="text-xs text-slate-400">سوق العمل المتخصص لمهندسي وخبراء الاتصالات والأقمار الصناعية</p>
       </div>
 
-      <!-- Role Selector -->
-      <div class="grid grid-cols-2 gap-3">
-        <button type="button" id="roleClientBtn" onclick="selectRole('client')" class="p-3 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-center space-y-1 cursor-pointer">
-          <div class="text-lg">💼</div>
-          <div class="text-xs font-black text-white">صاحب عمل (عميل)</div>
-          <div class="text-[10px] text-slate-400">أبحث عن مهندسين</div>
+      <!-- Mode Switch Tabs (Sign In vs Register) -->
+      <div class="flex items-center p-1 bg-slate-950 rounded-2xl border border-slate-800">
+        <button type="button" id="tabSignUpBtn" onclick="switchAuthMode('signup')" class="flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer bg-cyan-600 text-white shadow-xs">
+          ✨ إنشاء حساب جديد
         </button>
-
-        <button type="button" id="roleFreelancerBtn" onclick="selectRole('freelancer')" class="p-3 rounded-2xl border border-slate-700 bg-slate-800 text-center space-y-1 cursor-pointer">
-          <div class="text-lg">🛰️</div>
-          <div class="text-xs font-black text-white">مهندس مستقل</div>
-          <div class="text-[10px] text-slate-400">أبحث عن مشاريع</div>
+        <button type="button" id="tabSignInBtn" onclick="switchAuthMode('signin')" class="flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer text-slate-400 hover:text-white">
+          تسجيل الدخول
         </button>
       </div>
 
-      <form onsubmit="handleAuthSubmit(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-300 mb-1">البريد الإلكتروني</label>
-          <input type="email" required placeholder="name@domain.com" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+      <!-- Success Alert (Hidden by default) -->
+      <div id="authSuccessBox" class="hidden p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold text-center"></div>
+
+      <!-- ROLE SELECTOR CARDS (Shown on Sign Up) -->
+      <div id="roleSelectorSection" class="space-y-2">
+        <label id="chooseAccountTypeLabel" class="block text-xs font-bold text-slate-300 text-center">
+          اختر نوع الحساب الذي ترغب في إنشائه:
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Card 1: Client -->
+          <button type="button" id="roleClientCard" onclick="selectAuthRole('client')" class="p-4 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-right space-y-1.5 cursor-pointer transition">
+            <div class="flex items-center justify-between">
+              <span class="text-xl">💼</span>
+              <span id="badgeClientCheck" class="w-4 h-4 rounded-full bg-cyan-400 text-slate-900 text-[10px] font-black flex items-center justify-center">✓</span>
+            </div>
+            <div class="text-xs font-black text-white" id="lblRoleClient">أنا صاحب عمل (عميل)</div>
+            <div class="text-[11px] text-slate-400 leading-relaxed" id="descRoleClient">
+              أريد نشر مشاريع وتوظيف مهندسين محترفين بحماية Escrow
+            </div>
+          </button>
+
+          <!-- Card 2: Freelancer -->
+          <button type="button" id="roleFreelancerCard" onclick="selectAuthRole('freelancer')" class="p-4 rounded-2xl border border-slate-700 bg-slate-800/80 text-right space-y-1.5 cursor-pointer transition">
+            <div class="flex items-center justify-between">
+              <span class="text-xl">🛰️</span>
+              <span id="badgeFreelancerCheck" class="w-4 h-4 rounded-full border border-slate-600 text-transparent text-[10px] font-black flex items-center justify-center">✓</span>
+            </div>
+            <div class="text-xs font-black text-white" id="lblRoleFreelancer">أنا مهندس مستقل</div>
+            <div class="text-[11px] text-slate-400 leading-relaxed" id="descRoleFreelancer">
+              أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%
+            </div>
+          </button>
         </div>
-        <div>
-          <label class="block font-bold text-slate-300 mb-1">كلمة المرور</label>
-          <input type="password" required placeholder="••••••••" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+      </div>
+
+      <!-- ================= FORM ================= -->
+      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-3.5 text-xs">
+        
+        <!-- Full Name (Only for Register) -->
+        <div id="fieldFullName">
+          <label id="lblFullName" class="block font-bold text-slate-300 mb-1">الاسم الكامل</label>
+          <input type="text" id="inputFullName" required placeholder="مثال: د. طارق المنصوري" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
         </div>
-        <button type="submit" class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black rounded-xl shadow-lg transition cursor-pointer">
-          متابعة والدخول
+
+        <!-- Specialty / Company depending on role (Only for Register) -->
+        <div id="fieldSpecialty">
+          <label id="lblSpecialty" class="block font-bold text-slate-300 mb-1">التخصص الهندسي أو اسم الشركة</label>
+          <input type="text" id="inputSpecialty" placeholder="مثال: Antenna Design & CST Studio Suite" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label id="lblEmail" class="block font-bold text-slate-300 mb-1">البريد الإلكتروني</label>
+          <input type="email" id="inputEmail" required placeholder="engineer@domain.com" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label id="lblPass" class="block font-bold text-slate-300 mb-1">كلمة المرور</label>
+          <input type="password" id="inputPass" required placeholder="••••••••••••" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <!-- Country (Only for Register) -->
+        <div id="fieldCountry">
+          <label id="lblCountry" class="block font-bold text-slate-300 mb-1">الدولة</label>
+          <select id="inputCountry" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+            <option value="السعودية">المملكة العربية السعودية</option>
+            <option value="الإمارات">الإمارات العربية المتحدة</option>
+            <option value="مصر">جمهورية مصر العربية</option>
+            <option value="قطر">قطر</option>
+            <option value="الكويت">الكويت</option>
+            <option value="سلطنة عمان">سلطنة عمان</option>
+            <option value="الأردن">الأردن</option>
+            <option value="الولايات المتحدة">الولايات المتحدة (USA)</option>
+            <option value="ألمانيا">ألمانيا (Germany)</option>
+            <option value="المملكة المتحدة">المملكة المتحدة (UK)</option>
+            <option value="دولة أخرى">دولة أخرى</option>
+          </select>
+        </div>
+
+        <!-- Escrow Checkbox (Only for Register) -->
+        <div id="fieldAgreement" class="flex items-start gap-2 pt-1">
+          <input type="checkbox" id="agreeEscrow" checked required class="mt-1 rounded border-slate-700 text-cyan-500 focus:ring-cyan-400">
+          <label for="agreeEscrow" id="lblAgreement" class="text-[11px] text-slate-400 leading-relaxed cursor-pointer">
+            أوافق على شروط الاستخدام ونظام حماية المدفوعات والضمان المالي 100% Escrow.
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="btnSubmitForm" class="w-full py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black rounded-xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
+          إنشاء الحساب الآن
         </button>
       </form>
     </div>
@@ -247,16 +332,21 @@
         <span class="text-white font-bold">Satcom Engineers</span> • جميع الحقوق محفوظة © 2026
       </div>
 
-      <!-- Emadsoft Branding Badge -->
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-cyan-500/30 text-[11px]">
-        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-        <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+      <div class="flex items-center gap-4">
+        <a href="./admin.html" class="text-xs text-slate-400 hover:text-cyan-300 transition">لوحة الإدارة العليا (Admin)</a>
+        <!-- Emadsoft Branding Badge -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-cyan-500/30 text-[11px]">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
     let currentLang = 'ar';
+    let currentAuthMode = 'signup'; // 'signup' or 'signin'
+    let currentRole = 'client'; // 'client' or 'freelancer'
 
     function toggleLang() {
       currentLang = currentLang === 'ar' ? 'en' : 'ar';
@@ -271,8 +361,9 @@
       document.getElementById('navJobs').innerText = isAr ? 'تصفح المشاريع' : 'Browse Jobs';
       document.getElementById('navEngineers').innerText = isAr ? 'نخبة المهندسين' : 'Top Talent';
       document.getElementById('navEscrow').innerText = isAr ? 'حساب الضمان Escrow' : 'Escrow Vault';
-      document.getElementById('btnPostJob').innerText = isAr ? '+ نشر مشروع' : '+ Post a Job';
+      document.getElementById('adminNavText').innerText = isAr ? 'لوحة الإدارة' : 'Admin Portal';
       document.getElementById('btnSignIn').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
+      document.getElementById('btnSignUp').innerHTML = isAr ? '<span>✨ إنشاء حساب جديد</span>' : '<span>✨ Sign Up</span>';
 
       document.getElementById('heroBadge').innerText = isAr
         ? 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية'
@@ -283,35 +374,140 @@
       document.getElementById('heroDesc').innerText = isAr
         ? 'منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.'
         : 'Specialized network connecting satellite, RF, and aerospace engineers with clients under 100% Escrow security and global gateways.';
+
+      updateAuthModalTexts();
     }
 
-    function openModal(role) {
+    function openAuthModal(mode = 'signup', role = 'client') {
       document.getElementById('authModal').classList.remove('hidden');
       document.getElementById('authModal').classList.add('flex');
-      selectRole(role);
+      document.getElementById('authSuccessBox').classList.add('hidden');
+      switchAuthMode(mode);
+      selectAuthRole(role);
     }
 
-    function closeModal() {
+    function closeAuthModal() {
       document.getElementById('authModal').classList.add('hidden');
       document.getElementById('authModal').classList.remove('flex');
     }
 
-    function selectRole(role) {
-      const clientBtn = document.getElementById('roleClientBtn');
-      const freelancerBtn = document.getElementById('roleFreelancerBtn');
-      if (role === 'client') {
-        clientBtn.className = 'p-3 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-center space-y-1 cursor-pointer';
-        freelancerBtn.className = 'p-3 rounded-2xl border border-slate-700 bg-slate-800 text-center space-y-1 cursor-pointer';
+    function switchAuthMode(mode) {
+      currentAuthMode = mode;
+      const isSignUp = mode === 'signup';
+      const isAr = currentLang === 'ar';
+
+      // Toggle tab styles
+      const tabSignUp = document.getElementById('tabSignUpBtn');
+      const tabSignIn = document.getElementById('tabSignInBtn');
+
+      if (isSignUp) {
+        tabSignUp.className = 'flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer bg-cyan-600 text-white shadow-xs';
+        tabSignIn.className = 'flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer text-slate-400 hover:text-white';
+        document.getElementById('roleSelectorSection').classList.remove('hidden');
+        document.getElementById('fieldFullName').classList.remove('hidden');
+        document.getElementById('fieldSpecialty').classList.remove('hidden');
+        document.getElementById('fieldCountry').classList.remove('hidden');
+        document.getElementById('fieldAgreement').classList.remove('hidden');
+        document.getElementById('btnSubmitForm').innerText = isAr ? 'إنشاء الحساب الآن' : 'Create Account Now';
       } else {
-        freelancerBtn.className = 'p-3 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-center space-y-1 cursor-pointer';
-        clientBtn.className = 'p-3 rounded-2xl border border-slate-700 bg-slate-800 text-center space-y-1 cursor-pointer';
+        tabSignIn.className = 'flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer bg-cyan-600 text-white shadow-xs';
+        tabSignUp.className = 'flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer text-slate-400 hover:text-white';
+        document.getElementById('roleSelectorSection').classList.add('hidden');
+        document.getElementById('fieldFullName').classList.add('hidden');
+        document.getElementById('fieldSpecialty').classList.add('hidden');
+        document.getElementById('fieldCountry').classList.add('hidden');
+        document.getElementById('fieldAgreement').classList.add('hidden');
+        document.getElementById('btnSubmitForm').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
       }
+    }
+
+    function selectAuthRole(role) {
+      currentRole = role;
+      const isAr = currentLang === 'ar';
+      const clientCard = document.getElementById('roleClientCard');
+      const freelancerCard = document.getElementById('roleFreelancerCard');
+      const badgeClient = document.getElementById('badgeClientCheck');
+      const badgeFreelancer = document.getElementById('badgeFreelancerCheck');
+      const lblSpecialty = document.getElementById('lblSpecialty');
+      const inputSpecialty = document.getElementById('inputSpecialty');
+
+      if (role === 'client') {
+        clientCard.className = 'p-4 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-right space-y-1.5 cursor-pointer transition';
+        freelancerCard.className = 'p-4 rounded-2xl border border-slate-700 bg-slate-800/80 text-right space-y-1.5 cursor-pointer transition';
+        badgeClient.className = 'w-4 h-4 rounded-full bg-cyan-400 text-slate-900 text-[10px] font-black flex items-center justify-center';
+        badgeClient.innerText = '✓';
+        badgeFreelancer.className = 'w-4 h-4 rounded-full border border-slate-600 text-transparent text-[10px] font-black flex items-center justify-center';
+
+        lblSpecialty.innerText = isAr ? 'اسم الشركة أو المؤسسة (اختياري)' : 'Company Name (Optional)';
+        inputSpecialty.placeholder = isAr ? 'مثال: SpaceTech Solutions' : 'e.g. SpaceTech Solutions';
+      } else {
+        freelancerCard.className = 'p-4 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-right space-y-1.5 cursor-pointer transition';
+        clientCard.className = 'p-4 rounded-2xl border border-slate-700 bg-slate-800/80 text-right space-y-1.5 cursor-pointer transition';
+        badgeFreelancer.className = 'w-4 h-4 rounded-full bg-cyan-400 text-slate-900 text-[10px] font-black flex items-center justify-center';
+        badgeFreelancer.innerText = '✓';
+        badgeClient.className = 'w-4 h-4 rounded-full border border-slate-600 text-transparent text-[10px] font-black flex items-center justify-center';
+
+        lblSpecialty.innerText = isAr ? 'التخصص الهندسي الدقيق' : 'Engineering Specialty';
+        inputSpecialty.placeholder = isAr ? 'مثال: Antenna Design & CST Studio Suite' : 'e.g. Antenna Design & CST Studio Suite';
+      }
+    }
+
+    function updateAuthModalTexts() {
+      const isAr = currentLang === 'ar';
+      document.getElementById('chooseAccountTypeLabel').innerText = isAr
+        ? 'اختر نوع الحساب الذي ترغب في إنشائه:'
+        : 'Choose the account type you want to create:';
+      document.getElementById('lblRoleClient').innerText = isAr ? 'أنا صاحب عمل (عميل)' : "I'm a Client (Hiring)";
+      document.getElementById('descRoleClient').innerText = isAr
+        ? 'أريد نشر مشاريع وتوظيف مهندسين محترفين بحماية Escrow'
+        : 'Hire verified space & RF engineers with 100% Escrow protection';
+      document.getElementById('lblRoleFreelancer').innerText = isAr ? 'أنا مهندس مستقل' : "I'm a Freelancer (Looking for Work)";
+      document.getElementById('descRoleFreelancer').innerText = isAr
+        ? 'أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%'
+        : 'Apply to aerospace projects and earn 100% secured net payouts';
+      document.getElementById('lblFullName').innerText = isAr ? 'الاسم الكامل' : 'Full Name';
+      document.getElementById('lblEmail').innerText = isAr ? 'البريد الإلكتروني' : 'Email Address';
+      document.getElementById('lblPass').innerText = isAr ? 'كلمة المرور' : 'Password';
+      document.getElementById('lblCountry').innerText = isAr ? 'الدولة' : 'Country';
+      document.getElementById('lblAgreement').innerText = isAr
+        ? 'أوافق على شروط الاستخدام ونظام حماية المدفوعات والضمان المالي 100% Escrow.'
+        : 'I agree to the Terms of Service and 100% Escrow Payment Protection.';
+
+      selectAuthRole(currentRole);
+      switchAuthMode(currentAuthMode);
     }
 
     function handleAuthSubmit(e) {
       e.preventDefault();
-      alert(currentLang === 'ar' ? 'تم تسجيل بياناتك بنجاح في منصة Satcom Engineers!' : 'Successfully signed in to Satcom Engineers!');
-      closeModal();
+      const isAr = currentLang === 'ar';
+      const name = document.getElementById('inputFullName').value.trim() || 'User';
+      const email = document.getElementById('inputEmail').value.trim();
+
+      const successBox = document.getElementById('authSuccessBox');
+      successBox.classList.remove('hidden');
+
+      if (currentAuthMode === 'signup') {
+        const roleLabel = currentRole === 'client' 
+          ? (isAr ? 'صاحب عمل (عميل)' : 'Client') 
+          : (isAr ? 'مهندس اتصالات وفضاء' : 'Satellite Engineer');
+        
+        successBox.innerText = isAr
+          ? `✓ تم إنشاء حسابك بنجاح كـ (${roleLabel}) باسم [${name}]! مرحباً بك في Satcom Engineers.`
+          : `✓ Account successfully created as (${roleLabel}) for [${name}]! Welcome to Satcom Engineers.`;
+
+        // Store user state
+        try {
+          localStorage.setItem('satcom_user', JSON.stringify({ name, email, role: currentRole }));
+        } catch {}
+      } else {
+        successBox.innerText = isAr
+          ? `✓ تم تسجيل دخولك بنجاح! مرحباً بك مجدداً.`
+          : `✓ Successfully signed in! Welcome back.`;
+      }
+
+      setTimeout(() => {
+        closeAuthModal();
+      }, 2500);
     }
   </script>
 </body>
