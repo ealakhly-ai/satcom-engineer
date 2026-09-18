@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satcom Engineers | منصة العمل الحر لهندسة وعلوم الفضاء والاتصالات</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 antialiased min-h-screen selection:bg-cyan-500 selection:text-white flex flex-col justify-between">
+
+  <!-- Ambient Background Glow -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-indigo-600/20 via-cyan-500/15 to-blue-600/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+  <!-- Top Global Header -->
+  <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo and Brand -->
+      <div class="flex items-center gap-8">
+        <a href="#" class="flex items-center gap-3.5 group">
+          <div class="w-12 h-12 rounded-2xl overflow-hidden ring-2 ring-cyan-400/50 shadow-lg shadow-cyan-500/20 bg-[#070c18] flex-shrink-0 group-hover:scale-105 transition duration-300">
+            <img src="./logo.png" alt="Satcom Engineers Logo" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-white font-black text-xl tracking-tight">Satcom Engineers</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/20 border border-cyan-400/30 text-cyan-300">
+                SPACE & RF
+              </span>
+            </div>
+            <span id="brandSub" class="text-[11px] text-slate-400 font-medium block">سوق العمل لمهندسي الأقمار الصناعية والاتصالات</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
+          <a href="#jobs" id="navJobs" class="hover:text-cyan-400 transition">تصفح المشاريع</a>
+          <a href="#engineers" id="navEngineers" class="hover:text-cyan-400 transition">نخبة المهندسين</a>
+          <a href="#escrow" id="navEscrow" class="hover:text-cyan-400 transition">حساب الضمان Escrow</a>
+        </nav>
+      </div>
+
+      <!-- Actions & Language Switcher -->
+      <div class="flex items-center gap-3">
+        <!-- Language Switch -->
+        <button onclick="toggleLang()" id="langBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer">
+          <span>🌐 English</span>
+        </button>
+
+        <!-- Post Job Button -->
+        <button onclick="openModal('client')" id="btnPostJob" class="hidden sm:inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-cyan-400/40 bg-cyan-950/50 text-cyan-300 hover:bg-cyan-900/60 text-xs font-black transition cursor-pointer">
+          + نشر مشروع
+        </button>
+
+        <!-- Sign In Button -->
+        <button onclick="openModal('freelancer')" id="btnSignIn" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
+          تسجيل الدخول
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="space-y-20 pb-20">
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center space-y-8">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 text-xs font-bold shadow-lg shadow-cyan-500/10">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span id="heroBadge">المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية</span>
+      </div>
+
+      <h1 id="heroHeading" class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.25]">
+        وظّف نخبة مهندسي <br/>
+        <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">
+          الاتصالات الفضائية و RF
+        </span> بمشروعك
+      </h1>
+
+      <p id="heroDesc" class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.
+      </p>
+
+      <!-- Key Pillars Card -->
+      <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 hover:border-cyan-500/40 rounded-3xl p-6 max-w-3xl mx-auto shadow-2xl transition">
+        <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-slate-800 gap-4 sm:gap-0 text-center">
+          <div class="p-3">
+            <div class="text-3xl font-black text-emerald-400">100%</div>
+            <div id="pillar1" class="text-xs text-slate-300 mt-1 font-bold">حماية أموال الضمان Escrow</div>
+          </div>
+          <div class="p-3">
+            <div class="text-3xl font-black text-amber-400">0%</div>
+            <div id="pillar2" class="text-xs text-slate-300 mt-1 font-bold">بدون أي رسوم اشتراك شهرية</div>
+          </div>
+          <div class="p-3">
+            <div class="text-3xl font-black text-cyan-400">عالمية</div>
+            <div id="pillar3" class="text-xs text-slate-300 mt-1 font-bold">بوابات دفع Stripe, PayPal, USDT</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <button onclick="openModal('client')" id="btnHeroPost" class="px-8 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-2xl shadow-xl shadow-cyan-500/25 transition cursor-pointer">
+          انشر مشروع هندسي جديد
+        </button>
+        <a href="#jobs" id="btnHeroBrowse" class="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold rounded-2xl transition">
+          استكشف المشاريع الهندسية المتاحة
+        </a>
+      </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section id="jobs" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <h2 id="jobsTitle" class="text-2xl font-black text-white">أحدث المشاريع والفرص الهندسية</h2>
+          <p id="jobsSub" class="text-xs text-slate-400 mt-0.5">مشاريع في مجالات الأقمار الصناعية، هوائيات الميكروويف، ومعالجة الإشارات SDR</p>
+        </div>
+        <button onclick="openModal('client')" id="btnSubmitProposal" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-3.5 py-2 rounded-xl">
+          + نشر فرصة تعاقد
+        </button>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap gap-2 text-xs font-bold">
+        <button class="px-4 py-2 rounded-xl bg-cyan-600 text-white">الكل</button>
+        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">Ka-Band / Antenna</button>
+        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">CST Studio Suite</button>
+        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">Link Budget (DVB-S2X)</button>
+        <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">GNU Radio & SDR</button>
+      </div>
+
+      <!-- Empty State for Clean Launch -->
+      <div class="bg-slate-900/90 backdrop-blur-xl rounded-3xl border border-slate-800 p-12 text-center space-y-3 shadow-xl">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-cyan-400 text-2xl font-black">
+          📡
+        </div>
+        <h3 id="emptyJobsTitle" class="text-base font-black text-white">المشاريع الجديدة قيد النشر والاعتماد</h3>
+        <p id="emptyJobsDesc" class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+          يمكنك الآن كصاحب عمل أو شركة نشر مشروعك الهندسي وتحديد الميزانية وتأمين كامل أتعاب المهندس في حساب الضمان Escrow.
+        </p>
+        <div class="pt-2">
+          <button onclick="openModal('client')" class="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-black rounded-xl shadow-lg shadow-cyan-500/25 cursor-pointer">
+            + نشر أول مشروع
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Escrow & Security Section -->
+    <section id="escrow" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-indigo-950/70 via-slate-900 to-slate-950 rounded-3xl border border-indigo-500/30 p-8 sm:p-12 shadow-2xl space-y-6">
+        <div class="space-y-2">
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            حماية مالية بنسبة 100%
+          </span>
+          <h2 id="escrowHead" class="text-2xl sm:text-3xl font-black text-white">نظام الضمان المالي Escrow لحماية الطرفين</h2>
+          <p id="escrowBody" class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
+            لا يتم تسليم أي دولار للمهندس إلا بعد معاينة وتسليم العمل الهندسي والمحاكاة واعتماده بنسبة 100% من العميل. ولا يبدأ المهندس في التنفيذ إلا بعد إيداع المبلغ وتأمينه بالكامل في خزينة الضمان.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-800">
+          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
+            <div class="text-xs font-black text-white mb-1">1. إيداع الضمان</div>
+            <div class="text-[11px] text-slate-400">يقوم العميل بتمويل مرحلة العمل في الخزينة.</div>
+          </div>
+          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
+            <div class="text-xs font-black text-white mb-1">2. التنفيذ الهندسي</div>
+            <div class="text-[11px] text-slate-400">يباشر المهندس عمل التصاميم والمحاكاة بأمان.</div>
+          </div>
+          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
+            <div class="text-xs font-black text-white mb-1">3. الفحص والاعتماد</div>
+            <div class="text-[11px] text-slate-400">يفحص العميل المخرجات والمواصفات الفنية.</div>
+          </div>
+          <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
+            <div class="text-xs font-black text-emerald-400 mb-1">4. تحرير 100% للأتعاب</div>
+            <div class="text-[11px] text-slate-400">يتم تحرير كامل الأرباح للمهندس فوراً.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Sign In / Register Modal -->
+  <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
+      <button onclick="closeModal()" class="absolute top-5 left-5 text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
+
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 mx-auto rounded-2xl overflow-hidden border border-slate-700 bg-[#070c18] p-1">
+          <img src="./logo.png" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <h3 id="modalTitle" class="text-xl font-black text-white">الانضمام إلى Satcom Engineers</h3>
+        <p id="modalSub" class="text-xs text-slate-400">اختر نوع حسابك للبدء في المنصة</p>
+      </div>
+
+      <!-- Role Selector -->
+      <div class="grid grid-cols-2 gap-3">
+        <button type="button" id="roleClientBtn" onclick="selectRole('client')" class="p-3 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-center space-y-1 cursor-pointer">
+          <div class="text-lg">💼</div>
+          <div class="text-xs font-black text-white">صاحب عمل (عميل)</div>
+          <div class="text-[10px] text-slate-400">أبحث عن مهندسين</div>
+        </button>
+
+        <button type="button" id="roleFreelancerBtn" onclick="selectRole('freelancer')" class="p-3 rounded-2xl border border-slate-700 bg-slate-800 text-center space-y-1 cursor-pointer">
+          <div class="text-lg">🛰️</div>
+          <div class="text-xs font-black text-white">مهندس مستقل</div>
+          <div class="text-[10px] text-slate-400">أبحث عن مشاريع</div>
+        </button>
+      </div>
+
+      <form onsubmit="handleAuthSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">البريد الإلكتروني</label>
+          <input type="email" required placeholder="name@domain.com" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">كلمة المرور</label>
+          <input type="password" required placeholder="••••••••" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+        <button type="submit" class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black rounded-xl shadow-lg transition cursor-pointer">
+          متابعة والدخول
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950/80 py-8 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="text-white font-bold">Satcom Engineers</span> • جميع الحقوق محفوظة © 2026
+      </div>
+
+      <!-- Emadsoft Branding Badge -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-cyan-500/30 text-[11px]">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span class="text-cyan-400 font-extrabold">تصميم وتطوير Emadsoft</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'ar';
+
+    function toggleLang() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const isAr = currentLang === 'ar';
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+      document.getElementById('langBtn').innerText = isAr ? '🌐 English' : '🌐 العربية';
+      document.getElementById('brandSub').innerText = isAr 
+        ? 'سوق العمل لمهندسي الأقمار الصناعية والاتصالات' 
+        : 'Satellite & RF Engineering Marketplace';
+      document.getElementById('navJobs').innerText = isAr ? 'تصفح المشاريع' : 'Browse Jobs';
+      document.getElementById('navEngineers').innerText = isAr ? 'نخبة المهندسين' : 'Top Talent';
+      document.getElementById('navEscrow').innerText = isAr ? 'حساب الضمان Escrow' : 'Escrow Vault';
+      document.getElementById('btnPostJob').innerText = isAr ? '+ نشر مشروع' : '+ Post a Job';
+      document.getElementById('btnSignIn').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
+
+      document.getElementById('heroBadge').innerText = isAr
+        ? 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية والأقمار الصناعية'
+        : 'The Premier Marketplace for Satellite & RF Engineers';
+      document.getElementById('heroHeading').innerHTML = isAr
+        ? 'وظّف نخبة مهندسي <br/><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">الاتصالات الفضائية و RF</span> بمشروعك'
+        : 'Hire Elite Engineers in <br/><span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Satellite Comms & RF</span>';
+      document.getElementById('heroDesc').innerText = isAr
+        ? 'منصة تخصصية تجمع مهندسي الأقمار الصناعية، أنظمة RF، وشبكات الاتصالات مع العملاء، بحماية مالية كاملة 100% عبر حساب الضمان Escrow وبوابات دفع عالمية مرنة.'
+        : 'Specialized network connecting satellite, RF, and aerospace engineers with clients under 100% Escrow security and global gateways.';
+    }
+
+    function openModal(role) {
+      document.getElementById('authModal').classList.remove('hidden');
+      document.getElementById('authModal').classList.add('flex');
+      selectRole(role);
+    }
+
+    function closeModal() {
+      document.getElementById('authModal').classList.add('hidden');
+      document.getElementById('authModal').classList.remove('flex');
+    }
+
+    function selectRole(role) {
+      const clientBtn = document.getElementById('roleClientBtn');
+      const freelancerBtn = document.getElementById('roleFreelancerBtn');
+      if (role === 'client') {
+        clientBtn.className = 'p-3 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-center space-y-1 cursor-pointer';
+        freelancerBtn.className = 'p-3 rounded-2xl border border-slate-700 bg-slate-800 text-center space-y-1 cursor-pointer';
+      } else {
+        freelancerBtn.className = 'p-3 rounded-2xl border-2 border-cyan-400 bg-cyan-950/40 text-center space-y-1 cursor-pointer';
+        clientBtn.className = 'p-3 rounded-2xl border border-slate-700 bg-slate-800 text-center space-y-1 cursor-pointer';
+      }
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      alert(currentLang === 'ar' ? 'تم تسجيل بياناتك بنجاح في منصة Satcom Engineers!' : 'Successfully signed in to Satcom Engineers!');
+      closeModal();
+    }
+  </script>
+</body>
+</html>
