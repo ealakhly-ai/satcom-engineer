@@ -43,19 +43,24 @@
           <a href="#jobs" id="navJobs" class="hover:text-cyan-400 transition">تصفح المشاريع</a>
           <a href="#engineers" id="navEngineers" class="hover:text-cyan-400 transition">نخبة المهندسين</a>
           <a href="#escrow" id="navEscrow" class="hover:text-cyan-400 transition">حساب الضمان Escrow</a>
+          <a href="./admin.html" id="navControlPanel" class="hover:text-cyan-400 text-cyan-300 transition flex items-center gap-1.5 font-bold">
+            <span>🛡️</span>
+            <span id="navControlPanelText">لوحة التحكم</span>
+          </a>
         </nav>
       </div>
 
       <!-- Actions & Language Switcher -->
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2 sm:gap-2.5">
         <!-- Language Switch -->
         <button onclick="toggleLang()" id="langBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer">
           <span>🌐 English</span>
         </button>
 
-        <!-- Admin Portal Link -->
-        <a href="./admin.html" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-500/40 bg-indigo-950/60 hover:bg-indigo-900/60 text-cyan-300 text-xs font-bold transition">
-          🛡️ <span id="adminNavText">لوحة الإدارة</span>
+        <!-- Admin Control Panel Link (Visible directly in header) -->
+        <a href="./admin.html" id="adminHeaderBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-500/50 bg-indigo-950/80 hover:bg-indigo-900 text-cyan-300 text-xs font-black shadow-md shadow-indigo-500/20 hover:border-cyan-400 transition">
+          <span>🛡️</span>
+          <span id="adminNavText">لوحة التحكم</span>
         </a>
 
         <!-- Sign In Button -->
@@ -109,23 +114,30 @@
         </div>
       </div>
 
-      <!-- Action Buttons (Choose Role) -->
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+      <!-- Action Buttons (Choose Role & Control Panel) -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 pt-4">
         <!-- Register as Client -->
-        <button onclick="openAuthModal('signup', 'client')" id="btnHeroClient" class="px-7 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-2xl shadow-xl shadow-cyan-500/25 transition cursor-pointer flex items-center gap-2">
+        <button onclick="openAuthModal('signup', 'client')" id="btnHeroClient" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-black rounded-2xl shadow-xl shadow-cyan-500/25 transition cursor-pointer flex items-center gap-2">
           <span>💼</span>
-          <span>تسجيل كصاحب عمل (عميل)</span>
+          <span id="btnHeroClientText">تسجيل كصاحب عمل (عميل)</span>
         </button>
 
         <!-- Register as Freelancer / Engineer -->
-        <button onclick="openAuthModal('signup', 'freelancer')" id="btnHeroEng" class="px-7 py-3.5 bg-slate-900 hover:bg-slate-850 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 text-xs font-black rounded-2xl shadow-lg transition cursor-pointer flex items-center gap-2">
+        <button onclick="openAuthModal('signup', 'freelancer')" id="btnHeroEng" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-850 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 text-xs font-black rounded-2xl shadow-lg transition cursor-pointer flex items-center gap-2">
           <span>🛰️</span>
-          <span>انضمام كمهندس اتصالات وفضاء</span>
+          <span id="btnHeroEngText">انضمام كمهندس اتصالات وفضاء</span>
         </button>
 
+        <!-- Control Panel (Admin Dashboard) Button -->
+        <a href="./admin.html" id="btnHeroControlPanel" class="px-6 py-3.5 bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/60 hover:border-cyan-400 text-cyan-200 text-xs font-black rounded-2xl shadow-xl shadow-indigo-500/25 transition flex items-center gap-2">
+          <span>🛡️</span>
+          <span id="btnHeroControlPanelText">لوحة التحكم المركزية</span>
+        </a>
+
         <!-- Browse Jobs -->
-        <a href="#jobs" id="btnHeroBrowse" class="px-6 py-3.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold rounded-2xl transition">
-          استكشف المشاريع المتاحة ↗
+        <a href="#jobs" id="btnHeroBrowse" class="px-5 py-3.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold rounded-2xl transition flex items-center gap-1.5">
+          <span id="btnHeroBrowseText">استكشف المشاريع المتاحة</span>
+          <span>↗</span>
         </a>
       </div>
     </section>
@@ -197,6 +209,56 @@
           <div class="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
             <div class="text-xs font-black text-emerald-400 mb-1">4. تحرير 100% للأتعاب</div>
             <div class="text-[11px] text-slate-400">يتم تحرير كامل الأرباح للمهندس فوراً.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Mission Control Section -->
+    <section id="control-panel" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative bg-gradient-to-r from-[#0a0f24] via-slate-900 to-[#070b1a] rounded-3xl border border-indigo-500/40 p-8 sm:p-10 shadow-2xl overflow-hidden">
+        <!-- Glow accent -->
+        <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/40 text-cyan-300 text-xs font-black">
+              <span>🛡️</span>
+              <span id="cpBadge">لوحة التحكم والإشراف العام (Mission Control)</span>
+            </div>
+            <h2 id="cpTitle" class="text-2xl sm:text-3xl font-black text-white">
+              لوحة التحكم المركزية لإدارة المنصة
+            </h2>
+            <p id="cpDesc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              مركز إدارة متكامل لمتابعة وتدقيق العقود الهندسية الفضائية، خزائن الضمان Escrow، التحقق من تراخيص وتوثيق المهندسين (KYC)، وإدارة الفواتير والمدفوعات وفض النزاعات التقنية.
+            </p>
+          </div>
+
+          <div class="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+            <a href="./admin.html" id="btnCpLaunch" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs rounded-2xl shadow-xl shadow-cyan-500/25 transition text-center flex items-center justify-center gap-2">
+              <span>🛡️</span>
+              <span id="btnCpLaunchText">فتح لوحة التحكم (Admin)</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-800/80 text-center">
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-lg font-black text-cyan-400">100%</div>
+            <div id="cpStat1" class="text-[11px] text-slate-300 font-bold mt-0.5">ضمان مالي Escrow</div>
+          </div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-lg font-black text-emerald-400">$20 / $300</div>
+            <div id="cpStat2" class="text-[11px] text-slate-300 font-bold mt-0.5">عمولة المنصة الآلية</div>
+          </div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-lg font-black text-indigo-400">فوري</div>
+            <div id="cpStat3" class="text-[11px] text-slate-300 font-bold mt-0.5">تحكيم النزاعات</div>
+          </div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <div class="text-lg font-black text-purple-400">تشفير تام</div>
+            <div id="cpStat4" class="text-[11px] text-slate-300 font-bold mt-0.5">حماية البيانات والمدفوعات</div>
           </div>
         </div>
       </div>
@@ -333,7 +395,10 @@
       </div>
 
       <div class="flex items-center gap-4">
-        <a href="./admin.html" class="text-xs text-slate-400 hover:text-cyan-300 transition">لوحة الإدارة العليا (Admin)</a>
+        <a href="./admin.html" id="footerAdminLink" class="text-xs font-bold text-slate-300 hover:text-cyan-300 transition flex items-center gap-1">
+          <span>🛡️</span>
+          <span id="footerAdminText">لوحة التحكم (Admin)</span>
+        </a>
         <!-- Emadsoft Branding Badge -->
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-cyan-500/30 text-[11px]">
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -361,7 +426,27 @@
       document.getElementById('navJobs').innerText = isAr ? 'تصفح المشاريع' : 'Browse Jobs';
       document.getElementById('navEngineers').innerText = isAr ? 'نخبة المهندسين' : 'Top Talent';
       document.getElementById('navEscrow').innerText = isAr ? 'حساب الضمان Escrow' : 'Escrow Vault';
-      document.getElementById('adminNavText').innerText = isAr ? 'لوحة الإدارة' : 'Admin Portal';
+      document.getElementById('navControlPanelText').innerText = isAr ? 'لوحة التحكم' : 'Control Panel';
+      document.getElementById('adminNavText').innerText = isAr ? 'لوحة التحكم' : 'Control Panel';
+      document.getElementById('btnHeroControlPanelText').innerText = isAr ? 'لوحة التحكم المركزية' : 'Mission Control Panel';
+      document.getElementById('btnHeroClientText').innerText = isAr ? 'تسجيل كصاحب عمل (عميل)' : 'Sign Up as Client';
+      document.getElementById('btnHeroEngText').innerText = isAr ? 'انضمام كمهندس اتصالات وفضاء' : 'Join as Satellite Engineer';
+      document.getElementById('btnHeroBrowseText').innerText = isAr ? 'استكشف المشاريع المتاحة' : 'Explore Open Projects';
+      document.getElementById('footerAdminText').innerText = isAr ? 'لوحة التحكم (Admin)' : 'Control Panel (Admin)';
+
+      if (document.getElementById('cpBadge')) {
+        document.getElementById('cpBadge').innerText = isAr ? 'لوحة التحكم والإشراف العام (Mission Control)' : 'Mission Control & Governance';
+        document.getElementById('cpTitle').innerText = isAr ? 'لوحة التحكم المركزية لإدارة المنصة' : 'Central Platform Control Panel';
+        document.getElementById('cpDesc').innerText = isAr
+          ? 'مركز إدارة متكامل لمتابعة وتدقيق العقود الهندسية الفضائية، خزائن الضمان Escrow، التحقق من تراخيص وتوثيق المهندسين (KYC)، وإدارة الفواتير والمدفوعات وفض النزاعات التقنية.'
+          : 'Integrated mission control portal to monitor satellite contracts, Escrow vaults, engineer KYC verification, and billing.';
+        document.getElementById('btnCpLaunchText').innerText = isAr ? 'فتح لوحة التحكم (Admin)' : 'Launch Control Panel (Admin)';
+        document.getElementById('cpStat1').innerText = isAr ? 'ضمان مالي Escrow' : '100% Escrow Vault';
+        document.getElementById('cpStat2').innerText = isAr ? 'عمولة المنصة الآلية' : 'Automated Commission';
+        document.getElementById('cpStat3').innerText = isAr ? 'تحكيم النزاعات' : 'Dispute Resolution';
+        document.getElementById('cpStat4').innerText = isAr ? 'حماية البيانات والمدفوعات' : 'Encrypted Payouts';
+      }
+
       document.getElementById('btnSignIn').innerText = isAr ? 'تسجيل الدخول' : 'Sign In';
       document.getElementById('btnSignUp').innerHTML = isAr ? '<span>✨ إنشاء حساب جديد</span>' : '<span>✨ Sign Up</span>';
 

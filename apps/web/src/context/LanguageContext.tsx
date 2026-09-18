@@ -25,7 +25,7 @@ export const translations: Translations = {
   navPostJob: { ar: 'نشر مشروع', en: 'Post a Job' },
   navLogin: { ar: 'تسجيل الدخول', en: 'Sign In' },
   navDashboard: { ar: 'لوحة التحكم', en: 'Dashboard' },
-  navAdmin: { ar: 'لوحة الإدارة', en: 'Admin Portal' },
+  navAdmin: { ar: 'لوحة التحكم', en: 'Control Panel' },
   switchLang: { ar: 'English', en: 'العربية' },
   switchToClient: { ar: 'التحويل لوضع العميل', en: 'Switch to Client' },
   switchToFreelancer: { ar: 'التحويل لوضع المهندس', en: 'Switch to Freelancer' },
