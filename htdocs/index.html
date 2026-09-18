@@ -36,11 +36,19 @@
         </div>
       </a>
 
-      <!-- Quick Link to Admin Portal -->
+      <!-- Quick Links to Client, Freelancer, and Admin Portals -->
       <div class="hidden lg:flex items-center gap-2">
-        <a href="./admin.html" id="navAdminText" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-3.5 rounded-xl hover:bg-slate-800/70 border border-slate-800">
+        <a href="./client.html" class="text-xs font-bold text-cyan-300 hover:text-cyan-200 transition flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-950/40 hover:bg-cyan-900/50 border border-cyan-500/30">
+          <span>💼</span>
+          <span id="txtClientPortalNav">لوحة العميل (Client)</span>
+        </a>
+        <a href="./freelancer.html" class="text-xs font-bold text-emerald-300 hover:text-emerald-200 transition flex items-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/50 border border-emerald-500/30">
+          <span>🛰️</span>
+          <span id="txtFreelancerPortalNav">لوحة المهندس (Engineer)</span>
+        </a>
+        <a href="./admin.html" id="navAdminText" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-3 rounded-xl hover:bg-slate-800/70 border border-slate-800">
           <span>🛡️</span>
-          <span>لوحة الإدارة</span>
+          <span id="txtAdminPortalNav">لوحة الإدارة</span>
         </a>
       </div>
 
@@ -57,23 +65,23 @@
         </button>
 
         <!-- 2. خيار تسجيل الدخول (Sign In) -->
-        <button
-          onclick="openAuthModal('signin')"
+        <a
+          href="./auth.html?mode=signin"
           id="btnNavLogin"
           class="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition shadow-sm cursor-pointer"
         >
           <span id="lblNavLogin">تسجيل الدخول</span>
-        </button>
+        </a>
 
         <!-- 3. خيار تسجيل حساب جديد (Sign Up / Register) -->
-        <button
-          onclick="openAuthModal('signup')"
+        <a
+          href="./auth.html?mode=signup"
           id="btnNavSignUp"
           class="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs font-extrabold shadow-md shadow-cyan-500/25 transition cursor-pointer"
         >
           <span>✨</span>
           <span id="lblNavSignUp">تسجيل حساب جديد</span>
-        </button>
+        </a>
       </div>
 
     </div>
@@ -582,6 +590,9 @@
         walletAccountPh: 'IBAN أو عنوان المحفظة الرقمية...',
         walletSubmitBtn: 'تأكيد طلب السحب الفوري ↗',
         pageTitle: 'Satcom Engineers | منصة مهندسي الأقمار الصناعية والاتصالات الفضائية',
+        txtClientPortalNav: 'لوحة العميل (Client)',
+        txtFreelancerPortalNav: 'لوحة المهندس (Engineer)',
+        txtAdminPortalNav: 'لوحة الإدارة',
         footerLinkHow: 'كيف تعمل المنصة',
         footerLinkEscrowGateways: 'الضمان المالي والبوابات',
         footerLinkEscrowPayments: 'المدفوعات الآمنة Escrow',
@@ -701,6 +712,9 @@
         walletAccountPh: 'IBAN or Digital Wallet Address...',
         walletSubmitBtn: 'Confirm Instant Withdrawal ↗',
         pageTitle: 'Satcom Engineers | Satellite & Space Telecom Engineering Marketplace',
+        txtClientPortalNav: 'Client Portal',
+        txtFreelancerPortalNav: 'Engineer Portal',
+        txtAdminPortalNav: 'Admin Portal',
         footerLinkHow: 'How It Works',
         footerLinkEscrowGateways: 'Financial Escrow & Gateways',
         footerLinkEscrowPayments: 'Secure Escrow Payments',
@@ -860,6 +874,9 @@
 
       // Title & Footer Complete Translations
       setTxt('pageTitle', d.pageTitle);
+      setTxt('txtClientPortalNav', d.txtClientPortalNav);
+      setTxt('txtFreelancerPortalNav', d.txtFreelancerPortalNav);
+      setTxt('txtAdminPortalNav', d.txtAdminPortalNav);
       document.title = d.pageTitle;
       setTxt('footerLinkHow', d.footerLinkHow);
       setTxt('footerLinkEscrowGateways', d.footerLinkEscrowGateways);

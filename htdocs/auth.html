@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Satcom Engineers | تسجيل الدخول والانضمام (Upwork Experience)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Tajawal", system-ui, -apple-system, sans-serif; }
+    .role-card.selected {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#050811] text-slate-100 selection:bg-emerald-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="./index.html" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl overflow-hidden shadow-lg shadow-cyan-500/20 border border-cyan-400/50 bg-[#070c18] group-hover:scale-105 transition-transform">
+          <img src="./logo.png" alt="Satcom Engineers" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="font-black text-white text-lg tracking-tight">Satcom Engineers</span>
+            <span class="text-[9px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-400/30">UPWORK AUTH</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-medium" id="brandSub">سوق العمل لمهندسي الأقمار الصناعية والاتصالات</span>
+        </div>
+      </a>
+
+      <!-- Language & Home Link -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleLang()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-200 text-xs font-bold hover:border-cyan-400 transition cursor-pointer">
+          <span>🌐</span>
+          <span id="langBtnText">English</span>
+        </button>
+        <a href="./index.html" class="text-xs text-slate-400 hover:text-white transition font-medium" id="linkBackHome">الرئيسية ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-8 my-6">
+    <div class="w-full max-w-xl bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl relative">
+
+      <!-- ================= VIEW 1: JOIN AS CLIENT OR FREELANCER (UPWORK SIGNATURE) ================= -->
+      <div id="viewJoinSelect" class="space-y-7">
+        <div class="text-center space-y-2">
+          <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight" id="joinTitle">
+            انضم كصاحب عمل أو مهندس مستقل
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-400" id="joinSubtitle">
+            المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية بنظام الضمان Escrow 100%
+          </p>
+        </div>
+
+        <!-- 2 Selection Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Card 1: Client -->
+          <div onclick="selectRole('client')" id="cardClient" class="role-card p-5 rounded-2xl border-2 border-slate-700 bg-slate-950/60 hover:border-emerald-500/60 cursor-pointer transition flex flex-col justify-between space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">💼</span>
+              <div id="radioClient" class="w-5 h-5 rounded-full border-2 border-slate-600 flex items-center justify-center transition">
+                <div id="dotClient" class="w-2.5 h-2.5 rounded-full bg-emerald-400 hidden"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-black text-white" id="titleRoleClient">أنا صاحب عمل (عميل)، أريد توظيف مهندسين لمشروعي</h3>
+              <p class="text-[11px] text-slate-400 leading-relaxed" id="descRoleClient">نشر مشاريع الأقمار الصناعية، فحص العروض، وإدارة عقود Escrow الآمنة.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Freelancer -->
+          <div onclick="selectRole('freelancer')" id="cardFreelancer" class="role-card p-5 rounded-2xl border-2 border-slate-700 bg-slate-950/60 hover:border-emerald-500/60 cursor-pointer transition flex flex-col justify-between space-y-4 selected">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🛰️</span>
+              <div id="radioFreelancer" class="w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center transition">
+                <div id="dotFreelancer" class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-black text-white" id="titleRoleFreelancer">أنا مهندس مستقل، أبحث عن مشاريع فضائية وهندسية</h3>
+              <p class="text-[11px] text-slate-400 leading-relaxed" id="descRoleFreelancer">تقديم عروض على محاكاة CST، ميزانية الرابط، واستلام أتعاب 100% كاملة.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Action Button (Upwork Style) -->
+        <div class="space-y-4 pt-2">
+          <button onclick="goToCreateAccount()" id="btnCreateAccountAction" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm transition shadow-lg shadow-emerald-600/30 cursor-pointer">
+            التقديم كمهندس مستقل (Apply as Freelancer)
+          </button>
+
+          <div class="text-center text-xs text-slate-400">
+            <span id="txtAlreadyMember">لديك حساب بالفعل؟</span>
+            <button onclick="switchAuthView('signin')" class="text-emerald-400 hover:underline font-bold mr-1 ml-1 cursor-pointer" id="btnGoSignIn">
+              تسجيل الدخول
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ================= VIEW 2: CREATE ACCOUNT FORM ================= -->
+      <div id="viewRegisterForm" class="space-y-6 hidden">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <button onclick="switchAuthView('select')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
+            <span id="backArrow">←</span>
+            <span id="btnBackToRole">تغيير نوع الحساب</span>
+          </button>
+          <span id="badgeCurrentRole" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            حساب مهندس مستقل
+          </span>
+        </div>
+
+        <div class="text-center space-y-1">
+          <h2 class="text-2xl font-black text-white" id="regTitle">إنشاء حساب جديد</h2>
+          <p class="text-xs text-slate-400" id="regSubtitle">انضم لأكثر من 500 خبير اتصالات فضاء وأقمار صناعية</p>
+        </div>
+
+        <!-- Fast Social Sign In -->
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" onclick="fakeSocialAuth('Google')" class="py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition">
+            <span>🌐</span>
+            <span>Google</span>
+          </button>
+          <button type="button" onclick="fakeSocialAuth('Apple')" class="py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition">
+            <span>🍎</span>
+            <span>Apple</span>
+          </button>
+        </div>
+
+        <div class="relative flex items-center justify-center">
+          <div class="border-t border-slate-800 w-full"></div>
+          <span class="bg-slate-900 px-3 text-[11px] text-slate-500 uppercase tracking-widest absolute" id="lblOrDivider">أو بالبريد الإلكتروني</span>
+        </div>
+
+        <!-- Registration Form -->
+        <form onsubmit="handleRegisterSubmit(event)" class="space-y-3.5 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-300 mb-1" id="lblFirstName">الاسم الأول</label>
+              <input type="text" required placeholder="أحمد" id="inputFirstName" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-300 mb-1" id="lblLastName">اسم العائلة</label>
+              <input type="text" required placeholder="المنصوري" id="inputLastName" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+
+          <div id="fieldSpecialtyOrCompany">
+            <label class="block font-bold text-slate-300 mb-1" id="lblSpecialtyInput">التخصص الهندسي الدقيق</label>
+            <input type="text" id="inputSpecialtyVal" required placeholder="مثال: CST Studio & RF Antenna Design" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-300 mb-1" id="lblEmailInput">البريد الإلكتروني للعمل</label>
+            <input type="email" required placeholder="engineer@domain.com" id="inputEmailVal" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-300 mb-1" id="lblPassInput">كلمة المرور (8 أحرف على الأقل)</label>
+            <input type="password" required placeholder="••••••••••••" id="inputPassVal" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400 font-mono">
+          </div>
+
+          <div class="flex items-start gap-2 pt-1">
+            <input type="checkbox" id="chkAgreeEscrow" checked required class="mt-1 rounded border-slate-700 text-emerald-500 focus:ring-emerald-400 cursor-pointer">
+            <label for="chkAgreeEscrow" id="lblAgreeTerms" class="text-[11px] text-slate-400 leading-relaxed cursor-pointer">
+              أوافق على اتفاقية استخدام Satcom Engineers ونظام حماية المدفوعات والضمان المالي 100% Escrow.
+            </label>
+          </div>
+
+          <button type="submit" id="btnSubmitRegistration" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs transition shadow-lg shadow-emerald-600/30 cursor-pointer mt-2">
+            إنشاء حسابي الآن ↗
+          </button>
+        </form>
+
+        <div class="text-center text-xs text-slate-400 pt-1">
+          <span id="txtAlreadyHaveAcc">لديك حساب بالفعل؟</span>
+          <button onclick="switchAuthView('signin')" class="text-emerald-400 hover:underline font-bold mr-1 ml-1 cursor-pointer" id="btnGoSignIn2">
+            تسجيل الدخول
+          </button>
+        </div>
+      </div>
+
+
+      <!-- ================= VIEW 3: SIGN IN FORM (UPWORK STYLE) ================= -->
+      <div id="viewSignInForm" class="space-y-6 hidden">
+        <div class="text-center space-y-1">
+          <h2 class="text-2xl font-black text-white" id="signInTitle">تسجيل الدخول إلى Satcom Engineers</h2>
+          <p class="text-xs text-slate-400" id="signInSubtitle">مرحباً بعودتك إلى منصة هندسة الفضاء والاتصالات</p>
+        </div>
+
+        <!-- Fast Social Sign In -->
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" onclick="fakeSocialAuth('Google')" class="py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition">
+            <span>🌐</span>
+            <span>Google</span>
+          </button>
+          <button type="button" onclick="fakeSocialAuth('Apple')" class="py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition">
+            <span>🍎</span>
+            <span>Apple</span>
+          </button>
+        </div>
+
+        <div class="relative flex items-center justify-center">
+          <div class="border-t border-slate-800 w-full"></div>
+          <span class="bg-slate-900 px-3 text-[11px] text-slate-500 uppercase tracking-widest absolute" id="lblOrDivider2">أو</span>
+        </div>
+
+        <form onsubmit="handleSignInSubmit(event)" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1" id="lblLoginUser">اسم المستخدم أو البريد الإلكتروني</label>
+            <input type="text" id="loginUsername" required placeholder="engineer@satcom.com أو client@satcom.com" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-bold text-slate-300" id="lblLoginPass">كلمة المرور</label>
+              <a href="#" onclick="alert(currentLang === 'ar' ? 'تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.' : 'Password reset link sent to your email.'); return false;" class="text-[11px] text-emerald-400 hover:underline" id="linkForgotPass">نسيت كلمة المرور؟</a>
+            </div>
+            <input type="password" id="loginPassword" required placeholder="••••••••••••" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400 font-mono">
+          </div>
+
+          <div class="flex items-center justify-between pt-1">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-400">
+              <span class="text-[11px] text-slate-400" id="lblRememberMe">تذكر بيانات تسجيل دخولي</span>
+            </label>
+          </div>
+
+          <button type="submit" id="btnSubmitSignIn" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs transition shadow-lg shadow-emerald-600/30 cursor-pointer">
+            تسجيل الدخول ومتابعة العمل ↗
+          </button>
+        </form>
+
+        <!-- Quick Switch Demo Roles -->
+        <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-[11px]">
+          <span class="text-slate-400 font-bold block" id="lblQuickDemo">الدخول السريع التجريبي (Demo Portals):</span>
+          <div class="grid grid-cols-2 gap-2">
+            <a href="./client.html" class="p-2 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-bold text-center hover:bg-cyan-900/50 transition">
+              💼 <span id="btnDemoClient">دخول لوحة العميل (Client)</span>
+            </a>
+            <a href="./freelancer.html" class="p-2 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold text-center hover:bg-emerald-900/50 transition">
+              🛰️ <span id="btnDemoFreelancer">دخول لوحة المهندس (Engineer)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-400 pt-1">
+          <span id="txtDontHaveAcc">ليس لديك حساب بعد؟</span>
+          <button onclick="switchAuthView('select')" class="text-emerald-400 hover:underline font-bold mr-1 ml-1 cursor-pointer" id="btnGoSignUp">
+            انضم الآن مجاناً
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer with Emadsoft Badge -->
+  <footer class="py-6 border-t border-slate-800/80 text-xs text-slate-500 text-center">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div id="footerCopy">جميع الحقوق محفوظة © 2026 Satcom Engineers</div>
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-cyan-500/30 text-cyan-300 font-bold text-[11px]">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span id="footerEmadsoft">تصميم وتطوير Emadsoft</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    let currentLang = localStorage.getItem('satcom_lang') || 'ar';
+    let selectedRole = 'freelancer';
+
+    const authDict = {
+      ar: {
+        pageTitle: 'Satcom Engineers | تسجيل الدخول والانضمام (Upwork Experience)',
+        langBtn: 'English',
+        brandSub: 'سوق العمل لمهندسي الأقمار الصناعية والاتصالات',
+        linkBackHome: 'الرئيسية ↗',
+        joinTitle: 'انضم كصاحب عمل أو مهندس مستقل',
+        joinSubtitle: 'المنصة التخصصية الأولى لمهندسي الاتصالات الفضائية بنظام الضمان Escrow 100%',
+        titleRoleClient: 'أنا صاحب عمل (عميل)، أريد توظيف مهندسين لمشروعي',
+        descRoleClient: 'نشر مشاريع الأقمار الصناعية، فحص العروض، وإدارة عقود Escrow الآمنة.',
+        titleRoleFreelancer: 'أنا مهندس مستقل، أبحث عن مشاريع فضائية وهندسية',
+        descRoleFreelancer: 'تقديم عروض على محاكاة CST، ميزانية الرابط، واستلام أتعاب 100% كاملة.',
+        btnJoinClient: 'الانضمام كصاحب عمل (Join as a Client)',
+        btnApplyFreelancer: 'التقديم كمهندس مستقل (Apply as Freelancer)',
+        txtAlreadyMember: 'لديك حساب بالفعل؟',
+        btnGoSignIn: 'تسجيل الدخول',
+        btnBackToRole: 'تغيير نوع الحساب',
+        badgeClient: 'حساب صاحب عمل (عميل)',
+        badgeFreelancer: 'حساب مهندس مستقل',
+        regTitleClient: 'إنشاء حساب صاحب عمل',
+        regTitleFreelancer: 'إنشاء حساب مهندس مستقل',
+        regSubtitle: 'انضم لأكثر من 500 خبير اتصالات فضاء وأقمار صناعية',
+        lblOrDivider: 'أو بالبريد الإلكتروني',
+        lblFirstName: 'الاسم الأول',
+        lblLastName: 'اسم العائلة',
+        lblCompany: 'اسم الشركة أو المؤسسة الفضائية',
+        lblSpecialty: 'التخصص الهندسي الدقيق',
+        phCompany: 'مثال: Orbital Space Systems',
+        phSpecialty: 'مثال: CST Studio & RF Antenna Design',
+        lblEmailInput: 'البريد الإلكتروني للعمل',
+        lblPassInput: 'كلمة المرور (8 أحرف على الأقل)',
+        lblAgreeTerms: 'أوافق على اتفاقية استخدام Satcom Engineers ونظام حماية المدفوعات والضمان المالي 100% Escrow.',
+        btnSubmitRegistration: 'إنشاء حسابي الآن ↗',
+        txtAlreadyHaveAcc: 'لديك حساب بالفعل؟',
+        signInTitle: 'تسجيل الدخول إلى Satcom Engineers',
+        signInSubtitle: 'مرحباً بعودتك إلى منصة هندسة الفضاء والاتصالات',
+        lblLoginUser: 'اسم المستخدم أو البريد الإلكتروني',
+        lblLoginPass: 'كلمة المرور',
+        linkForgotPass: 'نسيت كلمة المرور؟',
+        lblRememberMe: 'تذكر بيانات تسجيل دخولي',
+        btnSubmitSignIn: 'تسجيل الدخول ومتابعة العمل ↗',
+        lblQuickDemo: 'الدخول السريع التجريبي (Demo Portals):',
+        btnDemoClient: 'دخول لوحة العميل (Client)',
+        btnDemoFreelancer: 'دخول لوحة المهندس (Engineer)',
+        txtDontHaveAcc: 'ليس لديك حساب بعد؟',
+        btnGoSignUp: 'انضم الآن مجاناً',
+        footerCopy: 'جميع الحقوق محفوظة © 2026 Satcom Engineers',
+        footerEmadsoft: 'تصميم وتطوير Emadsoft'
+      },
+      en: {
+        pageTitle: 'Satcom Engineers | Upwork Sign In & Join Experience',
+        langBtn: 'العربية',
+        brandSub: 'Satellite & Space Telecom Engineering Marketplace',
+        linkBackHome: 'Home ↗',
+        joinTitle: 'Join as a client or freelancer',
+        joinSubtitle: 'The premier specialized marketplace for satellite engineers with 100% Escrow guarantee',
+        titleRoleClient: "I'm a client, hiring for a project",
+        descRoleClient: 'Post aerospace projects, review CST simulation proposals, and fund Escrow.',
+        titleRoleFreelancer: "I'm a freelancer, looking for work",
+        descRoleFreelancer: 'Submit proposals on CST simulations, link budgets, and receive 100% net earnings.',
+        btnJoinClient: 'Join as a Client',
+        btnApplyFreelancer: 'Apply as a Freelancer',
+        txtAlreadyMember: 'Already have an account?',
+        btnGoSignIn: 'Log In',
+        btnBackToRole: 'Change account type',
+        badgeClient: 'Client Account',
+        badgeFreelancer: 'Freelance Engineer Account',
+        regTitleClient: 'Sign up to hire space talent',
+        regTitleFreelancer: 'Sign up to find satellite work',
+        regSubtitle: 'Join 500+ verified aerospace and satellite telecommunications experts',
+        lblOrDivider: 'or with work email',
+        lblFirstName: 'First name',
+        lblLastName: 'Last name',
+        lblCompany: 'Company / Organization Name',
+        lblSpecialty: 'Engineering Specialty',
+        phCompany: 'e.g. Orbital Space Systems Ltd',
+        phSpecialty: 'e.g. CST Studio & RF Antenna Design',
+        lblEmailInput: 'Work email address',
+        lblPassInput: 'Password (8 or more characters)',
+        lblAgreeTerms: 'I agree to the Satcom Engineers User Agreement and 100% Escrow Protection Policy.',
+        btnSubmitRegistration: 'Create my account ↗',
+        txtAlreadyHaveAcc: 'Already have an account?',
+        signInTitle: 'Log in to Satcom Engineers',
+        signInSubtitle: 'Welcome back to your specialized aerospace engineering workroom',
+        lblLoginUser: 'Username or Work Email',
+        lblLoginPass: 'Password',
+        linkForgotPass: 'Forgot password?',
+        lblRememberMe: 'Keep me logged in',
+        btnSubmitSignIn: 'Log In & Open Workspace ↗',
+        lblQuickDemo: 'Instant Demo Portals:',
+        btnDemoClient: 'Open Client Portal',
+        btnDemoFreelancer: 'Open Engineer Portal',
+        txtDontHaveAcc: "Don't have a Satcom account?",
+        btnGoSignUp: 'Sign Up',
+        footerCopy: 'All Rights Reserved © 2026 Satcom Engineers',
+        footerEmadsoft: 'Designed & Developed by Emadsoft'
+      }
+    };
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('satcom_lang', lang);
+      const isAr = lang === 'ar';
+      const d = authDict[lang];
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+      document.body.style.fontFamily = isAr ? "'Tajawal', system-ui, sans-serif" : "system-ui, -apple-system, sans-serif";
+
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+
+      setTxt('pageTitle', d.pageTitle);
+      document.title = d.pageTitle;
+      setTxt('langBtnText', d.langBtn);
+      setTxt('brandSub', d.brandSub);
+      setTxt('linkBackHome', d.linkBackHome);
+
+      setTxt('joinTitle', d.joinTitle);
+      setTxt('joinSubtitle', d.joinSubtitle);
+      setTxt('titleRoleClient', d.titleRoleClient);
+      setTxt('descRoleClient', d.descRoleClient);
+      setTxt('titleRoleFreelancer', d.titleRoleFreelancer);
+      setTxt('descRoleFreelancer', d.descRoleFreelancer);
+
+      updateRoleBtnText();
+
+      setTxt('txtAlreadyMember', d.txtAlreadyMember);
+      setTxt('btnGoSignIn', d.btnGoSignIn);
+      setTxt('btnBackToRole', d.btnBackToRole);
+
+      setTxt('lblOrDivider', d.lblOrDivider);
+      setTxt('lblOrDivider2', isAr ? 'أو' : 'or');
+      setTxt('lblFirstName', d.lblFirstName);
+      setTxt('lblLastName', d.lblLastName);
+      setTxt('lblEmailInput', d.lblEmailInput);
+      setTxt('lblPassInput', d.lblPassInput);
+      setTxt('lblAgreeTerms', d.lblAgreeTerms);
+      setTxt('btnSubmitRegistration', d.btnSubmitRegistration);
+      setTxt('txtAlreadyHaveAcc', d.txtAlreadyHaveAcc);
+      setTxt('btnGoSignIn2', d.btnGoSignIn);
+
+      setTxt('signInTitle', d.signInTitle);
+      setTxt('signInSubtitle', d.signInSubtitle);
+      setTxt('lblLoginUser', d.lblLoginUser);
+      setTxt('lblLoginPass', d.lblLoginPass);
+      setTxt('linkForgotPass', d.linkForgotPass);
+      setTxt('lblRememberMe', d.lblRememberMe);
+      setTxt('btnSubmitSignIn', d.btnSubmitSignIn);
+      setTxt('lblQuickDemo', d.lblQuickDemo);
+      setTxt('btnDemoClient', d.btnDemoClient);
+      setTxt('btnDemoFreelancer', d.btnDemoFreelancer);
+      setTxt('txtDontHaveAcc', d.txtDontHaveAcc);
+      setTxt('btnGoSignUp', d.btnGoSignUp);
+
+      setTxt('footerCopy', d.footerCopy);
+      setTxt('footerEmadsoft', d.footerEmadsoft);
+
+      const arrow = document.getElementById('backArrow');
+      if (arrow) arrow.innerText = isAr ? '←' : '→';
+
+      updateRegisterFormRoleUI();
+    }
+
+    function toggleLang() {
+      const next = currentLang === 'ar' ? 'en' : 'ar';
+      applyLanguage(next);
+    }
+
+    function selectRole(role) {
+      selectedRole = role;
+      const cardC = document.getElementById('cardClient');
+      const cardF = document.getElementById('cardFreelancer');
+      const dotC = document.getElementById('dotClient');
+      const dotF = document.getElementById('dotFreelancer');
+      const radioC = document.getElementById('radioClient');
+      const radioF = document.getElementById('radioFreelancer');
+
+      if (role === 'client') {
+        cardC.classList.add('selected');
+        cardF.classList.remove('selected');
+        dotC.classList.remove('hidden');
+        dotF.classList.add('hidden');
+        radioC.className = 'w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center transition';
+        radioF.className = 'w-5 h-5 rounded-full border-2 border-slate-600 flex items-center justify-center transition';
+      } else {
+        cardF.classList.add('selected');
+        cardC.classList.remove('selected');
+        dotF.classList.remove('hidden');
+        dotC.classList.add('hidden');
+        radioF.className = 'w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center transition';
+        radioC.className = 'w-5 h-5 rounded-full border-2 border-slate-600 flex items-center justify-center transition';
+      }
+      updateRoleBtnText();
+    }
+
+    function updateRoleBtnText() {
+      const d = authDict[currentLang];
+      const btn = document.getElementById('btnCreateAccountAction');
+      if (btn) {
+        btn.innerText = selectedRole === 'client' ? d.btnJoinClient : d.btnApplyFreelancer;
+      }
+    }
+
+    function updateRegisterFormRoleUI() {
+      const d = authDict[currentLang];
+      const isClient = selectedRole === 'client';
+      const badge = document.getElementById('badgeCurrentRole');
+      const title = document.getElementById('regTitle');
+      const lblSpec = document.getElementById('lblSpecialtyInput');
+      const inputSpec = document.getElementById('inputSpecialtyVal');
+
+      if (badge) badge.innerText = isClient ? d.badgeClient : d.badgeFreelancer;
+      if (title) title.innerText = isClient ? d.regTitleClient : d.regTitleFreelancer;
+      if (lblSpec) lblSpec.innerText = isClient ? d.lblCompany : d.lblSpecialty;
+      if (inputSpec) inputSpec.placeholder = isClient ? d.phCompany : d.phSpecialty;
+    }
+
+    function switchAuthView(view) {
+      document.getElementById('viewJoinSelect').classList.add('hidden');
+      document.getElementById('viewRegisterForm').classList.add('hidden');
+      document.getElementById('viewSignInForm').classList.add('hidden');
+
+      if (view === 'select') {
+        document.getElementById('viewJoinSelect').classList.remove('hidden');
+      } else if (view === 'register') {
+        document.getElementById('viewRegisterForm').classList.remove('hidden');
+        updateRegisterFormRoleUI();
+      } else if (view === 'signin') {
+        document.getElementById('viewSignInForm').classList.remove('hidden');
+      }
+    }
+
+    function goToCreateAccount() {
+      switchAuthView('register');
+    }
+
+    function fakeSocialAuth(provider) {
+      alert(currentLang === 'ar' 
+        ? `تم التحقق بنجاح عبر حساب ${provider}! جاري توجيهك لمساحة العمل...`
+        : `Successfully authenticated via ${provider}! Redirecting to workspace...`);
+      setTimeout(() => {
+        window.location.href = selectedRole === 'client' ? './client.html' : './freelancer.html';
+      }, 1000);
+    }
+
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const fname = document.getElementById('inputFirstName').value;
+      const isClient = selectedRole === 'client';
+      alert(currentLang === 'ar'
+        ? `مرحباً بك يا مهندس ${fname}! تم إنشاء حسابك بنجاح وحجز مكانك في منظومة Satcom Engineers.`
+        : `Welcome ${fname}! Your Satcom Engineers account has been created successfully.`);
+      
+      window.location.href = isClient ? './client.html' : './freelancer.html';
+    }
+
+    function handleSignInSubmit(e) {
+      e.preventDefault();
+      const u = document.getElementById('loginUsername').value.toLowerCase().trim();
+      if (u.includes('client') || u.includes('orbital') || u.includes('employer')) {
+        window.location.href = './client.html';
+      } else if (u.includes('admin')) {
+        window.location.href = './admin.html';
+      } else {
+        window.location.href = './freelancer.html';
+      }
+    }
+
+    // URL parameter parsing (e.g. auth.html?mode=signin or ?mode=signup)
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const mode = urlParams.get('mode');
+      const role = urlParams.get('role');
+
+      if (role === 'client' || role === 'freelancer') {
+        selectRole(role);
+      }
+
+      if (mode === 'signin') {
+        switchAuthView('signin');
+      } else if (mode === 'signup') {
+        switchAuthView('select');
+      } else {
+        switchAuthView('select');
+      }
+
+      applyLanguage(currentLang);
+    });
+  </script>
+</body>
+</html>
