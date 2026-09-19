@@ -177,7 +177,7 @@
         <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoJobsDesc">
           لم تقم بنشر أي مشاريع بعد. اضغط على زر نشر مشروع فضائي جديد لبدء استقبال عروض المهندسين.
         </p>
-        <button onclick="openPostJobModal()" class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer">
+        <button id="btnPostFirstJob" onclick="openPostJobModal()" class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer">
           + نشر أول مشروع فضائي ↗
         </button>
       </div>
@@ -469,7 +469,21 @@
         lblEscrowAutoFund: '$600.00 مؤمّنة 100% Escrow',
         btnSubmitNewJob: 'نشر المشروع الآن وتأمين الضمان ↗',
         footerCopyright: 'جميع الحقوق محفوظة © 2026 Satcom Engineers',
-        footerEmadsoft: 'تصميم وتطوير Emadsoft'
+        footerEmadsoft: 'تصميم وتطوير Emadsoft',
+
+        txtNoJobsTitle: 'لا توجد مشاريع مطروحة حالياً',
+        txtNoJobsDesc: 'لم تقم بنشر أي مشاريع بعد. اضغط على زر نشر مشروع فضائي جديد لبدء استقبال عروض المهندسين.',
+        btnPostFirstJob: '+ نشر أول مشروع فضائي ↗',
+        txtNoContractsTitle: 'لا توجد عقود نشطة حالياً',
+        txtNoContractsDesc: 'ستظهر هنا تفاصيل العقود النشطة ومراحل مخرجات المحاكاة وضمان Escrow فور قبول عرض المهندس والبدء في التنفيذ.',
+        txtTalentQueueTitle: 'جاري تدقيق وتوثيق تراخيص المهندسين الجدد',
+        txtTalentQueueDesc: 'يتم فحص وتوثيق هويات مهندسي الفضاء ورخص CST Studio و RF عبر بوابة KYC المركزية. ستظهر الملفات المعتمدة هنا فور اكتمال التوثيق.',
+        txtNoProposalsTitle: 'لا توجد عروض هندسية مستلمة حالياً',
+        txtNoProposalsDesc: 'ستظهر عروض المهندسين الفنية وجداول الدفعات هنا فور تقديمها على مشاريعك.',
+        chatLinkedProjTitle: 'غرفة العمليات الفنية',
+        chatEscrowValText: '$0.00 مؤمّنة ✓',
+        emptyChatNotice: 'لا توجد رسائل سابقة. يمكنك كتابة التعليمات الفنية أو مراجعة استفسارات المهندسين هنا.',
+        chatInputPh: 'اكتب تعليماتك الهندسية هنا...',
       },
       en: {
         pageTitle: 'Satcom Engineers | Client Workspace & Talent Management',
@@ -557,7 +571,21 @@
         lblEscrowAutoFund: '$600.00 100% Escrow Protected',
         btnSubmitNewJob: 'Post Job & Fund Escrow ↗',
         footerCopyright: 'All Rights Reserved © 2026 Satcom Engineers',
-        footerEmadsoft: 'Designed & Developed by Emadsoft'
+        footerEmadsoft: 'Designed & Developed by Emadsoft',
+
+        txtNoJobsTitle: 'No active projects currently',
+        txtNoJobsDesc: 'You have not posted any projects yet. Click Post New Project to start receiving verified engineer proposals.',
+        btnPostFirstJob: '+ Post First Aerospace Project ↗',
+        txtNoContractsTitle: 'No active contracts currently',
+        txtNoContractsDesc: 'Active contracts, milestone deliverables, and 100% Escrow vaults will appear here once you hire an engineer.',
+        txtTalentQueueTitle: 'Aerospace Engineer License Verification in Progress',
+        txtTalentQueueDesc: 'Engineer credentials and CST/RF licenses are being verified via central KYC. Approved profiles will appear here.',
+        txtNoProposalsTitle: 'No engineering proposals received yet',
+        txtNoProposalsDesc: 'Technical proposals and milestone schedules will appear here once submitted by engineers.',
+        chatLinkedProjTitle: 'Technical Workroom',
+        chatEscrowValText: '$0.00 Secured ✓',
+        emptyChatNotice: 'No previous messages. You can type engineering instructions or review queries here.',
+        chatInputPh: 'Type your technical instructions here...',
       }
     };
 
@@ -673,6 +701,26 @@
 
       setTxt('footerCopyright', d.footerCopyright);
       setTxt('footerEmadsoft', d.footerEmadsoft);
+
+      setTxt('txtNoJobsTitle', d.txtNoJobsTitle);
+      setTxt('txtNoJobsDesc', d.txtNoJobsDesc);
+      setTxt('btnPostFirstJob', d.btnPostFirstJob);
+      setTxt('txtNoContractsTitle', d.txtNoContractsTitle);
+      setTxt('txtNoContractsDesc', d.txtNoContractsDesc);
+      setTxt('txtTalentQueueTitle', d.txtTalentQueueTitle);
+      setTxt('txtTalentQueueDesc', d.txtTalentQueueDesc);
+      setTxt('txtNoProposalsTitle', d.txtNoProposalsTitle);
+      setTxt('txtNoProposalsDesc', d.txtNoProposalsDesc);
+      setTxt('chatLinkedProjTitle', d.chatLinkedProjTitle);
+      setTxt('chatEscrowValText', d.chatEscrowValText);
+      setTxt('emptyChatNotice', d.emptyChatNotice);
+      const chatInput = document.getElementById('chatInputBox');
+      if (chatInput) chatInput.placeholder = d.chatInputPh;
+
+      // Re-render dynamic jobs and contracts with new language
+      renderClientJobs();
+      syncClientContractUI();
+
     }
 
     function toggleLang() {

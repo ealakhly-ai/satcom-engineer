@@ -567,7 +567,13 @@
         btnChatSend: 'إرسال ↗',
         chatInputPh: 'اكتب رسالتك الفنية هنا...',
         footerCopyright: 'جميع الحقوق محفوظة © 2026 Satcom Engineers',
-        footerEmadsoft: 'تصميم وتطوير Emadsoft'
+        footerEmadsoft: 'تصميم وتطوير Emadsoft',
+
+        txtNoFreeContractsTitle: 'لا توجد عقود هندسية نشطة حالياً',
+        txtNoFreeContractsDesc: 'عند اعتماد عروضك من قِبل أصحاب المشاريع، ستظهر هنا تفاصيل العقد وغرفة تسليم مخرجات المحاكاة واعتماد صرف مبالغ Escrow بنسبة 100%.',
+        txtNoFeedTitle: 'لا توجد مشاريع هندسية مفتوحة حالياً',
+        txtNoFeedDesc: 'سيتم إشعارك وتحديث القائمة فور قيام أحد العملاء أو الشركات الفضائية بطرح مشاريع جديدة.',
+        filterAll: 'الكل (All)',
       },
       en: {
         pageTitle: 'Satcom Engineers | Freelancer Workspace & Contracts Feed',
@@ -650,7 +656,13 @@
         btnChatSend: 'Send ↗',
         chatInputPh: 'Type your technical message here...',
         footerCopyright: 'All Rights Reserved © 2026 Satcom Engineers',
-        footerEmadsoft: 'Designed & Developed by Emadsoft'
+        footerEmadsoft: 'Designed & Developed by Emadsoft',
+
+        txtNoFreeContractsTitle: 'No active engineering contracts currently',
+        txtNoFreeContractsDesc: 'Once your proposals are accepted, contract workrooms and 100% Escrow milestones will appear here.',
+        txtNoFeedTitle: 'No open engineering projects currently',
+        txtNoFeedDesc: 'You will be notified as soon as aerospace clients post new projects.',
+        filterAll: 'All',
       }
     };
 
@@ -765,6 +777,20 @@
 
       setTxt('footerCopyright', d.footerCopyright);
       setTxt('footerEmadsoft', d.footerEmadsoft);
+
+      setTxt('txtNoFreeContractsTitle', d.txtNoFreeContractsTitle);
+      setTxt('txtNoFreeContractsDesc', d.txtNoFreeContractsDesc);
+      setTxt('txtNoFeedTitle', d.txtNoFeedTitle);
+      setTxt('txtNoFeedDesc', d.txtNoFeedDesc);
+      setTxt('filterAll', d.filterAll);
+
+      const searchInp = document.getElementById('searchJobsInput');
+      if (searchInp) searchInp.placeholder = d.jobSearchPh;
+
+      // Re-render dynamic jobs and contracts with new language
+      renderFreelancerCustomJobs();
+      syncFreelancerContractUI();
+
     }
 
     function toggleLang() {

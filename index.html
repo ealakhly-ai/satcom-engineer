@@ -50,7 +50,7 @@
           <span>🛰️</span>
           <span id="txtFreelancerPortalNav">لوحة المهندس (Engineer)</span>
         </a>
-        <a href="./admin.html" id="navAdminText" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-3 rounded-xl hover:bg-slate-800/70 border border-slate-800">
+        <a href="./admin.html" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition flex items-center gap-1.5 py-2 px-3 rounded-xl hover:bg-slate-800/70 border border-slate-800">
           <span>🛡️</span>
           <span id="txtAdminPortalNav">لوحة الإدارة</span>
         </a>
@@ -163,10 +163,10 @@
             <span id="lblPostJobHero">انشر مشروع جديد</span>
           </a>
           <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+            <button id="heroPropBtn" onclick="openProposalModal()" class="card-prop-btn px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
               تقديم عرض هندسي ↗
             </button>
-            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+            <button id="heroChatBtn" onclick="openChatModal()" class="card-chat-btn px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
               💬 محادثة العميل
             </button>
           </div>
@@ -243,10 +243,10 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">DVB-S2X</span>
           </div>
           <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+            <button onclick="openProposalModal()" class="card-prop-btn px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
               تقديم عرض هندسي ↗
             </button>
-            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+            <button onclick="openChatModal()" class="card-chat-btn px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
               💬 محادثة العميل
             </button>
           </div>
@@ -270,10 +270,10 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">HFSS</span>
           </div>
           <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+            <button onclick="openProposalModal()" class="card-prop-btn px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
               تقديم عرض هندسي ↗
             </button>
-            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+            <button onclick="openChatModal()" class="card-chat-btn px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
               💬 محادثة العميل
             </button>
           </div>
@@ -297,10 +297,10 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">FPGA / VHDL</span>
           </div>
           <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-            <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+            <button onclick="openProposalModal()" class="card-prop-btn px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
               تقديم عرض هندسي ↗
             </button>
-            <button onclick="openChatModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
+            <button onclick="openChatModal()" class="card-chat-btn px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-xl text-xs font-bold transition cursor-pointer">
               💬 محادثة العميل
             </button>
           </div>
@@ -791,7 +791,7 @@
       setTxt('navChatText', d.navChatText);
       setTxt('navProposalText', d.navProposalText);
       setTxt('navWalletText', d.navWalletText);
-      setTxt('navAdminText', d.navAdminText);
+      
       setPh('searchInput', d.searchPlaceholder);
 
       // Persona Switcher
@@ -893,7 +893,9 @@
       setTxt('escrowBadgeEl', d.escrowBadge);
 
       // Domain Card Buttons
-      document.querySelectorAll('.card-prop-btn').forEach(btn => btn.innerText = d.cardApplyBtn);
+      document.querySelectorAll('.card-prop-btn').forEach(btn => { btn.innerText = d.cardApplyBtn; });
+      setTxt('heroPropBtn', d.cardApplyBtn);
+      setTxt('heroChatBtn', d.cardChatBtn);
       document.querySelectorAll('.card-chat-btn').forEach(btn => btn.innerText = d.cardChatBtn);
 
       // Auth Modal Full Translations
