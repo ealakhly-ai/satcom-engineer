@@ -4,20 +4,8 @@ import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../../database/prisma.service';
 import { Role } from '@prisma/client';
 
-export class RegisterDto {
-  email: string;
-  password: string;
-  fullName: string;
-  role: Role;
-  headline?: string;
-  bio?: string;
-  companyName?: string;
-}
-
-export class LoginDto {
-  email: string;
-  password: string;
-}
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {

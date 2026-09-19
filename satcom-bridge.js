@@ -1,12 +1,15 @@
 /**
  * Satcom Engineers Ecosystem Bridge (satcom-bridge.js)
- * Real-time unified data store and cross-page synchronization engine.
- * Powered by localStorage with cross-tab reactive events.
+ * Real-time unified data store, PostgreSQL backend sync, and cross-page synchronization engine.
+ * Powered by localStorage with cross-tab reactive events & REST API connectivity.
  * Designed & Developed by Emadsoft
  */
 
 (function (window) {
   'use strict';
+
+  // Configurable API URL (Supports local development & production backend)
+  const API_BASE = window.SATCOM_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:4000/api' : '');
 
   // Version 3: Clean production-ready keys (zero demo data)
   const STORAGE_KEYS = {
@@ -15,7 +18,8 @@
     CONTRACTS: 'satcom_shared_contract_v3',
     WALLET: 'satcom_shared_wallet_v3',
     PAYOUTS: 'satcom_shared_payouts_v3',
-    ADMIN_LOG: 'satcom_shared_admin_ledger_v3'
+    ADMIN_LOG: 'satcom_shared_admin_ledger_v3',
+    TOKEN: 'satcom_auth_token_v3'
   };
 
   // Completely clean initial data (Zero demo records)
@@ -55,9 +59,39 @@
   }
 
   const SatcomDB = {
+    // API endpoint accessor
+    getApiUrl: function () {
+      return API_BASE;
+    },
+
+    // Check backend API & database server health
+    checkServerHealth: async function () {
+      if (!API_BASE) return { status: 'offline', localMode: true };
+      try {
+        const res = await fetch(API_BASE + '/jobs', { method: 'GET' });
+        return { status: res.ok ? 'connected' : 'degraded', code: res.status };
+      } catch (err) {
+        return { status: 'offline', error: err.message };
+      }
+    },
+
+    // Automated backend commission calculation ($20 per $300 tier)
+    calculateCommission: function (amount) {
+      const num = parseFloat(amount) || 0;
+      const tiers = Math.floor(num / 300);
+      const fee = tiers * 20.00;
+      return {
+        freelancerAmount: num,
+        platformFee: fee,
+        clientTotal: num + fee,
+        tiers: tiers
+      };
+    },
+
     getJobs: function () {
       return readStorage(STORAGE_KEYS.JOBS, DEFAULT_JOBS);
     },
+
     postJob: function (jobData) {
       const jobs = this.getJobs();
       const newJob = {
@@ -83,10 +117,32 @@
       };
       jobs.unshift(newJob);
       writeStorage(STORAGE_KEYS.JOBS, jobs);
+
+      // Asynchronous background sync to PostgreSQL backend if reachable
+      if (API_BASE) {
+        const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+        fetch(API_BASE + '/jobs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+          },
+          body: JSON.stringify({
+            title: newJob.title,
+            description: newJob.descAr,
+            budget: newJob.budgetValue,
+            estimatedDuration: '2 weeks',
+            skillNames: newJob.tags
+          })
+        }).catch(function () {
+          // Graceful fallback to client-side ecosystem bridge
+        });
+      }
+
       return newJob;
     },
 
-        // Sequential Contract Number Generator (e.g. CTR-SAT-00001, CTR-SAT-00002)
+    // Sequential Contract Number Generator (CTR-SAT-00001, CTR-SAT-00002, ...)
     getNextContractNumber: function () {
       let seq = parseInt(localStorage.getItem('satcom_contract_seq') || '0', 10) + 1;
       localStorage.setItem('satcom_contract_seq', seq.toString());
@@ -97,9 +153,54 @@
       let seq = parseInt(localStorage.getItem('satcom_contract_seq') || '1', 10);
       return 'CTR-SAT-' + String(seq).padStart(5, '0');
     },
+
     getContract: function () {
       return readStorage(STORAGE_KEYS.CONTRACTS, DEFAULT_CONTRACT);
     },
+
+    createContract: function (contractData) {
+      const contractId = this.getNextContractNumber();
+      const amount = parseFloat(contractData.totalAmount) || 300.00;
+      const m1Amt = amount / 2;
+      const m2Amt = amount / 2;
+
+      const newContract = {
+        id: contractId,
+        titleAr: contractData.titleAr || 'عقد هندسي فضائي نشط',
+        titleEn: contractData.titleEn || 'Active Satellite Engineering Contract',
+        clientName: contractData.clientName || 'صاحب العمل',
+        freelancerName: contractData.freelancerName || 'المهندس المعتمد',
+        totalAmount: amount,
+        escrowLocked: amount,
+        status: 'active',
+        milestone1: {
+          id: 'M1',
+          titleAr: 'المرحلة 1: بناء النموذج ومحاكاة المعلمات',
+          titleEn: 'Milestone 1: Model Setup & Initial Simulation',
+          amount: m1Amt,
+          status: 'released'
+        },
+        milestone2: {
+          id: 'M2',
+          titleAr: 'المرحلة 2: محاكاة الفصوص الإشعاعية والتقرير النهائي',
+          titleEn: 'Milestone 2: 3D Radiation Pattern & Final Deliverable',
+          amount: m2Amt,
+          status: 'pending'
+        }
+      };
+
+      writeStorage(STORAGE_KEYS.CONTRACTS, newContract);
+
+      // Update wallet escrow
+      const wallet = this.getWallet();
+      wallet.inEscrow += m2Amt;
+      wallet.available += m1Amt;
+      wallet.totalEarned += m1Amt;
+      writeStorage(STORAGE_KEYS.WALLET, wallet);
+
+      return newContract;
+    },
+
     deliverMilestone2: function (notes, filename) {
       let contract = this.getContract();
       if (!contract) return null;
@@ -116,6 +217,7 @@
       writeStorage(STORAGE_KEYS.CONTRACTS, contract);
       return contract;
     },
+
     releaseMilestone2: function () {
       const contract = this.getContract();
       if (!contract || contract.milestone2.status === 'released') return contract;
@@ -141,6 +243,7 @@
     getWallet: function () {
       return readStorage(STORAGE_KEYS.WALLET, DEFAULT_WALLET);
     },
+
     requestPayout: function (amount, channel, account) {
       const wallet = this.getWallet();
       const numAmount = parseFloat(amount) || 0;

@@ -92,6 +92,7 @@ export default function App() {
 
   // Contracts & Milestones State (Escrow)
   const [contractsList, setContractsList] = useState<Contract[]>([]);
+  const [contractSeq, setContractSeq] = useState<number>(1);
 
   // Messages / Technical Workroom State
   const [messagesList, setMessagesList] = useState<ChatMessage[]>([]);
@@ -165,8 +166,12 @@ export default function App() {
   const handleSubmitProposal = () => {
     if (!selectedJobForProposal) return;
 
+    const nextSeq = contractSeq;
+    setContractSeq((prev) => prev + 1);
+    const newContractId = 'CTR-SAT-' + String(nextSeq).padStart(5, '0');
+
     const newContract: Contract = {
-      id: 'CTR-SAT-' + Math.floor(100 + Math.random() * 900),
+      id: newContractId,
       titleAr: selectedJobForProposal.titleAr,
       titleEn: selectedJobForProposal.titleEn,
       clientAr: selectedJobForProposal.clientAr,

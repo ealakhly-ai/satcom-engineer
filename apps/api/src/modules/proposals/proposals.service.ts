@@ -2,12 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { PrismaService } from '../../database/prisma.service';
 import { ProposalStatus, JobStatus } from '@prisma/client';
 
-export class CreateProposalDto {
-  jobId: string;
-  bidAmount: number;
-  durationDays: number;
-  coverLetter: string;
-}
+import { CreateProposalDto } from './dto/create-proposal.dto';
 
 @Injectable()
 export class ProposalsService {

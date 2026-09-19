@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Param, Query, UseGuards } from '@nestjs/common';
-import { JobsService, CreateJobDto } from './jobs.service';
+import { JobsService } from './jobs.service';
+import { CreateJobDto } from './dto/create-job.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';

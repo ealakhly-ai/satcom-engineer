@@ -1,5 +1,6 @@
 import { Controller, Post, Get, Body, Param, UseGuards } from '@nestjs/common';
-import { ProposalsService, CreateProposalDto } from './proposals.service';
+import { ProposalsService } from './proposals.service';
+import { CreateProposalDto } from './dto/create-proposal.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';

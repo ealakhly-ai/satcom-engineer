@@ -2,14 +2,7 @@ import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/commo
 import { PrismaService } from '../../database/prisma.service';
 import { JobStatus, JobType } from '@prisma/client';
 
-export class CreateJobDto {
-  title: string;
-  description: string;
-  budget: number;
-  jobType?: JobType;
-  estimatedDuration: string;
-  skillNames?: string[];
-}
+import { CreateJobDto } from './dto/create-job.dto';
 
 @Injectable()
 export class JobsService {
