@@ -11,6 +11,7 @@
   <style>
     body { font-family: "Tajawal", system-ui, -apple-system, sans-serif; }
   </style>
+  <script src="./satcom-bridge.js"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-[#050811] text-slate-100 selection:bg-cyan-500 selection:text-white">
 
@@ -142,22 +143,22 @@
 
         <!-- Action Buttons -->
         <div class="pt-2 flex flex-wrap justify-center items-center gap-4">
-          <button
-            onclick="openAuthModal('signup', 'freelancer')"
+          <a
+            href="./freelancer.html"
             id="btnExploreJobs"
             class="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-base shadow-xl shadow-cyan-500/25 transition transform active:scale-95 flex items-center gap-2 cursor-pointer"
           >
             <span id="lblExploreJobs">استكشف المشاريع المتاحة</span>
             <span id="arrowExplore">←</span>
-          </button>
+          </a>
 
-          <button
-            onclick="openAuthModal('signup', 'client')"
+          <a
+            href="./client.html"
             id="btnPostJobHero"
             class="px-8 py-4 rounded-2xl bg-slate-800/90 hover:bg-slate-700 text-white border border-slate-600 font-bold text-base transition transform active:scale-95 cursor-pointer"
           >
             <span id="lblPostJobHero">انشر مشروع جديد</span>
-          </button>
+          </a>
           <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
             <button onclick="openProposalModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-bold transition cursor-pointer">
               تقديم عرض هندسي ↗
@@ -1023,7 +1024,8 @@
 
       setTimeout(() => {
         closeAuthModal();
-      }, 2500);
+        window.location.href = currentRole === 'client' ? './client.html' : './freelancer.html';
+      }, 1200);
     }
 
     // UPWORK WORKSPACE FUNCTIONS

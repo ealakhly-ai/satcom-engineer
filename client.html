@@ -11,6 +11,7 @@
   <style>
     body { font-family: "Tajawal", system-ui, -apple-system, sans-serif; }
   </style>
+  <script src="./satcom-bridge.js"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-[#050811] text-slate-100 selection:bg-cyan-500 selection:text-white">
 
@@ -53,6 +54,13 @@
       </div>
 
       <!-- Action Area: Post Job, Language, Client Avatar -->
+      <div class="flex items-center gap-2">
+        <!-- Switch to Engineer Button -->
+        <a href="./freelancer.html" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-xs font-bold hover:bg-emerald-900/50 transition cursor-pointer">
+          <span>🛰️</span>
+          <span id="txtSwitchToEngineer">التبديل لحساب المهندس ↗</span>
+        </a>
+      </div>
       <div class="flex items-center gap-3">
         <!-- Post a Job Button -->
         <button onclick="openPostJobModal()" class="hidden sm:flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl text-xs font-black shadow-lg shadow-cyan-500/25 transition cursor-pointer">
@@ -651,6 +659,7 @@
         txtNavContracts: 'العقود وحسابات Escrow',
         txtNavDiscoverTalent: 'استكشاف وتوظيف المهندسين',
         txtNavMessages: 'المحادثات الحية',
+        txtSwitchToEngineer: 'التبديل لحساب المهندس ↗',
         btnPostJobNav: 'انشر مشروع جديد ↗',
         clientOrgName: 'Orbital Space Systems',
         clientTierBadge: 'عميل مؤسسي Enterprise',
@@ -738,6 +747,7 @@
         txtNavContracts: 'Contracts & Escrow Vault',
         txtNavDiscoverTalent: 'Discover & Hire Talent',
         txtNavMessages: 'Live Messages',
+        txtSwitchToEngineer: 'Switch to Engineer Portal ↗',
         btnPostJobNav: 'Post a Job ↗',
         clientOrgName: 'Orbital Space Systems',
         clientTierBadge: 'Enterprise Client',
@@ -842,6 +852,7 @@
       setTxt('txtNavContracts', d.txtNavContracts);
       setTxt('txtNavDiscoverTalent', d.txtNavDiscoverTalent);
       setTxt('txtNavMessages', d.txtNavMessages);
+      setTxt('txtSwitchToEngineer', d.txtSwitchToEngineer);
       setTxt('btnPostJobNav', d.btnPostJobNav);
       setTxt('clientOrgName', d.clientOrgName);
       setTxt('clientTierBadge', d.clientTierBadge);
@@ -960,20 +971,52 @@
       setTimeout(() => t.classList.add('hidden'), 3500);
     }
 
+    function syncClientContractUI() {
+      if (!window.SatcomDB) return;
+      const contract = SatcomDB.getContract();
+      const m2 = contract.milestone2;
+      const isAr = currentLang === 'ar';
+
+      const statusElem = document.getElementById('m2Status');
+      const escrowPendingElem = document.getElementById('m2EscrowPending');
+      const approveBtn = document.getElementById('btnApproveMilestone');
+
+      if (!statusElem || !approveBtn) return;
+
+      if (m2.status === 'released') {
+        statusElem.innerText = isAr ? '✓ تم اعتماد المرحلة وتحرير الأتعاب للمهندس بنجاح!' : '✓ Milestone approved & funds released!';
+        statusElem.className = 'text-[11px] text-emerald-300 font-bold';
+        if (escrowPendingElem) {
+          escrowPendingElem.innerText = isAr ? 'مدفوعة ومحررة ✓' : 'Paid Out ✓';
+          escrowPendingElem.className = 'text-[10px] text-emerald-400 block font-bold';
+        }
+        approveBtn.disabled = true;
+        approveBtn.className = 'px-6 py-3 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold cursor-not-allowed';
+        approveBtn.innerText = isAr ? '✓ تم تحرير الدفعة بنجاح' : '✓ Milestone Released';
+      } else if (m2.status === 'delivered') {
+        statusElem.innerText = isAr ? 'قام المهندس بتسليم العمل ومخرجات المحاكاة (' + (m2.deliveredFile || 'Ka_PhasedArray_Sim.cst') + ') بانتظار اعتمادك' : 'Engineer delivered (' + (m2.deliveredFile || 'Ka_PhasedArray_Sim.cst') + '). Awaiting your release';
+        statusElem.className = 'text-[11px] text-amber-300 font-bold animate-pulse';
+        if (escrowPendingElem) {
+          escrowPendingElem.innerText = isAr ? 'بانتظار الموافقة' : 'Pending Approval';
+          escrowPendingElem.className = 'text-[10px] text-amber-300 block font-bold';
+        }
+        approveBtn.disabled = false;
+        approveBtn.className = 'px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-lg shadow-emerald-600/30 transition cursor-pointer';
+        approveBtn.innerText = isAr ? '✓ اعتماد التسليم وإطلاق الدفعة للمهندس ($300.00 Escrow)' : '✓ Approve & Release $300.00 Escrow';
+      }
+    }
+
     function approveMilestone2() {
       const isAr = currentLang === 'ar';
       const conf = confirm(isAr 
         ? 'هل تؤكد اعتماد مخرجات المحاكاة وتحرير مبلغ 300.00$ من حساب الضمان Escrow إلى المهندس؟'
         : 'Confirm approval of CST deliverables and release $300.00 from Escrow to engineer?');
       if (conf) {
-        document.getElementById('m2Status').innerText = isAr ? '✓ تم اعتماد المرحلة وتحرير الأتعاب بنجاح!' : '✓ Milestone approved & funds released!';
-        document.getElementById('m2Status').className = 'text-[11px] text-emerald-300 font-bold';
-        document.getElementById('m2EscrowPending').innerText = isAr ? 'مدفوعة ✓' : 'Paid Out ✓';
-        document.getElementById('m2EscrowPending').className = 'text-[10px] text-emerald-400 block font-bold';
-        document.getElementById('btnApproveMilestone').disabled = true;
-        document.getElementById('btnApproveMilestone').className = 'px-6 py-3 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold cursor-not-allowed';
-        document.getElementById('btnApproveMilestone').innerText = isAr ? '✓ تم تحرير الدفعة بنجاح' : '✓ Milestone Released';
-        showToast(isAr ? 'تم إطلاق 300.00$ للمهندس وإتمام العقد بنجاح!' : '$300.00 released to engineer successfully!');
+        if (window.SatcomDB) {
+          SatcomDB.releaseMilestone2();
+        }
+        syncClientContractUI();
+        showToast(isAr ? 'تم إطلاق 300.00$ للمهندس وإتمام العقد بنجاح! وتم تسجيل عمولة المنصة ($20).' : '$300.00 released to engineer! $20 platform fee recorded.');
       }
     }
 
@@ -985,14 +1028,67 @@
       document.getElementById('postJobModal').classList.add('hidden');
       document.getElementById('postJobModal').classList.remove('flex');
     }
+    function renderClientJobs() {
+      if (!window.SatcomDB) return;
+      const jobs = SatcomDB.getJobs();
+      const isAr = currentLang === 'ar';
+      
+      const customJobs = jobs.filter(j => j.isCustom);
+      const customContainer = document.getElementById('customJobsSection');
+      if (customContainer) {
+        if (customJobs.length === 0) {
+          customContainer.innerHTML = '';
+        } else {
+          customContainer.innerHTML = customJobs.map(job => `
+            <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/40 space-y-3 animate-fadeIn mb-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">✨ ${isAr ? 'نُشر للتو' : 'Just Posted'}</span>
+                    <span class="text-[11px] text-slate-400">${job.category || 'Satcom'} • ${isAr ? 'بضمان Escrow 100%' : '100% Escrow'}</span>
+                  </div>
+                  <h4 class="text-sm font-black text-white">${job.title}</h4>
+                </div>
+                <div class="text-right">
+                  <span class="text-base font-black text-emerald-400 font-mono">${job.budget}</span>
+                  <span class="text-[10px] text-slate-400 block">${isAr ? 'سعر ثابت' : 'Fixed Price'}</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-300">${job.descAr || job.desc || ''}</p>
+              <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
+                <span class="text-cyan-400 font-bold">💬 ${isAr ? '0 عروض مقدمة حتى الآن' : '0 Proposals received'}</span>
+                <span class="text-slate-400">${isAr ? 'مفتوح للتقديم في لوحة المهندسين' : 'Open on Engineer Feed'}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
     function handlePostJobSubmit(e) {
       e.preventDefault();
       const title = document.getElementById('inputJobTitle').value;
+      const cat = document.getElementById('selectCategory').value;
+      const budget = parseFloat(document.getElementById('inputBudget').value) || 300;
+      const desc = document.getElementById('inputJobDesc').value;
       const isAr = currentLang === 'ar';
+
+      if (window.SatcomDB) {
+        SatcomDB.postJob({
+          title: title,
+          category: cat,
+          budget: budget,
+          desc: desc,
+          descAr: desc,
+          descEn: desc
+        });
+      }
+
       closePostJobModal();
+      renderClientJobs();
       showToast(isAr 
-        ? `✓ تم نشر المشروع [${title}] بنجاح وحجز مبلغ الضمان في Escrow!`
-        : `✓ Project [${title}] posted successfully with Escrow funding!`);
+        ? `✓ تم نشر المشروع [${title}] بنجاح وحجز مبلغ الضمان ($${budget.toFixed(2)}) في Escrow!`
+        : `✓ Project [${title}] posted successfully with ($${budget.toFixed(2)}) Escrow funding!`);
     }
 
     function openProposalsReviewModal() {
@@ -1048,6 +1144,14 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       applyLanguage(currentLang);
+      renderClientJobs();
+      syncClientContractUI();
+      if (window.SatcomDB) {
+        SatcomDB.onSync(() => {
+          renderClientJobs();
+          syncClientContractUI();
+        });
+      }
     });
   </script>
 </body>

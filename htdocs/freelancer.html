@@ -11,6 +11,7 @@
   <style>
     body { font-family: "Tajawal", system-ui, -apple-system, sans-serif; }
   </style>
+  <script src="./satcom-bridge.js"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-[#050811] text-slate-100 selection:bg-emerald-500 selection:text-white">
 
@@ -50,6 +51,13 @@
       </div>
 
       <!-- Action Area: Wallet Balance, Language, Profile -->
+      <div class="flex items-center gap-2">
+        <!-- Switch to Client Button -->
+        <a href="./client.html" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 text-xs font-bold hover:bg-cyan-900/50 transition cursor-pointer">
+          <span>💼</span>
+          <span id="txtSwitchToClient">التبديل لحساب العميل ↗</span>
+        </a>
+      </div>
       <div class="flex items-center gap-3">
         <!-- Wallet Balance & Get Paid Button -->
         <div class="hidden sm:flex items-center gap-2 p-1.5 pl-3 rounded-2xl bg-slate-950 border border-slate-800 text-xs">
@@ -183,6 +191,8 @@
 
           <!-- Jobs Stream Cards (Upwork Card Style) -->
           <div class="space-y-4 pt-2" id="jobsContainer">
+            <div id="freelancerCustomJobsFeed" class="space-y-4"></div>
+            
             
             <!-- Job Card 1 -->
             <div class="job-item p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 transition space-y-3.5 shadow-xl" data-tags="cst kaband">
@@ -521,7 +531,7 @@
       <form onsubmit="handlePayoutSubmit(event)" class="space-y-3.5 text-xs">
         <div>
           <label class="block font-bold text-slate-300 mb-1" id="lblPayoutAmt">المبلغ المراد سحبه ($)</label>
-          <input type="number" required value="600" max="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-emerald-400">
+          <input type="number" id="payoutAmountInput" required value="600" max="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-emerald-400">
         </div>
 
         <div>
@@ -636,6 +646,7 @@
         txtNavFindWork: 'تصفح المشاريع (Find Work)',
         txtNavMyContracts: 'عقودي الجارية ومراحل العمل',
         txtNavMessages: 'المحادثات الفنية',
+        txtSwitchToClient: 'التبديل لحساب العميل ↗',
         lblNavAvailable: 'الأرباح المتاحة:',
         btnNavGetPaid: 'سحب الأرباح ↗',
         engNameNav: 'م. أحمد المنصوري',
@@ -819,6 +830,7 @@
       setTxt('txtNavFindWork', d.txtNavFindWork);
       setTxt('txtNavMyContracts', d.txtNavMyContracts);
       setTxt('txtNavMessages', d.txtNavMessages);
+      setTxt('txtSwitchToClient', d.txtSwitchToClient);
       setTxt('lblNavAvailable', d.lblNavAvailable);
       setTxt('btnNavGetPaid', d.btnNavGetPaid);
       setTxt('engNameNav', d.engNameNav);
@@ -989,12 +1001,104 @@
       document.getElementById('deliverModal').classList.add('hidden');
       document.getElementById('deliverModal').classList.remove('flex');
     }
+    function renderDynamicFreelancerData() {
+      if (!window.SatcomDB) return;
+      const isAr = currentLang === 'ar';
+      
+      // 1. Sync Wallet
+      const wallet = SatcomDB.getWallet();
+      const navBalanceElem = document.querySelector('#lblNavAvailable + span');
+      const modalBalanceElem = document.querySelector('#walletModal .text-emerald-400');
+      const payoutInput = document.getElementById('payoutAmountInput');
+      
+      if (navBalanceElem) navBalanceElem.innerText = '$' + wallet.available.toFixed(2);
+      if (modalBalanceElem) modalBalanceElem.innerText = '$' + wallet.available.toFixed(2);
+      if (payoutInput) {
+        payoutInput.max = wallet.available;
+        if (parseFloat(payoutInput.value) > wallet.available) {
+          payoutInput.value = wallet.available;
+        }
+      }
+
+      // 2. Sync Contract Milestone Status
+      const contract = SatcomDB.getContract();
+      const m2 = contract.milestone2;
+      const m2StatusElem = document.getElementById('m2StatusText');
+      const deliverBtn = document.querySelector('button[onclick="openDeliverModal()"]');
+
+      if (m2StatusElem) {
+        if (m2.status === 'released') {
+          m2StatusElem.innerText = isAr ? '✓ تم اعتماد المرحلة وإيداع 300$ بمحفظتك!' : '✓ Milestone approved & $300 added to wallet!';
+          m2StatusElem.className = 'text-[10px] text-emerald-400 font-bold';
+          if (deliverBtn) {
+            deliverBtn.disabled = true;
+            deliverBtn.className = 'px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 font-bold text-[11px] cursor-not-allowed';
+            deliverBtn.innerText = isAr ? '✓ تم الصرف' : '✓ Paid';
+          }
+        } else if (m2.status === 'delivered') {
+          m2StatusElem.innerText = isAr ? '✓ تم تسليم ملف CST وبانتظار اعتماد العميل' : '✓ CST file delivered, awaiting client release';
+          m2StatusElem.className = 'text-[10px] text-amber-300 font-bold';
+        }
+      }
+
+      // 3. Render Custom Jobs in Feed
+      const jobs = SatcomDB.getJobs();
+      const customJobs = jobs.filter(j => j.isCustom);
+      const customContainer = document.getElementById('freelancerCustomJobsFeed');
+      if (customContainer) {
+        if (customJobs.length === 0) {
+          customContainer.innerHTML = '';
+        } else {
+          customContainer.innerHTML = customJobs.map(job => `
+            <div class="job-item p-6 rounded-3xl bg-gradient-to-r from-emerald-950/30 via-slate-900 to-cyan-950/30 border-2 border-emerald-500/50 space-y-3.5 shadow-2xl animate-fadeIn">
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">✨ ${isAr ? 'مشروع جديد نُشر للتو' : 'NEW PROJECT JUST POSTED'}</span>
+                    <span class="text-[10px] text-slate-400">${isAr ? 'بضمان Escrow 100%' : '100% Escrow Funded'}</span>
+                  </div>
+                  <h3 class="text-base sm:text-lg font-black text-white hover:text-emerald-400 transition cursor-pointer" onclick="openProposalModal('${job.title}', '${job.budgetValue || 300}')">
+                    ${job.title}
+                  </h3>
+                </div>
+                <div class="text-right sm:text-left shrink-0">
+                  <span class="text-xl font-black text-emerald-400 font-mono">${job.budget}</span>
+                  <span class="block text-[10px] text-slate-400">${isAr ? 'سعر ثابت • محجوز في الضمان' : 'Fixed Price • Escrow Held'}</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">${job.descAr || job.desc || ''}</p>
+              <div class="flex flex-wrap gap-1.5">
+                ${(job.tags || ['CST Studio', 'Escrow 100%']).map(t => `<span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">${t}</span>`).join('')}
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
+                <div class="flex items-center gap-3">
+                  <span class="flex items-center gap-1 text-cyan-300 font-bold">
+                    <span>✓</span> <span>${isAr ? 'دفع مؤمن 100%' : '100% Payment Escrow'}</span>
+                  </span>
+                  <span>${job.clientName || 'Orbital Space Systems'}</span>
+                  <span>${job.clientCountry || 'دبي، الإمارات 🇦🇪'}</span>
+                </div>
+                <button onclick="openProposalModal('${job.title}', '${job.budgetValue || 300}')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black text-xs shadow-lg shadow-emerald-500/25 transition cursor-pointer">
+                  ${isAr ? 'تقديم عرض هندسي ↗' : 'Submit Proposal ↗'}
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
     function handleDeliverSubmit(e) {
       e.preventDefault();
       const isAr = currentLang === 'ar';
+      const notes = document.getElementById('deliverNotes') ? document.getElementById('deliverNotes').value : '';
+      
+      if (window.SatcomDB) {
+        SatcomDB.deliverMilestone2(notes, 'Ka_PhasedArray_Sim.cst');
+      }
+
       closeDeliverModal();
-      document.getElementById('m2StatusText').innerText = isAr ? '✓ تم رفع الملفات وبانتظار اعتماد العميل' : '✓ Files uploaded, awaiting client release';
-      document.getElementById('m2StatusText').className = 'text-[10px] text-emerald-300 font-bold';
+      renderDynamicFreelancerData();
       showToast(isAr 
         ? '✓ تم تسليم ملفات محاكاة CST والتقرير الفني لصاحب العمل للمراجعة وصرف الضمان!'
         : '✓ CST simulation deliverables submitted to client for Escrow release!');
@@ -1011,10 +1115,21 @@
     function handlePayoutSubmit(e) {
       e.preventDefault();
       const isAr = currentLang === 'ar';
+      const amt = parseFloat(document.getElementById('payoutAmountInput').value) || 0;
+      
+      if (window.SatcomDB) {
+        const res = SatcomDB.requestPayout(amt, 'SWIFT', 'IBAN-AE82000000129384');
+        if (!res.success) {
+          alert(isAr ? res.message : 'Insufficient available balance');
+          return;
+        }
+      }
+
       closeWalletModal();
+      renderDynamicFreelancerData();
       showToast(isAr 
-        ? '✓ تم تسجيل طلب السحب الفوري بنجاح، وجاري التحويل البنكي لحسابك المعتمد!'
-        : '✓ Instant payout requested! Bank wire transfer is being processed.');
+        ? `✓ تم تسجيل طلب سحب $${amt.toFixed(2)} بنجاح، وجاري التحويل لحسابك البنكي!`
+        : `✓ Payout of $${amt.toFixed(2)} requested successfully! Transfer initiated.`);
     }
 
     function openChatModal() {
@@ -1061,6 +1176,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       applyLanguage(currentLang);
+      renderDynamicFreelancerData();
+      if (window.SatcomDB) {
+        SatcomDB.onSync(() => {
+          renderDynamicFreelancerData();
+        });
+      }
     });
   </script>
 </body>
