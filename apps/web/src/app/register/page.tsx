@@ -27,7 +27,7 @@ export default function RegisterPage() {
   const { t, locale, toggleLocale, dir } = useLanguage();
   const isAr = locale === 'ar';
 
-  // Step 1: Choose Persona (Upwork-Style: Client vs Freelancer)
+  // Step 1: Choose Persona (Satcom-Style: Client vs Freelancer)
   // Step 2: Fill tailored registration form
   const [step, setStep] = useState<1 | 2>(1);
   const [role, setRole] = useState<'client' | 'freelancer'>('client');
@@ -185,7 +185,7 @@ export default function RegisterPage() {
         )}
 
         {/* ========================================================================= */}
-        {/* STEP 1: UPWORK-STYLE PERSONA SELECTION (CLIENT OR FREELANCER)              */}
+        {/* STEP 1: SATCOM-STYLE PERSONA SELECTION (CLIENT OR FREELANCER)              */}
         {/* ========================================================================= */}
         {step === 1 && (
           <div className="space-y-8 animate-fadeIn">
@@ -205,7 +205,7 @@ export default function RegisterPage() {
               </p>
             </div>
 
-            {/* Upwork Interactive Two-Cards Grid */}
+            {/* Interactive Two-Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               
               {/* Card 1: Client / Employer */}

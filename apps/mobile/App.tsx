@@ -87,7 +87,7 @@ export default function App() {
   );
   const [proposalSuccessMsg, setProposalSuccessMsg] = useState<string>('');
 
-  // Upwork Space Engineering Jobs
+  // Satcom Engineering Jobs
   const [jobsList, setJobsList] = useState<any[]>([
     {
       id: 'JOB-SAT-101',
@@ -436,7 +436,7 @@ export default function App() {
                         onPress={() => setSelectedJobForProposal(job)}
                       >
                         <Text style={styles.applyBtnText}>
-                          {isAr ? 'تقديم عرض (Upwork)' : 'Submit Proposal'}
+                          {isAr ? 'تقديم عرض هندسي' : 'Submit Proposal'}
                         </Text>
                       </TouchableOpacity>
                     </View>
@@ -696,7 +696,7 @@ export default function App() {
           </View>
         )}
 
-        {/* TAB 5: UPWORK-STYLE CLIENT & FREELANCER REGISTRATION */}
+        {/* TAB 5: SATCOM CLIENT & FREELANCER REGISTRATION */}
         {activeTab === 'register' && (
           <View style={styles.tabContent}>
             <View style={styles.regHeader}>
@@ -886,7 +886,7 @@ export default function App() {
 
       </ScrollView>
 
-      {/* MODAL 1: UPWORK PROPOSAL SUBMISSION */}
+      {/* MODAL 1: SATCOM PROPOSAL SUBMISSION */}
       <Modal
         visible={selectedJobForProposal !== null}
         animationType="slide"
@@ -897,7 +897,7 @@ export default function App() {
           <View style={styles.modalCard}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>
-                {isAr ? 'تقديم عرض هندسي (Upwork Proposal)' : 'Submit Upwork Proposal'}
+                {isAr ? 'تقديم عرض هندسي' : 'Submit Proposal'}
               </Text>
               <TouchableOpacity onPress={() => setSelectedJobForProposal(null)}>
                 <Text style={styles.modalCloseText}>✕</Text>

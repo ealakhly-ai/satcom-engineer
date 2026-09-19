@@ -125,7 +125,7 @@ model FreelancerProfile {
   bio                String
   hourlyRate         Float?
   yearsOfExperience  Int             @default(1)
-  jobSuccessScore    Int             @default(100) // Upwork-style Job Success Score (e.g. 98%, 100%)
+  jobSuccessScore    Int             @default(100) // Platform Job Success Score (e.g. 98%, 100%)
   badge              String?         // 'TOP_RATED', 'RISING_TALENT', 'VERIFIED_EXPERT'
   totalEarnings      Float           @default(0.0)
   completedJobsCount Int             @default(0)
