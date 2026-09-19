@@ -86,6 +86,17 @@
       return newJob;
     },
 
+        // Sequential Contract Number Generator (e.g. CTR-SAT-00001, CTR-SAT-00002)
+    getNextContractNumber: function () {
+      let seq = parseInt(localStorage.getItem('satcom_contract_seq') || '0', 10) + 1;
+      localStorage.setItem('satcom_contract_seq', seq.toString());
+      return 'CTR-SAT-' + String(seq).padStart(5, '0');
+    },
+
+    getCurrentContractSequence: function () {
+      let seq = parseInt(localStorage.getItem('satcom_contract_seq') || '1', 10);
+      return 'CTR-SAT-' + String(seq).padStart(5, '0');
+    },
     getContract: function () {
       return readStorage(STORAGE_KEYS.CONTRACTS, DEFAULT_CONTRACT);
     },

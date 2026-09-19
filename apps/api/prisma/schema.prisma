@@ -272,6 +272,7 @@ model JobOffer {
 
 model Contract {
   id                String         @id @default(uuid())
+  contractNumber    Int            @default(autoincrement()) // رقم العقد التسلسلي التلقائي
   jobId             String
   job               Job            @relation(fields: [jobId], references: [id])
   proposalId        String?        @unique
