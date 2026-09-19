@@ -85,7 +85,7 @@
             م.أ
           </div>
           <div class="hidden lg:block text-right">
-            <div class="text-xs font-black text-white" id="engNameNav">م. أحمد المنصوري</div>
+            <div class="text-xs font-black text-white" id="engNameNav">مهندس فضاء معتمد</div>
             <div class="text-[10px] text-amber-300 font-bold flex items-center gap-1">
               <span>⭐</span>
               <span id="engBadgeNav">Top Rated Plus • 100% JSS</span>
@@ -114,52 +114,17 @@
       <!-- ================= LEFT / MAIN COLUMN (FEED & WORKROOM) ================= -->
       <div class="lg:col-span-2 space-y-6">
 
-        <!-- Active Contract Banner (Deliverables Submission) -->
-        <section id="contracts" class="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 border-2 border-indigo-500/40 shadow-2xl space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🛰️</span>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono text-cyan-400 font-bold">#CTR-SAT-902</span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" id="badgeActiveCtrEscrow">
-                    ✓ مؤمن 100% في حساب الضمان Escrow
-                  </span>
-                </div>
-                <h3 class="text-base sm:text-lg font-black text-white mt-1" id="activeCtrTitle">
-                  Ka-Band Phased Array Antenna Simulation (28-30 GHz)
-                </h3>
-                <span class="text-xs text-slate-400" id="activeCtrClient">
-                  صاحب العمل: <strong class="text-white">Orbital Space Systems (دبي)</strong> • الدفعة القادمة: $300.00
-                </span>
-              </div>
-            </div>
+        <!-- Active Contract Dynamic Section -->
+        <section id="contracts" class="space-y-4">
+          <div id="freelancerContractsContainer" class="space-y-4"></div>
 
-            <div class="text-right sm:text-left">
-              <span class="text-2xl font-black text-emerald-400 font-mono">$0.00</span>
-              <span class="block text-[10px] text-slate-400" id="lblContractNet">صافي استلامك 100% بدون أي اقتطاع</span>
-            </div>
-          </div>
-
-          <!-- Milestones Tracker -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
-              <div>
-                <span class="font-bold text-white block" id="m1TitleText">المرحلة 1: بناء النموذج في CST</span>
-                <span class="text-[10px] text-emerald-400 font-bold" id="m1StatusText">✓ مكتملة ومقبولة ($300.00 تم صرفها)</span>
-              </div>
-              <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs">✓</span>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-amber-950/30 border border-amber-500/40 flex items-center justify-between">
-              <div>
-                <span class="font-bold text-white block" id="m2TitleText">المرحلة 2: محاكاة الفصوص والتقرير</span>
-                <span class="text-[10px] text-amber-300 font-bold" id="m2StatusText">قيد تسليم الملفات ($300.00 Escrow)</span>
-              </div>
-              <button onclick="openDeliverModal()" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[11px] transition cursor-pointer">
-                <span id="btnSubmitMilestone">تسليم العمل ↗</span>
-              </button>
-            </div>
+          <!-- Empty State for Contracts -->
+          <div id="emptyFreelancerContractsNotice" class="p-8 rounded-3xl bg-slate-900/60 border border-slate-800 text-center space-y-3">
+            <span class="text-4xl block">🛡️</span>
+            <h4 class="text-base font-black text-white" id="txtNoFreeContractsTitle">لا توجد عقود هندسية نشطة حالياً</h4>
+            <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoFreeContractsDesc">
+              عند اعتماد عروضك من قِبل أصحاب المشاريع، ستظهر هنا تفاصيل العقد وغرفة تسليم مخرجات المحاكاة واعتماد صرف مبالغ Escrow بنسبة 100%.
+            </p>
           </div>
         </section>
 
@@ -220,7 +185,7 @@
               </div>
             </div>
             <div>
-              <h3 class="text-base font-black text-white" id="engProfileName">م. أحمد المنصوري</h3>
+              <h3 class="text-base font-black text-white" id="engProfileName">مهندس فضاء معتمد</h3>
               <p class="text-xs text-slate-400" id="engProfileTitle">مهندس اتصالات أقمار صناعية وهوائيات Ka-Band</p>
               <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold mt-1.5">
                 <span>⭐</span>
@@ -256,11 +221,11 @@
           <div class="divide-y divide-slate-800 text-xs">
             <div class="py-2.5 flex justify-between items-center text-slate-300">
               <span id="lblQuickProps">العروض النشطة المرسلة</span>
-              <span class="font-bold text-cyan-400 font-mono">4</span>
+              <span class="font-bold text-cyan-400 font-mono">0</span>
             </div>
             <div class="py-2.5 flex justify-between items-center text-slate-300">
               <span id="lblQuickContracts">العقود الجارية بحماية Escrow</span>
-              <span class="font-bold text-emerald-400 font-mono">1</span>
+              <span class="font-bold text-emerald-400 font-mono">0</span>
             </div>
             <div class="py-2.5 flex justify-between items-center text-slate-300">
               <span id="lblQuickKyc">توثيق رخص الفضاء KYC</span>
@@ -479,7 +444,7 @@
         </div>
 
         <div class="flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto">
-          <span class="text-[10px] text-indigo-400 font-bold" id="chatSender2">م. أحمد المنصوري (أنت):</span>
+          <span class="text-[10px] text-indigo-400 font-bold" id="chatSender2">مهندس فضاء معتمد (أنت):</span>
           <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
             <span id="chatMsg2">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه تصل إلى ±45 درجة بكسب 24 dBi. قمت برفع ملفات .cst والتقرير الفني في قسم التسليم.</span>
           </div>
@@ -530,7 +495,7 @@
         txtSwitchToClient: 'التبديل لحساب العميل ↗',
         lblNavAvailable: 'الأرباح المتاحة:',
         btnNavGetPaid: 'سحب الأرباح ↗',
-        engNameNav: 'م. أحمد المنصوري',
+        engNameNav: 'مهندس فضاء معتمد',
         engBadgeNav: 'Top Rated Plus • 100% JSS',
         badgeActiveCtrEscrow: '✓ مؤمن 100% في حساب الضمان Escrow',
         activeCtrTitle: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
@@ -558,7 +523,7 @@
         job3BudgetType: 'سعر ثابت • 100% Escrow',
         job3FullDesc: 'تصميم مرشح تجويف موجي بنطاق ترددات الاستقبال والإرسال C-Band مع تحقيق عزل أعلى من 60dB وفقد إدخال أقل من 0.3dB عبر CST Studio.',
         btnSubmitProp3: 'تقديم عرض هندسي ↗',
-        engProfileName: 'م. أحمد المنصوري',
+        engProfileName: 'مهندس فضاء معتمد',
         engProfileTitle: 'مهندس اتصالات أقمار صناعية وهوائيات Ka-Band',
         lblJssScore: 'نسبة نجاح المشاريع JSS',
         lblConnectsCount: 'رصيد الـ Connects المتاح',
@@ -597,7 +562,7 @@
         chatEscrowVaultLbl: 'خزينة Escrow:',
         chatSender1: 'Orbital Space Systems (صاحب العمل):',
         chatMsg1: 'مرحباً م. أحمد، نود التأكد من استخراج مخرجات CST وزاوية التوجيه قبل تحرير الدفعة الثانية من حساب الضمان Escrow.',
-        chatSender2: 'م. أحمد المنصوري (أنت):',
+        chatSender2: 'مهندس فضاء معتمد (أنت):',
         chatMsg2: 'أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه تصل إلى ±45 درجة بكسب 24 dBi. قمت برفع ملفات .cst والتقرير الفني في قسم التسليم.',
         btnChatSend: 'إرسال ↗',
         chatInputPh: 'اكتب رسالتك الفنية هنا...',
@@ -613,7 +578,7 @@
         txtNavMessages: 'Technical Workroom',
         lblNavAvailable: 'Available Earnings:',
         btnNavGetPaid: 'Get Paid ↗',
-        engNameNav: 'Eng. Ahmed Al-Mansouri',
+        engNameNav: 'Verified Engineer',
         engBadgeNav: 'Top Rated Plus • 100% JSS',
         badgeActiveCtrEscrow: '✓ 100% Escrow Funds Secured in Vault',
         activeCtrTitle: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
@@ -641,7 +606,7 @@
         job3BudgetType: 'Fixed-price • 100% Escrow',
         job3FullDesc: 'Design cavity waveguide diplexer for C-Band Tx/Rx with >60dB isolation and <0.3dB insertion loss using CST Microwave Studio.',
         btnSubmitProp3: 'Submit Proposal ↗',
-        engProfileName: 'Eng. Ahmed Al-Mansouri',
+        engProfileName: 'Verified Engineer',
         engProfileTitle: 'Satellite Comms & Ka-Band Antenna Architect',
         lblJssScore: 'Job Success Score (JSS)',
         lblConnectsCount: 'Available Connects',
@@ -680,7 +645,7 @@
         chatEscrowVaultLbl: 'Escrow Vault:',
         chatSender1: 'Orbital Space Systems (Client):',
         chatMsg1: 'Hello Eng. Ahmed, please verify the beam steering radiation curves before we release Milestone 2 from Escrow.',
-        chatSender2: 'Eng. Ahmed Al-Mansouri (You):',
+        chatSender2: 'Verified Engineer (You):',
         chatMsg2: 'Hello! Simulation is complete with ±45° steering angle and 24 dBi gain. I uploaded the .cst bundle and report to deliverables.',
         btnChatSend: 'Send ↗',
         chatInputPh: 'Type your technical message here...',
@@ -1032,7 +997,7 @@
       const myBubble = document.createElement('div');
       myBubble.className = 'flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto';
       myBubble.innerHTML = `
-        <span class="text-[10px] text-indigo-400 font-bold">${isAr ? 'م. أحمد المنصوري (أنت):' : 'Eng. Ahmed Al-Mansouri (You):'}</span>
+        <span class="text-[10px] text-indigo-400 font-bold">${isAr ? 'مهندس فضاء معتمد (أنت):' : 'Verified Engineer (You):'}</span>
         <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">${text}</div>
         <span class="text-[9px] text-slate-500 font-mono">${isAr ? 'الآن • ✓✓' : 'Just now • ✓✓'}</span>
       `;

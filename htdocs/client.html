@@ -116,10 +116,10 @@
           <span id="bannerProtectionBadge">حماية مالية 100% Escrow • نظام مساحة العمل المعتمد</span>
         </div>
         <h1 class="text-2xl sm:text-3xl font-black text-white" id="bannerGreeting">
-          مرحباً بعودتك، شركة Orbital Space Systems!
+          مرحباً بك في لوحة تحكم صاحب العمل
         </h1>
         <p class="text-xs sm:text-sm text-slate-400 max-w-2xl" id="bannerDesc">
-          لديك مشروعان قيد التقديم وعقد نشط بإشراف حساب الضمان Escrow. يمكنك مراجعة مخرجات محاكاة CST واعتماد مراحل الدفع بنقرة واحدة.
+          إدارة المشاريع الهندسية، متابعة العروض المستلمة، وتأمين مراحل الدفع بنظام الضمان المالي 100% Escrow.
         </p>
       </div>
 
@@ -134,26 +134,26 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
       <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
         <span class="text-xs text-slate-400 font-bold block" id="lblMetricActiveJobs">المشاريع المفتوحة للتقديم</span>
-        <span class="text-3xl font-black text-cyan-400 font-mono" id="valMetricActiveJobs">3</span>
-        <span class="text-[10px] text-cyan-300/80 block" id="subMetricActiveJobs">تتلقى عروضاً من مهندسي الفضاء</span>
+        <span class="text-3xl font-black text-cyan-400 font-mono" id="valMetricActiveJobs">0</span>
+        <span class="text-[10px] text-cyan-300/80 block" id="subMetricActiveJobs">لا توجد مشاريع نشطة حالياً</span>
       </div>
 
       <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
         <span class="text-xs text-slate-400 font-bold block" id="lblMetricProposals">إجمالي العروض المستلمة</span>
-        <span class="text-3xl font-black text-indigo-400 font-mono" id="valMetricProposals">28</span>
-        <span class="text-[10px] text-indigo-300/80 block" id="subMetricProposals">من مهندسي CST و RF المعتمدين</span>
+        <span class="text-3xl font-black text-indigo-400 font-mono" id="valMetricProposals">0</span>
+        <span class="text-[10px] text-indigo-300/80 block" id="subMetricProposals">0 عروض جديدة</span>
       </div>
 
       <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
         <span class="text-xs text-slate-400 font-bold block" id="lblMetricEscrow">الأموال في حساب الضمان Escrow</span>
-        <span class="text-3xl font-black text-emerald-400 font-mono" id="valMetricEscrow">$600.00</span>
-        <span class="text-[10px] text-emerald-300/80 block" id="subMetricEscrow">مؤمنة 100% لعقد محاكاة الهوائي</span>
+        <span class="text-3xl font-black text-emerald-400 font-mono" id="valMetricEscrow">$0.00</span>
+        <span class="text-[10px] text-emerald-300/80 block" id="subMetricEscrow">لا توجد مبالغ محجوزة</span>
       </div>
 
       <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-1">
         <span class="text-xs text-slate-400 font-bold block" id="lblMetricCompleted">مشاريع تم إنجازها بنجاح</span>
-        <span class="text-3xl font-black text-amber-400 font-mono" id="valMetricCompleted">14</span>
-        <span class="text-[10px] text-amber-300/80 block" id="subMetricCompleted">تقييم العميل العام 5.0 ★</span>
+        <span class="text-3xl font-black text-amber-400 font-mono" id="valMetricCompleted">0</span>
+        <span class="text-[10px] text-amber-300/80 block" id="subMetricCompleted">0 مشاريع مكتملة</span>
       </div>
     </div>
 
@@ -165,89 +165,21 @@
           <h2 class="text-xl font-black text-white" id="titleSecJobs">المشاريع المطروحة للعمل (My Job Postings)</h2>
           <p class="text-xs text-slate-400" id="subSecJobs">متابعة وفحص عروض المهندسين، إجراء المقابلات الفنية، والتوظيف</p>
         </div>
-        <button onclick="openPostJobModal()" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition" id="btnFastPost">
-          + نشر وظيفة أخرى
+        <button onclick="openPostJobModal()" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition" id="btnFastPost">+ نشر وظيفة أخرى</button>
+      </div>
+      <!-- Custom Jobs Dynamic Container -->
+      <div id="customJobsSection" class="space-y-4"></div>
+
+      <!-- Empty State for Jobs -->
+      <div id="emptyJobsNotice" class="text-center py-12 px-4 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
+        <span class="text-4xl block">🛰️</span>
+        <h4 class="text-base font-black text-white" id="txtNoJobsTitle">لا توجد مشاريع مطروحة حالياً</h4>
+        <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoJobsDesc">
+          لم تقم بنشر أي مشاريع بعد. اضغط على زر نشر مشروع فضائي جديد لبدء استقبال عروض المهندسين.
+        </p>
+        <button onclick="openPostJobModal()" class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer">
+          + نشر أول مشروع فضائي ↗
         </button>
-      </div>
-
-      <!-- Job Card 1 -->
-      <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition space-y-4 shadow-xl">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-          <div>
-            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" id="badgeJob1Status">نشط يتلقى عروضاً • بضمان Escrow</span>
-            <h3 class="text-base sm:text-lg font-black text-white mt-1.5" id="job1Title">
-              Ka-Band Phased Array Antenna Simulation (28-30 GHz)
-            </h3>
-          </div>
-          <div class="text-right sm:text-left">
-            <span class="text-base font-black text-emerald-400 font-mono">$600.00 Fixed</span>
-            <span class="block text-[10px] text-slate-400" id="job1PostedTime">نُشر قبل يومين</span>
-          </div>
-        </div>
-
-        <p class="text-xs text-slate-300 leading-relaxed" id="job1Desc">
-          مطلوب مهندس اتصالات فضائية ذو خبرة عالية في برمجيات CST Microwave Studio و HFSS لتصميم ومحاكاة مصفوفة طورية 16x16 عنصراً مع توجيه الشعاع واستخراج مخططات S-Parameters و 3D Far-Field.
-        </p>
-
-        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
-          <!-- Skills -->
-          <div class="flex flex-wrap gap-1.5">
-            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">CST Studio</span>
-            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">Ka-Band</span>
-            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">Phased Array</span>
-            <span class="px-2.5 py-0.5 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 text-[11px] font-bold">S-Parameters</span>
-          </div>
-
-          <!-- Proposal Stats & Actions -->
-          <div class="flex items-center gap-3 text-xs">
-            <span class="text-slate-400">
-              <strong class="text-white font-bold">12</strong> <span id="lblPropCount">عروض مستلمة</span> • 
-              <strong class="text-cyan-400 font-bold">3</strong> <span id="lblMsgCount">محادثات</span> • 
-              <strong class="text-emerald-400 font-bold">1</strong> <span id="lblHiredCount">تم التعاقد</span>
-            </span>
-            <button onclick="openProposalsReviewModal()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer">
-              <span id="btnViewProps1">فحص العروض (12) ↗</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Job Card 2 -->
-      <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition space-y-4 shadow-xl">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-          <div>
-            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" id="badgeJob2Status">نشط مفتوح للتقديم</span>
-            <h3 class="text-base sm:text-lg font-black text-white mt-1.5" id="job2Title">
-              LEO Constellation Link Budget & Rain Attenuation Analysis (ITU-R)
-            </h3>
-          </div>
-          <div class="text-right sm:text-left">
-            <span class="text-base font-black text-emerald-400 font-mono">$300.00 Fixed</span>
-            <span class="block text-[10px] text-slate-400" id="job2PostedTime">نُشر قبل 4 أيام</span>
-          </div>
-        </div>
-
-        <p class="text-xs text-slate-300 leading-relaxed" id="job2Desc">
-          إعداد وتحليل ميزانية الرابط الشاملة لكوكبة أقمار في مدار أرضي منخفض LEO مع نمذجة تلاشي الأمطار حسب معايير ITU-R P.618 وهامش خطأ Eb/N0.
-        </p>
-
-        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
-          <div class="flex flex-wrap gap-1.5">
-            <span class="px-2.5 py-0.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 text-[11px] font-bold">Link Budget</span>
-            <span class="px-2.5 py-0.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 text-[11px] font-bold">ITU-R P.618</span>
-            <span class="px-2.5 py-0.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 text-[11px] font-bold">LEO Orbit</span>
-          </div>
-
-          <div class="flex items-center gap-3 text-xs">
-            <span class="text-slate-400">
-              <strong class="text-white font-bold">8</strong> <span id="lblPropCount2">عروض مستلمة</span> • 
-              <strong class="text-cyan-400 font-bold">2</strong> <span id="lblMsgCount2">محادثات</span>
-            </span>
-            <button onclick="openProposalsReviewModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition cursor-pointer">
-              <span id="btnViewProps2">فحص العروض (8) ↗</span>
-            </button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -260,104 +192,16 @@
           <p class="text-xs text-slate-400" id="subSecContracts">مراجعة مخرجات المحاكاة الفنية واعتماد صرف أموال الضمان Escrow للمهندس</p>
         </div>
       </div>
+      <!-- Client Contracts Dynamic Container -->
+      <div id="clientContractsSection" class="space-y-4"></div>
 
-      <!-- Contract Card -->
-      <div class="p-6 rounded-3xl bg-slate-900 border border-emerald-500/40 shadow-2xl space-y-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-base">
-              🛰️
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-mono text-cyan-400 font-bold">#CTR-SAT-902</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" id="badgeCtrEscrowFunded">
-                  ✓ الضمان 100% Escrow محجوز ومؤمن بالكامل
-                </span>
-              </div>
-              <h3 class="text-base sm:text-lg font-black text-white mt-1" id="contractMainTitle">
-                Ka-Band Phased Array Antenna Simulation (28-30 GHz)
-              </h3>
-              <span class="text-xs text-slate-400">
-                <span id="lblContractWith">المهندس المنفذ:</span> 
-                <strong class="text-white">م. أحمد المنصوري</strong> (الإمارات العربية المتحدة • Top Rated Plus ⭐)
-              </span>
-            </div>
-          </div>
-
-          <div class="text-right md:text-left flex flex-col md:items-end">
-            <span class="text-xs text-slate-400" id="lblTotalContractVal">إجمالي قيمة العقد:</span>
-            <span class="text-2xl font-black text-emerald-400 font-mono">$600.00</span>
-            <span class="text-[10px] text-slate-500" id="lblEscrowStatusText">في خزينة Escrow المحمية</span>
-          </div>
-        </div>
-
-        <!-- Milestones Breakdown -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-bold text-cyan-300" id="lblMilestonesTitle">جدول مراحل العمل ومخرجات المحاكاة:</h4>
-
-          <!-- Milestone 1 (Completed) -->
-          <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 flex items-center justify-between text-xs">
-            <div class="flex items-center gap-3">
-              <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs">✓</span>
-              <div>
-                <span class="font-bold text-white block" id="m1Title">المرحلة 1: بناء النموذج في CST واستخراج مصفوفة الطور</span>
-                <span class="text-[10px] text-slate-400" id="m1Sub">تمت المراجعة والاعتماد وصرف الأتعاب للمهندس بنجاح</span>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="font-mono text-emerald-400 font-bold">$300.00</span>
-              <span class="text-[10px] text-emerald-300 block font-bold" id="m1PaidBadge">مدفوعة ✓</span>
-            </div>
-          </div>
-
-          <!-- Milestone 2 (Under Review - ACTION REQUIRED!) -->
-          <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-950/30 to-slate-950 border-2 border-amber-500/50 space-y-3 text-xs">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div class="flex items-center gap-3">
-                <span class="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs animate-pulse">2</span>
-                <div>
-                  <span class="font-black text-white text-sm block" id="m2Title">المرحلة 2: محاكاة الفصوص الإشعاعية 3D والتقرير الفني النهائي</span>
-                  <span class="text-[11px] text-amber-300 font-bold" id="m2Status">قام المهندس بتسليم العمل ومخرجات المحاكاة بانتظار اعتمادك</span>
-                </div>
-              </div>
-              <div class="text-right sm:text-left">
-                <span class="font-mono text-emerald-400 font-black text-base">$300.00</span>
-                <span class="text-[10px] text-amber-400 block font-bold" id="m2EscrowPending">محجوزة في Escrow</span>
-              </div>
-            </div>
-
-            <!-- Attached Deliverables -->
-            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <span>📁</span>
-                <div>
-                  <span class="font-bold text-slate-200 block text-[11px]" id="lblAttachedFiles">الملفات الهندسية المسلمة من المهندس:</span>
-                  <span class="text-[10px] text-cyan-400 font-mono">Ka_PhasedArray_Sim.cst (18.4 MB) • 3D_Radiation_Report.pdf (4.1 MB)</span>
-                </div>
-              </div>
-              <button onclick="alert('جاري تنزيل ملفات المحاكاة والتقرير الفني لفحصها...');" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-bold transition cursor-pointer" id="btnDownloadFiles">
-                تنزيل الملفات ⬇
-              </button>
-            </div>
-
-            <!-- Approval CTA Button -->
-            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-              <button onclick="approveMilestone2()" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-lg shadow-emerald-600/30 transition cursor-pointer" id="btnApproveMilestone">
-                ✓ اعتماد التسليم وإطلاق الدفعة للمهندس ($300.00 Escrow)
-              </button>
-
-              <div class="flex items-center gap-2">
-                <button onclick="openChatModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer" id="btnChatWithEng">
-                  💬 محادثة المهندس
-                </button>
-                <button onclick="alert(currentLang === 'ar' ? 'تم إرسال طلب تعديل للمهندس مع الملاحظات الفنية.' : 'Revision request sent to engineer.');" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-amber-900/40 text-amber-300 text-xs font-bold transition cursor-pointer" id="btnRequestRevision">
-                  طلب تعديلات
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Empty State for Contracts -->
+      <div id="emptyContractsNotice" class="text-center py-12 px-4 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
+        <span class="text-4xl block">🛡️</span>
+        <h4 class="text-base font-black text-white" id="txtNoContractsTitle">لا توجد عقود نشطة حالياً</h4>
+        <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoContractsDesc">
+          ستظهر هنا تفاصيل العقود النشطة ومراحل مخرجات المحاكاة وضمان Escrow فور قبول عرض المهندس والبدء في التنفيذ.
+        </p>
       </div>
     </section>
 
@@ -370,100 +214,13 @@
           <p class="text-xs text-slate-400" id="subSecTalent">مهندسون معتمدون برخص فضائية موثقة ونسبة إنجاز 100% Job Success Score</p>
         </div>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <!-- Engineer 1 -->
-        <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition space-y-4 shadow-xl">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-sm">
-              م.أ
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <h3 class="font-black text-white text-sm" id="eng1Name">م. أحمد المنصوري</h3>
-                <span class="text-[10px] text-amber-300 font-bold">Top Rated Plus ⭐</span>
-              </div>
-              <span class="text-xs text-slate-400 block" id="eng1Spec">مهندس اتصالات أقمار صناعية وهوائيات Ka-Band</span>
-              <span class="text-[10px] text-emerald-400 font-bold font-mono">100% Job Success (JSS)</span>
-            </div>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed" id="eng1Bio">
-            خبير في أدوات CST Studio و HFSS بخبرة 8 سنوات في مصفوفات الطور وتحليل المخطط الإشعاعي للأنظمة الفضائية.
-          </p>
-          <div class="flex flex-wrap gap-1">
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">CST Studio</span>
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">Ka-Band</span>
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">Phased Array</span>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-slate-800">
-            <span class="font-black text-white font-mono text-sm">$65/hr</span>
-            <button onclick="openChatModal()" class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer" id="btnInvite1">
-              دعوة للمشروع ↗
-            </button>
-          </div>
-        </div>
-
-        <!-- Engineer 2 -->
-        <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition space-y-4 shadow-xl">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-sm">
-              م.ط
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <h3 class="font-black text-white text-sm" id="eng2Name">م. طارق الغامدي</h3>
-                <span class="text-[10px] text-amber-300 font-bold">Top Rated ⭐</span>
-              </div>
-              <span class="text-xs text-slate-400 block" id="eng2Spec">أخصائي محطات أرضية وتتبع VSAT</span>
-              <span class="text-[10px] text-emerald-400 font-bold font-mono">98% Job Success (JSS)</span>
-            </div>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed" id="eng2Bio">
-            متخصص في تصميم المحطات الأرضية وحساب Link Budget لكوكبات الأقمار الصناعية LEO/GEO ونمذجة تلاشي الأمطار.
-          </p>
-          <div class="flex flex-wrap gap-1">
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">VSAT</span>
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">Link Budget</span>
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">LEO Orbit</span>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-slate-800">
-            <span class="font-black text-white font-mono text-sm">$55/hr</span>
-            <button onclick="openChatModal()" class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer" id="btnInvite2">
-              دعوة للمشروع ↗
-            </button>
-          </div>
-        </div>
-
-        <!-- Engineer 3 -->
-        <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition space-y-4 shadow-xl">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-sm">
-              S.J
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <h3 class="font-black text-white text-sm" id="eng3Name">Sarah Jenkins</h3>
-                <span class="text-[10px] text-amber-300 font-bold">Top Rated Plus ⭐</span>
-              </div>
-              <span class="text-xs text-slate-400 block" id="eng3Spec">SDR & Space FPGA Architect</span>
-              <span class="text-[10px] text-emerald-400 font-bold font-mono">100% Job Success (JSS)</span>
-            </div>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed" id="eng3Bio">
-            Developing high-throughput SDR pipelines in GNU Radio and FPGA VHDL demodulators for CubeSat telemetry.
-          </p>
-          <div class="flex flex-wrap gap-1">
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">GNU Radio</span>
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">SDR</span>
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-bold">FPGA</span>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-slate-800">
-            <span class="font-black text-white font-mono text-sm">$70/hr</span>
-            <button onclick="openChatModal()" class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition cursor-pointer" id="btnInvite3">
-              دعوة للمشروع ↗
-            </button>
-          </div>
-        </div>
+      <!-- Dynamic Talent Notice -->
+      <div class="text-center py-12 px-4 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
+        <span class="text-4xl block">📡</span>
+        <h4 class="text-base font-black text-white" id="txtTalentQueueTitle">جاري تدقيق وتوثيق تراخيص المهندسين الجدد</h4>
+        <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtTalentQueueDesc">
+          يتم فحص وتوثيق هويات مهندسي الفضاء ورخص CST Studio و RF عبر بوابة KYC المركزية. ستظهر الملفات المعتمدة هنا فور اكتمال التوثيق.
+        </p>
       </div>
     </section>
 
@@ -532,43 +289,15 @@
         </div>
         <button onclick="closeProposalsReviewModal()" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
       </div>
-
-      <div class="space-y-3">
-        <!-- Proposal 1 -->
-        <div class="p-4 rounded-2xl bg-slate-950 border border-cyan-500/40 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-xs">
-                م.أ
-              </div>
-              <div>
-                <span class="font-black text-white text-xs block">م. أحمد المنصوري</span>
-                <span class="text-[10px] text-amber-300 font-bold">Top Rated Plus ⭐ • 100% JSS</span>
-              </div>
-            </div>
-            <span class="text-emerald-400 font-black font-mono text-sm">$600.00 Bid</span>
-          </div>
-
-          <p class="text-xs text-slate-300 leading-relaxed">
-            "يسعدني تنفيذ محاكاة مصفوفة Ka-Band عبر CST Studio Suite. سأقوم بإعداد ملفات الـ .cst كاملة مع حساب زوايا توجيه الشعاع ومخططات الربح الإشعاعي وميزانية الوصلة وفق معايير IEEE الفضائية."
-          </p>
-
-          <div class="flex items-center justify-between pt-1">
-            <span class="text-[10px] text-slate-400">تجزئة دفعات: مرحلتان ($300 + $300)</span>
-            <div class="flex items-center gap-2">
-              <button onclick="openChatModal(); closeProposalsReviewModal();" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-bold transition cursor-pointer">
-                💬 محادثة
-              </button>
-              <button onclick="alert('تم تعيين العرض في العقد النشط بنجاح!'); closeProposalsReviewModal();" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer">
-                ✓ قبول العرض والتعاقد
-              </button>
-            </div>
-          </div>
+      <div id="proposalsListContent" class="space-y-3">
+        <div class="text-center py-10 px-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="text-3xl block">📥</span>
+          <h4 class="text-sm font-bold text-white" id="txtNoProposalsTitle">لا توجد عروض هندسية مستلمة حالياً</h4>
+          <p class="text-xs text-slate-400" id="txtNoProposalsDesc">ستظهر عروض المهندسين الفنية وجداول الدفعات هنا فور تقديمها على مشاريعك.</p>
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- ================= LIVE CHAT MODAL ================= -->
   <div id="chatModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 z-50 overflow-y-auto">
@@ -593,11 +322,11 @@
       <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex items-center justify-between text-xs">
         <div>
           <span class="text-slate-400 block text-[10px]" id="chatLinkedProj">المشروع المرتبط:</span>
-          <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
+          <span class="font-bold text-white" id="chatLinkedProjTitle">غرفة العمليات الفنية</span>
         </div>
         <div class="text-right">
           <span class="text-slate-400 block text-[10px]" id="chatVaultLbl">خزينة Escrow:</span>
-          <span class="font-bold text-emerald-400 font-mono">$600.00 مؤمّنة ✓</span>
+          <span class="font-bold text-emerald-400 font-mono" id="chatEscrowValText">$0.00 مؤمّنة ✓</span>
         </div>
       </div>
 
@@ -664,20 +393,20 @@
         txtNavMessages: 'المحادثات الحية',
         txtSwitchToEngineer: 'التبديل لحساب المهندس ↗',
         btnPostJobNav: 'انشر مشروع جديد ↗',
-        clientOrgName: 'Orbital Space Systems',
+        clientOrgName: 'لوحة تحكم العميل',
         clientTierBadge: 'عميل مؤسسي Enterprise',
         bannerProtectionBadge: 'حماية مالية 100% Escrow • نظام مساحة العمل المعتمد',
-        bannerGreeting: 'مرحباً بعودتك، شركة Orbital Space Systems!',
+        bannerGreeting: 'مرحباً بك في لوحة تحكم صاحب العمل',
         bannerDesc: 'لديك مشروعان قيد التقديم وعقد نشط بإشراف حساب الضمان Escrow. يمكنك مراجعة مخرجات محاكاة CST واعتماد مراحل الدفع بنقرة واحدة.',
         btnPostJobHero: '+ نشر مشروع فضائي جديد ↗',
         lblMetricActiveJobs: 'المشاريع المفتوحة للتقديم',
-        subMetricActiveJobs: 'تتلقى عروضاً من مهندسي الفضاء',
+        subMetricActiveJobs: 'لا توجد مشاريع نشطة حالياً',
         lblMetricProposals: 'إجمالي العروض المستلمة',
-        subMetricProposals: 'من مهندسي CST و RF المعتمدين',
+        subMetricProposals: '0 عروض جديدة',
         lblMetricEscrow: 'الأموال في حساب الضمان Escrow',
-        subMetricEscrow: 'مؤمنة 100% لعقد محاكاة الهوائي',
+        subMetricEscrow: 'لا توجد مبالغ محجوزة',
         lblMetricCompleted: 'مشاريع تم إنجازها بنجاح',
-        subMetricCompleted: 'تقييم العميل العام 5.0 ★',
+        subMetricCompleted: '0 مشاريع مكتملة',
         titleSecJobs: 'المشاريع المطروحة للعمل (My Job Postings)',
         subSecJobs: 'متابعة وفحص عروض المهندسين، إجراء المقابلات الفنية، والتوظيف',
         btnFastPost: '+ نشر وظيفة أخرى',
@@ -752,10 +481,10 @@
         txtNavMessages: 'Live Messages',
         txtSwitchToEngineer: 'Switch to Engineer Portal ↗',
         btnPostJobNav: 'Post a Job ↗',
-        clientOrgName: 'Orbital Space Systems',
+        clientOrgName: 'لوحة تحكم العميل',
         clientTierBadge: 'Enterprise Client',
         bannerProtectionBadge: '100% Escrow Protection • Satcom Workspace Mode',
-        bannerGreeting: 'Welcome back, Orbital Space Systems!',
+        bannerGreeting: 'Welcome to Client Project Dashboard',
         bannerDesc: 'You have 2 active job listings and 1 active contract protected by the Escrow vault. Review CST simulation deliverables and release milestones with a single click.',
         btnPostJobHero: '+ Post a New Space Project ↗',
         lblMetricActiveJobs: 'Open Job Listings',
@@ -977,94 +706,108 @@
     function syncClientContractUI() {
       if (!window.SatcomDB) return;
       const contract = SatcomDB.getContract();
-      const m2 = contract.milestone2;
       const isAr = currentLang === 'ar';
+      const container = document.getElementById('clientContractsSection');
+      const emptyNotice = document.getElementById('emptyContractsNotice');
+      const escrowVal = document.getElementById('valMetricEscrow');
 
-      const statusElem = document.getElementById('m2Status');
-      const escrowPendingElem = document.getElementById('m2EscrowPending');
-      const approveBtn = document.getElementById('btnApproveMilestone');
+      if (!contract) {
+        if (container) container.innerHTML = '';
+        if (emptyNotice) emptyNotice.classList.remove('hidden');
+        if (escrowVal) escrowVal.innerText = '$0.00';
+        return;
+      }
 
-      if (!statusElem || !approveBtn) return;
-
-      if (m2.status === 'released') {
-        statusElem.innerText = isAr ? '✓ تم اعتماد المرحلة وتحرير الأتعاب للمهندس بنجاح!' : '✓ Milestone approved & funds released!';
-        statusElem.className = 'text-[11px] text-emerald-300 font-bold';
-        if (escrowPendingElem) {
-          escrowPendingElem.innerText = isAr ? 'مدفوعة ومحررة ✓' : 'Paid Out ✓';
-          escrowPendingElem.className = 'text-[10px] text-emerald-400 block font-bold';
-        }
-        approveBtn.disabled = true;
-        approveBtn.className = 'px-6 py-3 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold cursor-not-allowed';
-        approveBtn.innerText = isAr ? '✓ تم تحرير الدفعة بنجاح' : '✓ Milestone Released';
-      } else if (m2.status === 'delivered') {
-        statusElem.innerText = isAr ? 'قام المهندس بتسليم العمل ومخرجات المحاكاة (' + (m2.deliveredFile || 'Ka_PhasedArray_Sim.cst') + ') بانتظار اعتمادك' : 'Engineer delivered (' + (m2.deliveredFile || 'Ka_PhasedArray_Sim.cst') + '). Awaiting your release';
-        statusElem.className = 'text-[11px] text-amber-300 font-bold animate-pulse';
-        if (escrowPendingElem) {
-          escrowPendingElem.innerText = isAr ? 'بانتظار الموافقة' : 'Pending Approval';
-          escrowPendingElem.className = 'text-[10px] text-amber-300 block font-bold';
-        }
-        approveBtn.disabled = false;
-        approveBtn.className = 'px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-lg shadow-emerald-600/30 transition cursor-pointer';
-        approveBtn.innerText = isAr ? '✓ اعتماد التسليم وإطلاق الدفعة للمهندس ($300.00 Escrow)' : '✓ Approve & Release $300.00 Escrow';
+      if (emptyNotice) emptyNotice.classList.add('hidden');
+      if (escrowVal) escrowVal.innerText = '$' + (contract.totalAmount || 0).toFixed(2);
+      
+      const m2 = contract.milestone2 || {};
+      if (container) {
+        container.innerHTML = `
+          <div class="p-6 rounded-3xl bg-slate-900 border border-emerald-500/40 shadow-2xl space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-base">
+                  🛰️
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-mono text-cyan-400 font-bold">${contract.contractNumber || '#CTR-SAT-00001'}</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      ✓ ${isAr ? 'الضمان 100% Escrow محجوز ومؤمن' : '100% Escrow Secured'}
+                    </span>
+                  </div>
+                  <h3 class="text-base sm:text-lg font-black text-white mt-1">
+                    ${contract.title || 'Satellite Communications Contract'}
+                  </h3>
+                  <span class="text-xs text-slate-400">
+                    ${isAr ? 'المهندس المنفذ:' : 'Engineer:'} <strong class="text-white">${contract.engineerName || 'Verified Engineer'}</strong>
+                  </span>
+                </div>
+              </div>
+              <div class="text-right md:text-left flex flex-col md:items-end">
+                <span class="text-xs text-slate-400">${isAr ? 'إجمالي قيمة العقد:' : 'Total Value:'}</span>
+                <span class="text-2xl font-black text-emerald-400 font-mono">$${(contract.totalAmount || 0).toFixed(2)}</span>
+                <span class="text-[10px] text-slate-500">${isAr ? 'في خزينة Escrow المحمية' : 'In Protected Escrow Vault'}</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2">
+              <span class="text-xs text-slate-300">${isAr ? 'الحالة:' : 'Status:'} <strong class="text-cyan-400">${m2.status === 'released' ? (isAr ? 'مكتمل ومدفوع ✓' : 'Completed & Paid') : (m2.status === 'delivered' ? (isAr ? 'بانتظار الاعتماد' : 'Awaiting Approval') : (isAr ? 'جاري التنفيذ' : 'In Progress'))}</strong></span>
+              ${m2.status === 'delivered' ? `<button onclick="approveMilestone2()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs cursor-pointer shadow-lg">${isAr ? '✓ اعتماد التسليم وإطلاق الدفعة' : 'Approve & Release'}</button>` : ''}
+            </div>
+          </div>
+        `;
       }
     }
 
-    function approveMilestone2() {
-      const isAr = currentLang === 'ar';
-      const conf = confirm(isAr 
-        ? 'هل تؤكد اعتماد مخرجات المحاكاة وتحرير مبلغ 300.00$ من حساب الضمان Escrow إلى المهندس؟'
-        : 'Confirm approval of CST deliverables and release $300.00 from Escrow to engineer?');
-      if (conf) {
-        if (window.SatcomDB) {
-          SatcomDB.releaseMilestone2();
-        }
-        syncClientContractUI();
-        showToast(isAr ? 'تم إطلاق 300.00$ للمهندس وإتمام العقد بنجاح! وتم تسجيل عمولة المنصة ($20).' : '$300.00 released to engineer! $20 platform fee recorded.');
-      }
-    }
-
-    function openPostJobModal() {
-      document.getElementById('postJobModal').classList.remove('hidden');
-      document.getElementById('postJobModal').classList.add('flex');
-    }
-    function closePostJobModal() {
-      document.getElementById('postJobModal').classList.add('hidden');
-      document.getElementById('postJobModal').classList.remove('flex');
-    }
     function renderClientJobs() {
       if (!window.SatcomDB) return;
       const jobs = SatcomDB.getJobs();
       const isAr = currentLang === 'ar';
-      
-      const customJobs = jobs.filter(j => j.isCustom);
-      const customContainer = document.getElementById('customJobsSection');
-      if (customContainer) {
-        if (customJobs.length === 0) {
-          customContainer.innerHTML = '';
-        } else {
-          customContainer.innerHTML = customJobs.map(job => `
-            <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/40 space-y-3 animate-fadeIn mb-3">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <div class="space-y-1">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">✨ ${isAr ? 'نُشر للتو' : 'Just Posted'}</span>
-                    <span class="text-[11px] text-slate-400">${job.category || 'Satcom'} • ${isAr ? 'بضمان Escrow 100%' : '100% Escrow'}</span>
-                  </div>
-                  <h4 class="text-sm font-black text-white">${job.title}</h4>
-                </div>
-                <div class="text-right">
-                  <span class="text-base font-black text-emerald-400 font-mono">${job.budget}</span>
-                  <span class="text-[10px] text-slate-400 block">${isAr ? 'سعر ثابت' : 'Fixed Price'}</span>
-                </div>
+      const container = document.getElementById('customJobsSection');
+      const emptyNotice = document.getElementById('emptyJobsNotice');
+      const activeJobsMetric = document.getElementById('valMetricActiveJobs');
+
+      if (!jobs || jobs.length === 0) {
+        if (container) container.innerHTML = '';
+        if (emptyNotice) emptyNotice.classList.remove('hidden');
+        if (activeJobsMetric) activeJobsMetric.innerText = '0';
+        return;
+      }
+
+      if (emptyNotice) emptyNotice.classList.add('hidden');
+      if (activeJobsMetric) activeJobsMetric.innerText = jobs.length.toString();
+
+      if (container) {
+        container.innerHTML = jobs.map(job => `
+          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition space-y-4 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  ${isAr ? 'نشط يتلقى عروضاً • بضمان Escrow' : 'Active • 100% Escrow Funded'}
+                </span>
+                <h3 class="text-base sm:text-lg font-black text-white mt-1.5">
+                  ${job.title || job.titleAr || job.titleEn}
+                </h3>
               </div>
-              <p class="text-xs text-slate-300">${job.descAr || job.desc || ''}</p>
-              <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
-                <span class="text-cyan-400 font-bold">💬 ${isAr ? '0 عروض مقدمة حتى الآن' : '0 Proposals received'}</span>
-                <span class="text-slate-400">${isAr ? 'مفتوح للتقديم في لوحة المهندسين' : 'Open on Engineer Feed'}</span>
+              <div class="text-right sm:text-left">
+                <span class="text-base font-black text-emerald-400 font-mono">${job.budget} Fixed</span>
+                <span class="block text-[10px] text-slate-400">${isAr ? (job.postedTimeAr || 'الآن') : (job.postedTimeEn || 'Just now')}</span>
               </div>
             </div>
-          `).join('');
-        }
+            <p class="text-xs text-slate-300 leading-relaxed">
+              ${isAr ? (job.descAr || job.desc || '') : (job.descEn || job.desc || '')}
+            </p>
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800 text-xs">
+              <span class="text-slate-400">
+                <strong class="text-cyan-400 font-bold">${job.proposalsCount || 0}</strong> ${isAr ? 'عروض مستلمة' : 'proposals'}
+              </span>
+              <button onclick="openProposalsReviewModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs cursor-pointer">
+                ${isAr ? 'فحص العروض' : 'Review Proposals'} ↗
+              </button>
+            </div>
+          </div>
+        `).join('');
       }
     }
 

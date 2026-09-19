@@ -112,7 +112,7 @@
             <span>⚖️</span>
             <span id="tabDisputes">التحكيم وفض النزاعات</span>
           </div>
-          <span id="badgeDisputeCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 border border-rose-500/40 text-rose-300">1</span>
+          <span id="badgeDisputeCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-slate-800 border border-slate-700 text-slate-400">0</span>
         </button>
 
         <!-- Platform Feature: KYC & Verification Center -->
@@ -121,7 +121,7 @@
             <span>🆔</span>
             <span id="tabKYC">فحص وتوثيق الهويات KYC</span>
           </div>
-          <span id="badgeKYCCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 border border-amber-500/40 text-amber-300">2</span>
+          <span id="badgeKYCCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-slate-800 border border-slate-700 text-slate-400">0</span>
         </button>
 
         <!-- Platform Feature: User Directory & Badges -->
@@ -136,7 +136,7 @@
             <span>💸</span>
             <span id="tabPayouts">اعتماد طلبات السحب</span>
           </div>
-          <span id="badgePayoutCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 border border-emerald-500/40 text-emerald-300">2</span>
+          <span id="badgePayoutCount" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-slate-800 border border-slate-700 text-slate-400">0</span>
         </button>
 
         <button onclick="switchTab('finance')" id="tabFinanceBtn" class="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer transition">
@@ -184,25 +184,25 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardRev">إجمالي إيراد المنصة ($20 لكل $300)</span>
-              <span class="text-2xl font-black text-emerald-400 mt-1 block" id="metricRevVal">$40.00</span>
+              <span class="text-2xl font-black text-emerald-400 mt-1 block" id="metricRevVal">$0.00</span>
               <span class="text-[10px] text-emerald-300 block mt-1" id="subRev">محسوبة آلياً من العقود المكتملة</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardEscrow">أموال الضمان المحجوزة (Escrow)</span>
-              <span class="text-2xl font-black text-cyan-400 mt-1 block" id="metricEscrowVal">$1,850.00</span>
+              <span class="text-2xl font-black text-cyan-400 mt-1 block" id="metricEscrowVal">$0.00</span>
               <span class="text-[10px] text-cyan-300 block mt-1" id="subEscrow">عقود جارية مؤمنة ومحمية 100%</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardEng">المهندسون المعتمدون</span>
-              <span class="text-2xl font-black text-white mt-1 block" id="metricVerifiedVal">8</span>
+              <span class="text-2xl font-black text-white mt-1 block" id="metricVerifiedVal">0</span>
               <span class="text-[10px] text-indigo-300 block mt-1" id="subKYC">تم التحقق من رخص الفضاء و KYC</span>
             </div>
 
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl">
               <span class="text-xs text-slate-400 font-bold block" id="cardDispute">حالات النزاع النشطة</span>
-              <span class="text-2xl font-black text-rose-400 mt-1 block" id="metricDisputeVal">1</span>
+              <span class="text-2xl font-black text-rose-400 mt-1 block" id="metricDisputeVal">0</span>
               <span class="text-[10px] text-rose-300 block mt-1" id="subDispute">بانتظار قرار التحكيم النهائي</span>
             </div>
           </div>
@@ -252,20 +252,7 @@
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-300">
                 <tr>
-                  <td class="p-4 font-mono text-cyan-400">#CTR-101</td>
-                  <td class="p-4 font-bold text-white">Ka-Band Phased Array Antenna</td>
-                  <td class="p-4">Orbital Systems Ltd</td>
-                  <td class="p-4" id="ctrEng1">م. أحمد المنصوري</td>
-                  <td class="p-4 font-mono text-emerald-400 font-bold">$600.00</td>
-                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30"><span id="ctrStatus1">نزاع قيد التحكيم ⚖️</span></span></td>
-                </tr>
-                <tr>
-                  <td class="p-4 font-mono text-cyan-400">#CTR-102</td>
-                  <td class="p-4 font-bold text-white">CubeSat Link Budget & DVB-S2X</td>
-                  <td class="p-4">SkyTelecom Space</td>
-                  <td class="p-4" id="ctrEng2">م. طارق الغامدي</td>
-                  <td class="p-4 font-mono text-emerald-400 font-bold">$1,250.00</td>
-                  <td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"><span id="ctrStatus2">مؤمّن جاري التنفيذ ✓</span></span></td>
+                  <td colspan="6" class="p-8 text-center text-slate-400 font-medium">لا توجد عقود مسجلة في النظام حالياً (No contracts recorded yet)</td>
                 </tr>
               </tbody>
             </table>
@@ -279,66 +266,13 @@
             <p class="text-xs text-slate-400 mt-1" id="dspHeadSub">مراجعة أدلة ومخرجات المشاريع المتنازع عليها واتخاذ قرار تحرير أموال الضمان</p>
           </div>
 
-          <!-- Dispute Active Card -->
-          <div id="disputeCard804" class="p-6 rounded-3xl bg-slate-900 border border-rose-500/40 space-y-5 shadow-2xl">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-300" id="dspBadgeText">نزاع مفتوح #DSP-804</span>
-                  <span class="text-xs text-slate-400 font-mono" id="dspCtrRef">العقد: #CTR-101</span>
-                </div>
-                <h3 class="text-lg font-black text-white mt-1">Ka-Band Phased Array Antenna Design</h3>
-              </div>
-              <div class="text-right">
-                <span class="text-xs text-slate-400 block" id="dspEscrowHeldLbl">المبلغ المحتجز في الضمان:</span>
-                <span class="text-xl font-black text-emerald-400 font-mono">$600.00</span>
-              </div>
-            </div>
-
-            <!-- Two Sides Comparison -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-                <span class="text-xs font-black text-cyan-400" id="dspClientTitle">إفادة صاحب العمل (Orbital Systems):</span>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  <span id="dspClientStmt">"مستوى الفصوص الجانبية (Sidelobe level) في تقرير المحاكاة هو -12dB بينما اشترطنا في كراسة الشروط أن لا يقل عن -15dB عند زاوية 30 درجة."</span>
-                </p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-                <span class="text-xs font-black text-indigo-400" id="dspEngTitle">رد المهندس (م. أحمد المنصوري):</span>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  <span id="dspEngStmt">"الملفات المرفوعة بمشروع CST Studio تطابق معايير IEEE 802.11، والتأريض متزن تماماً، والفرق طفيف ناتج عن زاوية التوجيه القصوى (Steering)."</span>
-                </p>
-              </div>
-            </div>
-
-            <!-- Deliverables -->
-            <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <span class="text-lg">📁</span>
-                <div>
-                  <div class="text-xs font-bold text-white" id="dspFilesTitle">ملفات الأدلة الفنية والمحاكاة المرفقة</div>
-                  <div class="text-[10px] text-slate-400">Ka_PhasedArray_Sim.cst (18.4 MB) • Radiation_Report.pdf</div>
-                </div>
-              </div>
-              <span class="text-xs font-bold text-cyan-400 underline cursor-pointer" id="dspFilesBtn">معاينة الملفات ↗</span>
-            </div>
-
-            <!-- Judicial Decisions -->
-            <div id="arbitrationActions" class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
-              <span class="text-xs font-black text-white block" id="dspDecisionTitle">إصدار الحكم الإداري الفوري:</span>
-              <div class="flex flex-wrap gap-3">
-                <button onclick="resolveDispute('freelancer')" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
-                  <span id="btnReleaseEng">✓ تحرير 100% للمهندس ($600.00)</span>
-                </button>
-                <button onclick="resolveDispute('client')" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
-                  <span id="btnRefundClient">✕ إعادة 100% للعميل ($600.00)</span>
-                </button>
-                <button onclick="resolveDispute('split')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
-                  <span id="btnSplit50">⚖️ تسوية عادلة 50/50 ($300 لكل طرف)</span>
-                </button>
-              </div>
-            </div>
+          <!-- Disputes Empty State -->
+          <div class="p-8 rounded-3xl bg-slate-900/60 border border-slate-800 text-center space-y-3">
+            <span class="text-4xl block">⚖️</span>
+            <h4 class="text-base font-black text-white" id="txtNoDisputesTitle">لا توجد نزاعات نشطة حالياً</h4>
+            <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoDisputesDesc">
+              جميع المشاريع وعقود المهندسين تسير بانتظام تحت حماية وتأمين حساب الضمان Escrow 100%.
+            </p>
           </div>
         </div>
 
@@ -407,18 +341,7 @@
               </thead>
               <tbody class="divide-y divide-slate-800 text-slate-300">
                 <tr>
-                  <td class="p-4 font-bold text-white" id="userName1">م. أحمد المنصوري</td>
-                  <td class="p-4" id="userRole1">مهندس مستقل (Satcom)</td>
-                  <td class="p-4 font-mono text-emerald-400 font-black">100%</td>
-                  <td class="p-4"><span id="badgeEng1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Top Rated ⭐</span></td>
-                  <td class="p-4"><span class="text-emerald-400 font-bold" id="userStatus1">نشط معتمد ✓</span></td><td class="p-4"><button onclick="toggleTopRated(\'badgeEng1\')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold" id="userBtn1">تعديل الشارة</button></td>
-                </tr>
-                <tr>
-                  <td class="p-4 font-bold text-white">Orbital Space Systems</td>
-                  <td class="p-4" id="userRole2">صاحب عمل (عميل)</td>
-                  <td class="p-4 font-mono text-cyan-400 font-black">5.0 ★</td>
-                  <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" id="badgeClientGold">عميل ذهبي Enterprise</span></td>
-                  <td class="p-4"><span class="text-emerald-400 font-bold" id="userStatus2">نشط معتمد ✓</span></td><td class="p-4"><button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[11px] font-bold" id="userBtn2">إدارة</button></td>
+                  <td colspan="6" class="p-8 text-center text-slate-400 font-medium">لا توجد عقود مسجلة في النظام حالياً (No contracts recorded yet)</td>
                 </tr>
               </tbody>
             </table>
@@ -432,28 +355,13 @@
             <p class="text-xs text-slate-400 mt-1" id="payoutHeadSub">مراجعة وتحويل أرباح المهندسين المستحقة إلى الحسابات البنكية ومحافظ USDT</p>
           </div>
 
-          <div class="space-y-4">
-            <div id="payoutCard1" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-mono text-cyan-400 font-bold">#PO-901</span>
-                  <span class="text-white font-black" id="payoutEngName1">م. أحمد المنصوري</span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">SWIFT Wire Bank</span>
-                </div>
-                <div class="text-xs text-slate-400 mt-1" id="payoutBankDetail1">البنك: بنك الإمارات دبي الوطني (Emirates NBD) • IBAN: AE03...4912</div>
-                <div class="text-base font-black text-emerald-400 font-mono mt-1" id="payoutNet1">$600.00 (100% صافي أتعاب)</div></div><div class="flex items-center gap-2" id="payoutBtns1"><button onclick="approvePayout(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnPayout1">اعتماد التحويل البنكي الفوري ✓</button></div>
-            </div>
-
-            <div id="payoutCard2" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-mono text-cyan-400 font-bold">#PO-902</span>
-                  <span class="text-white font-black" id="payoutEngName2">م. طارق الغامدي</span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">USDT Escrow (TRC20)</span>
-                </div>
-                <div class="text-xs text-slate-400 mt-1" id="payoutBankDetail2">المحفظة: TX9aK...89xL10qPz</div>
-                <div class="text-base font-black text-emerald-400 font-mono mt-1" id="payoutNet2">$450.00 (100% صافي أتعاب)</div></div><div class="flex items-center gap-2" id="payoutBtns2"><button onclick="approvePayout(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnPayout2">اعتماد التحويل الفوري ✓</button></div>
-            </div>
+          
+          <div class="p-8 rounded-3xl bg-slate-900/60 border border-slate-800 text-center space-y-3">
+            <span class="text-4xl block">💸</span>
+            <h4 class="text-base font-black text-white" id="txtNoPayoutsTitle">لا توجد طلبات سحب معلقة حالياً</h4>
+            <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoPayoutsDesc">
+              ستظهر هنا طلبات سحب الأرباح المقدمة من المهندسين عبر البنوك العالمية و USDT لاعتمادها فوراً.
+            </p>
           </div>
         </div>
 
@@ -467,23 +375,23 @@
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block" id="gwTitleStripe">مدفوعات Stripe</span>
-              <span class="text-2xl font-black text-white mt-1 block">$1,200.00</span>
-              <span class="text-[10px] text-emerald-400 block mt-1" id="gwBadgeStripe">2 عمليات معتمدة</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-slate-500 block mt-1" id="gwBadgeStripe">0 عمليات</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block" id="gwTitlePaypal">مدفوعات PayPal</span>
-              <span class="text-2xl font-black text-white mt-1 block">$650.00</span>
-              <span class="text-[10px] text-sky-400 block mt-1" id="gwBadgePaypal">1 عملية معتمدة</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-slate-500 block mt-1" id="gwBadgePaypal">0 عمليات</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block" id="gwTitleSwift">حوالات SWIFT البنكية</span>
-              <span class="text-2xl font-black text-white mt-1 block">$3,500.00</span>
-              <span class="text-[10px] text-emerald-400 block mt-1" id="gwBadgeSwift">3 حوالات مؤسسية</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-slate-500 block mt-1" id="gwBadgeSwift">0 حوالات</span>
             </div>
             <div class="p-5 bg-slate-900/90 rounded-2xl border border-slate-800">
               <span class="text-xs text-slate-400 font-bold block" id="gwTitleUsdt">محافظ USDT Escrow</span>
-              <span class="text-2xl font-black text-white mt-1 block">$900.00</span>
-              <span class="text-[10px] text-amber-400 block mt-1" id="gwBadgeUsdt">2 عمليات فورية</span>
+              <span class="text-2xl font-black text-white mt-1 block">$0.00</span>
+              <span class="text-[10px] text-slate-500 block mt-1" id="gwBadgeUsdt">0 عمليات</span>
             </div>
           </div>
         </div>

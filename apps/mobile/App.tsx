@@ -94,26 +94,7 @@ export default function App() {
   const [contractsList, setContractsList] = useState<Contract[]>([]);
 
   // Messages / Technical Workroom State
-  const [messagesList, setMessagesList] = useState<ChatMessage[]>([
-    {
-      id: 'msg-1',
-      sender: 'client',
-      senderNameAr: 'د. فارس النعيمي (OrbitSat)',
-      senderNameEn: 'Dr. Faris Al-Nuaimi (OrbitSat)',
-      textAr: 'مرحباً مهندس، هل قمت بتحديث ملف المحاكاة الخاص بهوائي Ka-Band واستخراج مخططات الـ Far-Field؟',
-      textEn: 'Hello engineer, did you update the Ka-Band simulation files and export the 3D Far-Field patterns?',
-      time: '10:15 AM'
-    },
-    {
-      id: 'msg-2',
-      sender: 'engineer',
-      senderNameAr: 'أنا (المهندس المعتمد)',
-      senderNameEn: 'Me (Verified Engineer)',
-      textAr: 'أهلاً دكتور فارس، نعم تم الانتهاء بنجاح! تم تحقيق كسب 38.5 dBi عند تردد 29.5 GHz ونسبة VSWR أقل من 1.25. لقد رفعت الملفات لاعتماد المرحلة 2.',
-      textEn: 'Hello Dr. Faris, yes completed! Achieved 38.5 dBi gain at 29.5 GHz with VSWR < 1.25. I uploaded the .cst bundle for Milestone 2 approval.',
-      time: '10:30 AM'
-    }
-  ]);
+  const [messagesList, setMessagesList] = useState<ChatMessage[]>([]);
   const [chatInputText, setChatInputText] = useState<string>('');
 
   // Client vs Freelancer Registration State
@@ -330,54 +311,68 @@ export default function App() {
 
             {/* Jobs List */}
             <View style={styles.jobsList}>
-              {jobsList
-                .filter((job) => activeFilter === 'all' || job.skills.includes(activeFilter) || job.band === activeFilter)
-                .map((job) => (
-                  <View key={job.id} style={styles.jobCard}>
-                    <View style={styles.jobTopRow}>
-                      <View style={styles.bandBadge}>
-                        <Text style={styles.bandBadgeText}>{job.band}</Text>
-                      </View>
-                      <View style={styles.escrowPill}>
-                        <Text style={styles.escrowPillText}>{isAr ? 'ضمان Escrow 100%' : '100% Escrow'}</Text>
-                      </View>
-                      <Text style={styles.jobBudget}>{job.budget}</Text>
-                    </View>
-
-                    <Text style={[styles.jobTitle, { textAlign: isAr ? 'right' : 'left' }]}>
-                      {isAr ? job.titleAr : job.titleEn}
-                    </Text>
-
-                    <Text style={[styles.jobDesc, { textAlign: isAr ? 'right' : 'left' }]}>
-                      {isAr ? job.descAr : job.descEn}
-                    </Text>
-
-                    {/* Skills tags */}
-                    <View style={styles.skillsRow}>
-                      {job.skills.map((skill: string) => (
-                        <View key={skill} style={styles.skillBadge}>
-                          <Text style={styles.skillBadgeText}>{skill}</Text>
+              {jobsList.length === 0 ? (
+                <View style={styles.emptyStateContainer}>
+                  <Text style={styles.emptyStateIcon}>🛰️</Text>
+                  <Text style={styles.emptyStateTitle}>
+                    {isAr ? 'لا توجد مشاريع هندسية مفتوحة حالياً' : 'No open satellite jobs currently'}
+                  </Text>
+                  <Text style={styles.emptyStateDesc}>
+                    {isAr 
+                      ? 'سيتم إشعارك فور قيام شركات الفضاء والأقمار الصناعية بطرح مشاريع جديدة.' 
+                      : 'You will be notified when new satellite communications projects are posted.'}
+                  </Text>
+                </View>
+              ) : (
+                jobsList
+                  .filter((job) => activeFilter === 'all' || job.skills?.includes(activeFilter) || job.band === activeFilter)
+                  .map((job) => (
+                    <View key={job.id} style={styles.jobCard}>
+                      <View style={styles.jobTopRow}>
+                        <View style={styles.bandBadge}>
+                          <Text style={styles.bandBadgeText}>{job.band}</Text>
                         </View>
-                      ))}
-                    </View>
+                        <View style={styles.escrowPill}>
+                          <Text style={styles.escrowPillText}>{isAr ? 'ضمان Escrow 100%' : '100% Escrow'}</Text>
+                        </View>
+                        <Text style={styles.jobBudget}>{job.budget}</Text>
+                      </View>
 
-                    <View style={styles.jobFooter}>
-                      <Text style={styles.jobClient}>
-                        {isAr ? job.clientAr : job.clientEn}
+                      <Text style={[styles.jobTitle, { textAlign: isAr ? 'right' : 'left' }]}>
+                        {isAr ? job.titleAr : job.titleEn}
                       </Text>
 
-                      <TouchableOpacity 
-                        activeOpacity={0.8} 
-                        style={styles.applyBtn}
-                        onPress={() => setSelectedJobForProposal(job)}
-                      >
-                        <Text style={styles.applyBtnText}>
-                          {isAr ? 'تقديم عرض هندسي' : 'Submit Proposal'}
+                      <Text style={[styles.jobDesc, { textAlign: isAr ? 'right' : 'left' }]}>
+                        {isAr ? job.descAr : job.descEn}
+                      </Text>
+
+                      {/* Skills tags */}
+                      <View style={styles.skillsRow}>
+                        {job.skills.map((skill: string) => (
+                          <View key={skill} style={styles.skillBadge}>
+                            <Text style={styles.skillBadgeText}>{skill}</Text>
+                          </View>
+                        ))}
+                      </View>
+
+                      <View style={styles.jobFooter}>
+                        <Text style={styles.jobClient}>
+                          {isAr ? job.clientAr : job.clientEn}
                         </Text>
-                      </TouchableOpacity>
+
+                        <TouchableOpacity 
+                          activeOpacity={0.8} 
+                          style={styles.applyBtn}
+                          onPress={() => setSelectedJobForProposal(job)}
+                        >
+                          <Text style={styles.applyBtnText}>
+                            {isAr ? 'تقديم عرض هندسي' : 'Submit Proposal'}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                ))}
+                  ))
+              )}
             </View>
           </View>
         )}
@@ -394,7 +389,20 @@ export default function App() {
               </View>
             </View>
 
-            {contractsList.map((ctr) => (
+            {contractsList.length === 0 ? (
+              <View style={styles.emptyStateContainer}>
+                <Text style={styles.emptyStateIcon}>🛡️</Text>
+                <Text style={styles.emptyStateTitle}>
+                  {isAr ? 'لا توجد عقود نشطة حالياً' : 'No active contracts currently'}
+                </Text>
+                <Text style={styles.emptyStateDesc}>
+                  {isAr 
+                    ? 'ستظهر هنا عقودك الجارية وغرف تسليم المراحل وحساب الضمان Escrow فور توظيفك.' 
+                    : 'Active contracts, milestone workrooms, and 100% Escrow vaults will appear here.'}
+                </Text>
+              </View>
+            ) : (
+              contractsList.map((ctr) => (
               <View key={ctr.id} style={styles.contractCard}>
                 <View style={styles.contractHeader}>
                   <Text style={styles.contractId}>#{ctr.id}</Text>
@@ -459,7 +467,8 @@ export default function App() {
                   </TouchableOpacity>
                 </View>
               </View>
-            ))}
+            )))
+            }
           </View>
         )}
 
@@ -469,10 +478,10 @@ export default function App() {
             <View style={styles.chatRoomHeader}>
               <View>
                 <Text style={styles.chatClientName}>
-                  {isAr ? 'د. فارس النعيمي (OrbitSat Aerospace)' : 'Dr. Faris Al-Nuaimi (OrbitSat)'}
+                  {isAr ? 'غرفة العمليات الفنية الفضائية' : 'Satellite Technical Workroom'}
                 </Text>
                 <Text style={styles.chatContractRef}>
-                  {isAr ? 'العقد #CTR-SAT-902 • هوائي Ka-Band ($300 Escrow)' : 'Contract #CTR-SAT-902 • Ka-Band Antenna ($300 Escrow)'}
+                  {isAr ? 'محادثات مباشرة مشفرة • نظام مساحة العمل' : 'Encrypted Workroom • Workspace Mode'}
                 </Text>
               </View>
               <View style={styles.onlineBadge}>
@@ -483,7 +492,20 @@ export default function App() {
 
             {/* Chat Thread */}
             <View style={styles.chatThreadBox}>
-              {messagesList.map((msg) => (
+              {messagesList.length === 0 ? (
+                <View style={styles.emptyStateContainer}>
+                  <Text style={styles.emptyStateIcon}>💬</Text>
+                  <Text style={styles.emptyStateTitle}>
+                    {isAr ? 'لا توجد رسائل في غرفة العمليات' : 'No messages in workroom'}
+                  </Text>
+                  <Text style={styles.emptyStateDesc}>
+                    {isAr 
+                      ? 'يمكنك بدء المحادثة وإرسال الاستفسارات الفنية مباشرة عبر مربع الرسائل أدناه.' 
+                      : 'Send technical updates or inquiries directly using the input below.'}
+                  </Text>
+                </View>
+              ) : (
+                messagesList.map((msg) => (
                 <View 
                   key={msg.id} 
                   style={[
@@ -501,7 +523,8 @@ export default function App() {
                     {isAr ? msg.textAr : msg.textEn}
                   </Text>
                 </View>
-              ))}
+              )))
+              }
             </View>
 
             {/* Interactive Chat Input */}
@@ -573,7 +596,7 @@ export default function App() {
                 <View style={styles.statDivider} />
                 <View style={styles.walletStatItem}>
                   <Text style={styles.statLabel}>{isAr ? 'إجمالي الأرباح:' : 'Total Earned:'}</Text>
-                  <Text style={styles.statValue}>${(walletBalance + 600).toFixed(2)}</Text>
+                  <Text style={styles.statValue}>${walletBalance.toFixed(2)}</Text>
                 </View>
               </View>
 
@@ -2205,5 +2228,33 @@ const styles = StyleSheet.create({
   },
   channelBtnTextActive: {
     color: '#ffffff',
+  },
+  emptyStateContainer: {
+    padding: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0c1322',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#1e293b',
+    marginVertical: 12,
+  },
+  emptyStateIcon: {
+    fontSize: 40,
+    marginBottom: 12,
+  },
+  emptyStateTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#ffffff',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  emptyStateDesc: {
+    fontSize: 12,
+    color: '#94a3b8',
+    textAlign: 'center',
+    lineHeight: 18,
+    maxWidth: 280,
   },
 });
