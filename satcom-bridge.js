@@ -8,104 +8,34 @@
 (function (window) {
   'use strict';
 
+  // Version 3: Clean production-ready keys (zero demo data)
   const STORAGE_KEYS = {
     LANG: 'satcom_lang',
-    JOBS: 'satcom_shared_jobs_v2',
-    CONTRACTS: 'satcom_shared_contract_v2',
-    WALLET: 'satcom_shared_wallet_v2',
-    PAYOUTS: 'satcom_shared_payouts_v2',
-    ADMIN_LOG: 'satcom_shared_admin_ledger_v2'
+    JOBS: 'satcom_shared_jobs_v3',
+    CONTRACTS: 'satcom_shared_contract_v3',
+    WALLET: 'satcom_shared_wallet_v3',
+    PAYOUTS: 'satcom_shared_payouts_v3',
+    ADMIN_LOG: 'satcom_shared_admin_ledger_v3'
   };
 
-  // Initial Seed Data
-  const DEFAULT_JOBS = [
-    {
-      id: 'job_cst_phased',
-      title: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
-      titleEn: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
-      titleAr: 'محاكاة مصفوفة هوائيات Ka-Band بالطور التدريجي (28-30 GHz)',
-      category: 'cst',
-      budget: '.00',
-      budgetValue: 600,
-      escrowStatus: 'funded',
-      descAr: 'مطلوب مهندس اتصالات فضائية لتصميم ومحاكاة مصفوفة هوائيات Ka-Band بتردد 28-30 GHz عبر CST Studio Suite وتزويدنا بملف .cst وتقرير الفصوص الإشعاعية.',
-      descEn: 'Satellite telecom engineer required to design and simulate a 28-30 GHz Ka-band phased array antenna in CST Studio Suite, providing .cst project files and far-field radiation reports.',
-      tags: ['CST Studio', 'Ka-Band', 'Phased Array', 'Far-Field'],
-      postedTimeAr: 'منذ ساعتين',
-      postedTimeEn: '2 hours ago',
-      clientName: 'Orbital Space Systems',
-      clientCountry: 'دبي، الإمارات 🇦🇪',
-      clientCountryEn: 'Dubai, UAE 🇦🇪',
-      proposalsCount: 6,
-      hiredCount: 1,
-      isCustom: false
-    },
-    {
-      id: 'job_leo_link',
-      title: 'LEO Constellation Link Budget & Rain Attenuation Analysis (ITU-R)',
-      titleEn: 'LEO Constellation Link Budget & Rain Attenuation Analysis (ITU-R)',
-      titleAr: 'تحليل ميزانية الرابط لكوكبة LEO وتلاشي الأمطار (ITU-R)',
-      category: 'link',
-      budget: '.00',
-      budgetValue: 300,
-      escrowStatus: 'open',
-      descAr: 'إعداد وتحليل ميزانية الرابط الشاملة لكوكبة أقمار في مدار أرضي منخفض LEO مع نمذجة تلاشي الأمطار حسب معايير ITU-R P.618 وهامش خطأ Eb/N0.',
-      descEn: 'Develop end-to-end link budget for LEO constellation including ITU-R P.618 rain attenuation modeling and Eb/N0 margin calculations.',
-      tags: ['Link Budget', 'MATLAB', 'ITU-R P.618', 'LEO Orbit'],
-      postedTimeAr: 'منذ 5 ساعات',
-      postedTimeEn: '5 hours ago',
-      clientName: 'SkyLink Aerospace Inc.',
-      clientCountry: 'الرياض، السعودية 🇸🇦',
-      clientCountryEn: 'Riyadh, KSA 🇸🇦',
-      proposalsCount: 12,
-      hiredCount: 0,
-      isCustom: false
-    }
-  ];
+  // Completely clean initial data (Zero demo records)
+  const DEFAULT_JOBS = [];
 
-  const DEFAULT_CONTRACT = {
-    id: 'CTR-SAT-9921',
-    title: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
-    clientName: 'Orbital Space Systems',
-    engineerName: 'م. أحمد المنصوري',
-    engineerNameEn: 'Eng. Ahmed Al-Mansouri',
-    totalBudget: 600,
-    escrowFunded: 600,
-    milestone1: {
-      id: 'm1',
-      titleAr: 'المرحلة 1: حساب أبعاد العناصر ومصفوفة التغذية Feed Network',
-      titleEn: 'Milestone 1: Element Geometry & Feed Network Calculations',
-      amount: 300,
-      status: 'released'
-    },
-    milestone2: {
-      id: 'm2',
-      titleAr: 'المرحلة 2: محاكاة CST وحساب مصفوفة الطور لزوايا ±45° وتقرير Far-Field',
-      titleEn: 'Milestone 2: 3D CST Simulation, ±45° Steering & Radiation Report',
-      amount: 300,
-      status: 'delivered',
-      deliveredFile: 'Ka_PhasedArray_Sim.cst',
-      deliveredDoc: 'FarField_Radiation_Report.pdf',
-      deliveredDateAr: 'اليوم، 01:15 م',
-      deliveredDateEn: 'Today, 01:15 PM',
-      deliveryNotesAr: 'تم الانتهاء من محاكاة CST وحساب كسب الهوائي 24.2 dBi ومصفوفة الطور لزوايا ±45 درجة، والملفات جاهزة للمراجعة والاعتماد.',
-      deliveryNotesEn: 'Completed CST 3D simulation with 24.2 dBi gain and ±45 deg beam steering phase distribution. Files ready for review.'
-    }
-  };
+  const DEFAULT_CONTRACT = null;
 
   const DEFAULT_WALLET = {
-    available: 600.00,
-    inEscrow: 1250.00,
-    totalEarned: 4850.00
+    available: 0.00,
+    inEscrow: 0.00,
+    totalEarned: 0.00
   };
 
   const DEFAULT_ADMIN_LEDGER = {
-    totalVolume: 48500.00,
-    escrowHeld: 1250.00,
-    platformFees: 3240.00,
-    activeContractsCount: 14,
-    disputesCount: 1,
-    verifiedEngCount: 142
+    totalVolume: 0.00,
+    escrowHeld: 0.00,
+    platformFees: 0.00,
+    activeContractsCount: 0,
+    disputesCount: 0,
+    verifiedEngCount: 0
   };
 
   function readStorage(key, fallback) {
@@ -136,7 +66,7 @@
         titleAr: jobData.title || 'مشروع هندسي فضائي جديد',
         titleEn: jobData.titleEn || jobData.title || 'New Satellite Project',
         category: jobData.category || 'cst',
-        budget: typeof jobData.budget === 'number' ? ('$' + jobData.budget.toFixed(2)) : (jobData.budget || '.00'),
+        budget: typeof jobData.budget === 'number' ? ('$' + jobData.budget.toFixed(2)) : (jobData.budget || '$300.00'),
         budgetValue: parseFloat(jobData.budget) || 300,
         escrowStatus: 'funded',
         descAr: jobData.descAr || jobData.desc || 'مشروع جديد تم طرحه بضمان Escrow 100%.',
@@ -160,7 +90,8 @@
       return readStorage(STORAGE_KEYS.CONTRACTS, DEFAULT_CONTRACT);
     },
     deliverMilestone2: function (notes, filename) {
-      const contract = this.getContract();
+      let contract = this.getContract();
+      if (!contract) return null;
       contract.milestone2.status = 'delivered';
       if (notes) {
         contract.milestone2.deliveryNotesAr = notes;
@@ -176,7 +107,7 @@
     },
     releaseMilestone2: function () {
       const contract = this.getContract();
-      if (contract.milestone2.status === 'released') return contract;
+      if (!contract || contract.milestone2.status === 'released') return contract;
 
       contract.milestone2.status = 'released';
       writeStorage(STORAGE_KEYS.CONTRACTS, contract);

@@ -66,7 +66,7 @@
         <div class="hidden sm:flex items-center gap-2 p-1.5 pl-3 rounded-2xl bg-slate-950 border border-slate-800 text-xs">
           <div class="text-right">
             <span class="text-[9px] text-slate-400 block leading-tight" id="lblNavAvailable">الأرباح المتاحة:</span>
-            <span class="font-black text-emerald-400 font-mono text-sm leading-tight">$600.00</span>
+            <span class="font-black text-emerald-400 font-mono text-sm leading-tight">$0.00</span>
           </div>
           <button onclick="openWalletModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black shadow-md shadow-emerald-600/25 transition cursor-pointer">
             <span id="btnNavGetPaid">سحب الأرباح ↗</span>
@@ -136,7 +136,7 @@
             </div>
 
             <div class="text-right sm:text-left">
-              <span class="text-2xl font-black text-emerald-400 font-mono">$600.00</span>
+              <span class="text-2xl font-black text-emerald-400 font-mono">$0.00</span>
               <span class="block text-[10px] text-slate-400" id="lblContractNet">صافي استلامك 100% بدون أي اقتطاع</span>
             </div>
           </div>
@@ -197,134 +197,12 @@
             <div id="freelancerCustomJobsFeed" class="space-y-4"></div>
             
             
-            <!-- Job Card 1 -->
-            <div class="job-item p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 transition space-y-3.5 shadow-xl" data-tags="cst kaband">
-              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                <div class="space-y-1">
-                  <span class="text-[10px] text-slate-400 block" id="job1Time">نُشر قبل ساعتين • اتصالات الفضاء</span>
-                  <h3 class="text-base sm:text-lg font-black text-white hover:text-emerald-400 transition cursor-pointer" onclick="openProposalModal('Ka-Band Phased Array Antenna Simulation', '600')">
-                    Ka-Band Phased Array Antenna Simulation (28-30 GHz)
-                  </h3>
-                </div>
-                <div class="text-right sm:text-left shrink-0">
-                  <span class="text-xl font-black text-emerald-400 font-mono">$600.00</span>
-                  <span class="block text-[10px] text-slate-400" id="job1BudgetType">سعر ثابت • 100% Escrow</span>
-                </div>
-              </div>
-
-              <p class="text-xs text-slate-300 leading-relaxed" id="job1FullDesc">
-                مطلوب مهندس اتصالات فضائية لتصميم ومحاكاة مصفوفة هوائيات Ka-Band بتردد 28-30 GHz عبر CST Studio Suite، وتوليد مصفوفة الطور لزاوية توجيه ±45 درجة، وتزويدنا بملف .cst وتقرير الفصوص الإشعاعية.
-              </p>
-
-              <!-- Tags -->
-              <div class="flex flex-wrap gap-1.5">
-                <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">CST Studio</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">Ka-Band</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">Phased Array</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 text-[11px] font-bold">Far-Field</span>
-              </div>
-
-              <!-- Client Info & Submit Button -->
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
-                <div class="flex items-center gap-3">
-                  <span class="flex items-center gap-1 text-cyan-300 font-bold">
-                    <span>✓</span> <span id="job1ClientVerified">دفع معتمد</span>
-                  </span>
-                  <span>⭐⭐⭐⭐⭐ 5.0</span>
-                  <span id="job1ClientSpend">أنفق أكثر من $12k</span>
-                  <span>دبي، الإمارات 🇦🇪</span>
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <button onclick="openProposalModal('Ka-Band Phased Array Antenna Simulation', '600')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs shadow-lg transition cursor-pointer">
-                    <span id="btnSubmitProp1">تقديم عرض هندسي ↗</span>
-                  </button>
-                </div>
-              </div>
+            <!-- Empty Feed State -->
+            <div id="emptyFeedNotice" class="text-center py-12 px-4 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-3">
+              <span class="text-4xl block">🛰️</span>
+              <h4 class="text-base font-black text-white" id="txtNoFeedTitle">لا توجد مشاريع هندسية مفتوحة حالياً</h4>
+              <p class="text-xs text-slate-400 max-w-sm mx-auto" id="txtNoFeedDesc">سيتم إشعارك وتحديث القائمة فور قيام أحد العملاء أو الشركات الفضائية بطرح مشاريع جديدة.</p>
             </div>
-
-            <!-- Job Card 2 -->
-            <div class="job-item p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 transition space-y-3.5 shadow-xl" data-tags="link">
-              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                <div class="space-y-1">
-                  <span class="text-[10px] text-slate-400 block" id="job2Time">نُشر قبل 5 ساعات • مدارات LEO</span>
-                  <h3 class="text-base sm:text-lg font-black text-white hover:text-emerald-400 transition cursor-pointer" onclick="openProposalModal('LEO Constellation Link Budget & Rain Attenuation Analysis', '300')">
-                    LEO Constellation Link Budget & Rain Attenuation Analysis (ITU-R)
-                  </h3>
-                </div>
-                <div class="text-right sm:text-left shrink-0">
-                  <span class="text-xl font-black text-emerald-400 font-mono">$300.00</span>
-                  <span class="block text-[10px] text-slate-400" id="job2BudgetType">سعر ثابت • 100% Escrow</span>
-                </div>
-              </div>
-
-              <p class="text-xs text-slate-300 leading-relaxed" id="job2FullDesc">
-                إعداد وتحليل ميزانية الرابط الشاملة لكوكبة أقمار في مدار أرضي منخفض LEO مع نمذجة تلاشي الأمطار حسب معايير ITU-R P.618 وهامش خطأ Eb/N0.
-              </p>
-
-              <div class="flex flex-wrap gap-1.5">
-                <span class="px-2.5 py-0.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 text-[11px] font-bold">Link Budget</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 text-[11px] font-bold">MATLAB</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 text-[11px] font-bold">ITU-R P.618</span>
-              </div>
-
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
-                <div class="flex items-center gap-3">
-                  <span class="flex items-center gap-1 text-cyan-300 font-bold">
-                    <span>✓</span> <span>دفع معتمد</span>
-                  </span>
-                  <span>⭐⭐⭐⭐⭐ 4.9</span>
-                  <span>أنفق أكثر من $45k</span>
-                  <span>الرياض، السعودية 🇸🇦</span>
-                </div>
-
-                <button onclick="openProposalModal('LEO Constellation Link Budget & Rain Attenuation Analysis', '300')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs shadow-lg transition cursor-pointer">
-                  <span id="btnSubmitProp2">تقديم عرض هندسي ↗</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Job Card 3 -->
-            <div class="job-item p-6 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 transition space-y-3.5 shadow-xl" data-tags="cst">
-              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                <div class="space-y-1">
-                  <span class="text-[10px] text-slate-400 block" id="job3Time">نُشر بالأمس • فلاتر ميكروويف</span>
-                  <h3 class="text-base sm:text-lg font-black text-white hover:text-emerald-400 transition cursor-pointer" onclick="openProposalModal('C-Band Waveguide Diplexer & Cavity Filter Prototyping', '300')">
-                    C-Band Waveguide Diplexer & Cavity Filter Prototyping
-                  </h3>
-                </div>
-                <div class="text-right sm:text-left shrink-0">
-                  <span class="text-xl font-black text-emerald-400 font-mono">$300.00</span>
-                  <span class="block text-[10px] text-slate-400" id="job3BudgetType">سعر ثابت • 100% Escrow</span>
-                </div>
-              </div>
-
-              <p class="text-xs text-slate-300 leading-relaxed" id="job3FullDesc">
-                تصميم مرشح تجويف موجي بنطاق ترددات الاستقبال والإرسال C-Band مع تحقيق عزل أعلى من 60dB وفقد إدخال أقل من 0.3dB عبر CST Studio.
-              </p>
-
-              <div class="flex flex-wrap gap-1.5">
-                <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">C-Band</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">Waveguide</span>
-                <span class="px-2.5 py-0.5 rounded-lg bg-amber-950/60 text-amber-300 border border-amber-800/40 text-[11px] font-bold">CST Studio</span>
-              </div>
-
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
-                <div class="flex items-center gap-3">
-                  <span class="flex items-center gap-1 text-cyan-300 font-bold">
-                    <span>✓</span> <span>دفع معتمد</span>
-                  </span>
-                  <span>⭐⭐⭐⭐⭐ 5.0</span>
-                  <span>أنفق أكثر من $20k</span>
-                </div>
-
-                <button onclick="openProposalModal('C-Band Waveguide Diplexer & Cavity Filter Prototyping', '300')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs shadow-lg transition cursor-pointer">
-                  <span id="btnSubmitProp3">تقديم عرض هندسي ↗</span>
-                </button>
-              </div>
-            </div>
-
-          </div>
         </section>
 
       </div>
@@ -391,7 +269,7 @@
           </div>
 
           <button onclick="openWalletModal()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-lg shadow-emerald-600/30 transition cursor-pointer">
-            <span id="btnSideGetPaid">سحب الأرباح الفوري ($600.00) ↗</span>
+            <span id="btnSideGetPaid">سحب الأرباح الفوري ($0.00) ↗</span>
           </button>
         </div>
 
@@ -420,7 +298,7 @@
       <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 text-xs space-y-1">
         <div class="flex justify-between items-center">
           <span class="font-bold text-white" id="propTargetJobTitle">Ka-Band Phased Array Antenna Simulation</span>
-          <span class="font-mono text-emerald-400 font-bold text-sm" id="propTargetBudget">$600.00 Fixed</span>
+          <span class="font-mono text-emerald-400 font-bold text-sm" id="propTargetBudget">$0.00 Fixed</span>
         </div>
       </div>
 
@@ -431,7 +309,7 @@
           <input type="number" id="propBidAmount" required value="600" oninput="updateNetPayoutVal()" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-cyan-400">
           <div class="flex justify-between items-center text-[11px] text-emerald-400 font-bold mt-1.5 px-1">
             <span id="lblNetCalculated">صافي ما تستلمه في محفظتك (100% كامل):</span>
-            <span id="propNetVal" class="font-mono text-sm">$600.00</span>
+            <span id="propNetVal" class="font-mono text-sm">$0.00</span>
           </div>
         </div>
 
@@ -523,7 +401,7 @@
       <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex justify-between items-center">
         <div>
           <span class="text-[11px] text-slate-400 block" id="lblWalletAvail">الأرباح المتاحة للسحب:</span>
-          <span class="text-2xl font-black text-emerald-400 font-mono mt-0.5 block">$600.00</span>
+          <span class="text-2xl font-black text-emerald-400 font-mono mt-0.5 block">$0.00</span>
         </div>
         <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
           100% Net Payout
@@ -534,7 +412,7 @@
       <form onsubmit="handlePayoutSubmit(event)" class="space-y-3.5 text-xs">
         <div>
           <label class="block font-bold text-slate-300 mb-1" id="lblPayoutAmt">المبلغ المراد سحبه ($)</label>
-          <input type="number" id="payoutAmountInput" required value="600" max="600" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-emerald-400">
+          <input type="number" id="payoutAmountInput" required value="0" max="0" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white font-mono font-bold focus:outline-none focus:border-emerald-400">
         </div>
 
         <div>
@@ -586,7 +464,7 @@
         </div>
         <div class="text-right">
           <span class="text-slate-400 block text-[10px]" id="chatEscrowVaultLbl">خزينة Escrow:</span>
-          <span class="font-bold text-emerald-400 font-mono">$600.00 مؤمّنة ✓</span>
+          <span class="font-bold text-emerald-400 font-mono">$0.00 مؤمّنة ✓</span>
         </div>
       </div>
 
@@ -690,7 +568,7 @@
         lblQuickContracts: 'العقود الجارية بحماية Escrow',
         lblQuickKyc: 'توثيق رخص الفضاء KYC',
         valKycVerified: 'معتمد وموثق ✓',
-        btnSideGetPaid: 'سحب الأرباح الفوري ($600.00) ↗',
+        btnSideGetPaid: 'سحب الأرباح الفوري ($0.00) ↗',
         modalPropTitle: 'تقديم عرض هندسي (Submit Proposal)',
         modalPropBadge: 'بضمان 100% Escrow • استلام كامل 0% عمولة على المهندس',
         lblBidField: 'مبلغ العرض المقترح للمشروع ($)',
@@ -773,7 +651,7 @@
         lblQuickContracts: 'Active Escrow Contracts',
         lblQuickKyc: 'Space Agency KYC License',
         valKycVerified: 'Verified & Approved ✓',
-        btnSideGetPaid: 'Instant Payout ($600.00) ↗',
+        btnSideGetPaid: 'Instant Payout ($0.00) ↗',
         modalPropTitle: 'Submit Engineering Proposal',
         modalPropBadge: '100% Escrow Protected • 100% Net Payout (0% Cut)',
         lblBidField: 'Proposed Project Bid ($)',

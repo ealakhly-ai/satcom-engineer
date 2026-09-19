@@ -69,8 +69,8 @@ export default function App() {
   };
 
   // Wallet State
-  const [walletBalance, setWalletBalance] = useState<number>(600);
-  const [escrowLocked, setEscrowLocked] = useState<number>(300);
+  const [walletBalance, setWalletBalance] = useState<number>(0);
+  const [escrowLocked, setEscrowLocked] = useState<number>(0);
   const [showWithdrawModal, setShowWithdrawModal] = useState<boolean>(false);
   const [withdrawAmount, setWithdrawAmount] = useState<string>('300');
   const [withdrawChannel, setWithdrawChannel] = useState<'swift' | 'usdt' | 'paypal' | 'stripe'>('usdt');
@@ -88,74 +88,10 @@ export default function App() {
   const [proposalSuccessMsg, setProposalSuccessMsg] = useState<string>('');
 
   // Satcom Engineering Jobs
-  const [jobsList, setJobsList] = useState<any[]>([
-    {
-      id: 'JOB-SAT-101',
-      titleAr: 'محاكاة هوائي Ka-Band Phased Array عبر CST Studio',
-      titleEn: 'Ka-Band Phased Array Antenna Simulation (CST Studio)',
-      band: 'Ka-Band',
-      budget: '$300',
-      clientAr: 'شركة مدارات الفضاء المتقدمة (دبي)',
-      clientEn: 'Advanced Orbital Space Systems (Dubai)',
-      descAr: 'مطلوب مهندس متخصص لتصميم ومحاكاة مصفوفة هوائيات في نطاق Ka-Band 28-30 GHz واستخراج مخططات S-Parameters ونمط الإشعاع 3D Far-Field.',
-      descEn: 'Seeking a specialized engineer to design & simulate a 28-30 GHz Ka-Band antenna array, providing S-Parameters and 3D radiation patterns in CST.',
-      skills: ['CST Studio', 'Ka-Band', 'Phased Array', 'Far-Field']
-    },
-    {
-      id: 'JOB-SAT-102',
-      titleAr: 'حساب ميزانية الرابط Link Budget لكوكبة أقمار LEO',
-      titleEn: 'LEO Constellation Link Budget & Rain Attenuation Analysis',
-      band: 'Link Budget',
-      budget: '$300',
-      clientAr: 'المركز الإقليمي لتقنيات الأقمار الصناعية',
-      clientEn: 'Regional Center for Satellite Tech',
-      descAr: 'إعداد Link Budget كامل مع نمذجة تلاشي الأمطار (Rain Fade ITU-R P.618) ومحاكاة هوامش Eb/N0 لكوكبة أقمار في مدار أرضي منخفض LEO.',
-      descEn: 'Prepare full uplink/downlink link budgets with ITU-R P.618 rain attenuation modeling and Eb/N0 margins for LEO constellation.',
-      skills: ['Link Budget', 'MATLAB', 'LEO', 'ITU-R', 'Rain Fade']
-    },
-    {
-      id: 'JOB-SAT-103',
-      titleAr: 'تصميم مرشح موجي دليلي Waveguide Diplexer لنطاق C-Band',
-      titleEn: 'C-Band Waveguide Diplexer & BPF Filter Prototyping',
-      band: 'CST Studio',
-      budget: '$300',
-      clientAr: 'مؤسسة أفق الفضاء للاتصالات',
-      clientEn: 'Horizon Space Telecom Corp',
-      descAr: 'تصميم مرشح تجويف موجي بنطاق ترددات الاستقبال والإرسال C-Band مع تحقيق عزل أعلى من 60dB وفقد إدخال أقل من 0.3dB.',
-      descEn: 'Design a cavity waveguide diplexer for C-Band Tx/Rx with >60dB isolation and <0.3dB insertion loss using CST Microwave Studio.',
-      skills: ['C-Band', 'Waveguide', 'BPF Filter', 'RF Microwave']
-    }
-  ]);
+  const [jobsList, setJobsList] = useState<any[]>([]);
 
   // Contracts & Milestones State (Escrow)
-  const [contractsList, setContractsList] = useState<Contract[]>([
-    {
-      id: 'CTR-SAT-902',
-      titleAr: 'تصميم ومحاكاة هوائي المحطة الأرضية Ka-Band Ground Station',
-      titleEn: 'Ka-Band Ground Station Antenna Design & Simulation',
-      clientAr: 'د. فارس النعيمي (شركة OrbitSat Aerospace)',
-      clientEn: 'Dr. Faris Al-Nuaimi (OrbitSat Aerospace)',
-      totalAmount: 300,
-      statusAr: 'جاري العمل • مرحلة 2 قيد الاعتماد',
-      statusEn: 'In Progress • Milestone 2 Submitted',
-      milestones: [
-        {
-          id: 'M1',
-          titleAr: 'المرحلة 1: بناء النموذج في CST واستخراج معايير S11 ($150)',
-          titleEn: 'Milestone 1: CST Model Setup & S11 S-Parameters ($150)',
-          amount: 150,
-          status: 'completed'
-        },
-        {
-          id: 'M2',
-          titleAr: 'المرحلة 2: تقرير نمط الإشعاع ثلاثي الأبعاد والربح 3D Gain ($150)',
-          titleEn: 'Milestone 2: 3D Radiation Pattern & Far-Field Gain ($150)',
-          amount: 150,
-          status: 'pending'
-        }
-      ]
-    }
-  ]);
+  const [contractsList, setContractsList] = useState<Contract[]>([]);
 
   // Messages / Technical Workroom State
   const [messagesList, setMessagesList] = useState<ChatMessage[]>([
