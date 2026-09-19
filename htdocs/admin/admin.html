@@ -2,6 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="adminPageTitle">Satcom Engineers | لوحة تحكم الإدارة العليا (Mission Control)</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,6 +14,7 @@
   <style>
     body { font-family: 'Tajawal', system-ui, -apple-system, sans-serif; }
   </style>
+  <script src="./satcom-bridge.js"></script>
 </head>
 <body class="bg-[#050811] text-slate-100 min-h-screen selection:bg-cyan-500 selection:text-white">
 
@@ -79,6 +83,14 @@
         </button>
 
         <!-- View Platform Link -->
+        <a href="./client.html" target="_blank" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-cyan-400 bg-cyan-950/40 text-cyan-300 text-xs font-bold cursor-pointer">
+          <span>💼</span>
+          <span id="navLinkClient">لوحة العميل ↗</span>
+        </a>
+        <a href="./freelancer.html" target="_blank" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-emerald-400 bg-emerald-950/40 text-emerald-300 text-xs font-bold cursor-pointer">
+          <span>🛰️</span>
+          <span id="navLinkFreelancer">لوحة المهندس ↗</span>
+        </a>
         <a href="./index.html" target="_blank" id="navViewMain" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-cyan-400 bg-slate-800/80 text-slate-200 text-xs font-bold cursor-pointer"><span id="navViewMainText">عرض المنصة الرئيسية ↗</span></a>
 
         <!-- Admin Info & Logout -->
@@ -242,7 +254,7 @@
             <table class="w-full text-right text-xs">
               <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800">
                 <tr>
-                  <th class="p-4 font-bold" id="thCtrId">رقم العقد</th>
+                  <th class="p-4 font-bold" id="thCtrId">رقم العقد التسلسلي</th>
                   <th class="p-4 font-bold" id="thCtrProj">المشروع الهندسي</th>
                   <th class="p-4 font-bold" id="thCtrClient">صاحب العمل</th>
                   <th class="p-4 font-bold" id="thCtrEng">المهندس المنفذ</th>
@@ -284,36 +296,16 @@
           </div>
 
           <div class="space-y-4">
-            <!-- KYC Item 1 -->
-            <div id="kycCard1" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-sm" id="kycAvatar1">م.أ</div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-black text-white text-sm" id="kycName1">م. أحمد المنصوري</span>
-                    <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800" id="kycCountry1">الإمارات العربية المتحدة</span>
-                  </div>
-                  <div class="text-xs text-slate-400 mt-0.5" id="kycSpec1">التخصص: اتصالات الأقمار الصناعية وهوائيات Ka-Band</div>
-                  <div class="text-[10px] text-amber-400 mt-1" id="kycDoc1">المستند: جواز السفر الوطني + ترخيص وكالة الفضاء المعتمد</div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2" id="kycBtns1"><button onclick="approveKYC(1)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnKycApprove1">اعتماد التوثيق ✓</button><button onclick="rejectKYC(1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer" id="btnKycReview1">طلب مراجعة</button></div>
+            <!-- KYC Empty State -->
+            <div id="emptyKYCNotice" class="p-8 rounded-3xl bg-slate-900/60 border border-slate-800 text-center space-y-3">
+              <span class="text-4xl block">🆔</span>
+              <h4 class="text-base font-black text-white" id="txtNoKYCTitle">لا توجد طلبات توثيق هوية معلقة حالياً</h4>
+              <p class="text-xs text-slate-400 max-w-md mx-auto" id="txtNoKYCDesc">
+                تمت مراجعة واعتماد جميع سجلات ووثائق الهوية المسجلة في المنصة ولا توجد طلبات معلقة.
+              </p>
             </div>
-
-            <!-- KYC Item 2 -->
-            <div id="kycCard2" class="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-indigo-300 font-bold text-sm" id="kycAvatar2">م.ط</div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-black text-white text-sm" id="kycName2">م. طارق الغامدي</span>
-                    <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800" id="kycCountry2">المملكة العربية السعودية</span>
-                  </div>
-                  <div class="text-xs text-slate-400 mt-0.5" id="kycSpec2">التخصص: محطات أرضية وأطباق تتبع VSAT</div>
-                  <div class="text-[10px] text-amber-400 mt-1" id="kycDoc2">المستند: الهوية الوطنية + شهادة مهندس اتصالات مرخص</div>
-                </div>
-              </div>
+          </div>
+        </div>
 
               <div class="flex items-center gap-2" id="kycBtns2"><button onclick="approveKYC(2)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition cursor-pointer" id="btnKycApprove2">اعتماد التوثيق ✓</button><button onclick="rejectKYC(2)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 text-xs font-bold transition cursor-pointer" id="btnKycReview2">طلب مراجعة</button></div>
             </div>
@@ -475,7 +467,7 @@
 
         contractsHead: 'العقود الهندسية وتدفقات الضمان (Escrow)',
         contractsSub: 'مراقبة العقود الجارية والمدفوعات المحجوزة ونسب الإنجاز',
-        thCtrId: 'رقم العقد',
+        thCtrId: 'رقم العقد التسلسلي',
         thCtrProj: 'المشروع الهندسي',
         thCtrClient: 'صاحب العمل',
         thCtrEng: 'المهندس المنفذ',
@@ -491,7 +483,7 @@
         dspEscrowHeldLbl: 'المبلغ المحتجز في الضمان:',
         dspClientTitle: 'إفادة صاحب العمل (Orbital Systems):',
         dspClientStmt: '"مستوى الفصوص الجانبية (Sidelobe level) في تقرير المحاكاة هو -12dB بينما اشترطنا في كراسة الشروط أن لا يقل عن -15dB عند زاوية 30 درجة."',
-        dspEngTitle: 'رد المهندس (م. أحمد المنصوري):',
+        dspEngTitle: 'رد المهندس المعتمد:',
         dspEngStmt: '"الملفات المرفوعة بمشروع CST Studio تطابق معايير IEEE 802.11، والتأريض متزن تماماً، والفرق طفيف ناتج عن زاوية التوجيه القصوى (Steering)."',
         dspFilesTitle: 'ملفات الأدلة الفنية والمحاكاة المرفقة',
         dspFilesBtn: 'معاينة الملفات ↗',
@@ -535,14 +527,9 @@
         subEscrow: 'عقود جارية مؤمنة ومحمية 100%',
         subKYC: 'تم التحقق من رخص الفضاء و KYC',
         subDispute: 'بانتظار قرار التحكيم النهائي',
-        ctrEng1: 'م. أحمد المنصوري',
-        ctrEng2: 'م. طارق الغامدي',
-        kycName1: 'م. أحمد المنصوري',
-        kycName2: 'م. طارق الغامدي',
-        btnKycApprove: 'اعتماد التوثيق ✓',
+                                        btnKycApprove: 'اعتماد التوثيق ✓',
         btnKycReview: 'طلب مراجعة',
-        userName1: 'م. أحمد المنصوري',
-        userStatus: 'نشط معتمد ✓',
+                userStatus: 'نشط معتمد ✓',
         userBtnBadge: 'تعديل الشارة',
         userBtnManage: 'إدارة',
         payoutNet1: '$600.00 (100% صافي أتعاب)',
@@ -550,25 +537,21 @@
         btnPayoutBank: 'اعتماد التحويل البنكي الفوري ✓',
         btnPayoutWallet: 'اعتماد التحويل الفوري ✓',
         gwTitleStripe: 'مدفوعات Stripe',
-        gwBadgeStripe: '2 عمليات معتمدة',
+        gwBadgeStripe: '0 عمليات معتمدة',
         gwTitlePaypal: 'مدفوعات PayPal',
-        gwBadgePaypal: '1 عملية معتمدة',
+        gwBadgePaypal: '0 عمليات معتمدة',
         gwTitleSwift: 'حوالات SWIFT البنكية',
-        gwBadgeSwift: '3 حوالات مؤسسية',
+        gwBadgeSwift: '0 حوالات',
         gwTitleUsdt: 'محافظ USDT Escrow',
-        gwBadgeUsdt: '2 عمليات فورية',
+        gwBadgeUsdt: '0 عمليات',
         engineTitle: '⚙️ محرك احتساب العمولة الآلي في السيرفر ($20 لكل $300)',
         engineDesc: 'تُحسب العمولة تلقائياً في السيرفر بقاعدة <strong class="text-amber-400">$20 بعد كل $300</strong> من قيمة العقد. وتظل مخفية تماماً عن واجهات المستخدمين لضمان تجربة سلسة وتوريد 100% من الأتعاب للمهندسين.',
         lblTierAmount: 'الشريحة التعاقدية ($)',
         lblTierFee: 'العمولة المحتسبة لكل شريحة ($)',
         navViewMainText: 'عرض المنصة الرئيسية ↗',
-        kycAvatar1: 'م.أ',
-        kycAvatar2: 'م.ط',
-        payoutEngName1: 'م. أحمد المنصوري',
-        payoutEngName2: 'م. طارق الغامدي',
-        payoutBankDetail1: 'البنك: بنك الإمارات دبي الوطني (Emirates NBD) • IBAN: AE03...4912',
-        payoutBankDetail2: 'المحفظة: TX9aK...89xL10qPz',
-      },
+        navLinkClient: 'لوحة العميل ↗',
+        navLinkFreelancer: 'لوحة المهندس ↗',
+                                                      },
       en: {
         gateLangBtn: '🌐 العربية',
         gateBadge: 'Mission Control • Super Admin Gate',
@@ -627,7 +610,7 @@
         dspEscrowHeldLbl: 'Escrow Amount Held:',
         dspClientTitle: 'Client Statement (Orbital Systems):',
         dspClientStmt: '"The sidelobe level in the simulation report is -12dB whereas specifications required -15dB at 30 degrees."',
-        dspEngTitle: 'Engineer Defense (Eng. Ahmed Al-Mansouri):',
+        dspEngTitle: 'Engineer Defense Statement:',
         dspEngStmt: '"Files exported from CST Studio meet IEEE standards, ground is balanced, and discrepancy is due to extreme steering angle."',
         dspFilesTitle: 'Technical Evidence & Simulation Deliverables',
         dspFilesBtn: 'Preview Files ↗',
@@ -671,14 +654,9 @@
         subEscrow: 'Active contracts 100% Escrow secured',
         subKYC: 'Space licenses & KYC verified',
         subDispute: 'Awaiting final arbitration verdict',
-        ctrEng1: 'Eng. Ahmed Al-Mansouri',
-        ctrEng2: 'Eng. Tariq Al-Ghamdi',
-        kycName1: 'Eng. Ahmed Al-Mansouri',
-        kycName2: 'Eng. Tariq Al-Ghamdi',
-        btnKycApprove: 'Approve KYC ✓',
+                                        btnKycApprove: 'Approve KYC ✓',
         btnKycReview: 'Request Review',
-        userName1: 'Eng. Ahmed Al-Mansouri',
-        userStatus: 'Active & Verified ✓',
+                userStatus: 'Active & Verified ✓',
         userBtnBadge: 'Edit Badge',
         userBtnManage: 'Manage',
         payoutNet1: '$600.00 (100% Net Payout)',
@@ -686,25 +664,21 @@
         btnPayoutBank: 'Approve Instant Bank Wire ✓',
         btnPayoutWallet: 'Approve Instant Payout ✓',
         gwTitleStripe: 'Stripe Payments',
-        gwBadgeStripe: '2 Completed Transactions',
+        gwBadgeStripe: '0 Transactions',
         gwTitlePaypal: 'PayPal Payments',
-        gwBadgePaypal: '1 Completed Transaction',
+        gwBadgePaypal: '0 Transactions',
         gwTitleSwift: 'SWIFT Bank Wires',
-        gwBadgeSwift: '3 Corporate Transfers',
+        gwBadgeSwift: '0 Transfers',
         gwTitleUsdt: 'USDT Escrow Wallets',
-        gwBadgeUsdt: '2 Instant Operations',
+        gwBadgeUsdt: '0 Operations',
         engineTitle: '⚙️ Automated Backend Commission Engine ($20 per $300 tier)',
         engineDesc: 'Fees are calculated automatically on backend: <strong class="text-amber-400">$20 per $300</strong> contract tier. Completely hidden from user interfaces to guarantee 100% net payouts.',
         lblTierAmount: 'Contract Tier ($)',
         lblTierFee: 'Fee Per Tier ($)',
         navViewMainText: 'View Main Platform ↗',
-        kycAvatar1: 'A.M',
-        kycAvatar2: 'T.G',
-        payoutEngName1: 'Eng. Ahmed Al-Mansouri',
-        payoutEngName2: 'Eng. Tariq Al-Ghamdi',
-        payoutBankDetail1: 'Bank: Emirates NBD • IBAN: AE03...4912',
-        payoutBankDetail2: 'Wallet: TX9aK...89xL10qPz',
-      }
+        navLinkClient: 'Client Portal ↗',
+        navLinkFreelancer: 'Engineer Portal ↗',
+                                                      }
     };
 
     function applyAdminLanguage(lang) {
@@ -875,6 +849,8 @@
       setTxt('lblTierAmount', d.lblTierAmount);
       setTxt('lblTierFee', d.lblTierFee);
       setTxt('navViewMainText', d.navViewMainText);
+      setTxt('navLinkClient', d.navLinkClient);
+      setTxt('navLinkFreelancer', d.navLinkFreelancer);
       setTxt('kycAvatar1', d.kycAvatar1);
       setTxt('kycAvatar2', d.kycAvatar2);
       setTxt('payoutEngName1', d.payoutEngName1);
@@ -1010,6 +986,31 @@
         el.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
       }
       showToast(isAr ? 'تم تحديث شارة المهندس بنجاح!' : 'Engineer badge updated successfully!');
+    }
+
+    
+    // ==========================================
+    // SatcomDB Real-Time Dynamic Sync for Admin
+    // ==========================================
+    function syncAdminData() {
+      if (!window.SatcomDB) return;
+      const admin = SatcomDB.getAdminLedger();
+      const contract = SatcomDB.getContract();
+      
+      const revEl = document.getElementById('metricRevVal');
+      if (revEl) revEl.innerText = '$' + (admin.platformFees || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+
+      const escrowEl = document.getElementById('metricEscrowVal');
+      if (escrowEl) {
+        const held = contract && contract.milestone2 && contract.milestone2.status !== 'released' ? (contract.totalAmount || 0) : (admin.escrowHeld || 0);
+        escrowEl.innerText = '$' + held.toLocaleString('en-US', { minimumFractionDigits: 2 });
+      }
+
+      const verEl = document.getElementById('metricVerifiedVal');
+      if (verEl) verEl.innerText = (admin.verifiedEngCount || 0).toString();
+
+      const dspEl = document.getElementById('metricDisputeVal');
+      if (dspEl) dspEl.innerText = (admin.disputesCount || 0).toString();
     }
 
     window.addEventListener('DOMContentLoaded', () => {

@@ -53,8 +53,8 @@ export default function App() {
 
   const isAr = locale === 'ar';
 
-  const defaultLetterAr = 'أنا مهندس اتصالات فضائية وراديو بخبرة 8 سنوات في CST Studio و HFSS، يسعدني تنفيذ محاكاة الهوائي واختبار أنماط الإشعاع وحساب ميزانية الرابط بدقة متناهية.';
-  const defaultLetterEn = 'I am a satellite & RF telecom engineer with 8 years experience in CST Studio & HFSS, eager to deliver antenna simulations, radiation patterns, and accurate link budgets.';
+  const defaultLetterAr = '';
+  const defaultLetterEn = '';
 
   const toggleLanguage = () => {
     setLocale((prev) => {
@@ -74,7 +74,7 @@ export default function App() {
   const [showWithdrawModal, setShowWithdrawModal] = useState<boolean>(false);
   const [withdrawAmount, setWithdrawAmount] = useState<string>('300');
   const [withdrawChannel, setWithdrawChannel] = useState<'swift' | 'usdt' | 'paypal' | 'stripe'>('usdt');
-  const [withdrawDestination, setWithdrawDestination] = useState<string>('TXYZ9876543210SatcomWallet');
+  const [withdrawDestination, setWithdrawDestination] = useState<string>('');
   const [withdrawSuccessMsg, setWithdrawSuccessMsg] = useState<string>('');
 
   // Proposal Submission Modal State
@@ -83,7 +83,7 @@ export default function App() {
   const [proposalMilestone1, setProposalMilestone1] = useState<string>('150');
   const [proposalMilestone2, setProposalMilestone2] = useState<string>('150');
   const [proposalLetter, setProposalLetter] = useState<string>(
-    'أنا مهندس اتصالات فضائية وراديو بخبرة 8 سنوات في CST Studio و HFSS، يسعدني تنفيذ محاكاة الهوائي واختبار أنماط الإشعاع وحساب ميزانية الرابط بدقة متناهية.'
+    ''
   );
   const [proposalSuccessMsg, setProposalSuccessMsg] = useState<string>('');
 
@@ -158,19 +158,7 @@ export default function App() {
     setMessagesList((prev) => [...prev, newMsg]);
     setChatInputText('');
 
-    // Simulated automated client reply
-    setTimeout(() => {
-      const clientReply: ChatMessage = {
-        id: 'msg-reply-' + Date.now(),
-        sender: 'client',
-        senderNameAr: 'د. فارس النعيمي (OrbitSat)',
-        senderNameEn: 'Dr. Faris Al-Nuaimi (OrbitSat)',
-        textAr: 'تم استلام ردك ومخرجات المشروع بنجاح. نقوم حالياً بفحص نتائج المحاكاة في غرفة العمليات لاعتماد تحرير المبلغ من Escrow فوراً.',
-        textEn: 'Received your project deliverable updates. We are reviewing the CST simulation curves right now to release the Escrow milestone payout.',
-        time: isAr ? 'الآن' : 'Just now'
-      };
-      setMessagesList((prev) => [...prev, clientReply]);
-    }, 1200);
+    // Message sent to secure technical workroom
   };
 
   // Action: Submit Proposal
@@ -561,19 +549,19 @@ export default function App() {
                 <Text style={styles.profileAvatarText}>SE</Text>
               </View>
               <Text style={styles.profileName}>
-                {isAr ? 'م. عماد الفضلي (Satcom Architect)' : 'Eng. Emad Al-Fadhli (Satcom Architect)'}
+                {isAr ? 'حساب المهندس (المهندس الفضائي)' : 'Engineer Profile (Satcom Engineer)'}
               </Text>
               <Text style={styles.profileRole}>
-                {isAr ? 'مهندس اتصالات فضائية وراديو (Satcom & RF)' : 'Satcom & RF Telecom Architect'}
+                {isAr ? 'عضو جديد • بانتظار توثيق التخصص' : 'New Member • Specialty Pending'}
               </Text>
 
               {/* Satcom Verified Engineering Badges */}
               <View style={styles.profileBadgesRow}>
                 <View style={styles.topRatedBadge}>
-                  <Text style={styles.topRatedText}>⭐ {isAr ? 'Top Rated أعلى تقييم' : 'Top Rated'}</Text>
+                  <Text style={styles.topRatedText}>⭐ {isAr ? 'عضو جديد' : 'New Member'}</Text>
                 </View>
                 <View style={styles.jssBadge}>
-                  <Text style={styles.jssText}>✓ {isAr ? 'موثق الهوية والترخيص' : 'KYC Verified'}</Text>
+                  <Text style={styles.jssText}>🆔 {isAr ? 'توثيق KYC (قيد المراجعة)' : 'KYC (Pending)'}</Text>
                 </View>
                 <View style={styles.escrowProofBadge}>
                   <Text style={styles.escrowProofText}>🛡️ {isAr ? 'ضمان Escrow 100%' : '100% Escrow'}</Text>
@@ -744,7 +732,7 @@ export default function App() {
                 {regRole === 'client' ? (isAr ? 'اسم المسؤول' : 'Full Name') : (isAr ? 'اسم المهندس واللقب' : 'Full Name & Title')}
               </Text>
               <TextInput
-                placeholder={regRole === 'client' ? (isAr ? 'أحمد المنصوري' : 'Ahmed Al-Mansouri') : (isAr ? 'م. طارق الفضلي' : 'Eng. Tariq Al-Fadhli')}
+                placeholder={isAr ? 'الاسم الكامل' : 'Full Name'}
                 placeholderTextColor="#64748b"
                 value={regForm.name}
                 onChangeText={(text) => setRegForm({ ...regForm, name: text })}
@@ -758,7 +746,7 @@ export default function App() {
                     {isAr ? 'اسم الشركة أو المؤسسة' : 'Company Name'}
                   </Text>
                   <TextInput
-                    placeholder={isAr ? 'شركة مدارات الفضاء المتقدمة' : 'Orbital Space Systems Ltd'}
+                    placeholder={isAr ? 'اسم الشركة أو المؤسسة' : 'Company or Organization'}
                     placeholderTextColor="#64748b"
                     value={regForm.company}
                     onChangeText={(text) => setRegForm({ ...regForm, company: text })}

@@ -465,7 +465,7 @@
       <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5 text-xs">
         <div id="fieldFullName">
           <label id="lblFullName" class="block font-bold text-slate-300 mb-1">الاسم الكامل</label>
-          <input type="text" id="inputFullName" placeholder="م. أحمد المنصوري" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
+          <input type="text" id="inputFullName" placeholder="الاسم الكامل" class="w-full p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-cyan-400">
         </div>
 
         <div id="fieldSpecialty">
@@ -567,10 +567,10 @@
         chatBadge: '<span id="chatBadgeText">متصل الآن مشفر بالكامل • Satcom Workspace Mode</span>',
         chatLinkedProj: 'المشروع المرتبط:',
         chatEscrowVault: 'خزينة Escrow:',
-        chatSecuredVal: '$600.00 مؤمّنة ✓',
-        chatSender1: 'Orbital Space Systems (صاحب العمل):',
+        chatSecuredVal: 'محمية بنظام الضمان 100% Escrow',
+        chatSender1: 'صاحب العمل:',
         chatMsg1: '<span id="chatMsg1Text">مرحباً م. أحمد، نريد التأكد من اكتمال محاكاة CST لمصفوفة 16x16 عنصراً قبل تحرير الدفعة الأولى من حساب الضمان Escrow.</span>',
-        chatSender2: 'م. أحمد المنصوري (أنت):',
+        chatSender2: 'المهندس (أنت):',
         chatMsg2: '<span id="chatMsg2Text">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.</span>',
         chatPlaceholder: 'اكتب رسالتك الفنية هنا...',
         chatSendBtn: 'إرسال ↗',
@@ -615,7 +615,7 @@
         lblRoleFreelancer: 'أنا مهندس مستقل',
         descRoleFreelancer: 'أريد تقديم عروض على مشاريع هندسية واستلام أتعابي 100%',
         lblFullName: 'الاسم الكامل',
-        inputFullNamePh: 'م. أحمد المنصوري',
+        inputFullNamePh: 'الاسم الكامل',
         lblSpecialty: 'التخصص الهندسي الدقيق',
         inputSpecialtyPh: 'مثال: Antenna Design & CST Studio Suite',
         lblEmail: 'البريد الإلكتروني',
@@ -690,9 +690,9 @@
         chatLinkedProj: 'Linked Project:',
         chatEscrowVault: 'Escrow Vault:',
         chatSecuredVal: '$600.00 Secured ✓',
-        chatSender1: 'Orbital Space Systems (Client):',
+        chatSender1: 'Client:',
         chatMsg1: 'Hello Eng. Ahmed, please verify the 16x16 CST simulation curves before we release Milestone 1 from Escrow.',
-        chatSender2: 'Eng. Ahmed Al-Mansouri (You):',
+        chatSender2: 'Engineer (You):',
         chatMsg2: 'Hello! The simulation is fully complete with ±45° steering angle and 24 dBi radiation gain. I uploaded the .cst bundle and report.',
         chatPlaceholder: 'Type your technical message here...',
         chatSendBtn: 'Send ↗',
@@ -737,7 +737,7 @@
         lblRoleFreelancer: 'I am a Freelance Engineer',
         descRoleFreelancer: 'Submit proposals on aerospace projects & receive 100% net earnings',
         lblFullName: 'Full Name',
-        inputFullNamePh: 'e.g. Eng. Ahmed Al-Mansouri',
+        inputFullNamePh: 'Full Name',
         lblSpecialty: 'Engineering Specialty',
         inputSpecialtyPh: 'e.g. Antenna Design & CST Studio Suite',
         lblEmail: 'Work Email',
@@ -1065,7 +1065,7 @@
         const replyBubble = document.createElement('div');
         replyBubble.className = 'flex flex-col items-start space-y-1 max-w-[80%] animate-fadeIn';
         replyBubble.innerHTML = `
-          <span class="text-[10px] text-cyan-400 font-bold">Orbital Space Systems:</span>
+          <span class="text-[10px] text-cyan-400 font-bold">${isAr ? 'صاحب العمل:' : 'Client:'}</span>
           <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
             ${isAr 
               ? 'تم استلام رسالتكم بنجاح وجاري فحص مخرجات CST لاعتماد الدفعة عبر نظام Escrow.' 
@@ -1141,32 +1141,20 @@
       <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex items-center justify-between text-xs">
         <div>
           <span class="text-slate-400 block text-[10px]" id="chatLinkedProjLbl">المشروع المرتبط:</span>
-          <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
+          <span class="font-bold text-white">غرفة العمليات الفنية الفضائية (Technical Workroom)</span>
         </div>
         <div class="text-right">
           <span class="text-slate-400 block text-[10px]" id="chatEscrowVaultLbl">خزينة Escrow:</span>
-          <span class="font-bold text-emerald-400 font-mono" id="chatEscrowVaultVal">$600.00 مؤمّنة ✓</span>
+          <span class="font-bold text-emerald-400 font-mono" id="chatEscrowVaultVal">محمية بنظام الضمان 100% Escrow</span>
         </div>
       </div>
 
       <!-- Messages Stream Area -->
-      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-3 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
-        <!-- Message 1 (Client) -->
-        <div class="flex flex-col items-start space-y-1 max-w-[80%]">
-          <span class="text-[10px] text-cyan-400 font-bold" id="chatSender1Name">Orbital Space Systems (صاحب العمل):</span>
-          <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
-            <span id="chatMsg1Text">مرحباً م. أحمد، نريد التأكد من اكتمال محاكاة CST لمصفوفة 16x16 عنصراً قبل تحرير الدفعة الأولى من حساب الضمان Escrow.</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono">10:14 PM</span>
-        </div>
-
-        <!-- Message 2 (Engineer) -->
-        <div class="flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto">
-          <span class="text-[10px] text-indigo-400 font-bold" id="chatSender2Name">م. أحمد المنصوري (أنت):</span>
-          <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
-            <span id="chatMsg2Text">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه (Steering Angle) تصل إلى ±45 درجة مع كسب إشعاعي 24 dBi. قمت برفع ملف الـ .cst والتقرير في المرفقات.</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono" id="chatReadStatus">10:18 PM • ✓✓ مقروءة</span>
+      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-4 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
+        <div id="emptyIndexChatNotice" class="text-center py-8 px-4 space-y-2 text-slate-400">
+          <span class="text-3xl block">💬</span>
+          <p class="text-xs font-bold text-slate-300" id="emptyIndexChatTitle">لا توجد رسائل سابقة في هذه المحادثة</p>
+          <p class="text-[11px]" id="emptyIndexChatDesc">يمكنك كتابة رسالة فنية أو استفسار مباشر عبر حقل الإدخال أدناه لبدء المحادثة.</p>
         </div>
       </div>
 
@@ -1206,7 +1194,7 @@
       <!-- Project Snapshot -->
       <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 text-xs space-y-1">
         <div class="flex justify-between items-center">
-          <span class="font-bold text-white">Ka-Band Phased Array Antenna Simulation</span>
+          <span class="font-bold text-white">غرفة العمليات الفنية الفضائية (Technical Workroom)</span>
           <span class="font-mono text-emerald-400 font-bold text-sm">$600.00 Fixed</span>
         </div>
         <p class="text-[11px] text-slate-400" id="propProjDesc">مطلوب تصميم هوائي مصفوفة طورية بتردد 28 GHz ومحاكاة المخطط الإشعاعي وميزانية الوصلة.</p>

@@ -151,11 +151,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block font-bold text-slate-300 mb-1" id="lblFirstName">الاسم الأول</label>
-              <input type="text" required placeholder="أحمد" id="inputFirstName" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+              <input type="text" required placeholder="الاسم الأول" id="inputFirstName" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
             </div>
             <div>
               <label class="block font-bold text-slate-300 mb-1" id="lblLastName">اسم العائلة</label>
-              <input type="text" required placeholder="المنصوري" id="inputLastName" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
+              <input type="text" required placeholder="اسم العائلة" id="inputLastName" class="w-full p-3 rounded-xl border border-slate-700 bg-slate-950 text-white focus:outline-none focus:border-emerald-400">
             </div>
           </div>
 
@@ -245,15 +245,15 @@
           </button>
         </form>
 
-        <!-- Quick Switch Demo Roles -->
+        <!-- Direct Portal Navigation -->
         <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-[11px]">
-          <span class="text-slate-400 font-bold block" id="lblQuickDemo">الدخول السريع التجريبي (Demo Portals):</span>
+          <span class="text-slate-400 font-bold block" id="lblDirectPortals">الانتقال المباشر لبوابات العمل:</span>
           <div class="grid grid-cols-2 gap-2">
             <a href="./client.html" class="p-2 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-bold text-center hover:bg-cyan-900/50 transition">
-              💼 <span id="btnDemoClient">دخول لوحة العميل (Client)</span>
+              💼 <span id="btnPortalClient">لوحة تحكم صاحب العمل (Client)</span>
             </a>
             <a href="./freelancer.html" class="p-2 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold text-center hover:bg-emerald-900/50 transition">
-              🛰️ <span id="btnDemoFreelancer">دخول لوحة المهندس (Engineer)</span>
+              🛰️ <span id="btnPortalFreelancer">لوحة عمل المهندس (Engineer)</span>
             </a>
           </div>
         </div>
@@ -312,7 +312,7 @@
         lblLastName: 'اسم العائلة',
         lblCompany: 'اسم الشركة أو المؤسسة الفضائية',
         lblSpecialty: 'التخصص الهندسي الدقيق',
-        phCompany: 'مثال: Orbital Space Systems',
+        phCompany: 'مثال: شركة اتصالات الفضاء',
         phSpecialty: 'مثال: CST Studio & RF Antenna Design',
         lblEmailInput: 'البريد الإلكتروني للعمل',
         lblPassInput: 'كلمة المرور (8 أحرف على الأقل)',
@@ -325,10 +325,9 @@
         lblLoginPass: 'كلمة المرور',
         linkForgotPass: 'نسيت كلمة المرور؟',
         lblRememberMe: 'تذكر بيانات تسجيل دخولي',
-        btnSubmitSignIn: 'تسجيل الدخول ومتابعة العمل ↗',
-        lblQuickDemo: 'الدخول السريع التجريبي (Demo Portals):',
-        btnDemoClient: 'دخول لوحة العميل (Client)',
-        btnDemoFreelancer: 'دخول لوحة المهندس (Engineer)',
+        lblDirectPortals: 'الانتقال المباشر لبوابات العمل:',
+        btnPortalClient: 'لوحة تحكم صاحب العمل (Client)',
+        btnPortalFreelancer: 'لوحة عمل المهندس (Engineer)',
         txtDontHaveAcc: 'ليس لديك حساب بعد؟',
         btnGoSignUp: 'انضم الآن مجاناً',
         footerCopy: 'جميع الحقوق محفوظة © 2026 Satcom Engineers',
@@ -360,7 +359,7 @@
         lblLastName: 'Last name',
         lblCompany: 'Company / Organization Name',
         lblSpecialty: 'Engineering Specialty',
-        phCompany: 'e.g. Orbital Space Systems Ltd',
+        phCompany: 'e.g. Satellite Telecom Ltd',
         phSpecialty: 'e.g. CST Studio & RF Antenna Design',
         lblEmailInput: 'Work email address',
         lblPassInput: 'Password (8 or more characters)',
@@ -374,9 +373,9 @@
         linkForgotPass: 'Forgot password?',
         lblRememberMe: 'Keep me logged in',
         btnSubmitSignIn: 'Log In & Open Workspace ↗',
-        lblQuickDemo: 'Instant Demo Portals:',
-        btnDemoClient: 'Open Client Portal',
-        btnDemoFreelancer: 'Open Engineer Portal',
+        lblDirectPortals: 'Direct Work Portals:',
+        btnPortalClient: 'Client Workspace',
+        btnPortalFreelancer: 'Engineer Workspace',
         txtDontHaveAcc: "Don't have a Satcom account?",
         btnGoSignUp: 'Sign Up',
         footerCopy: 'All Rights Reserved © 2026 Satcom Engineers',
@@ -436,9 +435,9 @@
       setTxt('linkForgotPass', d.linkForgotPass);
       setTxt('lblRememberMe', d.lblRememberMe);
       setTxt('btnSubmitSignIn', d.btnSubmitSignIn);
-      setTxt('lblQuickDemo', d.lblQuickDemo);
-      setTxt('btnDemoClient', d.btnDemoClient);
-      setTxt('btnDemoFreelancer', d.btnDemoFreelancer);
+      setTxt('lblDirectPortals', d.lblDirectPortals);
+      setTxt('btnPortalClient', d.btnPortalClient);
+      setTxt('btnPortalFreelancer', d.btnPortalFreelancer);
       setTxt('txtDontHaveAcc', d.txtDontHaveAcc);
       setTxt('btnGoSignUp', d.btnGoSignUp);
 

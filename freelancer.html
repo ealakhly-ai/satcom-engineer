@@ -81,14 +81,12 @@
 
         <!-- Engineer Profile Avatar -->
         <div class="flex items-center gap-2.5 border-r border-slate-800 pr-3 mr-1">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-xs shadow-md shadow-indigo-500/20">
-            م.أ
-          </div>
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-xs shadow-md shadow-indigo-500/20">SE</div>
           <div class="hidden lg:block text-right">
-            <div class="text-xs font-black text-white" id="engNameNav">مهندس فضاء معتمد</div>
+            <div class="text-xs font-black text-white" id="engNameNav">حساب مهندس فضاء</div>
             <div class="text-[10px] text-amber-300 font-bold flex items-center gap-1">
               <span>⭐</span>
-              <span id="engBadgeNav">Top Rated Plus • 100% JSS</span>
+              <span id="engBadgeNav">عضو جديد (New Member)</span>
             </div>
           </div>
         </div>
@@ -180,28 +178,23 @@
         <div class="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl space-y-5">
           <div class="text-center space-y-3">
             <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 p-1 mx-auto shadow-xl shadow-cyan-500/20">
-              <div class="w-full h-full rounded-[22px] bg-[#070c18] flex items-center justify-center text-white text-2xl font-black">
-                م.أ
-              </div>
+              <div class="w-full h-full rounded-[22px] bg-[#070c18] flex items-center justify-center text-white text-2xl font-black">SE</div>
             </div>
             <div>
-              <h3 class="text-base font-black text-white" id="engProfileName">مهندس فضاء معتمد</h3>
-              <p class="text-xs text-slate-400" id="engProfileTitle">مهندس اتصالات أقمار صناعية وهوائيات Ka-Band</p>
-              <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold mt-1.5">
-                <span>⭐</span>
-                <span>Top Rated Plus</span>
-              </div>
+              <h3 class="text-base font-black text-white" id="engProfileName">حساب مهندس جديد</h3>
+              <p class="text-xs text-slate-400" id="engProfileTitle">بانتظار توثيق التخصص الهندسي</p>
+              <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-bold mt-1.5"><span id="engProfileBadge">عضو جديد (New Member)</span></div>
             </div>
           </div>
 
           <!-- JSS & Badges -->
           <div class="grid grid-cols-2 gap-3 p-3.5 rounded-2xl bg-slate-950 border border-slate-800 text-center">
             <div>
-              <span class="text-xl font-black text-emerald-400 font-mono">100%</span>
+              <span class="text-xl font-black text-emerald-400 font-mono" id="valJssScore">0%</span>
               <span class="text-[10px] text-slate-400 block" id="lblJssScore">نسبة نجاح المشاريع JSS</span>
             </div>
             <div>
-              <span class="text-xl font-black text-cyan-400 font-mono">50</span>
+              <span class="text-xl font-black text-cyan-400 font-mono" id="valConnects">0</span>
               <span class="text-[10px] text-slate-400 block" id="lblConnectsCount">رصيد الـ Connects المتاح</span>
             </div>
           </div>
@@ -229,7 +222,7 @@
             </div>
             <div class="py-2.5 flex justify-between items-center text-slate-300">
               <span id="lblQuickKyc">توثيق رخص الفضاء KYC</span>
-              <span class="text-emerald-400 font-bold" id="valKycVerified">معتمد وموثق ✓</span>
+              <span class="text-slate-400 font-bold" id="valKycVerified">بانتظار التوثيق KYC</span>
             </div>
           </div>
 
@@ -434,25 +427,15 @@
       </div>
 
       <!-- Messages Stream -->
-      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-3 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
-        <div class="flex flex-col items-start space-y-1 max-w-[80%]">
-          <span class="text-[10px] text-cyan-400 font-bold" id="chatSender1">Orbital Space Systems (صاحب العمل):</span>
-          <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
-            <span id="chatMsg1">مرحباً م. أحمد، نود التأكد من استخراج مخرجات CST وزاوية التوجيه قبل تحرير الدفعة الثانية من حساب الضمان Escrow.</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono">10:14 PM</span>
-        </div>
-
-        <div class="flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto">
-          <span class="text-[10px] text-indigo-400 font-bold" id="chatSender2">مهندس فضاء معتمد (أنت):</span>
-          <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
-            <span id="chatMsg2">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه تصل إلى ±45 درجة بكسب 24 dBi. قمت برفع ملفات .cst والتقرير الفني في قسم التسليم.</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono">10:18 PM • ✓✓</span>
+      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-4 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
+        <div id="emptyChatNotice" class="text-center py-8 px-4 space-y-2 text-slate-400">
+          <span class="text-3xl block">💬</span>
+          <p class="text-xs font-bold text-slate-300" id="emptyChatTitle">لا توجد رسائل سابقة في هذه المحادثة</p>
+          <p class="text-[11px]" id="emptyChatDesc">يمكنك كتابة رسالة فنية أو استفسار مباشر عبر حقل الإدخال أدناه لبدء المحادثة في مساحة العمل المشفرة.</p>
         </div>
       </div>
 
-      <!-- Input -->
+      <!-- Chat Input -->
       <form onsubmit="handleSendChat(event)" class="flex items-center gap-2 pt-2 border-t border-slate-800">
         <input
           type="text"
@@ -495,11 +478,11 @@
         txtSwitchToClient: 'التبديل لحساب العميل ↗',
         lblNavAvailable: 'الأرباح المتاحة:',
         btnNavGetPaid: 'سحب الأرباح ↗',
-        engNameNav: 'مهندس فضاء معتمد',
-        engBadgeNav: 'Top Rated Plus • 100% JSS',
+        engNameNav: 'حساب المهندس',
+        engBadgeNav: 'عضو جديد (New Member)',
         badgeActiveCtrEscrow: '✓ مؤمن 100% في حساب الضمان Escrow',
         activeCtrTitle: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
-        activeCtrClient: 'صاحب العمل: Orbital Space Systems (دبي) • الدفعة القادمة: $300.00',
+        activeCtrClient: 'صاحب العمل: مشروع معتمد • الضمان: Escrow 100%',
         lblContractNet: 'صافي استلامك 100% بدون أي اقتطاع',
         m1TitleText: 'المرحلة 1: بناء النموذج في CST',
         m1StatusText: '✓ مكتملة ومقبولة ($300.00 تم صرفها)',
@@ -523,8 +506,8 @@
         job3BudgetType: 'سعر ثابت • 100% Escrow',
         job3FullDesc: 'تصميم مرشح تجويف موجي بنطاق ترددات الاستقبال والإرسال C-Band مع تحقيق عزل أعلى من 60dB وفقد إدخال أقل من 0.3dB عبر CST Studio.',
         btnSubmitProp3: 'تقديم عرض هندسي ↗',
-        engProfileName: 'مهندس فضاء معتمد',
-        engProfileTitle: 'مهندس اتصالات أقمار صناعية وهوائيات Ka-Band',
+        engProfileName: 'حساب مهندس جديد',
+        engProfileTitle: 'بانتظار توثيق التخصص الهندسي',
         lblJssScore: 'نسبة نجاح المشاريع JSS',
         lblConnectsCount: 'رصيد الـ Connects المتاح',
         lblZeroCutHeader: 'صافي أتعابك 100% بدون أي اقتطاع',
@@ -532,7 +515,7 @@
         lblQuickProps: 'العروض النشطة المرسلة',
         lblQuickContracts: 'العقود الجارية بحماية Escrow',
         lblQuickKyc: 'توثيق رخص الفضاء KYC',
-        valKycVerified: 'معتمد وموثق ✓',
+        valKycVerified: 'بانتظار التوثيق KYC',
         btnSideGetPaid: 'سحب الأرباح الفوري ($0.00) ↗',
         modalPropTitle: 'تقديم عرض هندسي (Submit Proposal)',
         modalPropBadge: 'بضمان 100% Escrow • استلام كامل 0% عمولة على المهندس',
@@ -546,7 +529,7 @@
         modalDeliverTitle: 'تسليم العمل للمراجعة وصرف الضمان',
         lblAttachedFilesDeliver: 'ملفات المحاكاة والتقارير المرفقة',
         lblDragFiles: 'اسحب ملفات .cst أو .pdf هنا أو انقر للرفع',
-        lblNoteToClient: 'ملاحظات فنية لصاحب العمل (Orbital Systems)',
+        lblNoteToClient: 'ملاحظات فنية لصاحب العمل',
         lblReleaseSum: 'قيمة الدفعة التي ستُحرر من Escrow:',
         btnConfirmDelivery: 'تأكيد تسليم العمل وطلب تحرير الدفعة ↗',
         modalWalletTitle: 'المحفظة وسحب الأرباح (Wallet)',
@@ -560,9 +543,9 @@
         chatBadgeText: 'متصل الآن مشفر بالكامل • Satcom Workspace Mode',
         chatLinkedProjLbl: 'المشروع المرتبط:',
         chatEscrowVaultLbl: 'خزينة Escrow:',
-        chatSender1: 'Orbital Space Systems (صاحب العمل):',
-        chatMsg1: 'مرحباً م. أحمد، نود التأكد من استخراج مخرجات CST وزاوية التوجيه قبل تحرير الدفعة الثانية من حساب الضمان Escrow.',
-        chatSender2: 'مهندس فضاء معتمد (أنت):',
+        chatSender1: 'صاحب العمل:',
+        chatMsg1: 'مرحباً، يمكنك إرسال التحديثات الفنية ومخرجات المشروع هنا لمراجعتها واعتماد صرف الدفعة من Escrow.',
+        chatSender2: 'المهندس (أنت):'
         chatMsg2: 'أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه تصل إلى ±45 درجة بكسب 24 dBi. قمت برفع ملفات .cst والتقرير الفني في قسم التسليم.',
         btnChatSend: 'إرسال ↗',
         chatInputPh: 'اكتب رسالتك الفنية هنا...',
@@ -584,11 +567,11 @@
         txtNavMessages: 'Technical Workroom',
         lblNavAvailable: 'Available Earnings:',
         btnNavGetPaid: 'Get Paid ↗',
-        engNameNav: 'Verified Engineer',
-        engBadgeNav: 'Top Rated Plus • 100% JSS',
+        engNameNav: 'Engineer Account',
+        engBadgeNav: 'عضو جديد (New Member)',
         badgeActiveCtrEscrow: '✓ 100% Escrow Funds Secured in Vault',
         activeCtrTitle: 'Ka-Band Phased Array Antenna Simulation (28-30 GHz)',
-        activeCtrClient: 'Client: Orbital Space Systems (Dubai) • Upcoming Milestone: $300.00',
+        activeCtrClient: 'Client: Verified Client • Escrow Protected',
         lblContractNet: '100% Net Payout • Zero deductions on engineer',
         m1TitleText: 'Milestone 1: CST Model Setup & S-Parameters',
         m1StatusText: '✓ Completed & Approved ($300.00 paid out)',
@@ -612,8 +595,8 @@
         job3BudgetType: 'Fixed-price • 100% Escrow',
         job3FullDesc: 'Design cavity waveguide diplexer for C-Band Tx/Rx with >60dB isolation and <0.3dB insertion loss using CST Microwave Studio.',
         btnSubmitProp3: 'Submit Proposal ↗',
-        engProfileName: 'Verified Engineer',
-        engProfileTitle: 'Satellite Comms & Ka-Band Antenna Architect',
+        engProfileName: 'New Engineer Account',
+        engProfileTitle: 'Specialty Pending Verification',
         lblJssScore: 'Job Success Score (JSS)',
         lblConnectsCount: 'Available Connects',
         lblZeroCutHeader: '100% Net Payout Guaranteed',
@@ -621,7 +604,7 @@
         lblQuickProps: 'Active Proposals',
         lblQuickContracts: 'Active Escrow Contracts',
         lblQuickKyc: 'Space Agency KYC License',
-        valKycVerified: 'Verified & Approved ✓',
+        valKycVerified: 'Pending KYC Verification',
         btnSideGetPaid: 'Instant Payout ($0.00) ↗',
         modalPropTitle: 'Submit Engineering Proposal',
         modalPropBadge: '100% Escrow Protected • 100% Net Payout (0% Cut)',
@@ -635,7 +618,7 @@
         modalDeliverTitle: 'Submit Work for Milestone Escrow Release',
         lblAttachedFilesDeliver: 'Deliverables & Simulation Bundles',
         lblDragFiles: 'Drag .cst or .pdf files here or click to upload',
-        lblNoteToClient: 'Technical Note to Client (Orbital Systems)',
+        lblNoteToClient: 'Technical Note to Client',
         lblReleaseSum: 'Payment to be released from Escrow:',
         btnConfirmDelivery: 'Submit Deliverables & Request Escrow Payout ↗',
         modalWalletTitle: 'Wallet & Payouts',
@@ -649,9 +632,9 @@
         chatBadgeText: 'Online & Fully Encrypted • Satcom Workspace Mode',
         chatLinkedProjLbl: 'Linked Project:',
         chatEscrowVaultLbl: 'Escrow Vault:',
-        chatSender1: 'Orbital Space Systems (Client):',
+        chatSender1: 'Client:',
         chatMsg1: 'Hello Eng. Ahmed, please verify the beam steering radiation curves before we release Milestone 2 from Escrow.',
-        chatSender2: 'Verified Engineer (You):',
+        chatSender2: 'Engineer (You):'
         chatMsg2: 'Hello! Simulation is complete with ±45° steering angle and 24 dBi gain. I uploaded the .cst bundle and report to deliverables.',
         btnChatSend: 'Send ↗',
         chatInputPh: 'Type your technical message here...',
@@ -728,6 +711,7 @@
 
       setTxt('engProfileName', d.engProfileName);
       setTxt('engProfileTitle', d.engProfileTitle);
+      setTxt('engProfileBadge', isAr ? 'عضو جديد' : 'New Member');
       setTxt('lblJssScore', d.lblJssScore);
       setTxt('lblConnectsCount', d.lblConnectsCount);
       setTxt('lblZeroCutHeader', d.lblZeroCutHeader);
@@ -947,7 +931,7 @@
                   <span class="flex items-center gap-1 text-cyan-300 font-bold">
                     <span>✓</span> <span>${isAr ? 'دفع مؤمن 100%' : '100% Payment Escrow'}</span>
                   </span>
-                  <span>${job.clientName || 'Orbital Space Systems'}</span>
+                  <span>${job.clientName || (isAr ? 'صاحب العمل' : 'Client')}</span>
                   <span>${job.clientCountry || 'دبي، الإمارات 🇦🇪'}</span>
                 </div>
                 <button onclick="openProposalModal('${job.title}', '${job.budgetValue || 300}')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black text-xs shadow-lg shadow-emerald-500/25 transition cursor-pointer">
@@ -1035,9 +1019,9 @@
         const clientReply = document.createElement('div');
         clientReply.className = 'flex flex-col items-start space-y-1 max-w-[80%]';
         clientReply.innerHTML = `
-          <span class="text-[10px] text-cyan-400 font-bold">Orbital Space Systems:</span>
+          <span class="text-[10px] text-cyan-400 font-bold">${isAr ? 'صاحب العمل:' : 'Client:'}</span>
           <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
-            ${isAr ? 'شكراً م. أحمد، جاري مراجعة المخرجات الفنية وسنقوم باعتماد الدفعة عبر Escrow.' : 'Thank you Eng. Ahmed, our team is validating deliverables and will release the Escrow milestone.'}
+            ${isAr ? 'شكراً لك، جاري مراجعة المخرجات الفنية وسنقوم باعتماد الدفعة عبر Escrow.' : 'Thank you, our team is validating deliverables and will release the Escrow milestone.'}
           </div>
           <span class="text-[9px] text-slate-500 font-mono">${isAr ? 'الآن' : 'Just now'}</span>
         `;

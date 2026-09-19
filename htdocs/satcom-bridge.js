@@ -74,9 +74,9 @@
         tags: jobData.tags && jobData.tags.length ? jobData.tags : ['Satcom', 'CST Studio', 'Escrow 100%'],
         postedTimeAr: 'الآن (جديد)',
         postedTimeEn: 'Just now (NEW)',
-        clientName: jobData.clientName || 'Orbital Space Systems',
-        clientCountry: 'دبي، الإمارات 🇦🇪',
-        clientCountryEn: 'Dubai, UAE 🇦🇪',
+        clientName: jobData.clientName || 'صاحب العمل',
+        clientCountry: 'منطقة العميل',
+        clientCountryEn: 'Client Location',
         proposalsCount: 0,
         hiredCount: 0,
         isCustom: true

@@ -361,7 +361,7 @@ export default function RegisterPage() {
                     <input
                       type="text"
                       required
-                      placeholder={isAr ? 'أحمد' : 'Ahmed'}
+                      placeholder={isAr ? 'الاسم الأول' : 'First Name'}
                       value={clientForm.firstName}
                       onChange={(e) => setClientForm({ ...clientForm, firstName: e.target.value })}
                       className="w-full py-2.5 px-3.5 rounded-xl border border-slate-700 bg-slate-950/80 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
@@ -375,7 +375,7 @@ export default function RegisterPage() {
                     <input
                       type="text"
                       required
-                      placeholder={isAr ? 'المنصوري' : 'Al-Mansouri'}
+                      placeholder={isAr ? 'اسم العائلة' : 'Last Name'}
                       value={clientForm.lastName}
                       onChange={(e) => setClientForm({ ...clientForm, lastName: e.target.value })}
                       className="w-full py-2.5 px-3.5 rounded-xl border border-slate-700 bg-slate-950/80 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
@@ -392,7 +392,7 @@ export default function RegisterPage() {
                     <input
                       type="text"
                       required
-                      placeholder={isAr ? 'شركة مدارات الفضاء المتقدمة' : 'Orbital Space Systems Ltd'}
+                      placeholder={isAr ? 'شركة اتصالات الفضاء المتقدمة' : 'Satellite Telecom Ltd'}
                       value={clientForm.companyName}
                       onChange={(e) => setClientForm({ ...clientForm, companyName: e.target.value })}
                       className={`w-full py-2.5 rounded-xl border border-slate-700 bg-slate-950/80 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 ${
@@ -541,7 +541,7 @@ export default function RegisterPage() {
                       <input
                         type="text"
                         required
-                        placeholder={isAr ? 'م. أحمد المنصوري' : 'Eng. Ahmed Al-Mansouri'}
+                        placeholder={isAr ? 'الاسم الكامل' : 'Full Name'}
                         value={freelancerForm.fullName}
                         onChange={(e) => setFreelancerForm({ ...freelancerForm, fullName: e.target.value })}
                         className={`w-full py-2.5 rounded-xl border border-slate-700 bg-slate-950/80 text-white text-xs focus:outline-none focus:border-cyan-400 ${

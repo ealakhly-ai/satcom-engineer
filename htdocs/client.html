@@ -80,13 +80,13 @@
         <!-- Client Profile Badge -->
         <div class="flex items-center gap-2.5 border-r border-slate-800 pr-3 mr-1">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-600 to-blue-700 flex items-center justify-center text-white font-black text-xs shadow-md shadow-cyan-500/20">
-            OS
+            CL
           </div>
           <div class="hidden lg:block text-right">
-            <div class="text-xs font-black text-white" id="clientOrgName">Orbital Space Systems</div>
+            <div class="text-xs font-black text-white" id="clientOrgName">حساب صاحب العمل</div>
             <div class="text-[10px] text-emerald-400 flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span id="clientTierBadge">عميل مؤسسي Enterprise</span>
+              <span id="clientTierBadge">حساب عميل معتمد</span>
             </div>
           </div>
         </div>
@@ -331,23 +331,11 @@
       </div>
 
       <!-- Messages Stream -->
-      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-3 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
-        <!-- Message 1 (Client) -->
-        <div class="flex flex-col items-end space-y-1 max-w-[80%] self-end mr-auto">
-          <span class="text-[10px] text-cyan-400 font-bold" id="chatSender1">Orbital Space Systems (أنت):</span>
-          <div class="p-3 rounded-2xl rounded-tl-none bg-gradient-to-r from-blue-600 to-cyan-600 text-white leading-relaxed shadow-sm">
-            <span id="chatMsg1">مرحباً م. أحمد، نود التأكد من استخراج مخرجات CST وزاوية التوجيه قبل تحرير الدفعة الثانية من حساب الضمان Escrow.</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono">10:14 PM • ✓✓</span>
-        </div>
-
-        <!-- Message 2 (Engineer) -->
-        <div class="flex flex-col items-start space-y-1 max-w-[80%]">
-          <span class="text-[10px] text-indigo-400 font-bold" id="chatSender2">م. أحمد المنصوري:</span>
-          <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
-            <span id="chatMsg2">أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه تصل إلى ±45 درجة بكسب 24 dBi. قمت برفع ملفات .cst والتقرير الفني في قسم التسليم.</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono">10:18 PM</span>
+      <div id="chatStream" class="flex-1 overflow-y-auto space-y-3 p-4 bg-slate-950/50 rounded-2xl border border-slate-800/80 text-xs">
+        <div id="emptyChatNotice" class="text-center py-8 px-4 space-y-2 text-slate-400">
+          <span class="text-3xl block">💬</span>
+          <p class="text-xs font-bold text-slate-300" id="emptyChatTitle">لا توجد رسائل سابقة في هذه المحادثة</p>
+          <p class="text-[11px]" id="emptyChatDesc">يمكنك كتابة رسالة فنية أو استفسار مباشر عبر حقل الإدخال أدناه لبدء المحادثة في مساحة العمل المشفرة.</p>
         </div>
       </div>
 
@@ -394,7 +382,7 @@
         txtSwitchToEngineer: 'التبديل لحساب المهندس ↗',
         btnPostJobNav: 'انشر مشروع جديد ↗',
         clientOrgName: 'لوحة تحكم العميل',
-        clientTierBadge: 'عميل مؤسسي Enterprise',
+        clientTierBadge: 'حساب عميل معتمد',
         bannerProtectionBadge: 'حماية مالية 100% Escrow • نظام مساحة العمل المعتمد',
         bannerGreeting: 'مرحباً بك في لوحة تحكم صاحب العمل',
         bannerDesc: 'لديك مشروعان قيد التقديم وعقد نشط بإشراف حساب الضمان Escrow. يمكنك مراجعة مخرجات محاكاة CST واعتماد مراحل الدفع بنقرة واحدة.',
@@ -453,9 +441,9 @@
         chatBadge: 'متصل الآن مشفر بالكامل • Satcom Workspace Mode',
         chatLinkedProj: 'المشروع المرتبط:',
         chatVaultLbl: 'خزينة Escrow:',
-        chatSender1: 'Orbital Space Systems (أنت):',
-        chatMsg1: 'مرحباً م. أحمد، نود التأكد من استخراج مخرجات CST وزاوية التوجيه قبل تحرير الدفعة الثانية من حساب الضمان Escrow.',
-        chatSender2: 'م. أحمد المنصوري:',
+        chatSender1: 'صاحب العمل (أنت):',
+        chatMsg1: 'مرحباً، يمكنك إرسال التحديثات الفنية ومخرجات المشروع هنا لمراجعتها واعتماد صرف الدفعة من Escrow.',
+        chatSender2: 'المهندس المنفذ:',
         chatMsg2: 'أهلاً بكم! المحاكاة مكتملة تماماً، وزاوية التوجيه تصل إلى ±45 درجة بكسب 24 dBi. قمت برفع ملفات .cst والتقرير الفني في قسم التسليم.',
         btnChatSend: 'إرسال ↗',
         chatInputPh: 'اكتب تعليماتك الهندسية هنا...',
@@ -555,9 +543,9 @@
         chatBadge: 'Online & Fully Encrypted • Satcom Workspace Mode',
         chatLinkedProj: 'Linked Project:',
         chatVaultLbl: 'Escrow Vault:',
-        chatSender1: 'Orbital Space Systems (You):',
+        chatSender1: 'Client (You):',
         chatMsg1: 'Hello Eng. Ahmed, please verify the beam steering radiation curves before we release Milestone 2 from Escrow.',
-        chatSender2: 'Eng. Ahmed Al-Mansouri:',
+        chatSender2: 'Assigned Engineer:',
         chatMsg2: 'Hello! Simulation is complete with ±45° steering angle and 24 dBi gain. I uploaded the .cst bundle and report to deliverables.',
         btnChatSend: 'Send ↗',
         chatInputPh: 'Type technical instructions here...',
@@ -925,7 +913,7 @@
         const engReply = document.createElement('div');
         engReply.className = 'flex flex-col items-start space-y-1 max-w-[80%]';
         engReply.innerHTML = `
-          <span class="text-[10px] text-indigo-400 font-bold">${isAr ? 'م. أحمد المنصوري:' : 'Eng. Ahmed Al-Mansouri:'}</span>
+          <span class="text-[10px] text-indigo-400 font-bold">${isAr ? 'المهندس المنفذ:' : 'Assigned Engineer:'}</span>
           <div class="p-3 rounded-2xl rounded-tr-none bg-slate-800 text-slate-200 leading-relaxed shadow-sm">
             ${isAr ? 'تم استلام ملاحظاتكم، وسأقوم بتجهيز ملف المحاكاة المحدث فوراً.' : 'Understood. I will prepare the updated simulation file right away.'}
           </div>
